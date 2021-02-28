@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Graphics.h"
-#include "Window.h"
 
 Graphics::Graphics()
 {
@@ -28,10 +27,11 @@ void Graphics::Initialize()
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 	desc.BufferCount = 1;
+	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	//SSAA MSAA 샘플링
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
-	desc.OutputWindow = Window::global_handle;
+	desc.OutputWindow = Settings::Get().GetWindowHandle();
 	//창모드
 	desc.Windowed = true;
 	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -102,4 +102,17 @@ void Graphics::CreateBackBuffer(const uint& width, const uint& height)
 
 	SAFE_RELEASE(back_buffer);
 
+}
+
+void Graphics::Begin()
+{//그리기 시작
+	device_context->OMSetRenderTargets(1,&render_target_view,nullptr);//om output merger 출력 병합기  총 8개의 타겟을 그릴수있음
+	device_context->RSSetViewports(1,&viewport);//보여지는 영역설정
+	device_context->ClearRenderTargetView(render_target_view,clear_color);//지우는 함수(D3DXCOLOR에는 암시적으로 FLOAT배열형태로 변환해주는 연산자가 내장되어있다.)
+}
+
+void Graphics::End()
+{//그리기 종료
+	auto hr = swap_chain->Present(1,0);
+	assert(SUCCEEDED(hr));
 }

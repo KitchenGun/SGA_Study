@@ -142,11 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Execute.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Execute.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="stdafx.cpp">
