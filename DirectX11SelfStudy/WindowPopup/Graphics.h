@@ -27,8 +27,7 @@ private:
 	//dx에서 제공하는 객체
 };
 
-//Rendering PipeLine
-//IA-VS-RS-PS-OM
+
 
 //DirectX - API
 //OpenGL
