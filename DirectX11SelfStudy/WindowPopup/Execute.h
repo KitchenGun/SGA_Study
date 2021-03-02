@@ -2,8 +2,12 @@
 
 //Rendering Pipeline 화면에 렌더링되기 위해 가공되는 단계
 //IA-VS-RS-PS-OM
+//IA,RS,OM 단계는 코딩 불가능 VS,PS 코딩 가능
+
 //IA=input assembler stage
 //-Vertex 정점
+//VS = Vertex Shader -> shader : HLSL 고수준의 쉐이더 언어, GLSL
+//-Transform
 struct VertexColor
 {
 	D3DXVECTOR3 position;
@@ -25,5 +29,8 @@ private:
 	VertexColor* vertices = nullptr;
 	ID3D11Buffer* vertex_buffer = nullptr;
 	ID3D11InputLayout* input_layout = nullptr;
+
+	ID3D11VertexShader* vertex_shader = nullptr;
+	ID3DBlob* vs_blob = nullptr;
 };
 

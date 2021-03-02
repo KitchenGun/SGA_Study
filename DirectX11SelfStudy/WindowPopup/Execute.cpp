@@ -34,10 +34,47 @@ Execute::Execute()
 		auto hr = graphics->GetDevice()->CreateBuffer(&desc, &sub_data, &vertex_buffer);
 		assert(SUCCEEDED(hr));
 	}
+	//Vertex Shader
+	{//함수로 hlsl을 컴파일 할 예정
+		auto hr = D3DX11CompileFromFileA
+		(
+			"Color.hlsl",
+			nullptr,
+			nullptr,
+			"VS",
+			"vs_5_0",
+			0,
+			0,
+			nullptr,
+			&vs_blob,
+			nullptr,
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+
+		hr = graphics->GetDevice()->CreateVertexShader(vs_blob->GetBufferPointer(), vs_blob->GetBufferSize(), nullptr, &vertex_shader);
+		assert(SUCCEEDED(hr));
+	}
+	//Input Layout  //hlsl과 정보가 다를 경우 터진다.
+	{
+		D3D11_INPUT_ELEMENT_DESC layout_desc[]
+		{
+			{"POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
+			{"COLOR",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0 },
+		};
+
+		auto hr = graphics->GetDevice()->CreateInputLayout(layout_desc, 2, vs_blob->GetBufferPointer(), vs_blob->GetBufferSize(), &input_layout);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(input_layout);
+
+	SAFE_RELEASE(vertex_shader);
+	SAFE_RELEASE(vs_blob);
+
 	SAFE_RELEASE(vertex_buffer);
 
 	SAFE_DELETE_ARRAY(vertices);
@@ -57,11 +94,15 @@ void Execute::Render()
 	{
 		//삼각형 그리기
 		{
+			//IA
 			//정보전달
 			graphics->GetDeviceContext()->IAGetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
-			//TODO : Input layout
+			graphics->GetDeviceContext()->IASetInputLayout(input_layout);
 			//삼각형을 그리라는 것을 전달
 			graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+			//VS
+			graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);//정점의 갯수만큼 호출
 		}
 	}
 	graphics->End();
