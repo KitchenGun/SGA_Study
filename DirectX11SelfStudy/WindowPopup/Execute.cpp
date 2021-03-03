@@ -128,7 +128,7 @@ void Execute::Render()
 		{
 			//IA
 			//정보전달
-			graphics->GetDeviceContext()->IAGetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
+			graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
 			graphics->GetDeviceContext()->IASetInputLayout(input_layout);
 			//삼각형을 그리라는 것을 전달
 			graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
