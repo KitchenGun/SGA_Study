@@ -5,9 +5,15 @@
 namespace Window
 {
 	static HINSTANCE global_instance;
-	static HWND global_handle;
+	static HWND global_handle = nullptr;
 
-	inline LRESULT CALLBACK WndProc(HWND handle,UINT message,WPARAM wParam,LPARAM lparam)
+	inline LRESULT CALLBACK WndProc
+	(
+		HWND handle,
+		UINT message,
+		WPARAM wParam,
+		LPARAM lparam
+	)
 	{
 		switch (message)
 		{
@@ -27,7 +33,7 @@ namespace Window
 		wnd_class.cbClsExtra = 0;
 		wnd_class.cbWndExtra = 0;
 		wnd_class.hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
-		wnd_class.hCursor = LoadCursor(nullptr, IDC_ARROW);;
+		wnd_class.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wnd_class.hIcon = LoadIcon(nullptr, IDI_ERROR);
 		wnd_class.hIconSm = LoadIcon(nullptr, IDI_ERROR);
 		wnd_class.hInstance = hInstance;
@@ -40,9 +46,22 @@ namespace Window
 		auto check = RegisterClassEx(&wnd_class);
 		assert(check != 0);
 
-		global_handle = CreateWindowExW(WS_EX_APPWINDOW, L"WindowPopup", L"WindowPopup", WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, CW_USEDEFAULT,static_cast<int>(width), static_cast<int>(height),nullptr,nullptr,hInstance,nullptr);
-		assert(global_handle!=nullptr);
+		global_handle = CreateWindowExW
+		(
+			WS_EX_APPWINDOW, 
+			L"WindowPopup", 
+			L"WindowPopup", 
+			WS_OVERLAPPEDWINDOW,
+			CW_USEDEFAULT, 
+			CW_USEDEFAULT,
+			static_cast<int>(width), 
+			static_cast<int>(height),
+			nullptr,
+			nullptr,
+			hInstance,
+			nullptr
+		);
+		assert(global_handle != nullptr);
 	}
 
 	inline void Show()
@@ -60,7 +79,7 @@ namespace Window
 		MSG msg;
 		ZeroMemory(&msg, sizeof(MSG));
 
-		if (PeekMessage(&msg, nullptr, 0, 0,PM_REMOVE))
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);

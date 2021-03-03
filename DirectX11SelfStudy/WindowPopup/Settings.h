@@ -11,7 +11,7 @@ public:
 		return instance;
 	}
 
-	auto GetWindowHandle() const -> HWND{ return handle; }
+	auto GetWindowHandle() const -> HWND { return handle; }
 	void SetWindowHandle(HWND handle) { this->handle = handle; }
 
 	auto GetWidth() const -> const float& { return width; }

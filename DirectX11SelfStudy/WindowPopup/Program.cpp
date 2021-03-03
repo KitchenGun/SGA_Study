@@ -7,7 +7,7 @@ int APIENTRY WinMain
 (
 	HINSTANCE hInstance,
 	HINSTANCE prevInstance,
-	LPSTR lpszComdParam,
+	LPSTR lpszCmdParam,
 	int nCmdShow
 )
 {
@@ -16,7 +16,7 @@ int APIENTRY WinMain
 
 	Settings::Get().SetWindowHandle(Window::global_handle);
 	Settings::Get().SetWidth(static_cast<float>(Window::GetWidth()));
-	Settings::Get().SetWidth(static_cast<float>(Window::GetHeight()));
+	Settings::Get().SetHeight(static_cast<float>(Window::GetHeight()));
 
 	Execute* execute = new Execute();
 
@@ -25,6 +25,7 @@ int APIENTRY WinMain
 		execute->Update();
 		execute->Render();
 	}
+	SAFE_DELETE(execute);
 
 	Window::Destroy();
 	return 0;

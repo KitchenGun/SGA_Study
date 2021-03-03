@@ -9,15 +9,24 @@ Execute::Execute()
 	graphics->CreateBackBuffer(static_cast<uint>(Settings::Get().GetWidth()), static_cast<uint>(Settings::Get().GetHeight()));
 	//vertex_data
 	{
-		vertices = new VertexColor[3];
-		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
+		vertices = new VertexColor[6];
+		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);//0
 		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertices[1].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);
-		vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);//1
+		vertices[1].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
 
-		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);
-		vertices[2].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);//2
+		vertices[2].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+
+		vertices[3].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);//2
+		vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+
+		vertices[4].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);//3
+		vertices[4].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+
+		vertices[5].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);//4
+		vertices[5].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
 	}
 	//vertex_buffer
 	{
@@ -25,7 +34,7 @@ Execute::Execute()
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = sizeof(VertexColor) * 3;
+		desc.ByteWidth = sizeof(VertexColor) * 6;
 
 		D3D11_SUBRESOURCE_DATA sub_data;//cpu 데이터를 gpu에 연결할수있다.
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
@@ -66,10 +75,33 @@ Execute::Execute()
 		auto hr = graphics->GetDevice()->CreateInputLayout(layout_desc, 2, vs_blob->GetBufferPointer(), vs_blob->GetBufferSize(), &input_layout);
 		assert(SUCCEEDED(hr));
 	}
+	//Pixel Shader
+	{
+		auto hr = D3DX11CompileFromFileA
+		(
+			"Color.hlsl",
+			nullptr,
+			nullptr,
+			"PS",
+			"ps_5_0",
+			0,
+			0,
+			nullptr,
+			&ps_blob,
+			nullptr,
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+		hr = graphics->GetDevice()->CreatePixelShader(ps_blob->GetBufferPointer(), ps_blob->GetBufferSize(), nullptr, &pixel_shader);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(pixel_shader);
+	SAFE_RELEASE(ps_blob);
+
 	SAFE_RELEASE(input_layout);
 
 	SAFE_RELEASE(vertex_shader);
@@ -103,6 +135,10 @@ void Execute::Render()
 
 			//VS
 			graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);//정점의 갯수만큼 호출
+																				 
+			//PS
+			graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
+			graphics->GetDeviceContext()->Draw(6,0);//그려주는 함수를 호출해야 그려진다.
 		}
 	}
 	graphics->End();

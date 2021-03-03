@@ -8,6 +8,10 @@
 //-Vertex 정점
 //VS = Vertex Shader -> shader : HLSL 고수준의 쉐이더 언어, GLSL
 //-Transform
+//RS = Rasterizer 3D데이터를 2D데이터로 바꿔주는 것
+//NDC 좌표계 사용중 Normalized Device Coordinate 정규화되 장치 좌표계 사용중
+//PS = Pixel Shader
+
 struct VertexColor
 {
 	D3DXVECTOR3 position;
@@ -32,5 +36,8 @@ private:
 
 	ID3D11VertexShader* vertex_shader = nullptr;
 	ID3DBlob* vs_blob = nullptr;
+
+	ID3D11PixelShader* pixel_shader = nullptr;
+	ID3DBlob* ps_blob = nullptr;
 };
 

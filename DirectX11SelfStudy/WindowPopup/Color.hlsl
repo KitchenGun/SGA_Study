@@ -10,11 +10,16 @@ struct PixelInput
 	float4 color : COLOR0;
 };
 
-PixelInput vs(VertexInput input)
+PixelInput VS(VertexInput input)
 {
 	PixelInput output;
 	output.position = input.position;
 	output.color = input.color;
 
 	return output;
+}
+
+float4 PS(PixelInput input) : SV_Target//현재 세팅한 타겟에 그려라
+{
+    return input.color;
 }

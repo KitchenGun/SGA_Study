@@ -40,7 +40,7 @@ void Graphics::Initialize()
 		D3D_FEATURE_LEVEL_11_1,
 		D3D_FEATURE_LEVEL_11_0,
 		D3D_FEATURE_LEVEL_10_1,
-		D3D_FEATURE_LEVEL_10_0
+		D3D_FEATURE_LEVEL_10_0,
 	};
 	
 	auto hr = D3D11CreateDeviceAndSwapChain
@@ -50,7 +50,7 @@ void Graphics::Initialize()
 		nullptr,
 		0,
 		feature_levels.data(),
-		feature_levels.size(),
+		1,
 		D3D11_SDK_VERSION,
 		&desc,
 		&swap_chain,
