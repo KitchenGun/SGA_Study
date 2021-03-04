@@ -13,7 +13,7 @@
 //View			시선에 보이는 공간
 //Projection	투영공간   3D데이터->2D데이터 한차원 낮추는것  
 //Clip			homogeneous space 동차 공간 (1,0,0,0) 으로 좌표 표현  w가 0이면 방향 w가 1이상이면 위치를 표현
-
+// 공간은 행렬로 표현되고 local world view projection 순으로 흘러간다
 //RS = Rasterizer 3D데이터를 2D데이터로 바꿔주는 것
 //NDC 좌표계 사용중 Normalized Device Coordinate 정규화되 장치 좌표계 사용중
 //PS = Pixel Shader
