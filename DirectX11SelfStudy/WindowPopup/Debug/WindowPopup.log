@@ -1,2 +1,6 @@
-﻿  Execute.cpp
+﻿  stdafx.cpp
+  Execute.cpp
+  Graphics.cpp
+  Program.cpp
+  코드를 생성하고 있습니다...
   WindowPopup.vcxproj -> D:\Git\SGA_Study\DirectX11SelfStudy\WindowPopup\Debug\WindowPopup.exe

@@ -8,9 +8,19 @@
 //-Vertex 정점
 //VS = Vertex Shader -> shader : HLSL 고수준의 쉐이더 언어, GLSL
 //-Transform
+//Local			설계상 좌표 
+//World			월드 좌표
+//View			시선에 보이는 공간
+//Projection	투영공간   3D데이터->2D데이터 한차원 낮추는것  
+//Clip			homogeneous space 동차 공간 (1,0,0,0) 으로 좌표 표현  w가 0이면 방향 w가 1이상이면 위치를 표현
+
 //RS = Rasterizer 3D데이터를 2D데이터로 바꿔주는 것
 //NDC 좌표계 사용중 Normalized Device Coordinate 정규화되 장치 좌표계 사용중
 //PS = Pixel Shader
+
+
+//NDC			euclidean space	표준 공간 
+//Viewport		
 
 struct VertexColor
 {
@@ -32,6 +42,10 @@ private:
 	
 	VertexColor* vertices = nullptr;
 	ID3D11Buffer* vertex_buffer = nullptr;
+
+	uint* indices = nullptr;
+	ID3D11Buffer* index_buffer;
+
 	ID3D11InputLayout* input_layout = nullptr;
 
 	ID3D11VertexShader* vertex_shader = nullptr;
