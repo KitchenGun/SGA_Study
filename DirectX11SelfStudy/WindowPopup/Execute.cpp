@@ -108,6 +108,31 @@ Execute::Execute()
 		hr = graphics->GetDevice()->CreatePixelShader(ps_blob->GetBufferPointer(), ps_blob->GetBufferSize(), nullptr, &pixel_shader);
 		assert(SUCCEEDED(hr));
 	}
+	//Create World View Projection  //단위행렬 항등행렬 만드는중
+	{
+		D3DXMatrixIdentity(&world);
+		D3DXMatrixIdentity(&view);
+		D3DXMatrixIdentity(&projection);
+
+		//D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
+		D3DXMatrixOrthoLH(&projection, Settings::Get().GetWidth(),Settings::Get().GetHeight(),0,1);
+		//perspective	3d 원근감이 느껴짐
+		//orthographic	2d 원금감이 없음
+
+		std::cout << "View Matrix" << std::endl;
+		std::cout << view._11 << " " << view._12 << " " << view._13 << " " << view._14 << std::endl;
+		std::cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << std::endl;
+		std::cout << view._31 << " " << view._32 << " " << view._33 << " " << view._34 << std::endl;
+		std::cout << view._41 << " " << view._42 << " " << view._43 << " " << view._44 << std::endl;
+		
+		std::cout << std::endl;
+
+		std::cout << "Projection Matrix" << std::endl;
+		std::cout << projection._11 << " " << projection._12 << " " << projection._13 << " " << projection._14 << std::endl;
+		std::cout << projection._21 << " " << projection._22 << " " << projection._23 << " " << projection._24 << std::endl;
+		std::cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << std::endl;
+		std::cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << std::endl;
+	}
 }
 
 Execute::~Execute()

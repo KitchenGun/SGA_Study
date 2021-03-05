@@ -10,6 +10,7 @@
 #include <assert.h>
 		 
 //STL	 
+#include <iostream>
 #include <vector>
 
 //DirectX

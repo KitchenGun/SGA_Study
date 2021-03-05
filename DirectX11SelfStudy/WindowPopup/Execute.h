@@ -53,5 +53,21 @@ private:
 
 	ID3D11PixelShader* pixel_shader = nullptr;
 	ID3DBlob* ps_blob = nullptr;
+
+	D3DXMATRIX world;		//4x4
+	D3DXMATRIX view;		//4x4
+	D3DXMATRIX projection;	//4x4
+	/*4x4 항등 행렬  //행렬은 항상 단위행렬로 초기화 필요  //공간이 커지면 안의 데이터도 커진다//공간이동시 안의 데이터도 이동
+	
+	x	1 0 0 0	//x축 향하는 방향벡터
+	y	0 1 0 0	//y축 항하는 방향벡터
+	z	0 0 1 0	//z축 향하는 방향벡터
+	w	0 0 0 1 //중심위치 + 위치&방향의미
+
+	opengl  RH좌표계 
+	directx LH좌표계
+
+	*/
+
 };
 
