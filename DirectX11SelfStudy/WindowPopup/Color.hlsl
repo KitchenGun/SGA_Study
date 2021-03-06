@@ -10,10 +10,25 @@ struct PixelInput
 	float4 color : COLOR0;
 };
 
+cbuffer TransformBuffer : register(b0)//->0~13  16byte의 배수가 되야함//4096*16이하만 가능함
+{
+    matrix world;//matrix == float4X4
+    matrix view;
+    matrix proj;
+};
+
 PixelInput VS(VertexInput input)
 {
+	//1*4		4*4 -->1*4//위치 벡터를 다른공간으로 이동하기 위해서는 벡터의 위치를 곱해주면된다.
+	//1,2,3,1 * 0000
+	//			0000
+	//			0000
+	//			0000
 	PixelInput output;
-	output.position = input.position;
+    output.position = mul(input.position,world);
+    output.position = mul(output.position,view);
+    output.position = mul(output.position, proj);
+	
 	output.color = input.color;
 
 	return output;

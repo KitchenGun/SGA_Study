@@ -28,6 +28,13 @@ struct VertexColor
 	D3DXCOLOR color;
 };
 
+struct TRANSFORM_DATA
+{
+	D3DXMATRIX world;		//4x4
+	D3DXMATRIX view;		//4x4
+	D3DXMATRIX projection;	//4x4
+};
+
 class Execute final
 {
 public:
@@ -68,6 +75,8 @@ private:
 	directx LHÁÂÇ¥°è
 
 	*/
+	TRANSFORM_DATA cpu_buffer;
+	ID3D11Buffer* gpu_buffer = nullptr;//constant buffer
 
 };
 

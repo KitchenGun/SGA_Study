@@ -133,10 +133,25 @@ Execute::Execute()
 		std::cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << std::endl;
 		std::cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << std::endl;
 	}
+
+	//Create Constant Buffer
+	{
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
+		desc.Usage = D3D11_USAGE_DYNAMIC;//동적 cpu - Write //gpu - Read
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;//상수버퍼라는 의미
+		desc.ByteWidth = sizeof(TRANSFORM_DATA);
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		
+		auto hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &gpu_buffer);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(gpu_buffer);
+
 	SAFE_RELEASE(pixel_shader);
 	SAFE_RELEASE(ps_blob);
 
@@ -156,6 +171,39 @@ Execute::~Execute()
 
 void Execute::Update()
 {
+	world._11 = 50;
+	world._22 = 50;
+
+	world._41 = 100;
+	world._42 = 100;
+
+	//D3DXMATRIX			행 우선 행렬
+	//GPU - shader - matrix	열 우선 행렬
+
+	//1,0,0,0
+	//0
+	//0
+	//0
+
+	//열과 행을 바꾸는 법 전치 행렬 Transpose					//기존의 행우선 행렬
+	D3DXMatrixTranspose(&cpu_buffer.world,&world);			//cpu_buffer.world = world;
+	D3DXMatrixTranspose(&cpu_buffer.view,&view);			//cpu_buffer.view = view;
+	D3DXMatrixTranspose(&cpu_buffer.projection,&projection);//cpu_buffer.projection = projection;
+						 
+	D3D11_MAPPED_SUBRESOURCE mapped_subresource; //중재자
+	graphics->GetDeviceContext()->Map
+	(
+		gpu_buffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,
+		0,
+		&mapped_subresource
+	);
+
+	//gpu buffer 갱신
+	memcpy(mapped_subresource.pData, &cpu_buffer, sizeof(TRANSFORM_DATA));
+
+	graphics->GetDeviceContext()->Unmap(gpu_buffer, 0);
 }
 
 void Execute::Render()
@@ -177,7 +225,7 @@ void Execute::Render()
 
 			//VS
 			graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);//정점의 갯수만큼 호출
-																				 
+			graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
 			//PS
 			graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
 			graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);//그려주는 함수를 호출해야 그려진다.
