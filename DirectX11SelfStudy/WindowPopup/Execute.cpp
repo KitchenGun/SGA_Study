@@ -132,6 +132,42 @@ Execute::Execute()
 		std::cout << projection._21 << " " << projection._22 << " " << projection._23 << " " << projection._24 << std::endl;
 		std::cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << std::endl;
 		std::cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << std::endl;
+
+		std::cout << std::endl;
+		//World
+		{
+			D3DXMATRIX S;
+			D3DXMatrixScaling(&S, 100, 100, 1); //크기만 키움 누적 x
+			std::cout << "Scaling Matrix" << std::endl;
+			std::cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << std::endl;
+			std::cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << std::endl;
+			std::cout << S._31 << " " << S._32 << " " << S._33 << " " << S._34 << std::endl;
+			std::cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << std::endl;
+			std::cout << std::endl;
+			
+			D3DXMATRIX T;
+			D3DXMatrixTranslation(&T, 100, 100, 0);//위치만 이동 누적 x
+
+			std::cout << "Translation Matrix" << std::endl;
+			std::cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << std::endl;
+			std::cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << std::endl;
+			std::cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << std::endl;
+			std::cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << std::endl;
+			std::cout << std::endl;
+
+			D3DXMATRIX R;
+			D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//위치만 이동 누적 x
+
+			std::cout << "RotationZ Matrix" << std::endl;
+			std::cout << R._11 << " " << R._12 << " " << R._13 << " " << R._14 << std::endl;
+			std::cout << R._21 << " " << R._22 << " " << R._23 << " " << R._24 << std::endl;
+			std::cout << R._31 << " " << R._32 << " " << R._33 << " " << R._34 << std::endl;
+			std::cout << R._41 << " " << R._42 << " " << R._43 << " " << R._44 << std::endl;
+			std::cout << std::endl;
+
+			//스케일(S) * 자전회전(R) * 이동(T) * 공전(R) * 부모행렬(P)
+			world = S * R * T; //행렬을 교환법칙이 성립하지 않는다
+		}
 	}
 
 	//Create Constant Buffer
@@ -171,11 +207,11 @@ Execute::~Execute()
 
 void Execute::Update()
 {
-	world._11 = 50;
-	world._22 = 50;
-
-	world._41 = 100;
-	world._42 = 100;
+	//world._11 = 50;
+	//world._22 = 50;
+	
+	//world._41 = 100;
+	//world._42 = 100;
 
 	//D3DXMATRIX			행 우선 행렬
 	//GPU - shader - matrix	열 우선 행렬
@@ -185,6 +221,15 @@ void Execute::Update()
 	//0
 	//0
 
+	//매 프레임 마다 회전하기
+	{
+		static float radian = 0.0f;
+		radian += 0.01f;
+		D3DXMATRIX P;
+		D3DXMatrixRotationZ(&P, radian);
+		
+		world *= P;//부모에 종속됨
+	}
 	//열과 행을 바꾸는 법 전치 행렬 Transpose					//기존의 행우선 행렬
 	D3DXMatrixTranspose(&cpu_buffer.world,&world);			//cpu_buffer.world = world;
 	D3DXMatrixTranspose(&cpu_buffer.view,&view);			//cpu_buffer.view = view;
