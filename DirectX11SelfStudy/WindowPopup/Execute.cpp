@@ -7,7 +7,7 @@ Execute::Execute()
 	graphics = new Graphics();
 	graphics->Initialize();
 	graphics->CreateBackBuffer(static_cast<uint>(Settings::Get().GetWidth()), static_cast<uint>(Settings::Get().GetHeight()));
-	//vertex_data
+	//vertex_data 정점을 시계방향으로 찍어야함
 	{
 		vertices = new VertexColor[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);//0
@@ -116,6 +116,9 @@ Execute::Execute()
 
 		//D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
 		D3DXMatrixOrthoLH(&projection, Settings::Get().GetWidth(),Settings::Get().GetHeight(),0,1);
+		//D3DXMatrixOrthoOffCenterLH(&view, 0, Settings::Get().GetWidth(), 0 ,Settings::Get().GetHeight(), 0, 1);
+		//위에쪽과 다르게 y축이 달라진다
+
 		//perspective	3d 원근감이 느껴짐
 		//orthographic	2d 원금감이 없음
 
@@ -166,7 +169,8 @@ Execute::Execute()
 			std::cout << std::endl;
 
 			//스케일(S) * 자전회전(R) * 이동(T) * 공전(R) * 부모행렬(P)
-			world = S * R * T; //행렬을 교환법칙이 성립하지 않는다
+			world = S */*  R */ T; //행렬을 교환법칙이 성립하지 않는다\
+			//ctrl k c 사용하는법
 		}
 	}
 
@@ -182,10 +186,28 @@ Execute::Execute()
 		auto hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &gpu_buffer);
 		assert(SUCCEEDED(hr));
 	}
+	//Create Rasterizer State
+	{
+		D3D11_RASTERIZER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
+		desc.FillMode = D3D11_FILL_SOLID;//색을 채우는 방식
+		desc.CullMode = D3D11_CULL_BACK;//cullmode  어떤 면을 보이지 않게 할것인가에 대한 정보
+		desc.FrontCounterClockwise = false;//시계방향으로 도는것을 앞면으로 할것인가 아니면 반시계로 할것인가?
+		//dx에서는 통상적으로 시계방향을 앞면으로 사용
+		//true 반시계방향이 앞면 //false 시계방향이 앞면 
+		//cliping
+		//카메라에 보이지 않으면 그리고 데이터를 잘라내는것
+		//culling
+		//카메라에 보이지 않으면 그리기전에 데이터를 잘라내는것
+		auto hr = graphics->GetDevice()->CreateRasterizerState(&desc, &rasterizer_state);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(rasterizer_state);
+
 	SAFE_RELEASE(gpu_buffer);
 
 	SAFE_RELEASE(pixel_shader);
@@ -221,15 +243,15 @@ void Execute::Update()
 	//0
 	//0
 
-	//매 프레임 마다 회전하기
-	{
-		static float radian = 0.0f;
-		radian += 0.01f;
-		D3DXMATRIX P;
-		D3DXMatrixRotationZ(&P, radian);
-		
-		world *= P;//부모에 종속됨
-	}
+	////매 프레임 마다 회전하기
+	//{
+	//	static float radian = 0.0f;
+	//	radian += 0.01f;
+	//	D3DXMATRIX P;
+	//	D3DXMatrixRotationZ(&P, radian);
+	//	
+	//	world *= P;//부모에 종속됨
+	//}
 	//열과 행을 바꾸는 법 전치 행렬 Transpose					//기존의 행우선 행렬
 	D3DXMatrixTranspose(&cpu_buffer.world,&world);			//cpu_buffer.world = world;
 	D3DXMatrixTranspose(&cpu_buffer.view,&view);			//cpu_buffer.view = view;
@@ -271,6 +293,10 @@ void Execute::Render()
 			//VS
 			graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);//정점의 갯수만큼 호출
 			graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
+
+			//RS
+			graphics->GetDeviceContext()->RSSetState(rasterizer_state);
+
 			//PS
 			graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
 			graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);//그려주는 함수를 호출해야 그려진다.

@@ -6,6 +6,7 @@
 
 //IA=input assembler stage
 //-Vertex 정점
+
 //VS = Vertex Shader -> shader : HLSL 고수준의 쉐이더 언어, GLSL
 //-Transform
 //Local			설계상 좌표 
@@ -14,8 +15,13 @@
 //Projection	투영공간   3D데이터->2D데이터 한차원 낮추는것  
 //Clip			homogeneous space 동차 공간 (1,0,0,0) 으로 좌표 표현  w가 0이면 방향 w가 1이상이면 위치를 표현
 // 공간은 행렬로 표현되고 local world view projection 순으로 흘러간다
+
 //RS = Rasterizer 3D데이터를 2D데이터로 바꿔주는 것
 //NDC 좌표계 사용중 Normalized Device Coordinate 정규화되 장치 좌표계 사용중
+//back-face culling 보이지 않는 면 제거
+//viewprot Transform
+//Scan Transform
+
 //PS = Pixel Shader
 
 
@@ -78,5 +84,6 @@ private:
 	TRANSFORM_DATA cpu_buffer;
 	ID3D11Buffer* gpu_buffer = nullptr;//constant buffer
 
+	ID3D11RasterizerState* rasterizer_state = nullptr;
 };
 
