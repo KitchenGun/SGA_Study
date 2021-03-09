@@ -9,18 +9,18 @@ Execute::Execute()
 	graphics->CreateBackBuffer(static_cast<uint>(Settings::Get().GetWidth()), static_cast<uint>(Settings::Get().GetHeight()));
 	//vertex_data 정점을 시계방향으로 찍어야함
 	{
-		vertices = new VertexColor[4];
+		vertices = new VertexTexture[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);//0
-		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
 
 		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);//1
-		vertices[1].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
 
 		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);//2
-		vertices[2].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
 
 		vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);//3
-		vertices[3].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
 	}
 	//vertex_buffer
 	{
@@ -28,7 +28,7 @@ Execute::Execute()
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = sizeof(VertexColor) * 4;
+		desc.ByteWidth = sizeof(VertexTexture) * 4;
 
 		D3D11_SUBRESOURCE_DATA sub_data;//cpu 데이터를 gpu에 연결할수있다.
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
@@ -60,7 +60,7 @@ Execute::Execute()
 	{//함수로 hlsl을 컴파일 할 예정
 		auto hr = D3DX11CompileFromFileA
 		(
-			"Color.hlsl",
+			"Texture.hlsl",
 			nullptr,
 			nullptr,
 			"VS",
@@ -79,10 +79,15 @@ Execute::Execute()
 	}
 	//Input Layout  //hlsl과 정보가 다를 경우 터진다.
 	{
+		//D3D11_INPUT_ELEMENT_DESC layout_desc[]
+		//{
+		//	{"POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
+		//	{"COLOR",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0 },
+		//};
 		D3D11_INPUT_ELEMENT_DESC layout_desc[]
 		{
 			{"POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
-			{"COLOR",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0 },
+			{"TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		};
 
 		auto hr = graphics->GetDevice()->CreateInputLayout(layout_desc, 2, vs_blob->GetBufferPointer(), vs_blob->GetBufferSize(), &input_layout);
@@ -92,7 +97,7 @@ Execute::Execute()
 	{
 		auto hr = D3DX11CompileFromFileA
 		(
-			"Color.hlsl",
+			"Texture.hlsl",
 			nullptr,
 			nullptr,
 			"PS",
@@ -140,7 +145,7 @@ Execute::Execute()
 		//World
 		{
 			D3DXMATRIX S;
-			D3DXMatrixScaling(&S, 100, 100, 1); //크기만 키움 누적 x
+			D3DXMatrixScaling(&S, 500, 500, 1); //크기만 키움 누적 x
 			std::cout << "Scaling Matrix" << std::endl;
 			std::cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << std::endl;
 			std::cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << std::endl;
@@ -149,7 +154,7 @@ Execute::Execute()
 			std::cout << std::endl;
 			
 			D3DXMATRIX T;
-			D3DXMatrixTranslation(&T, 100, 100, 0);//위치만 이동 누적 x
+			D3DXMatrixTranslation(&T, 0, 0, 0);//위치만 이동 누적 x
 
 			std::cout << "Translation Matrix" << std::endl;
 			std::cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << std::endl;
@@ -202,10 +207,26 @@ Execute::Execute()
 		auto hr = graphics->GetDevice()->CreateRasterizerState(&desc, &rasterizer_state);
 		assert(SUCCEEDED(hr));
 	}
+	//Create Shader Resource View
+	{
+		auto hr = D3DX11CreateShaderResourceViewFromFileA
+		(
+			graphics->GetDevice(),
+			"Marco.png",
+			nullptr,
+			nullptr,
+			&shader_resource,
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+	}
+
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(shader_resource);
+
 	SAFE_RELEASE(rasterizer_state);
 
 	SAFE_RELEASE(gpu_buffer);
@@ -275,7 +296,7 @@ void Execute::Update()
 
 void Execute::Render()
 {
-	uint stride = sizeof(VertexColor);
+	uint stride = sizeof(VertexTexture);
 	uint offset = 0;
 
 	graphics->Begin();
@@ -299,6 +320,8 @@ void Execute::Render()
 
 			//PS
 			graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
+			graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
+
 			graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);//그려주는 함수를 호출해야 그려진다.
 		}
 	}
