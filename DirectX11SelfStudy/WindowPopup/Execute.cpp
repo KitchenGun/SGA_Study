@@ -11,16 +11,16 @@ Execute::Execute()
 	{
 		vertices = new VertexTexture[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);//0
-		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
+		vertices[0].uv = D3DXVECTOR2(0.0f, 4.0f);
 
 		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);//1
 		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
 
 		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);//2
-		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
+		vertices[2].uv = D3DXVECTOR2(4.0f, 4.0f);
 
 		vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);//3
-		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
+		vertices[3].uv = D3DXVECTOR2(4.0f, 0.0f);
 	}
 	//vertex_buffer
 	{
@@ -209,10 +209,30 @@ Execute::Execute()
 	}
 	//Create Shader Resource View
 	{
+		//auto hr = D3DX11CreateShaderResourceViewFromFileA
+		//(
+		//	graphics->GetDevice(),
+		//	"Marco.png",
+		//	nullptr,
+		//	nullptr,
+		//	&shader_resource[0],
+		//	nullptr
+		//);
+		//assert(SUCCEEDED(hr));
+		//hr = D3DX11CreateShaderResourceViewFromFileA
+		//(
+		//	graphics->GetDevice(),
+		//	"BackGround.png",
+		//	nullptr,
+		//	nullptr,
+		//	&shader_resource[1],
+		//	nullptr
+		//);
+		//assert(SUCCEEDED(hr));
 		auto hr = D3DX11CreateShaderResourceViewFromFileA
 		(
 			graphics->GetDevice(),
-			"Marco.png",
+			"BackGround.png",
 			nullptr,
 			nullptr,
 			&shader_resource,
@@ -220,12 +240,39 @@ Execute::Execute()
 		);
 		assert(SUCCEEDED(hr));
 	}
+	//Create Sampler State
+	{
+		D3D11_SAMPLER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_SAMPLER_DESC));
+		desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+		desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+		desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+		//외각선
+		desc.BorderColor[0] = 1;
+		desc.BorderColor[1] = 0;
+		desc.BorderColor[2] = 0;
+		desc.BorderColor[3] = 1;
+		//이전과 현재 데이터를 비교하는 방법을 정하는 플래그
+		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;//min축소 mag확대 mip밉맵   //linear 선형   //pointer 도트 비선형
+		desc.MaxAnisotropy = 16;
+		desc.MaxLOD=std::numeric_limits<float>::max();
+		desc.MinLOD = std::numeric_limits<float>::min();
+		desc.MipLODBias = 0.0f;
+		
+		auto hr = graphics->GetDevice()->CreateSamplerState(&desc, &sampler_state);
+		assert(SUCCEEDED(hr));
 
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(sampler_state);
+
 	SAFE_RELEASE(shader_resource);
+	//SAFE_RELEASE(shader_resource[0]);
+	//SAFE_RELEASE(shader_resource[1]);
 
 	SAFE_RELEASE(rasterizer_state);
 
@@ -321,6 +368,7 @@ void Execute::Render()
 			//PS
 			graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
 			graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
+			graphics->GetDeviceContext()->PSSetSamplers(0,1,&sampler_state);
 
 			graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);//그려주는 함수를 호출해야 그려진다.
 		}

@@ -34,16 +34,29 @@ PixelInput VS(VertexInput input)
 	return output;
 }
 
-Texture2D source_texture : register(t0);
-SamplerState samp : register(s0);//sampling 임의의 데이터를 추출하는것
+Texture2D source_texture1 : register(t0);
+Texture2D source_texture2 : register(t1);//0~127번까지 가능
+
+SamplerState samp : register(s0);//sampling 임의의 데이터를 추출하는것//0~15번까지 가능 //세팅안해도 기본값 출력
 
 float4 PS(PixelInput input) : SV_Target//현재 세팅한 타겟에 그려라
 {
-    float4 color = source_texture.Sample(samp, input.uv);
+    //float4 color = 0.0f;
+    //if (input.uv.x < 1.0f)
+    //{
+    //    color = source_texture1.Sample(samp, input.uv);
+    //}
+    //else
+    //{
+    //    color = source_texture2.Sample(samp, float2(input.uv.x - 1.0f, input.uv.y));
+    //
+    //}
     //clip(color.a - 0.9f);//clip함수는 인자로 받는 데이터가 0보다 작으면 데이터를 폐기함
-    if(color.a<0.1f)
-    {
-        discard;
-    }
-    return color;
+    //if(color.a<0.1f)
+    //{
+    //    discard;
+    //}
+    float4 color = source_texture1.Sample(samp, input.uv);
+    
+        return color;
 }

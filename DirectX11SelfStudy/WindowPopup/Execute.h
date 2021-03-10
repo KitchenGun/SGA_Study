@@ -92,13 +92,15 @@ private:
 	ID3D11Buffer* gpu_buffer = nullptr;//constant buffer
 
 	ID3D11RasterizerState* rasterizer_state = nullptr;
-
 	ID3D11ShaderResourceView* shader_resource;
+	//ID3D11ShaderResourceView* shader_resource[2];
 	//Texture
 	//ID3D11Texture2D   용도가 명확하지 않음
 	//Rander Target view
 	//Depth Stencil View		깊이 스텐실 뷰
 	//Shader Resource View
 	//Unordered Access View		순서없는 접근뷰
+
+	ID3D11SamplerState* sampler_state;
 };
 

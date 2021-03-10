@@ -1,5 +1,7 @@
 #pragma once
 
+#define NOMINMAX  //윈도우 헤더 인클루드 전에 정의해야함
+
 #ifdef _DEBUG
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif // _DEBUG
