@@ -11,16 +11,16 @@ Execute::Execute()
 	{
 		vertices = new VertexTexture[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);//0
-		vertices[0].uv = D3DXVECTOR2(0.0f, 4.0f);
+		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
 
 		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);//1
 		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
 
 		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);//2
-		vertices[2].uv = D3DXVECTOR2(4.0f, 4.0f);
+		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
 
 		vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);//3
-		vertices[3].uv = D3DXVECTOR2(4.0f, 0.0f);
+		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
 	}
 	//vertex_buffer
 	{
@@ -232,7 +232,7 @@ Execute::Execute()
 		auto hr = D3DX11CreateShaderResourceViewFromFileA
 		(
 			graphics->GetDevice(),
-			"BackGround.png",
+			"Marco.png",
 			nullptr,
 			nullptr,
 			&shader_resource,
@@ -264,10 +264,34 @@ Execute::Execute()
 		assert(SUCCEEDED(hr));
 
 	}
+	//Create Blend State
+	{
+		D3D11_BLEND_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
+		desc.AlphaToCoverageEnable = true;
+		desc.IndependentBlendEnable = false;
+		desc.RenderTarget[0].BlendEnable = false;
+		
+		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC1_ALPHA;
+		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		auto hr = graphics->GetDevice()->CreateBlendState(&desc, &blend_state);
+		assert(SUCCEEDED(hr));
+
+	}
+
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(blend_state);
 	SAFE_RELEASE(sampler_state);
 
 	SAFE_RELEASE(shader_resource);
@@ -370,7 +394,10 @@ void Execute::Render()
 			graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
 			graphics->GetDeviceContext()->PSSetSamplers(0,1,&sampler_state);
 
+			//OM
+			graphics->GetDeviceContext()->OMSetBlendState(blend_state, nullptr, 0xffffffff);
 			graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);//그려주는 함수를 호출해야 그려진다.
+
 		}
 	}
 	graphics->End();

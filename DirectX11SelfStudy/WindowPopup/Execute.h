@@ -102,5 +102,23 @@ private:
 	//Unordered Access View		순서없는 접근뷰
 
 	ID3D11SamplerState* sampler_state;
+	ID3D11BlendState* blend_state = nullptr;
 };
 
+
+/*
+Direct X-> API -> GPU
+
+*Rendering Pipeline//다이렉트 x는 각 파이프라인 단계에 자원을 생성하여 세팅하는 것이다.
+IA : input assembler   정점을 입력 //ID3D11Buffer를 만들어서 데이터를 넣음 vertex buffer,indexbuffer
+	//ID3D11Layout은 vs랑 연관이 있다. //D3D11_PRIMITIVE_TOPOLOGY 연결성 정보
+VS : vertex shader	공간변환
+//vs에서 공간변환 수행(local world view projection clip)//
+RS : rasterizer	//NDC viewport //rasterizer state로 
+PS : pixel shader
+OM : output merger //render target blend state //어떻게 출력할 것인가?
+
+Resource view 
+buffer		Texture(1,2,3)//용도가 명확하지 않다는 문제가 있다.
+
+*/
