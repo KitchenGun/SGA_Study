@@ -1,0 +1,2 @@
+D:\Git\SGA_Study\DataStructure\ClassTemplate\Debug\ClassTemplate.exe
+D:\Git\SGA_Study\DataStructure\ClassTemplate\Debug\ClassTemplate.pdb
