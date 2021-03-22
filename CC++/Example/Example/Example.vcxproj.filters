@@ -17,6 +17,9 @@
     <Filter Include="Classes\E01_C기초">
       <UniqueIdentifier>{e1071af3-451f-4ff1-9392-32e55bec5ca7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E02_자료형 변수 상수 데이터 입/출력">
+      <UniqueIdentifier>{3085d361-df2a-4e49-9717-abd03bec2d36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -25,6 +28,9 @@
     <ClInclude Include="Classes\E01\E01.h">
       <Filter>Classes\E01_C기초</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E02\E02.h">
+      <Filter>Classes\E02_자료형 변수 상수 데이터 입/출력</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="Classes\E01\E01.cpp">
       <Filter>Classes\E01_C기초</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E02\E02.cpp">
+      <Filter>Classes\E02_자료형 변수 상수 데이터 입/출력</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
