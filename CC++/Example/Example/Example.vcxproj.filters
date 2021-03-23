@@ -20,6 +20,12 @@
     <Filter Include="Classes\E02_자료형 변수 상수 데이터 입/출력">
       <UniqueIdentifier>{3085d361-df2a-4e49-9717-abd03bec2d36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E03_연산자">
+      <UniqueIdentifier>{6ec72c3f-44cf-47c0-be73-1a6ea728fa44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\E04_조건문">
+      <UniqueIdentifier>{c2e6bcf2-5824-4736-9778-67df719f06af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -31,6 +37,12 @@
     <ClInclude Include="Classes\E02\E02.h">
       <Filter>Classes\E02_자료형 변수 상수 데이터 입/출력</Filter>
     </ClInclude>
+    <ClInclude Include="E03.h">
+      <Filter>Classes\E03_연산자</Filter>
+    </ClInclude>
+    <ClInclude Include="E04.h">
+      <Filter>Classes\E04_조건문</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp">
@@ -41,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="Classes\E02\E02.cpp">
       <Filter>Classes\E02_자료형 변수 상수 데이터 입/출력</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E03\E03.cpp">
+      <Filter>Classes\E03_연산자</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E04\E04.cpp">
+      <Filter>Classes\E04_조건문</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

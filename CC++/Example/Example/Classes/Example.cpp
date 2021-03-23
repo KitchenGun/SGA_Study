@@ -1,5 +1,7 @@
 #include "E01/E01.h"
 #include "E02/E02.h"
+#include "E03/E03.h"
+#include "E04/E04.h"
 
 /*
 메인 함수는 c 언어로 작성된 프로그램에서 가장 처음으로 실행되는 함수를 의미한다. 
@@ -27,6 +29,8 @@ int main(int argc, char **args)
 	*/
 
 	//E01(argc, args);
-	E02(argc, args);
+	//E02(argc, args);
+	//E03(argc, args);
+	E04(argc, args);
 	return 0;
 }
