@@ -1,0 +1,2 @@
+D:\Git\SGA_Study\DataStructure\STL_Stack\Debug\STL_Stack.exe
+D:\Git\SGA_Study\DataStructure\STL_Stack\Debug\STL_Stack.pdb
