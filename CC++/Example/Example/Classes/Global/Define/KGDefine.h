@@ -14,3 +14,5 @@ stdio.h 파일에는 입출력 관련 기능이 존재하며 미리 만들어져서 제공되는 기능들의 �
 공식적인 기능이 아니기때문에 다른 컴파일에서 해당기능을 사용할경우 동작하지 않을수있다.
 */
 #include <stdio.h>
+#include <limits.h>
+#include <float.h>

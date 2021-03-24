@@ -26,6 +26,9 @@
     <Filter Include="Classes\E04_조건문">
       <UniqueIdentifier>{c2e6bcf2-5824-4736-9778-67df719f06af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E05_반복문">
+      <UniqueIdentifier>{11039b44-adb1-45ca-894b-4f6efac1fc5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -43,11 +46,11 @@
     <ClInclude Include="E04.h">
       <Filter>Classes\E04_조건문</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E05\E05.h">
+      <Filter>Classes\E05_반복문</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Classes\Example.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\E01\E01.cpp">
       <Filter>Classes\E01_C기초</Filter>
     </ClCompile>
@@ -59,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="Classes\E04\E04.cpp">
       <Filter>Classes\E04_조건문</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E05\E05.cpp">
+      <Filter>Classes\E05_반복문</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Example.cpp">
+      <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

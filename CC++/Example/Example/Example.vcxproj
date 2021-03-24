@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Classes\E01\E01.h" />
     <ClInclude Include="Classes\E02\E02.h" />
+    <ClInclude Include="Classes\E05\E05.h" />
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="E03.h" />
     <ClInclude Include="E04.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Classes\E02\E02.cpp" />
     <ClCompile Include="Classes\E03\E03.cpp" />
     <ClCompile Include="Classes\E04\E04.cpp" />
+    <ClCompile Include="Classes\E05\E05.cpp" />
     <ClCompile Include="Classes\Example.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
