@@ -9,15 +9,15 @@
 #elif E06_STRING
 #endif // E06_ARRAY
 
-void PrintMatrix(int matrix[][2])
+void PrintMatrix(int matrix[][2], int nRow, int nCol)
 {
 	int nRowA = sizeof(matrix) / sizeof(matrix[0]);
 	int nColA = sizeof(matrix[0]) / sizeof(matrix[0][0]);
 
 
-	for (int i = 0; i < nRowA; i++)
+	for (int i = 0; i < nRow; i++)
 	{
-		for (int j = 0; j < nColA; j++)
+		for (int j = 0; j < nCol; j++)
 		{
 			printf("%d", matrix[i][j]);
 		}
@@ -133,12 +133,30 @@ void E06(int argc, char ** args)
 		1,2
 	};
 
+	int nRow;
+	int nCol;
 
-	printf("A 출력");
-	PrintMatrix(anMatrixA);
-	printf("B 출력");
-	PrintMatrix(anMatrixB);
-
+	printf("A 출력\n");
+	nRow = sizeof(anMatrixA) / sizeof(anMatrixA[0]);
+	nCol = sizeof(anMatrixA) / sizeof(anMatrixA[0]);
+	PrintMatrix(anMatrixA, nRow, nCol);
+	printf("B 출력\n");
+	nRow = sizeof(anMatrixB) / sizeof(anMatrixB[0]);
+	nCol = sizeof(anMatrixB[0]) / sizeof(anMatrixB[0][0]);
+	PrintMatrix(anMatrixB, nRow, nCol);
+	printf("C 출력\n");
+	nRow = sizeof(anMatrixC) / sizeof(anMatrixC[0]);
+	nCol = sizeof(anMatrixC[0]) / sizeof(anMatrixC[0][0]);
+	PrintMatrix(anMatrixC, nRow, nCol);
+	printf("D 출력\n");
+	nRow = sizeof(anMatrixD) / sizeof(anMatrixD[0]);
+	nCol = sizeof(anMatrixD[0]) / sizeof(anMatrixD[0][0]);
+	PrintMatrix(anMatrixD, nRow, nCol);
+	printf("E 출력\n");
+	nRow = sizeof(anMatrixE) / sizeof(anMatrixE[0]);
+	nCol = sizeof(anMatrixE[0]) / sizeof(anMatrixE[0][0]);
+	PrintMatrix(anMatrixE, nRow, nCol);
+	
 	//int nRowA = sizeof(anMatrixA) / sizeof(anMatrixA[0]);
 	//int nColA = sizeof(anMatrixA[0]) / sizeof(anMatrixA[0][0]);
 	//for (int i = 0; i < nRowA; i++)
