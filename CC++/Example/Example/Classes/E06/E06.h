@@ -49,4 +49,5 @@ char szString[100] = "ABC";
 void E06(int argc, char **args);
 
 
+void PrintMatrix(int matrix[][2], int nRow, int nCol);
 
