@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{51eed09a-6ebd-4302-b4fe-84bc974aea7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{25cbf6e3-9123-4ec4-ace2-f84e49003f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Define">
+      <UniqueIdentifier>{5a1acf7e-1cc5-4612-af93-c1fb7c63ec75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P01">
+      <UniqueIdentifier>{e825e13d-79af-4509-bc46-895661023992}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Classes\P01\P01.h">
+      <Filter>Classes\P01</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Global\Define\KGDefine.h">
+      <Filter>Global\Define</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Practice.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\P01\P01.cpp">
+      <Filter>Classes\P01</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

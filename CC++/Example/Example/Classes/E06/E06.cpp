@@ -1,6 +1,6 @@
 #include "E06.h"
 
-#define E06_ARRAY	1
+//#define E06_ARRAY	1
 #define E06_STRING	2
 
 #if E06_ARRAY
@@ -174,6 +174,81 @@ void E06(int argc, char ** args)
 
 #elif E06_STRING
 
+	char szStringA[100] = { 'A','B','C','D','\0' }; //공백 문자 없으면 작동 하지 않으면 널문자가 나올때 까지 출력됨
+	char szStringB[100] = "abcd";
+	
+	printf("문자열 출력\n");
+	/*
+	%s 는 문자열을 출력하기 위한 서식문자이다 scanf 함수를 통해 문자열을 입력 받을 때도  해당 서식 문자 사용하면 됨
+	하지만 공백 문자를 기준으로 scanf가 작동함으로 공백 문자열을 읽어들일수없다
+	*/
+	printf("문자열 A : %s\n", szStringA);
+	printf("문자열 B : %s\n", szStringB);
+	/*
+	strcpy 함수는 우항에 명시한 문자열을 좌항에 복사하는 역할을 수행한다 즉 =과 동일한 기능이다
+	strcat 함수는 우항에 명시한 문자열을 좌항에 추가하는 역할을 수행한다 즉 +=와 동일한 기능이다
+	strlen 함수는 문자열의 개수를 가져올수있다.
+	*/
+
+	strcpy(szStringA, "Hi");
+	strcat(szStringB, "World");
+
+	printf("출력결과\n");
+	printf("문자열 A (%d): %s\n", szStringA, szStringA);
+	printf("문자열 B (%d): %s\n", szStringB, szStringA);
+
+
+	printf("\n문자열 개수 결과\n");
+	printf("문자열 A (%d): %s\n", strlen(szStringA), szStringA);
+	printf("문자열 B (%d): %s\n", strlen(szStringB), szStringB);
+
+	printf("\n문자열 비교 결과\n");
+	printf("문자열 A B 비교 : %d\n", strcmp(szStringA, szStringB));
+	/*
+	strcmp 함수는 두 문자열을 비교한다. 아스키코드의 숫자 합으로 결정
+		좌항이 작으면 -1 
+		같으면 0 
+		우항이 크면 1
+	*/
+	//주어진 문자열에서 한문자의 포함여부를 검사하는역할 수행
+	printf("문자열 A의 T문자 포함 여부 : %d\n", strchr(szStringA, 'T') != NULL);
+	//문자열에서 특정문자열의 포함 여부를 검사하는 역할을 수행한다
+	printf("문자열 B의 World 문자열 포함 여부 : %d\n", strstr(szStringB, "World") != NULL);
+	//두함수 모두 결과값의 특정문자의 위치를 가리키는 포인터가 반환되며 해당결과값이 Null이면 탐색 실패를 의미한다
+
+	//다른 곳에서 사용할수 있으나 visual studio에서는 비공식적으로 지원하지 않음
+
+	//문자열 반전
+	printf("문자열 반전 : %s\n", _strrev(szStringA));
+	//대소문자 변경
+	printf("문자열 A 모두 소문자로 변환 : %s\n", _strlwr(szStringA));
+	printf("문자열 B 모두 대문자로 변환 : %s\n", _strupr(szStringB));
+
+	printf("\n 문자열 A 입력 : ");
+	scanf("%s", szStringA);
+	getchar();
+	//개행문자를 지우는 역할
+	printf("문자열 B 입력 : ");
+
+	/*
+	콘솔용으로 제작된 프로그램을 실행하면 해당프로그램과 콘솔 프로그램 간에 데이터를 주고 받을 수 있는 다리가 연결되면 해당 다리는 stream이라고 한다
+	stdin 콘솔 프로그램으로 부터 데이터를 읽어 들일수있는 다리이다
+	stdout 스트림은 데이터를 콘솔 프로그램에 내보내는 다리이다.
+	즉 printf scanf 함수는 내부적으로 해당 stream을 통해서 데이터를 출력 하거나 입력 받는 역할을 수행한다
+
+	fgets 함수는 특정 stream 에서 데이터를 읽어들이는 역할을 수행하며 해당 함수를 사용하면 
+	공백이 포함 되어 있는 문자열을 콘솔창으로부터 읽어들이는 것이 가능하다
+	fputs 함수는 특정 stream으로 데이터를 출하는 역할을 수행한다.
+	fgets/fputs 함수 모두 문자열 데이터를 다루는데 특화되어 있는 함수 이기 때문에 
+	
+	해당 함수에 문자열이 아닌 다른 데이터를 명시했을 경우 올바르게 동작 하지 않는다
+	*/
+
+	fgets(szStringB,sizeof(szStringB),stdin);//불러오는 값을 제안할수있기때문에 사용 fput는 통일성을 위해서 사용
+	fputs("출력 결과",stdout);
+	printf("\n");
+	printf("문자열 A : %s\n", szStringA);
+	printf("문자열 B : %s\n", szStringB);
 #endif // E06_ARRAY
 
 }
