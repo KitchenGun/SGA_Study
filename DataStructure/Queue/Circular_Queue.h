@@ -29,7 +29,7 @@ public:
 		datas[position] = data;
 	}
 
-	T Deque()
+	T Dequeue()
 	{
 		int position = front;
 		if (front == capacity)
@@ -41,6 +41,29 @@ public:
 			front++;
 		}
 		return datas[position];
+	}
+
+	bool isEmpty()
+	{
+		return front == rear;
+	}
+
+	int Size()
+	{
+		if (front <= rear)
+		{
+			return rear - front;
+		}
+		return rear + (capacity - front)+1;
+	}
+
+	bool isFull()
+	{
+		if (front < rear)
+		{
+			return (rear - front) == capacity;
+		}
+		return (rear + 1) == front;
 	}
 private:
 	T* datas;
