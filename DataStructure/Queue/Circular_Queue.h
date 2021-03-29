@@ -12,8 +12,12 @@ public:
 	~Circular_Queue()
 	{
 		delete[] datas;
-		datas = NUll;
+		datas = NULL;
 	}
+
+	int Capacity() { return capacity; }
+	int Front() { return front; }
+	int Rear() { return rear; }
 
 	void Enqueue(T data)
 	{
@@ -48,6 +52,15 @@ public:
 		return front == rear;
 	}
 
+	bool isFull()
+	{
+		if (front < rear)
+		{
+			return (rear - front) == capacity;
+		}
+		return (rear + 1) == front;
+	}
+
 	int Size()
 	{
 		if (front <= rear)
@@ -57,14 +70,7 @@ public:
 		return rear + (capacity - front)+1;
 	}
 
-	bool isFull()
-	{
-		if (front < rear)
-		{
-			return (rear - front) == capacity;
-		}
-		return (rear + 1) == front;
-	}
+	
 private:
 	T* datas;
 
