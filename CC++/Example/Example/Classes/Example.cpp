@@ -5,6 +5,7 @@
 #include "E05/E05.h"
 #include "E06/E06.h"
 #include "E07/E07.h"
+#include "E08/E08.h"
 
 /*
 메인 함수는 c 언어로 작성된 프로그램에서 가장 처음으로 실행되는 함수를 의미한다. 
@@ -19,8 +20,21 @@ input o	output x void main(int, char**)
 input x	output o int main(void)
 input x	output x void main(void)
 */
+
+//extern int g_nGValue;
+//extern 키워드를 사용하면 다른 파일의 전역 변수를 사용 가능하다  컴파일러에게 알리는 역할 수행
+
 int main(int argc, char **args)
 {
+	srand((unsigned int)time(NULL));
+	//unsigned  +-를 표현하는 비트를 데이터 표현하는데 사용함 
+	//즉 4비트에서 3비트를 값 표현에 사용하면 1비트는 +-를 표현하는데 사용함
+	/*
+	컴퓨터는 기본적으로 난수를 생성 불가능 특정 공식에 의해서 산출된 결과를 난수로 사용하며 이런 난수를 의사 난수라고 한다 
+	시드가 바뀌지 않는 이상 매번 같은 패턴으로 난수가 생성되기 때문에 이를 방지하기 위해서 srand 함수 시드값 변경이 필요함
+	메르센 트위스트 방식을 사용하면
+	*/
+
 	/*
 	/전처리
 	c언어로작성된 소스파일이 컴파일되기 이전에 소스 파일전처리에 의해서 튜닝되는 단계를 의미한다 c언어와는 다른 문법을 지니며 해당명령어는 #으로 시작된다.
@@ -30,13 +44,14 @@ int main(int argc, char **args)
 	컴파일이 완료된 파일을 하나로 조합해서 최종적으로 프로그램을 만들어주는 단계
 	컴파일은 파일마다 수행되기때문에 결과 파일도 파일 개수만큼 생성된다.
 	*/
-
+	//g_nGValue = 100;
 	//E01(argc, args);
 	//E02(argc, args);
 	//E03(argc, args);
 	//E04(argc, args);
 	//E05(argc, args);
 	//E06(argc, args);
-	E07(argc, args);
+	//E07(argc, args);
+	E08(argc, args);
 	return 0;
 }
