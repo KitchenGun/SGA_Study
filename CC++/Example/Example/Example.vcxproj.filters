@@ -38,6 +38,9 @@
     <Filter Include="Classes\E08_사용자 정의 자료형">
       <UniqueIdentifier>{869776ec-fdb3-45b0-85c9-703e9dd86d5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E09_포인터">
+      <UniqueIdentifier>{79f02848-2572-4331-9cbc-c4ca8a2406d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -67,6 +70,9 @@
     <ClInclude Include="Classes\E08\E08.h">
       <Filter>Classes\E08_사용자 정의 자료형</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E09\E09.h">
+      <Filter>Classes\E09_포인터</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\E01\E01.cpp">
@@ -95,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="Classes\E08\E08.cpp">
       <Filter>Classes\E08_사용자 정의 자료형</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E09\E09.cpp">
+      <Filter>Classes\E09_포인터</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

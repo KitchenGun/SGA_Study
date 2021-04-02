@@ -52,6 +52,13 @@ union E08UNData
 기본 c 언어에서 발생하는 중복 상수 에러를 방지하는 것이 불가능 하지만 스코프드 열거형을 사용하면 
 특정 상수의 범위를 지정하는 것이 가능하기 때문에 서로 다른 열거형이라면 중복된 상수를 선언하는 것이 가능하다
 */
+enum class E08ArraySize
+{
+	NONE = -1,
+	DEF_SIZE = 10,
+	MAX_VALUE
+};
+
 enum class E08ItemType
 {
 	NONE=-1,
@@ -150,6 +157,10 @@ void E08(int argc, char ** args)
 	printf("정수 %d\n", unData.m_nData);
 	printf("실수 %f\n", unData.m_fData);
 #elif E08_ENUM
+	//열거형 상수의 값은 컴파일 타임에 확정되기 때문에 해당 상수를 사용해서 배열의 길이를 명시하는 것이 가능하다
+	//상수는 런타임에 값이 확정 되기때문에 상수로는 배열의 길이를 명시하는 것이 불가능함
+	int anValues[(int)E08ArraySize::DEF_SIZE] = { 0 };
+
 	printf("열거형 상수\n");
 
 	printf("NONE %d\n", E08ItemType::NONE);
