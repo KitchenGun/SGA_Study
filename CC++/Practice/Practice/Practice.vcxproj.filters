@@ -17,6 +17,9 @@
     <Filter Include="Classes\P01">
       <UniqueIdentifier>{e825e13d-79af-4509-bc46-895661023992}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P02">
+      <UniqueIdentifier>{dd093093-615b-47f8-b4e4-8dbbdd7bfcda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\P01\P01.h">
@@ -25,6 +28,9 @@
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
       <Filter>Global\Define</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\P02\P02.h">
+      <Filter>Classes\P02</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Practice.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="Classes\P01\P01.cpp">
       <Filter>Classes\P01</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\P02\P02.cpp">
+      <Filter>Classes\P02</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

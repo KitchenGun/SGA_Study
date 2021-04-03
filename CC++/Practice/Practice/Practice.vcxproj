@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -145,9 +145,11 @@
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="Classes\P01\P01.h" />
+    <ClInclude Include="Classes\P02\P02.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\P01\P01.cpp" />
+    <ClCompile Include="Classes\P02\P02.cpp" />
     <ClCompile Include="Classes\Practice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
