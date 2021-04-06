@@ -7,6 +7,7 @@
 #include "E07/E07.h"
 #include "E08/E08.h"
 #include "E09/E09.h"
+#include "E10/E10.h"
 
 
 /*
@@ -55,6 +56,7 @@ int main(int argc, char **args)
 	//E06(argc, args);
 	//E07(argc, args);
 	//E08(argc, args);
-	E09(argc, args);
+	//E09(argc, args);
+	E10(argc, args);
 	return 0;
 }

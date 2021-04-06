@@ -1,7 +1,7 @@
 #include "E09.h"
 
-#define E09_SINGLE_PTR	1
-#define E09_DOUBLE_PTR	2
+//#define E09_SINGLE_PTR	1
+//#define E09_DOUBLE_PTR	2
 #define E09_FUNC_PTR	3
 
 #if E09_SINGLE_PTR
@@ -60,9 +60,63 @@ void E09InitArrayByPtr(int a_pnArray[], int a_nSize)//사이즈 넘기는 이유는 배열�
 
 #endif //SINGLE_PTR_A
 #elif E09_DOUBLE_PTR
-
+//포인터 교환한다
+void E09SwapByPtr(int **a_pnValueA, int **a_pnValueB)
+{
+	int *pnTemp = *a_pnValueA;
+	*a_pnValueA = *a_pnValueB;
+	*a_pnValueB = pnTemp;
+}
 #elif E09_FUNC_PTR
+//재정의
+typedef void(*func_ptr_t)(void);
 
+//함수 a
+void E09FuncA(void)
+{
+	printf("\na\n");
+}
+//함수 b
+void E09FuncB(void)
+{
+	printf("\nb\n");
+}
+//함수 c
+func_ptr_t E09FuncC(int a_nFuncType)
+{
+	return (a_nFuncType <= 0) ? E09FuncA : E09FuncB;
+}
+
+//오름차순으로 비교한다
+int E09CompareByAscending(int a_nLhs, int a_nRhs)
+{
+	return a_nLhs - a_nRhs;
+}
+//내림차순으로 비교한다
+int E09CompareByDescending(int a_nLhs, int a_nRhs)
+{
+	return a_nRhs - a_nLhs;
+}
+//값을 정렬한다
+void E09SortValues(int *a_pnValues, int a_nSize, int(*a_pfnCompare)(int, int))
+{
+	for (int i = 0; i < a_nSize - 1; i++)
+	{
+		int nCompareIdx = i;
+		for (int j = i + 1; j < a_nSize; j++)
+		{
+			//값교환이 필요한경우
+			if (a_pfnCompare(a_pnValues[nCompareIdx], a_pnValues[j]) > 0)
+			{
+				nCompareIdx = j;
+			}
+		}
+
+		int nTemp = a_pnValues[i];
+		a_pnValues[i] = a_pnValues[nCompareIdx];
+		a_pnValues[nCompareIdx] = nTemp;
+	}
+}
 #endif // E09_SINGLE_PTR
 
 
@@ -204,7 +258,91 @@ void E09(int argc, char ** args)
 #endif // SINGLE_PTR_A
 #elif E09_DOUBLE_PTR
 
+	int nValueA = 0;
+	int nValueB = 0;
+	
+	int *pnValue = &nValueA;
+	
+	int **pnDoublePtr = &pnValue;
+	
+	**pnDoublePtr = 10;
+	*pnDoublePtr = &nValueB;
+	**pnDoublePtr = 20;
+	*pnValue = 30;
+
+	printf("포인터 조작 결과 \n");
+	printf("valueA : %d %p \n", nValueA, &nValueA);
+	printf("valueB : %d %p \n", nValueB, &nValueB);
+	printf("int* %p %p int** %p", pnValue, &pnValue, pnDoublePtr);
+
+	nValueA = 10;
+	nValueB = 20;
+
+	int *pnValueA = &nValueA;
+	int *pnValueB = &nValueB;
+
+	printf("포인터 교환전\n");
+	printf("%d, %d\n", *pnValueA, *pnValueB);
+	/*
+	프로그래밍 언어에서 함수의 호출은 2가지 유형으로 구분
+	1. Call by Value		값에 의한 호출
+	2. Call by Reference	참조에 의한 호출
+
+	이 두 유형 구분은 상대적 개념 호출된 함수에서 해당 함수의 제작 목적에 맞게 원본을 수정할수있다면 이를 CallbyReference라고 한다
+	즉 함수의 입력으로 주소를 입력으로 넘겼다 하더라도 함수의 제작 목적을 달성할수없다면 이는 CallbyReference가 아니다.
+	*/
+	E09SwapByPtr(&pnValueA,&pnValueB);
+	printf("포인터 교환후\n");
+	printf("%d, %d\n", *pnValueA, *pnValueB);
+	printf("포인터 교환후\n");
+	printf("value a %d, value b %d\n", nValueA, nValueB);
+
 #elif E09_FUNC_PTR
+	printf("E09 %p", E09);//함수의 이름에 주소가 있다
+	//반환값 포인터함수이름 입력
+	
+
+	//void (*pfnFunc)(void) = E09FuncA;
+	//우항의 값에 따라서 자동으로 자료형을 지정해준다
+	auto pfnFunc = E09FuncA;
+	
+	
+	pfnFunc();
+	pfnFunc = E09FuncB;
+	pfnFunc();
+	/*int nFuncType = 0;
+	printf("함수 타입(0 or 1)입력 :");
+	scanf("%d", &nFuncType);
+	
+	void(*pfnFunc)(void) = E09FuncC(nFuncType);
+	pfnFunc();
+	*/
+	int anValues[10] = { 0 };
+	const int nSize = sizeof(anValues) / sizeof(anValues[0]);
+	for (int i = 0; i < nSize; i++)
+	{
+		anValues[i] = rand() % 100;
+	}
+	printf("정렬전\n");
+	for (int i = 0; i < nSize; i++)
+	{
+		printf("%d ", anValues[i]);
+
+	}
+	E09SortValues(anValues, nSize, E09CompareByAscending);
+	printf("\n오름차순 후\n");
+	for (int i = 0; i < nSize; ++i)
+	{
+		printf("%d ", anValues[i]);
+
+	}
+	E09SortValues(anValues, nSize, E09CompareByDescending);
+	printf("\n내림차순 후\n");
+	for (int i = 0; i < nSize; ++i)
+	{
+		printf("%d ", anValues[i]);
+
+	}
 
 #endif // E09_SINGLE_PTR
 }
