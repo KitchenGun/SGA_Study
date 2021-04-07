@@ -286,7 +286,7 @@ void E09(int argc, char ** args)
 	/*
 	프로그래밍 언어에서 함수의 호출은 2가지 유형으로 구분
 	1. Call by Value		값에 의한 호출
-	2. Call by Reference	참조에 의한 호출
+	2. Call by Reference	참조에 의한 호출 
 
 	이 두 유형 구분은 상대적 개념 호출된 함수에서 해당 함수의 제작 목적에 맞게 원본을 수정할수있다면 이를 CallbyReference라고 한다
 	즉 함수의 입력으로 주소를 입력으로 넘겼다 하더라도 함수의 제작 목적을 달성할수없다면 이는 CallbyReference가 아니다.

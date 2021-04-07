@@ -10,7 +10,7 @@
 	c언어 동적 할당 하는 방법
 	malloc 
 	calloc
-	realloc
+	realloc  
 
 	ex)
 	int *pnValueA = (int*)malloc(sizeof(int));			

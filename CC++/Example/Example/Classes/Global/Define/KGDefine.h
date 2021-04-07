@@ -20,4 +20,9 @@ stdio.h 파일에는 입출력 관련 기능이 존재하며 미리 만들어져서 제공되는 기능들의 �
 #include <float.h>
 #include <time.h>
 
+//매크로 함수를 사용하면 반복적으로 발생하는 코드 작성을 방지 하는 것이 가능하다 단 기본적으로 매크로 함수는 1줄에 전부 기입해야한다.
+//\을 사용하여서 줄바꿈 가능  매크로 함수는 코드를 생성 할때 사용 (보통의 경우 일반 함수를 사용해라)
+#define SAFE_FREE(TARGET)	\
+if((TARGET)!=NULL){free((TARGET));(TARGET)=NULL;}
+
 //#include <random>
