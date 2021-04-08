@@ -44,6 +44,9 @@
     <Filter Include="Classes\E10_동적 할당">
       <UniqueIdentifier>{965c1894-576d-43bd-84ab-8e281dcf80bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E11_파일 시스템">
+      <UniqueIdentifier>{98389d37-3e03-48d7-8d33-21d03649e48a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -79,6 +82,9 @@
     <ClInclude Include="Classes\E10\E10.h">
       <Filter>Classes\E10_동적 할당</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E11\E11.h">
+      <Filter>Classes\E11_파일 시스템</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\E01\E01.cpp">
@@ -113,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="Classes\E10\E10.cpp">
       <Filter>Classes\E10_동적 할당</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E11\E11.cpp">
+      <Filter>Classes\E11_파일 시스템</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

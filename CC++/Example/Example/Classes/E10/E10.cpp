@@ -1,14 +1,31 @@
 #include "E10.h"
 
-#define E10_MALLOC	1
-#define E10_CALLOC	2
+//#define E10_MALLOC	1
+//#define E10_CALLOC	2
 #define E10_REALLOC	3
 
 #if E10_MALLOC
 //#define MALLOC_A 1
 #define MALLOC_B 2
 #elif E10_CALLOC
+//메모리를 할당한다 void* 반환
+void *E10CleanmAlloc(int a_nNumElements, int a_nElementsSize)
+{
+	int nTotalSize = a_nNumElements * a_nElementsSize;
+	void *pvBuffer = malloc(nTotalSize);
+	
+	char *pchCurrent = (char*)pvBuffer;
+	
+	while (pchCurrent < (char*)pvBuffer + nTotalSize)
+	{
+		memset(pchCurrent, 0, a_nElementsSize);
+		pchCurrent += a_nElementsSize;
+	}
+
+	return pvBuffer;
+}
 #elif E10_REALLOC
+
 #endif // E10_MALLOC
 
 void E10(int argc, char ** args)
@@ -52,7 +69,7 @@ void E10(int argc, char ** args)
 	int nSize = 0;
 
 	printf("\n초기 배열크기 입력 : ");
-	scanf("%d", &nSize);
+	scanf("%d", &nInputValue);
 
 	int *pnValues = (int*)malloc(sizeof(int)*nSize);
 
@@ -117,6 +134,7 @@ void E10(int argc, char ** args)
 	}
 
 	int anMatrix[5][5] = { 0 };
+	//메모리복사를 통해서 행렬의 정보를 복사함
 	memcpy(anMatrix, pnMatrix, sizeof(int)*(nNumCols*nNumRows));
 	printf("\n행렬요소\n");
 	for (int i = 0; i < nNumRows; i++)
@@ -141,6 +159,71 @@ void E10(int argc, char ** args)
 
 #endif // MALLOCA
 #elif E10_CALLOC
+
+	int nSize = 0;
+	printf("배열 크기 입력");
+	scanf("%d", &nSize);
+
+	int *pnValuesA = (int*)malloc(sizeof(int)*nSize);
+	int *pnValuesB = (int*)calloc(nSize,sizeof(int));//할당후 초기화 시켜줌
+	int *pnValuesC = (int*)E10CleanmAlloc(nSize, sizeof(int));
+
+	printf("\nA\n");
+	for (int i = 0; i < nSize; ++i)
+	{
+		printf("%d ", pnValuesA[i]);
+	}
+
+	printf("\nB\n");
+	for (int i = 0; i < nSize; ++i)
+	{
+		printf("%d ", pnValuesB[i]);
+	}
+
+	printf("\nC\n");
+	for (int i = 0; i < nSize; ++i)
+	{
+		printf("%d ", pnValuesC[i]);
+	}
+
+	SAFE_FREE(pnValuesA);
+	SAFE_FREE(pnValuesB);
+	SAFE_FREE(pnValuesC);
 #elif E10_REALLOC
+	
+	int nSize = 0;
+	
+	printf("\n초기 배열크기 입력 : ");
+	scanf("%d", &nSize);
+	
+	int *pnValues = (int*)malloc(sizeof(int)*nSize);
+	printf("초기 배열 주소 %p \n", pnValues);
+	
+	int nNumValues = 0;
+	int nInputValue = 0;
+	
+	do
+	{
+		printf("정수 %d 입력 : ", nNumValues + 1);
+		scanf("%d", &nInputValue);
+	
+		//배열이 가득 찼을 경우
+		if (nNumValues >= nSize)
+		{
+			nSize *= 2;
+			
+			pnValues = (int*)realloc(pnValues,sizeof(int)*nSize);
+			printf("재할당 후 배열 주소 %p \n", pnValues);
+		}
+	
+		pnValues[nNumValues++] = nInputValue;
+	} while (nInputValue != 0);
+	
+	printf("\n동적 할당 배열요소\n");
+	for (int i = 0; i < nNumValues; ++i)
+	{
+		printf("%d ", pnValues[i]);
+	}
+	SAFE_FREE(pnValues);
 #endif // E10_MALLOC
 }
