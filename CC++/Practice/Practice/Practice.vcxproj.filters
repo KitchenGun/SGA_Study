@@ -20,6 +20,9 @@
     <Filter Include="Classes\P02">
       <UniqueIdentifier>{dd093093-615b-47f8-b4e4-8dbbdd7bfcda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P03">
+      <UniqueIdentifier>{38c9b9e5-19e3-4305-bc55-6e3765ae74a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\P01\P01.h">
@@ -31,6 +34,9 @@
     <ClInclude Include="Classes\P02\P02.h">
       <Filter>Classes\P02</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\P03\P03.h">
+      <Filter>Classes\P03</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Practice.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Classes\P02\P02.cpp">
       <Filter>Classes\P02</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\P03\P03.cpp">
+      <Filter>Classes\P03</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

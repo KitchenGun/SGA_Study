@@ -146,10 +146,12 @@
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="Classes\P01\P01.h" />
     <ClInclude Include="Classes\P02\P02.h" />
+    <ClInclude Include="Classes\P03\P03.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\P01\P01.cpp" />
     <ClCompile Include="Classes\P02\P02.cpp" />
+    <ClCompile Include="Classes\P03\P03.cpp" />
     <ClCompile Include="Classes\Practice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

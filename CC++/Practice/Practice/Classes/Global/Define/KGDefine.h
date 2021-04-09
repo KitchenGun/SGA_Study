@@ -9,3 +9,6 @@
 #include <limits.h>
 #include <float.h>
 #include <time.h>
+
+#define SAFE_FREE(TARGET)	\
+if((TARGET)!=NULL){free((TARGET));(TARGET)=NULL;}
