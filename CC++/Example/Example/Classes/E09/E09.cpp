@@ -1,12 +1,12 @@
 #include "E09.h"
 
-//#define E09_SINGLE_PTR	1
-//#define E09_DOUBLE_PTR	2
+#define E09_SINGLE_PTR	1
+#define E09_DOUBLE_PTR	2
 #define E09_FUNC_PTR	3
 
 #if E09_SINGLE_PTR
-//#define SINGLE_PTR_A	1
-#define SINGLE_PTR_B	2
+#define SINGLE_PTR_A	1
+//#define SINGLE_PTR_B	2
 #endif //#if E09_SINGLE_PTR
 
 
@@ -179,13 +179,17 @@ void E09(int argc, char ** args)
 
 	//c언어 포인터 상수의 종류
 	/*
-	const int *pnConstPtrA = &nValueA;			포인터를 통한 값의 조작을 금지
-	int *const pnConstPtrB = &nValueB;			포인터 자체를 상수화
-	const int* const pnConstPtrC = &nValueA;	1+2 유형상수
+	const int *pnConstPtrA = &nValueA;			포인터를 통한 값의 조작을	금지		값을비교는 하는데 수정하지 않는 경우
+	int *const pnConstPtrB = &nValueB;			포인터 자체를 상수화		
+	const int* const pnConstPtrC = &nValueA;	1+2 유형상수						저장된 데이터를 읽을 경우
 	*/
 	const int *pnConstPtrA = &nValueA;//포인터를 통한 값의 조작을 허용하지 않음
 	int *const pnConstPtrB = &nValueB; //배열과 유사한 특징을 가지고 있음
 	const int* const pnConstPtrC = &nValueA;
+	//안전성을 올리는 1=2 방식의 참조는 가능
+	pnConstPtrA = pnConstPtrB;
+	const int* const pnConstPtrD = pnConstPtrB;
+	
 	//1 다른 메모리를 가리키는 것이 가능하다 하지만 값을 변경할수없다
 	//*pnConstPtrA = 10;
 	pnConstPtrA = &nValueB;

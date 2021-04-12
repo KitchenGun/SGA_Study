@@ -55,6 +55,11 @@ void E11(int argc, char ** args)
 		fclose(pstWStream);
 	}
 #elif E11_BINARY_IO
+	//명령인수 사용법
+	for (int i = 0; i < argc; i++)
+	{
+		printf("%s\n", args[i]);
+	}
 
 	/*
 	명령 프롬포트에서 파일 복사 명령어 입력 방식
@@ -74,13 +79,40 @@ void E11(int argc, char ** args)
 	//스트림이 생성되었을 경우
 	if (pstRStream != NULL && pstWStream != NULL)
 	{
+		/*
+		특정 파일의 크기를 계산하기 위해서는 fseek,ftell 함수를 사용하면 된다
+		ftell 함수는 파일 커서의 위치를 가져오는 역할을 수행하기 때문에 fseek함수를
+		사용해서 파일의 커서를 가장 마지막 위치로 옮긴후 해당함수를 사용하면 파일의 크기를 가져오는 것이 가능하다 
+		자료형을 읽는 방식은 확장자에서 정해준다
+		*/
+		fseek(pstRStream, 0, SEEK_END);
+		printf("파일 크기 :%d", ftell(pstRStream));
+		fseek(pstRStream, 0, SEEK_SET);
 		size_t nNumBytes = 0;
 		BYTE anBuffer[100] = {0};
 
+		fseek(pstRStream, 0, SEEK_CUR);//
+
+		/*
+		fread를 포함한 파일 제어함수들은 내부적으로 파일의 데이터 제어 위치를 나타내는 파일 커서 정보를 기반으로 작동한다.
+		파일 커서 정보를 기반으로 작동한다 만약 해당 커서의 정보를 수동적으로 변경하기 위해서는 fseek 함수를 사용한다
+		fseek 종류
+		seek_set 파일 첫번째 데이터
+		seek_cur 파일 현재 커서 위치
+		seek_end 파일 마지막 데이터
+		*/
+
 		while (1)
 		{
+			//파일 구조체 안의 커서를 통해서 정보를 읽어들임 
 			nNumBytes=fread(anBuffer, sizeof(BYTE), sizeof(anBuffer), pstRStream);
 			//더이상 읽을 데이터가 없을 경우
+			if (feof(pstRStream))
+			{
+				//특정 파일에서 읽어들일 데이터의 유무를 판단하기 위해서는 fread fgets함수의 반환값을 사용해도 되지만 
+				//feof함수를 통ㅎ새서 이를 판단하는 것이 가능하다
+			}
+
 			if (nNumBytes <= 0)
 			{
 				break;
