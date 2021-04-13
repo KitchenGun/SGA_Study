@@ -17,6 +17,12 @@
     <Filter Include="Classes\E01_C++기초">
       <UniqueIdentifier>{ccc23651-fff9-4f4f-96a9-7747f9d8616c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E02_함수오버로딩 레퍼런스">
+      <UniqueIdentifier>{2ff55c43-4dcc-432f-a696-7ebb542c0e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\E03_클래스">
+      <UniqueIdentifier>{1bce63a4-b8d7-41f4-b3d9-3efcb5760164}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -24,6 +30,12 @@
     </ClInclude>
     <ClInclude Include="Classes\E01\E01.h">
       <Filter>Classes\E01_C++기초</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\E02\E02.h">
+      <Filter>Classes\E02_함수오버로딩 레퍼런스</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\E03\E03.h">
+      <Filter>Classes\E03_클래스</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -33,5 +45,16 @@
     <ClCompile Include="Classes\E01\E01.cpp">
       <Filter>Classes\E01_C++기초</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\E02\E02.cpp">
+      <Filter>Classes\E02_함수오버로딩 레퍼런스</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E03\E03.cpp">
+      <Filter>Classes\E03_클래스</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classes\E02\E02.inl">
+      <Filter>Classes\E02_함수오버로딩 레퍼런스</Filter>
+    </None>
   </ItemGroup>
 </Project>
