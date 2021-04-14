@@ -23,6 +23,9 @@
     <Filter Include="Classes\E03_클래스">
       <UniqueIdentifier>{1bce63a4-b8d7-41f4-b3d9-3efcb5760164}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E04_상속">
+      <UniqueIdentifier>{d97e2010-0e14-460d-ae89-5316908d3c59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -37,6 +40,9 @@
     <ClInclude Include="Classes\E03\E03.h">
       <Filter>Classes\E03_클래스</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E04\E04.h">
+      <Filter>Classes\E04_상속</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\ExampleCPlus.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="Classes\E03\E03.cpp">
       <Filter>Classes\E03_클래스</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E04\E04.cpp">
+      <Filter>Classes\E04_상속</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

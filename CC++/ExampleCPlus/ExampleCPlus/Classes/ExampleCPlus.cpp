@@ -1,6 +1,7 @@
 #include "E01/E01.h"
 #include "E02/E02.h"
 #include "E03/E03.h"
+#include "E04/E04.h"
 
 
 //메인함수
@@ -12,6 +13,7 @@ int main(const int argc, const char **args)
 	*/
 	//E01Space::E01(argc, args);
 	//E02Space::E02(argc, args);
-	E03Space::E03(argc, args);
+	//E03Space::E03(argc, args);
+	E04Space::E04(argc, args);
 	return 0;
 }

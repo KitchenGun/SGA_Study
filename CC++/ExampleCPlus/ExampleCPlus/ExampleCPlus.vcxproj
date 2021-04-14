@@ -22,12 +22,14 @@
     <ClInclude Include="Classes\E01\E01.h" />
     <ClInclude Include="Classes\E02\E02.h" />
     <ClInclude Include="Classes\E03\E03.h" />
+    <ClInclude Include="Classes\E04\E04.h" />
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\E01\E01.cpp" />
     <ClCompile Include="Classes\E02\E02.cpp" />
     <ClCompile Include="Classes\E03\E03.cpp" />
+    <ClCompile Include="Classes\E04\E04.cpp" />
     <ClCompile Include="Classes\ExampleCPlus.cpp" />
   </ItemGroup>
   <ItemGroup>
