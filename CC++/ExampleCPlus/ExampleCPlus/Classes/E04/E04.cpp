@@ -212,13 +212,105 @@ namespace E04Space
 	//부모클래스
 	class CParent
 	{
+	public:
 
+		/*
+		맴버 함수에 virtual 키워드를 명시하면 해당함수는 가상함수가 된다.
+		가상함수란 ?
+		특정 클래스가 부모 자식 관계를 형성하고 있을때 만약 부모 클래스의 특정 함수를 자식 클래스에서 동일하게 구현했을 경우
+		부모 클래스의 함수가 아니라 자식 클래스의 함수를 호출 하도록 해주는 맴버 함수를 의미한다
+		또한 이처럼 부모 클래스의 함수 대신 자식 클래스의 함수가 호출되는 현상을 오버라이드 조건이 성립되었다고 한다.
+
+		단 자식 클래스의 함수가 오버라이드 조건을 만족하기 위해서는 반드시 부모 클래스에 존재하는 맴버함수와 원형이 일치해야한다
+		함수 뒤에 ovveride를 붙이면 오류를 띄워준다
+
+		c++언어 오버라이드 구현 원리 
+		:
+		c++특정 클래스의 가상함수가 하나라도 존재할경우 컴파일러는 함수 포인터로 이루어진 가상함수 테이블을 생성하고 
+		해당 테이블을 가리키는 포인터가 자동으로 클래스에 추가 된다
+		따라서 가상 함수 테이블에 존재하는 맴버 함수를 호출할 경우 
+		해당 함수가 직접적으로 호출 되는 것이 아니라 가상 함수 테이블 참조해서
+		해당 테이블에 존재하는 함수 포인터가 가리키는 맴버 함수가 호출된다
+		즉 가상 함수 테이블이 컴파일러에 의해서 자동으로 해당 클래스에 추가되기 때문에 
+		가상함수를 하나라도 지니고 있는 객체는 절대로 memset으로 초기화 시도하면 안된다
+		*/
+		//정보를 출력한다
+		virtual void ShowInfo()
+		{
+			printf("CParent.ShowInfo()호출\n");
+		}
+	public:
+		/*
+		일반적으로 동적으로 생성된 부모 클래스의 포인터로 제거했을 경우
+		자식 클래스의 소멸자가 호출 되지 않는 현상이 발생한다 따라서 해당 현상을 해결하기 위해서는 
+		반드시 부모 클래스의 소멸자에 virtual 키워드를 명시하여
+		해당 소멸자를 사상 소멸자로 선언해줘야한다
+
+		즉 특정 클래스의 소멸자가 가상 소멸자가 아니라면 이는 해당 클래스를 절대로 상속하지 말라는 것이 암묵적인 관례이다.
+		*/
+		virtual ~CParent()//가상 소멸자 
+		{
+			printf("부모 소멸자 호출\n");
+		}
 	};
 	//자식클래스
 	class CChild:public CParent
 	{
+	public:
+		/*
+		자식 클래스에서 부모클래스와 동일한 원형을 지닌 가상함수 선언했을때 
+		해당 함수 또한 컴파일러에 의해서 자동으로 가상 함수로 선언 된다
+		가상함수와 동일한 원형을 지닌 함수를 자식에 선언했을 경우 virtual 키워드를 명시해주는 것이 좋은 습관이다.
+		c++11버전에서는 override 라는 키워드를 지원해주기 때문에 부모 클래스의 맴버함를 잘못된 원형으로 자식 클래스를 오버라이드 했을 경우
+		컴파일러에 의해서 에러발생이 가능 하다 즉 사전에 감지하는 것이 가능하다. 
+		
+		c++11 이상 부터는 final 키워드를 통해서 해당 맴버 함수를 자식 클래스 에서 더이상 오버라이드가 불가능 하도록 막아버리는 것이 가능하다 즉 클래스
+		설계함에 있어서 부모 클래스의 특정 맴버함수를반드시 호출 해야할 경우 해당 키워드를 사용함으로써 자식 클래스에서 오버라이드 시키는 실수방지 가능하다
 
+		*/
+		//정보를 출력한다
+		virtual void ShowInfo() final override
+		{
+			this->DoShowInfo();
+			printf("CChild.ShowInfo()호출\n");
+		}
+
+	protected:
+		//순수 가상함수
+		/*
+		가상 함수에 0 기호를 명시함으로써 해당 함수를 순수 가상함수로 선언하는 것이 가능하다
+		순수 가상함수란?
+		함수의 구현부를 지니고 있지 않은 가상함수를 의미하며 특정 클래스에 순수 가상 함수가 하나라도 존재할경우 해당 클래스는 객체화 시킬수없는 추상 클래스가 된다
+		즉 특정 클래스를 통해서 객체를 생성하기 위해서는 해당 객체에 대한 속성및 행위가 정해져있어야하기 때문에 
+		순수 가상함수를 지니고 있다는 것은 해당 행위에 대한 정보가 없다는 것을 의미하며 이는 곧 객체를 생성하기위한 정보가 불안정하다는 것을 의미한다
+		순수 가상함수를 지니고 있는 추상 클래스는 직접적으로 객체화 시킬수는 없지만 자식 클래스에서 해당 클래스를 상속함으로 객체화가 가능하다 
+		단 이경우 자식클래스에서 반드시 부모클래스에 존재하는 순수 가상 함수를 모두 오버라이드 및 구현해줘야 한다
+		만약 오버라이드 하지 않을 경우 객체화 시킬수없는 추상함수 클래스가 된다
+
+		이걸 사용하면 인터페이스를 흉내낼수있다.
+		*/
+		virtual void DoShowInfo() = 0; 
+	public:
+		virtual ~CChild()
+		{
+			printf("자식 소멸자 호출\n");
+		}
 	};
+	//서브 자식 클래스
+	class CSubChild : public CChild
+	{
+	protected:
+		virtual void DoShowInfo() override
+		{
+			printf("CSubChild.DoShowInfo()호출\n");
+		}
+	public: //소멸자
+	virtual ~CSubChild()
+	{
+		printf("서브 자식 소멸자 호출\n");
+	}
+	};
+
 #endif // E04_INHERITANCE
 
 	void E04(const int argc, const char ** args)
@@ -251,14 +343,47 @@ namespace E04Space
 		부모 클래스의 포인터로 자식 객체를 가리키는 것은 허용되지만 반대로 자식 클래스의 포인터로 부모 객체를 가리키는 것은 불가능 하다
 		*/
 		CParent *pParentA = new CParent();
-		CParent *pParentB = new CChild();
+		CParent *pParentB = new CSubChild();
+		/*
+		c++ 형변환 연산자의 종류
+		static_cast			불완전한 다운 캐스팅 지원
+		dynamic_cast		안전한 다운캐스팅 지원
+		const_cast			객체의 상수성 제거 지원
+		reinterpert_cast	정수<->주소간의 형변환
 
-		CChild *pChildA = new CChild;
+		*/
+		CChild *pChildA = new CSubChild;
+		CChild *pChildB = dynamic_cast<CChild*>(pParentB);
+		/*
+		dynamic cast 형 변환 연산자에 의해서 다운 캐스팅이 불가능 할경우 null 포인터가 반환 된다는 것을 알수있다
+		해당 연산자는 안전한 다운 캐스팅을 지원하기 위해서 내부적으로 안전성을 검사하는 코드들이 자동으로 추가되기 때문에 
+		이는 곧 퍼포먼스 저하를 유발시킬수 있다.
+		*/
+		//자식 클래스 형변환 가능할경우
+		if ( pChildB != NULL)
+		{
+			printf("부모->자식 형 변환 가능\n");
+		}
+
+		//child 클래스는 추상 클래스이기 때문에 new 키워드를 통해서 객체를 생성하는 것이 불가능하다
+		//CChild *pChildB = new CChild;
 		//CChild *pChildB = new CParent;
 
+		pParentA->ShowInfo();
+		printf("\n");
+		pParentB->ShowInfo();
+		printf("\n");
+		pChildA->ShowInfo();
+		printf("\n");
+		//pChildB->ShowInfo();
 		SAFE_DELETE(pParentA);
-		SAFE_DELETE(pParentB);
+		printf("\n");
 		SAFE_DELETE(pChildA);
+		printf("\n");
+		SAFE_DELETE(pParentB);//자식을 넣어도 자식소멸자 호출안됨 virtual로 해결
+		printf("\n");
+		//SAFE_DELETE(pChildB);
+
 	#endif // E04_INHERITANCE
 	}
 }
