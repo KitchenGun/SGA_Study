@@ -1,9 +1,15 @@
 #include "E04.h"
 
 //#define E04_INHERITANCE	1
-//#define E04_PRACTICE		2
-#define E04_POLYMORPHISM	3
+//#define E04_POLYMORPHISM	2
+#define E04_PRACTICE		3
 
+#if E04_PRACTICE
+
+//#define PRACTICE_A	1;
+#define PRACTICE_B	2;
+
+#endif
 namespace E04Space
 {
 #if E04_INHERITANCE
@@ -85,6 +91,7 @@ namespace E04Space
 		char m_szString[100] = "";
 	};
 #elif E04_PRACTICE
+#if PRACTICE_A
 	//배열
 	class CArray
 	{
@@ -97,13 +104,13 @@ namespace E04Space
 		/*
 		이미 생성이 완료된 객체에 다른 객체의 정보를 복사하기 위해서는 할당 연산자 오버로딩 이라고 하는 특수한 맴버 함수를 구현해야한다
 
-		해당 함수 또한 컴파일러에 의해서 자동으로 만들어지는 함수 
+		해당 함수 또한 컴파일러에 의해서 자동으로 만들어지는 함수
 		할당연산자 오버로딩이 존재하지 않을 경우 컴파일러가 자동으로 얕은 복사를 수행하는 해당 함수를 추가 한다.
 		*/
 		CArray& operator=(const CArray &a_rOther)//객체를 대상으로 연산자를 쓸수있게 만드는 부분 
 		{
 			SAFE_DELETE_ARRAY(m_pnValues);
-			
+
 			m_nSize = a_rOther.m_nSize;
 			m_nNumValues = a_rOther.m_nNumValues;
 
@@ -113,22 +120,22 @@ namespace E04Space
 			/*
 			c++ 모든 맴버 함수에는 해당 함수를 호출한 객체를 가리키는 this 포인터가 전달 된다
 			this 포인터는 현재 해당함수를 호출한 객체를 가리키는 용도이며 해당 포인터가 존재하기 때문에 맴버 함수에서 맴버 변수에 접근하는 것이 가능하다
-			->는 포인터에서 값을 전달할때 싸용함 
+			->는 포인터에서 값을 전달할때 싸용함
 			*/
 			return *this;
 		}
 
 	public:
 		/*
-		c++클래스 맴버함수는 const 키워드를 명시하여 해당함수를 
+		c++클래스 맴버함수는 const 키워드를 명시하여 해당함수를
 		상부 맴버 함수로 정의 하는 것이 가능하다
 
 		상수 맴버 함수란?
 		함수 내부에서 맴버 변수를 수정할수없는 함수를 상수 맴버 함수라고 한다
-		즉 해당 함수는 객체가 상수일 경우 컴파일러에게 해당 함수 내부에서는 
+		즉 해당 함수는 객체가 상수일 경우 컴파일러에게 해당 함수 내부에서는
 		값의 변경이 발생하지 않는다는 보장을 하기 위한 용도이다.
-		
-		따라서 상수 객체는 일반적인 맴버 함수는 호출 할 수 없으면 상수 맴버 함수만 호출이 가능하다 
+
+		따라서 상수 객체는 일반적인 맴버 함수는 호출 할 수 없으면 상수 맴버 함수만 호출이 가능하다
 		이는 일반적인 맴버함수 내에서 맴버 변수를 수정함에 있어서 발생하는 논리의 모순을 방지하기 위한것이다.
 		*/
 		//값의 개수를 반환
@@ -164,21 +171,21 @@ namespace E04Space
 		/*
 		c++의 함수에 매개 변수가 존재 할 경우 해당 매개 변수의 입력 값 없이 함수를 호출하는 것이 가능하다
 		즉 해당 행위가 가능한 이유는 함수에 입력 값이 없을 경우 자동으로 기본값을 설정할 수 있는 디폴트 매개 변수가 존재하기 때문이다
-		
+
 		특정 함수에 입력이 전달 되지 않았을 경우 해당 매개변수에 할당 값을 설정할수있는 기능을 의미한다.
 		일반 매개변수와 혼합 사용이 가능하지만 특정 매개 변수에 디폴트 값을 할당했을경우에는 해당 매개변수 다음 부터는 디폴트 값을 명시해줘야한다.
 		*/
 		//CArray(int a_nParams1,int a_nSize = DEF_SIZE,int a_nParams2) 이건 에러임 
 		CArray(int a_nSize = DEF_SIZE)
-		:
-		m_nSize(a_nSize)
+			:
+			m_nSize(a_nSize)
 		{
 			m_pnValues = new int[a_nSize];
 			memset(m_pnValues, 0, sizeof(int)*a_nSize);
 		}
 		//복사 생성자
 		CArray(const CArray &a_rOther)
-		{ 
+		{
 			*this = a_rOther;
 		}
 
@@ -201,13 +208,179 @@ namespace E04Space
 	{
 		for (int i = 0; i < a_oArray.GetNumValues(); ++i)
 		{
-			printf("%d ", a_oArray.GetValue(i)) ;
+			printf("%d ", a_oArray.GetValue(i));
 		}
 		printf("\n");
 	}
-	
 
 
+
+#elif PRACTICE_B
+enum class EMenu
+{
+	NONE = -1,
+	ADD_TRIANGLE,
+	ADD_RECTANGLE,
+	ADD_LINE,
+	DRAW_SHAPES,
+	EXIT,
+	MAX_VALUE
+
+};
+
+enum class EColor
+{
+	NONE = -1,
+	RED,
+	GREEN,
+	BLUE,
+	MAX_VALUE
+};
+
+class CShape
+{
+public:
+	//색상 반환
+	const char* GetColorStr(void)const
+	{
+		static const char*apszColorStrs[] = {
+		"빨간색",
+		"녹색",
+		"파란색"
+		};
+
+		return apszColorStrs[(int)m_eColor];
+	}
+
+	//도형을 그린다
+	virtual void DrawShape(void)= 0;
+protected://생성자
+	/*
+	c++클래스의 생성자를 public 수준이 아닌 다른 보호 수준으로 명시했을 경우 
+	이는 객체를 생성할수있는 범위를 제한 시키는 것을 의미한다
+	즉 protected  수준일 경우 해당 생성자는 자식 클래스 또는 내부에서만 호출 가능하기 때문에 이는 곧 외부에서 
+	해당 객체를 직접적으로 생성하는 것이 불가능 하다는 것을 의미한다
+	*/
+	CShape(const EColor a_eColor)
+	:
+	m_eColor(a_eColor)
+	{
+		//do nothing
+	}
+protected:
+	EColor m_eColor = EColor::NONE;
+};
+
+class CTriangle :public CShape
+{
+public:
+	//도형을 그린다
+	virtual void DrawShape()override
+	{
+		const char *pszColorStr = this->GetColorStr();
+		printf("%s 삼각형을 그린다\n",pszColorStr);
+	}
+
+public:
+	//생성자
+	CTriangle(const EColor a_eColor)
+	:
+	CShape(a_eColor)
+	{
+		//do nothing
+	}
+};
+
+class CRectangle :public CShape
+{
+public:
+	//도형을 그린다
+	virtual void DrawShape()override
+	{
+		const char *pszColorStr = this->GetColorStr();
+		printf("%s 사각형을 그린다\n", pszColorStr);
+	}
+
+public:
+	//생성자
+	CRectangle(const EColor a_eColor)
+	:
+	CShape(a_eColor)
+	{
+		//do nothing
+	}
+};
+
+class CLine :public CShape
+{
+public:
+	//도형을 그린다
+	virtual void DrawShape()override
+	{
+		const char *pszColorStr = this->GetColorStr();
+		printf("%s 선을 그린다\n", pszColorStr);
+	}
+
+public:
+	//생성자
+	CLine(const EColor a_eColor)
+		:
+		CShape(a_eColor)
+	{
+		//do nothing
+	}
+};
+
+class CCanvas
+{
+public://함수
+	void AddShape(CShape *a_pShape)
+	{
+		m_apShapes[m_nNumShapes++] = a_pShape;
+	}
+	//도형 그린다
+	void DrawShapes(void)
+	{
+		printf("\n");
+		for (int i = 0; i < m_nNumShapes; ++i)
+		{
+			m_apShapes[i]->DrawShape();
+		}
+	}
+public://소멸자
+	virtual ~CCanvas(void)
+	{
+		for (int i = 0; i < m_nNumShapes; ++i)
+		{
+			SAFE_DELETE(m_apShapes[i]);
+		}
+	}
+private:
+	//변수
+	int m_nNumShapes = 0;
+	CShape *m_apShapes[100];
+};
+
+CShape *CreateShape(EMenu a_eMenu)
+{
+	/*
+	uniform int distribution 객체는 최대 값을 포함한 해당 범위의 난수를 생성한다 즉 최소 0 ~ 최대 2 명시 경우 난수 값의 범위는 0~3까지 이다
+	*/
+	std::random_device oRandom;
+	std::uniform_int_distribution<int> oUniform((int)EColor::RED,(int)EColor::BLUE);
+
+	EColor eColor = static_cast<EColor>(oUniform(oRandom));
+	switch (a_eMenu)
+	{
+	case EMenu::ADD_TRIANGLE: 
+		return new CTriangle(eColor); break;
+	case EMenu::ADD_RECTANGLE: 
+		return new CRectangle(eColor); break;
+	case EMenu::ADD_LINE:
+		return new CLine(eColor); break;
+	}
+}
+#endif
 #elif E04_POLYMORPHISM
 	//부모클래스
 	class CParent
@@ -299,11 +472,33 @@ namespace E04Space
 	//서브 자식 클래스
 	class CSubChild : public CChild
 	{
+	public:
+		//값 변환 한다
+		int GetValue(void)
+		{
+			return m_nValue;
+		}
+
+		//상수 맴버 함수
+		/*
+		const cast 형변환 연산자를 사용하면 상수정을 일시적으로 제거하는 것이 가능하다 
+		따라서 상수맴버 함수 내부라 하더라도 해당 연산자를 사용하면 맴버 변수의 값을 변경하는 것이 가능하다
+		단 const cast는 기존의 논리를 무너뜨리는 행위를 수행하기 때문에 가능하면 사용하지 않는 것이 좋은 습관이다
+		(최후의 보루다)
+		*/
+		void ConstMemFunc(void)const
+		{//const cast
+			const_cast<CSubChild*>(this)->m_nValue = 10;
+		}
 	protected:
+
 		virtual void DoShowInfo() override
 		{
 			printf("CSubChild.DoShowInfo()호출\n");
 		}
+
+	private:
+		int m_nValue = 0;
 	public: //소멸자
 	virtual ~CSubChild()
 	{
@@ -315,11 +510,12 @@ namespace E04Space
 
 	void E04(const int argc, const char ** args)
 	{
-	#if E04_INHERITANCE
+#if E04_INHERITANCE
 		CChild oChild;
-		oChild.PrintInfo(); 
+		oChild.PrintInfo();
 
-	#elif E04_PRACTICE
+#elif E04_PRACTICE
+#if  PRACTICE_A
 		CArray oArrayA;
 
 		for (int i = 0; i < 10; ++i)
@@ -338,7 +534,50 @@ namespace E04Space
 		PrintArray(oArrayA);
 		printf("\narray c\n");
 		PrintArray(oArrayA);
-	#elif E04_POLYMORPHISM
+
+#elif PRACTICE_B
+		EMenu eMenu = EMenu::NONE;
+		CCanvas oCanvas;
+		do
+		{
+			printf("\n메뉴\n");
+			printf("1.삼각형 추가\n");
+			printf("2.사각형 추가\n");
+			printf("3.선 추가\n");
+			printf("4.도형 그리기\n");
+			printf("5.종료\n");
+			printf("\n 메뉴 선택 : ");
+			scanf("%d", &eMenu);
+
+			eMenu = static_cast<EMenu>((int)eMenu - 1);
+
+			switch (eMenu)
+			{
+			case EMenu::ADD_TRIANGLE:
+			case EMenu::ADD_RECTANGLE:
+			case EMenu::ADD_LINE:
+			{
+				CShape *pShape = CreateShape(eMenu);
+				oCanvas.AddShape(pShape);
+				break;
+			}
+			case EMenu::DRAW_SHAPES:
+			{
+				oCanvas.DrawShapes();
+				break;
+			}
+			case EMenu::EXIT:
+			{
+				break;
+			}
+			default:
+				break;
+			}
+
+		} while (eMenu != EMenu::EXIT);
+
+#endif //PRACTICE_A
+#elif E04_POLYMORPHISM
 		/*
 		부모 클래스의 포인터로 자식 객체를 가리키는 것은 허용되지만 반대로 자식 클래스의 포인터로 부모 객체를 가리키는 것은 불가능 하다
 		*/
@@ -346,9 +585,10 @@ namespace E04Space
 		CParent *pParentB = new CSubChild();
 		/*
 		c++ 형변환 연산자의 종류
+		//형변환 연산자들은 읽는 방법을 잠깐 바꾸는 것이다 이걸 포인터에 저장하지 않으면 원래 상태로 돌아간다
 		static_cast			불완전한 다운 캐스팅 지원
 		dynamic_cast		안전한 다운캐스팅 지원
-		const_cast			객체의 상수성 제거 지원
+		const_cast			객체의 상수성 제거 지원  상수성 제거는 최후의 보루
 		reinterpert_cast	정수<->주소간의 형변환
 
 		*/
@@ -356,11 +596,15 @@ namespace E04Space
 		CChild *pChildB = dynamic_cast<CChild*>(pParentB);
 		/*
 		dynamic cast 형 변환 연산자에 의해서 다운 캐스팅이 불가능 할경우 null 포인터가 반환 된다는 것을 알수있다
-		해당 연산자는 안전한 다운 캐스팅을 지원하기 위해서 내부적으로 안전성을 검사하는 코드들이 자동으로 추가되기 때문에 
+		해당 연산자는 안전한 다운 캐스팅을 지원하기 위해서 내부적으로 안전성을 검사하는 코드들이 자동으로 추가되기 때문에
 		이는 곧 퍼포먼스 저하를 유발시킬수 있다.
+
+		단 dynamic cast 형변환 연산자를 사용할때 가상함수가 존재하지 않으면 사용할수없다
+		이는 캐스팅 가능 여부를 가상함수 테이블을 대상으로 비교를 시도하기 때문에 가상함수 테이블이 없다면 해당 연산자를 사용하는 것이 불가능하다
+
 		*/
 		//자식 클래스 형변환 가능할경우
-		if ( pChildB != NULL)
+		if (pChildB != NULL)
 		{
 			printf("부모->자식 형 변환 가능\n");
 		}
@@ -375,6 +619,10 @@ namespace E04Space
 		printf("\n");
 		pChildA->ShowInfo();
 		printf("\n");
+		printf("\n==========상수 맴버 함수 호출=========\n");
+		static_cast<CSubChild*>(pChildA)->ConstMemFunc();
+		printf("Value : %d\n\n", static_cast<CSubChild*>(pChildA)->GetValue());
+
 		//pChildB->ShowInfo();
 		SAFE_DELETE(pParentA);
 		printf("\n");
@@ -384,6 +632,6 @@ namespace E04Space
 		printf("\n");
 		//SAFE_DELETE(pChildB);
 
-	#endif // E04_INHERITANCE
+#endif // E04_INHERITANCE
 	}
 }
