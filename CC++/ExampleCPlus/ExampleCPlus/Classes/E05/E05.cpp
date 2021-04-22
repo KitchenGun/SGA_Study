@@ -2,6 +2,10 @@
 
 //#define E05_CLASS_MEM	1
 #define E05_SINGLETON	2
+#if E05_SINGLETON
+#define SINGLETON_CASE_A	1
+#define SINGLETON_CASE_B	2
+#endif // E05_SINGLETON
 
 
 namespace E05Space
@@ -56,6 +60,7 @@ namespace E05Space
 
 
 #elif E05_SINGLETON
+#if SINGLETON_CASE_A
 
 	//싱글톤 데이터 관리자
 	class CDataManager
@@ -73,7 +78,13 @@ namespace E05Space
 		STData GetData(const std::string &a_rID)
 		{
 			int nIdx = this->FindData(a_rID);
-			assert(nIdx >= 0);
+			assert(nIdx >= 0);//항상 0보다 크다는 것을 가정하고 작성
+			/*
+			assert 매크로 함수를 사용하면 특정 조건이 거짓 일때 프로그램을 더이상 실행하지 않고 해당 파일에 대한 파일 경로+라인 출력해준다
+			assert 매크로는 개발중인 프로젝트에서만 작동하며 빌드버전 (디버깅을 안하는 작업)에서 작동하지 않는다 
+			*/
+			// try catch 대신에 사용함 
+
 
 			return m_astDatas[nIdx];
 		}
@@ -120,7 +131,7 @@ namespace E05Space
 			/*
 			싱글톤 패턴은 결과적으로 생성되는 객체를 1개로 제한 함으로서 전역 변수와 마찬가지로 고유한 객체 및 데이터를 생성하는 것이다 또한 일반적으로 싱글톤
 			객체는 미리 생성하는 것이 아니라 해당 객체를 필요로 하는 중간 생성이 된다
-			이를 Lazy Initialization 
+			이를 Lazy Initialization
 			게으른 초기화 객체 생성시 초기화 라고한다
 			*/
 			if (CDataManager::m_pInst == nullptr)
@@ -135,6 +146,15 @@ namespace E05Space
 			}
 
 			return CDataManager::m_pInst;
+		}
+		//인스턴스 제거
+		static void DestroyInst(void)
+		{
+			//인스턴스 존재할 경우
+			if (CDataManager::m_pInst != nullptr)
+			{
+				SAFE_DELETE(CDataManager::m_pInst);
+			}
 		}
 	private:
 		CDataManager(void)
@@ -153,9 +173,80 @@ namespace E05Space
 		STData m_astDatas[100];
 		static CDataManager *m_pInst;
 	};
-	
-	CDataManager *CDataManager::m_pInst = nullptr;
 
+	CDataManager *CDataManager::m_pInst = nullptr;
+#elif SINGLETON_CASE_B
+//싱글톤 A
+class CSingletonA 
+{
+public:
+	//정보 출력
+	void ShowInfo(void);
+
+	DECLARE_SINGLETON(CSingletonA)
+};
+/*
+:: 범위 지정 연산자를 사용하면 클래스의 맴버함수를 클래스 외부에 구현하는 것이 가능하다 즉 해당 연산자를 활용하면
+클래스의 선언 헤더파일 클래스의 정의는 소스파일에 각각 특정 클래스를 분리해서 코드작성하는 것이 가능하다
+*/
+//생성&소멸자
+CSingletonA::CSingletonA(void)
+{
+	printf("생성자a 호출\n");
+}
+CSingletonA::~CSingletonA(void)
+{
+	printf("소멸자a 호출\n");
+}
+//정보 출력
+void CSingletonA::ShowInfo(void)
+{
+	printf("csingleton A 호출\n");
+}
+//싱글톤 B
+class CSingletonB
+{
+public:
+	void ShowInfo(void);
+
+	DECLARE_SINGLETON(CSingletonB)
+};
+//생성&소멸자
+CSingletonB::CSingletonB(void)
+{
+	printf("생성자b 호출\n");
+}
+CSingletonB::~CSingletonB(void)
+{
+	printf("소멸자b 호출\n");
+}
+//정보 출력
+void CSingletonB::ShowInfo(void)
+{
+	printf("csingleton B 호출\n");
+}
+//싱글톤 C
+class CSingletonC
+{
+public:
+	void ShowInfo(void);
+
+	DECLARE_SINGLETON(CSingletonC)
+};
+//생성&소멸자
+CSingletonC::CSingletonC(void)
+{
+	printf("생성자c 호출\n");
+}
+CSingletonC::~CSingletonC(void)
+{
+	printf("소멸자c 호출\n");
+}
+void CSingletonC::ShowInfo(void) 
+{
+	printf("csingleton C 호출\n");
+}
+#endif // SINGLETON_CASE_A
 #endif // E05_CLASS_MEM
 
 	
@@ -180,18 +271,18 @@ namespace E05Space
 		printf("A : %d, %d\n", oWidgetA.GetValue(),oWidgetA.GetConstMemValue());
 		printf("B : %d, %d\n", oWidgetB.GetValue(),oWidgetB.GetConstMemValue());
 	#elif E05_SINGLETON
-		
+	#if SINGLETON_CASE_A
 		/*
-		CDataManager는 생성자가 private임으로 해당객체를 클래스 외부에서 생성하는 것이 불가능하다
-		소멸자 또한 private이기 때문에 클래스 외부에서 객체 제거가 불가능 하다
-		*/
-		//delete CDataManager::GetInst;
-		
+	CDataManager는 생성자가 private임으로 해당객체를 클래스 외부에서 생성하는 것이 불가능하다
+	소멸자 또한 private이기 때문에 클래스 외부에서 객체 제거가 불가능 하다
+	*/
+	//delete CDataManager::GetInst;
+
 
 		for (int i = 0; i < 10; i++)
 		{
 			CDataManager::STData stData = { std::to_string(i),i + 1,i + 1.5f };
-		
+
 			CDataManager::GetInst()->AddData(stData);
 		}
 		printf("데이타 관리자 추가 결과\n");
@@ -199,11 +290,19 @@ namespace E05Space
 		{
 			std::string oID = std::to_string(i);
 			CDataManager::STData stData = CDataManager::GetInst()->GetData(oID);
-			
+
 			printf("Data : [%d, %f]\n", stData.m_nValue, stData.m_fValue);
 		}
-		
-	
+
+		CDataManager::DestroyInst();
+	#elif SINGLETON_CASE_B
+		CSingletonA::GetInst()->ShowInfo();
+		printf("\n");
+		CSingletonB::GetInst()->ShowInfo();
+		printf("\n");
+		CSingletonC::GetInst()->ShowInfo();
+		printf("\n");
+	#endif // SINGLETON_CASE_A
 	#endif //E05_CLASS_MEM
 	}
 }
