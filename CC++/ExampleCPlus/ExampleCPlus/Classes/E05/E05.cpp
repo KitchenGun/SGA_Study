@@ -3,7 +3,7 @@
 //#define E05_CLASS_MEM	1
 #define E05_SINGLETON	2
 #if E05_SINGLETON
-#define SINGLETON_CASE_A	1
+//#define SINGLETON_CASE_A	1
 #define SINGLETON_CASE_B	2
 #endif // E05_SINGLETON
 

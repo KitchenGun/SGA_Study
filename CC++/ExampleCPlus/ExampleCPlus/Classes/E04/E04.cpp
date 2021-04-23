@@ -9,7 +9,7 @@
 //#define PRACTICE_A	1;
 #define PRACTICE_B	2;
 
-#endif
+#endif 
 namespace E04Space
 {
 #if E04_INHERITANCE
@@ -251,7 +251,10 @@ public:
 
 		return apszColorStrs[(int)m_eColor];
 	}
-
+	/*
+	c++언어는 mutable 키워드를 맴버 변수 앞에 명시함으로 써 해당 변수를 상수 맴버 함수 내부에서 변경이 가능하다
+	const cast 와 마찬가지로 mutable 키워드는 사용하지 않는 것이 좋은 습관이다. 
+	*/
 	//도형을 그린다
 	virtual void DrawShape(void)= 0;
 protected://생성자
@@ -268,9 +271,14 @@ protected://생성자
 		//do nothing
 	}
 protected:
-	EColor m_eColor = EColor::NONE;
+	mutable EColor m_eColor = EColor::NONE;
 };
-
+/*
+c++언어는 클래스 상속시 해당 클래스의 상속 수준을 명시하는 것이 가능하다
+이는 부모 클래스의 최소 보안 수준을 명시하는 것으로 써 만약 protected로 상송을 시도할 경우 
+부모 클래스의 private 와 protected 수준은 그대로 상속이 되지만 public 수준은 protected로 보정이 되어서 상속이 된다
+(public 이외로 상속 시도시 부모클래스의 맴버는 외부에서 접근 불가능 하다)
+*/
 class CTriangle :public CShape
 {
 public:
@@ -586,7 +594,7 @@ CShape *CreateShape(EMenu a_eMenu)
 		/*
 		c++ 형변환 연산자의 종류
 		//형변환 연산자들은 읽는 방법을 잠깐 바꾸는 것이다 이걸 포인터에 저장하지 않으면 원래 상태로 돌아간다
-		static_cast			불완전한 다운 캐스팅 지원
+		static_cast			불완전한 다운 캐스팅 지원  (기존 c의 형변환과 동일한 형태)책임은 사용자에게
 		dynamic_cast		안전한 다운캐스팅 지원
 		const_cast			객체의 상수성 제거 지원  상수성 제거는 최후의 보루
 		reinterpert_cast	정수<->주소간의 형변환
