@@ -20,6 +20,9 @@
     <Filter Include="Classes\P02">
       <UniqueIdentifier>{66fef9a0-9da6-462c-bb45-80c9499bdde1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P02\Calculator">
+      <UniqueIdentifier>{05300c84-5c38-46d8-8429-7fb4a09741c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PracticeCPlus\Classes\Global\Define\KGDefine.h">
@@ -31,6 +34,9 @@
     <ClInclude Include="PracticeCPlus\Classes\P02\P02.h">
       <Filter>Classes\P02</Filter>
     </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P02\Calculator.h">
+      <Filter>Classes\P02\Calculator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="PracticeCPlus\Classes\P02\P02.cpp">
       <Filter>Classes\P02</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P02\Calculator.cpp">
+      <Filter>Classes\P02\Calculator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
