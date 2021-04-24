@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClInclude Include="PracticeCPlus\Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="PracticeCPlus\Classes\P01\P01.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P02\P02.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\P01\P01.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P02\P02.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

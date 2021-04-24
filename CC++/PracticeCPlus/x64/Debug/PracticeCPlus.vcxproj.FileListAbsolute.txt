@@ -1,0 +1,4 @@
+D:\Git\SGA_Study\CC++\PracticeCPlus\x64\Debug\PracticeCPlus.exe
+D:\Git\SGA_Study\CC++\PracticeCPlus\x64\Debug\PracticeCPlus.pdb
+D:\Git\SGA_Study\CC++\PracticeCPlus1\x64\Debug\PracticeCPlus.exe
+D:\Git\SGA_Study\CC++\PracticeCPlus1\x64\Debug\PracticeCPlus.pdb
