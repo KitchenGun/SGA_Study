@@ -35,6 +35,9 @@
     <Filter Include="Classes\E07 템플릿">
       <UniqueIdentifier>{f826415e-0724-4069-bbc6-f7b04a0577b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\E08 C++11">
+      <UniqueIdentifier>{581622b4-dff5-45a4-9535-65111d273f97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -61,6 +64,9 @@
     <ClInclude Include="Classes\E07\E07.h">
       <Filter>Classes\E07 템플릿</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\E08\E08.h">
+      <Filter>Classes\E08 C++11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\ExampleCPlus.cpp">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="Classes\E07\E07.cpp">
       <Filter>Classes\E07 템플릿</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\E08\E08.cpp">
+      <Filter>Classes\E08 C++11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

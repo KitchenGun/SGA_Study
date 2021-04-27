@@ -26,6 +26,7 @@
     <ClInclude Include="Classes\E05\E05.h" />
     <ClInclude Include="Classes\E06\E06.h" />
     <ClInclude Include="Classes\E07\E07.h" />
+    <ClInclude Include="Classes\E08\E08.h" />
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
     <ClCompile Include="Classes\E05\E05.cpp" />
     <ClCompile Include="Classes\E06\E06.cpp" />
     <ClCompile Include="Classes\E07\E07.cpp" />
+    <ClCompile Include="Classes\E08\E08.cpp" />
     <ClCompile Include="Classes\ExampleCPlus.cpp" />
   </ItemGroup>
   <ItemGroup>
