@@ -8,6 +8,7 @@
 #include <functional>
 #include <algorithm>
 #include <string>
+#include <memory>
 
 #define SAFE_DELETE(TARGET)			if((TARGET)!=nullptr){delete(TARGET); (TARGET =nullptr);}
 #define SAFE_DELETE_ARRAY(TARGET)	if((TARGET)!=nullptr){delete[](TARGET); (TARGET =nullptr);}
