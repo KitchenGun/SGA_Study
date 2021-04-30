@@ -4,6 +4,7 @@
 //#define E08_RANGE_BASE_FOR	2
 //#define E08_SMART_POINTER	3
 #define E08_LAMBDA			4
+#define E08_MEM_FUNC_PTR	5
 
 #if E08_SMART_POINTER
 //#define AUTO_PTR	1
@@ -11,6 +12,7 @@
 //#define SHARED_PTR	3
 #define WEAK_PTR	4
 #endif
+
 
 
 namespace E08Space
@@ -100,6 +102,72 @@ namespace E08Space
 
 
 #elif E08_LAMBDA
+	/*
+	일반적으로 람다의 캡쳐절에는 참조 형식으로 외부 변수를 명시해주는 것이 내부적으로 메모리 복사가 덜 발생한다
+	하지만 만약 캡쳐한 외부 변수가 람다 호출되는 시점에 계속 존재한다는 보장이 없을 경우 반드시 해당 변수는 값 형식으로 캡쳐해야한다
+	
+	즉 참조 형식 캡쳐는 원본에 대한 주소만을 지니고있는 것이기 때문에 해당 변수를 메모리를 가리키는 댕글링 포인터를 유발하게 된다
+
+	c++언어는 함수 포인터의 역할을 수행하는 function 클래스를 지원한다 해당 클래스를 사용하면 일반적인 함수 뿐만 아니라 
+	특정 객체의 맴버 함수, 람다 함수 또한 해당 클래스를 통해서 제어하는 것이 가능하다 즉 코드를 작성함에 있어서 특정 함수에 대한 포인터 유형을 
+	고려하지 않고도 해당 함수를 특정함수의 반환값으로 사용하거나 매개 변수로 전달하는 것이 가능하다
+	*/
+	std::function<int(void)> GetLambda(int a_nVal)
+	{
+		return [&](void)->int
+		{
+			return a_nVal * a_nVal;
+		};
+	}
+	//값을 초기화한다
+	void InitVals(int *a_pnVals, int a_nSize, const std::function<int(int)> &a_rFunc)
+	{
+		for (int i = 0; i < a_nSize; i++)
+		{
+			a_pnVals[i] = a_rFunc(i);
+		}
+	}
+	//값을 출력한다
+	void PrintVals(int *a_pnVals, int a_nSize, const std::function<void(int,int)> &a_rFunc)
+	{
+		for (int i = 0; i < a_nSize; i++)
+		{
+			a_rFunc(i, a_pnVals[i]);
+		}
+		printf("\n");
+	}
+
+	//오름 차순 비교를 수행한다
+	bool CompareByAscending(int a_nLhs, int a_nRhs)
+	{
+		return a_nLhs > a_nRhs;
+	}
+
+#elif E08_MEM_FUNC_PTR
+	//데이터
+	class CData
+	{
+	public:
+		//제곱 값을 반환한다
+		int GetPowerVal(int a_nVal)
+		{
+			return a_nVal * a_nVal;
+		}
+		//정보 출력
+		void ShowInfo(void)
+		{
+			printf("Cdata.ShowInfo(void) : %d\n", m_nVal);
+		}
+	public:
+		CData(int a_nVal)
+			:m_nVal(a_nVal)
+		{
+			//do nothing
+		}
+
+	private:
+		int m_nVal = 0;
+	};
 
 #endif // E08_AUTO
 
@@ -345,6 +413,63 @@ namespace E08Space
 		};
 		printf("\n람다 함수 반환 결과\n");
 		printf("%d + %d = %d\n", nLhs, nRhs, oLambdaE());
+
+		auto oLambdaF = GetLambda(10);
+
+		printf("\n람다 반환 함수 호출 결과\n");
+		printf("%d * %d = %d", 10, 10, oLambdaF());
+
+		int anVals[10] = { 0 };
+		const int nSize = sizeof(anVals) / sizeof(anVals[0]);
+		InitVals(anVals, nSize, [](int a_nIdx)->int
+		{
+			return rand() % 100;
+		});
+
+		printf("\n배열 정렬 전\n");
+
+		PrintVals(anVals, nSize, [](int a_nIdx, int a_nVal)->void
+		{
+			printf("%d ", a_nVal);
+		});
+
+		std::sort(anVals, anVals + nSize, CompareByAscending);
+
+		printf("\n배열 정렬 후\n");
+
+		PrintVals(anVals, nSize, [](int a_nIdx, int a_nVal)->void
+		{
+			printf("%d ", a_nVal);
+		});
+		#elif E08_MEM_FUNC_PTR
+		CData oDataA(10);
+		CData oDataB(20);
+
+		printf("\n맴버 함수 직접 호출 결과\n");
+		oDataA.ShowInfo();
+		oDataB.ShowInfo();
+
+		void(CData::*pfnMemFuncA)(void) = &CData::ShowInfo;
+		void(CData::*pfnMemFuncB)(void) = &CData::ShowInfo;
+		
+		printf("\n맴버 함수 포인터 호출 결과\n");
+		(oDataA.*pfnMemFuncA)();
+		(oDataB.*pfnMemFuncB)();
+
+		std::function<void(void)> oFuncA = std::bind(&CData::ShowInfo, &oDataA);
+		std::function<void(void)> oFuncB = std::bind(&CData::ShowInfo, &oDataB);
+
+		std::function<int(int)> oFuncC = std::bind(&CData::GetPowerVal, &oDataA, std::placeholders::_1);
+		std::function<int(int)> oFuncD = std::bind(&CData::GetPowerVal, &oDataB, std::placeholders::_1);
+
+
+		printf("\nfunction 객체를 통한 함수 호출 결과\n");
+		oFuncA();
+		oFuncB();
+
+		printf("\n20 ^ 2 : %d \n",oFuncC(20));
+		printf("\n30 ^ 2 : %d \n", oFuncC(30));
+
 		#endif // E08_AUTO
 	}
 }

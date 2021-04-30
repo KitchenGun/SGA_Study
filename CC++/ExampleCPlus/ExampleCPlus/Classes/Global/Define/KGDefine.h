@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 
+
 #define SAFE_DELETE(TARGET)			if((TARGET)!=nullptr){delete(TARGET); (TARGET =nullptr);}
 #define SAFE_DELETE_ARRAY(TARGET)	if((TARGET)!=nullptr){delete[](TARGET); (TARGET =nullptr);}
 //매크로함수의 \는 줄을 건너 띈다는 의미이다
