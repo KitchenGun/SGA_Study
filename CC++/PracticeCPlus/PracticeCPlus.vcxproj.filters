@@ -23,6 +23,15 @@
     <Filter Include="Classes\P02\Calculator">
       <UniqueIdentifier>{05300c84-5c38-46d8-8429-7fb4a09741c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P03">
+      <UniqueIdentifier>{a1f7722f-6841-41a1-9aad-191934aabe2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P03\Map">
+      <UniqueIdentifier>{d62fbcdf-19f0-44a1-90de-c1ff7597f961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P03\Player">
+      <UniqueIdentifier>{b940ff75-bfc2-490a-82de-7d563961fa32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PracticeCPlus\Classes\Global\Define\KGDefine.h">
@@ -37,6 +46,15 @@
     <ClInclude Include="PracticeCPlus\Classes\P02\Calculator.h">
       <Filter>Classes\P02\Calculator</Filter>
     </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P03\P03.h">
+      <Filter>Classes\P03</Filter>
+    </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P03\Map.h">
+      <Filter>Classes\P03\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P03\PlayerCtrl.h">
+      <Filter>Classes\P03\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp">
@@ -50,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="PracticeCPlus\Classes\P02\Calculator.cpp">
       <Filter>Classes\P02\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P03\P03.cpp">
+      <Filter>Classes\P03</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P03\Map.cpp">
+      <Filter>Classes\P03\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P03\PlayerCtrl.cpp">
+      <Filter>Classes\P03\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
