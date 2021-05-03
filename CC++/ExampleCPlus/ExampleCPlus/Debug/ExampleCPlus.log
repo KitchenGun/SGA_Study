@@ -1,2 +1,6 @@
-﻿  E08.cpp
-  ExampleCPlus.vcxproj -> D:\SGA_Study\CC++\ExampleCPlus\Debug\ExampleCPlus.exe
+﻿  E09.cpp
+d:\sga_study\cc++\examplecplus\examplecplus\classes\e09\e09.cpp(94): error C3867: 'std::list<int,std::allocator<_Ty>>::push_back': 비표준 구문입니다. '&'를 사용하여 멤버 포인터를 만드세요.
+          with
+          [
+              _Ty=int
+          ]

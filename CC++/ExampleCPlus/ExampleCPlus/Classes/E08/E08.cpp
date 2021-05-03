@@ -3,8 +3,8 @@
 //#define E08_AUTO			1
 //#define E08_RANGE_BASE_FOR	2
 //#define E08_SMART_POINTER	3
-#define E08_LAMBDA			4
-#define E08_MEM_FUNC_PTR	5
+//#define E08_LAMBDA			4
+#define E08_MEM_FUNC_PTR    	5
 
 #if E08_SMART_POINTER
 //#define AUTO_PTR	1
@@ -449,6 +449,10 @@ namespace E08Space
 		oDataA.ShowInfo();
 		oDataB.ShowInfo();
 
+		/*
+		c++클래스의 맴버 함수 또한 포인터를 통한 호출이 가능하며 해당 포인터를 통해서 맴버함수를 호출 하기위해서는 해당 함수를 호출할 객체를 지정해줘야한다
+		*/
+
 		void(CData::*pfnMemFuncA)(void) = &CData::ShowInfo;
 		void(CData::*pfnMemFuncB)(void) = &CData::ShowInfo;
 		
@@ -458,7 +462,14 @@ namespace E08Space
 
 		std::function<void(void)> oFuncA = std::bind(&CData::ShowInfo, &oDataA);
 		std::function<void(void)> oFuncB = std::bind(&CData::ShowInfo, &oDataB);
-
+		/*
+		bind클래스는 특정 클래스의 맴버 함수와 해당 함수를 호출할 객체를 하나로 묶어주는 역할을 수행한다 
+		따라서 해당 객체를 통해 function 객체를 초기화 했을 경우 함수 호출시 객체의 명시를 생략하는 것이 가능하다 
+		즉 초기화 과정을 제외하면 function 객체를 통해서 일반적인 함수 포인터인지 맴버 함수 포인터인지 구별 없이
+		동일 한 인터페이스를 기반으로 함수를 호출하는 것이 가능하다
+		
+		단 bind 클래스를 통해서 매개 변수를 전달 받는 맴버 함수를 가리키기 위해서는 placeholders를 통해서 매개 변수의 개수만큼 해당 자리를 명시해줘야한다 
+		*/
 		std::function<int(int)> oFuncC = std::bind(&CData::GetPowerVal, &oDataA, std::placeholders::_1);
 		std::function<int(int)> oFuncD = std::bind(&CData::GetPowerVal, &oDataB, std::placeholders::_1);
 

@@ -9,7 +9,12 @@
 #include <algorithm>
 #include <string>
 #include <memory>
-
+#include <array>
+#include <vector>
+#include <list>
+#include <map>
+#include <unordered_map>
+#include <set>
 
 #define SAFE_DELETE(TARGET)			if((TARGET)!=nullptr){delete(TARGET); (TARGET =nullptr);}
 #define SAFE_DELETE_ARRAY(TARGET)	if((TARGET)!=nullptr){delete[](TARGET); (TARGET =nullptr);}
