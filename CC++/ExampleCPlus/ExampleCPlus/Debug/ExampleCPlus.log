@@ -1,7 +1,4 @@
 ﻿  E09.cpp
-d:\sga_study\cc++\examplecplus\examplecplus\classes\e09\e09.cpp(247): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>'입니다.
-          with
-          [
-              _Ty=int
-          ]
+  ExampleCPlus.cpp
+  코드를 생성하고 있습니다...
   ExampleCPlus.vcxproj -> D:\SGA_Study\CC++\ExampleCPlus\Debug\ExampleCPlus.exe

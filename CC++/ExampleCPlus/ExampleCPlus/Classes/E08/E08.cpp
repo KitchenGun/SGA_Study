@@ -2,14 +2,14 @@
 
 //#define E08_AUTO			1
 //#define E08_RANGE_BASE_FOR	2
-//#define E08_SMART_POINTER	3
+#define E08_SMART_POINTER	3
 //#define E08_LAMBDA			4
-#define E08_MEM_FUNC_PTR    	5
+//#define E08_MEM_FUNC_PTR    	5
 
 #if E08_SMART_POINTER
 //#define AUTO_PTR	1
-//#define UNIQUE_PTR	2
-//#define SHARED_PTR	3
+#define UNIQUE_PTR	2
+#define SHARED_PTR	3
 #define WEAK_PTR	4
 #endif
 
@@ -32,6 +32,14 @@ namespace E08Space
 		}
 	};
 
+
+	//파일 스트림을 닫는다
+
+	void CloseFStream(FILE *a_pstStream)
+	{
+		fclose(a_pstStream);
+		printf("CloseFStream 호출\n");
+	}
 
 	class CWidgetB;
 
@@ -99,8 +107,6 @@ namespace E08Space
 	private:
 		std::weak_ptr<CWidgetA> m_oTargetPtr;
 	};
-
-
 #elif E08_LAMBDA
 	/*
 	일반적으로 람다의 캡쳐절에는 참조 형식으로 외부 변수를 명시해주는 것이 내부적으로 메모리 복사가 덜 발생한다
@@ -214,7 +220,7 @@ namespace E08Space
 		}
 
 		#elif E08_SMART_POINTER
-		#if AUTO_PTR||UNIQUE_PTR||SHARED_PTR
+		#if AUTO_PTR
 		std::auto_ptr<CWidget> oPtrA(new CWidget());
 		std::auto_ptr<CWidget> oPtrB;
 
@@ -276,6 +282,17 @@ namespace E08Space
 		{
 			printf("UPtrB객체가 권한을 가지고 있습니다.\n");
 		}
+		/*
+		unique ptr 포인터 객체에 삭제자를 지정하기 위해서는 shared ptr 과 달리 템플릿 형식 인자에 삭제자에 대한 자료형을 명시해줘야한다 
+		따라서 decltype 키워드를 사용하면 손쉽게 삭제자에 대한 자료형을 가져오는 것이 가능하다
+		*/
+		FILE *pstRStream = fopen("Example08.txt", "wt"); 
+		std::unique_ptr<FILE, decltype(&CloseFStream)> oRStreamPtr(pstRStream, CloseFStream);
+
+		if (pstRStream != nullptr)
+		{
+			fprintf(oRStreamPtr.get(), "Hi");
+		}
 
 		#elif SHARED_PTR
 		std::shared_ptr<CWidget> oSharedPtrA(new CWidget());
@@ -314,6 +331,17 @@ namespace E08Space
 
 		printf("\nshared ptr a 참조 해제후\n");
 		printf("ref count %d \n", oSharedPtrB.use_count());
+		/*
+		c++ 11의 스마트 포인터 shared ptr unique ptr 은 생성시 삭제자를 지정하는 것이
+		가능하면 만약 삭제자가 지정되었을 경우 해당 포인터가 가리키는 대상을 정리해야될 시점에 다른 컴퓨터 자원 또한 스마트 포인터를 통해서
+		관리하는 것이 가능ㅎㅏ다
+		*/
+		std::shared_ptr<FILE> oWStreamPtr(fopen("Example_08.txt", "wt"), CloseFStream);//람다를 사용해도됨
+
+		if (oWStreamPtr != nullptr)
+		{
+			fprintf(oWStreamPtr.get(), "hi");
+		}
 		#elif WEAK_PTR 
 		std::shared_ptr<CWidgetA> oWidgetAPtr(new CWidgetA());
 		std::shared_ptr<CWidgetB> oWidgetBPtr(new CWidgetB());

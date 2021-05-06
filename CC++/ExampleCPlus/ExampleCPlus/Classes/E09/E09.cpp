@@ -3,7 +3,7 @@
 namespace  E09Space
 {
 //#define E09_COLLECTION		1
-#define E09_ITERATOR		2
+//#define E09_ITERATOR		2
 #define E09_UTILITY_FUNC	3
 
 #if E09_COLLECTION
@@ -33,7 +33,38 @@ namespace  E09Space
 
 	}
 #endif//COLLECTION_SET
+#elif E09_ITERATOR
+	//이터레이터 레퍼
+	template <class T>
+	class CIteratorWrapper
+	{
+	public:
+		//첫 시작위치를 반환한다
+		T *begin(void)
+		{
+			return m_ptVals;
+		}
+		//종료 위치를 반환한다
+		T * end(void)
+		{
+			return m_ptVals + m_nNumVals;
+		}
+
+	public://생성자
+		CIteratorWrapper(T *a_ptVals, int a_nNumVals)
+		:
+			m_nNumVals(a_nNumVals),
+			m_ptVals(a_ptVals)
+		{
+			//do nothing
+		}
+	private:
+		int m_nNumVals = 0;
+		T *m_ptVals = nullptr;
+	};
 #endif//E09_COLLECTION
+
+
 
 	void E09(const int argc, const char ** args)
 	{
@@ -262,7 +293,62 @@ namespace  E09Space
 		printf("[%s] %d ", oIterator->first.c_str(),oIterator->second);
 	}
 
-#elif E09_UTILITY_FUNC
+	int *pnVals = new int[10];
+	std::string *poStrs = new std::string[10];
+	
+	CIteratorWrapper<std::string> oStrWrapper(poStrs, 10);
+	CIteratorWrapper<int> oIntWrapper(pnVals, 10);
+	/*
+	동적으로 할당된 배열을 기반으로 범위기반 for 문을 사용하기 위해서는 반복자 인터페이스를 제공하는 클래스를 제작해야한다
+	즉 begin과 end함수로 지니는 클래스를 선언및 구현해야함
+
+	따라서 범위 기반 for 문은 컴파일러에 의해서 내부적으로 반복자를 활용한 코드로 변경이 된다는 것을 알수있다.
+	*/
+	for (int &rnVal : oIntWrapper)
+	{
+		rnVal = rand() % 10;
+	}
+	for (std::string &rStr : oStrWrapper)
+	{
+		rStr = std::to_string(rand() % 10);
+	}
+
+	printf("\n\n커스텀 범위 기반 for문 결과\n");
+
+	for (int &rnVal : oIntWrapper)
+	{
+		printf("%d ", rnVal);
+	}
+
+	for (std::string &rStr : oStrWrapper)
+	{
+		printf("%s ", rStr.c_str());
+	}
+
+	printf("\n");
+	SAFE_DELETE_ARRAY(pnVals);
+
+
+
+	#elif E09_UTILITY_FUNC
+	std::vector<int> oValList;
+	for (int i = 0; i < 10; ++i)
+	{
+		oValList.push_back(i + 1);
+	}
+	printf("\nfor each 함수를 통한 vector 요소 출력 \n");
+
+	std::for_each(oValList.begin(), oValList.end(), [](int a_nVal)->void {
+		printf("%d ", a_nVal);
+	});
+	
+	oValList.erase(oValList.begin()+2);
+	/*
+	백터 반복자는 임의 접근이 가능하기 때문에 만약 vector 요소의 특정 위치게 존재하고 싶다면 
+	begin 함수를 통해서 데이터의 첫위치를 가져온 후 포인터연산을 통해서 해당위치를 계산하면된다
+	증감연산은 모두 가능하다 
+	해당 행위는 vector이기 때문에 할수있는 연산이다
+	*/
 	#endif//E09_COLLECTION
 	}
 }
