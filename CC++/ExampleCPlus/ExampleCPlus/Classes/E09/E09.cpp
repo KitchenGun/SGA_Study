@@ -4,7 +4,9 @@ namespace  E09Space
 {
 //#define E09_COLLECTION		1
 //#define E09_ITERATOR		2
-#define E09_UTILITY_FUNC	3
+//#define E09_UTILITY_FUNC	3
+#define E09_THREAD			4
+
 
 #if E09_COLLECTION
 //#define COLLECTION_ARRAY	1
@@ -62,6 +64,55 @@ namespace  E09Space
 		int m_nNumVals = 0;
 		T *m_ptVals = nullptr;
 	};
+#elif E09_THREAD
+	
+	static std::mutex g_oMutex;
+
+	//카운팅 클래스
+	class CCounting
+	{
+	public:
+
+		//카운트 반환
+		int GetCount(void) const
+		{
+			return m_nCounting;
+		}
+		//카운트 시작
+		void StartCounting(int a_nCounting)
+		{
+			/*
+			lockguard 클래스를 사용하면 생성자에 넘겨진 동기화 객체를 자동적으로 관리하는 것이 가능하다 
+			즉 lockguard 클래스의 생성자가 호출되면 해당 동기화 객체의 lock 함수를 호출하며
+			소멸자가 호출되었을때 unlock함수를 호출함으로써 좀더 안전하게 동기화 처리하는 것이 가능하다
+			
+			만약 특정 동기화 객체의 lock 함수를 호출한 상태에서 unlock 함수를 호출하지 않을 경우
+			이는 특정 쓰레드가 해당 동기화 객체의 자원을 무한정 대기하는 데드락 현상을 유발시킨다
+			*/
+			std::lock_guard<std::mutex> oLockGuard(g_oMutex);
+			//os에서 관리해주는 객체(스택구조를 이용해서 생성자와 소멸자에 안전한 동기화가 가능해지도록 제작)
+
+			//g_oMutex.lock();
+			for(int i =0;i < a_nCounting;++i)
+			{
+				m_nCounting += 1;
+			}
+			//g_oMutex.unlock();//특정 공간을 해지하지 않으면 데드락현상이라고함 
+		}
+	private://변수
+		int m_nCounting=0;
+	};
+
+	static CCounting g_oCounting;
+
+	//서브 쓰레드를 시작한다
+	void StartSubThread(void)
+	{
+		for (int i = 0; i < 10000; ++i)
+		{
+			printf("subthread\n");
+		}
+	}
 #endif//E09_COLLECTION
 
 
@@ -342,13 +393,116 @@ namespace  E09Space
 		printf("%d ", a_nVal);
 	});
 	
-	oValList.erase(oValList.begin()+2);
 	/*
 	백터 반복자는 임의 접근이 가능하기 때문에 만약 vector 요소의 특정 위치게 존재하고 싶다면 
 	begin 함수를 통해서 데이터의 첫위치를 가져온 후 포인터연산을 통해서 해당위치를 계산하면된다
 	증감연산은 모두 가능하다 
 	해당 행위는 vector이기 때문에 할수있는 연산이다
 	*/
+	oValList.erase(oValList.begin()+2);
+	/*
+	find함수를 사용하면 특정 컬렉션에 존재하는 데이터의 존재여부를 탐색하는 것이 가능하다
+	해당 함수는 만약 탐색하고자하는 값이 컬렉션 내부에 존재할 경우 해당 위치를 가리키는 반복자가 반환되며
+	존재하지 않는다면 end 반복자가 반환된다
+	즉 해당 함수 결과를 end 반복자와 비교함으로써 데이터의 존재여부를 검사하는 것이 가능하다.
+	*/
+	auto oIteratorA = std::find(oValList.begin(), oValList.end(), 5);
+	//삭제 할 값이 존재할 경우
+	if (oIteratorA != oValList.end())
+	{
+		oValList.erase(oIteratorA);
+	}
+
+	printf("\n 5 제거후 vector 요소 출력 \n");
+
+	std::for_each(oValList.begin(), oValList.end(), [](int a_nVal)->void {
+		printf("%d ", a_nVal);
+	});
+
+	/*
+	find if 함수 또한 find 함수와 같이 컬렉션에 특정 데이터를 탐색하는 역할을 수행한다
+	단 해당 함수는 컬렉션 내부에 존재하는 데이터를 비교하는 함수를 직접 명시함으로써 
+	사용자 정의 자료형과 같은 데이터를 비교할때 사용자가 원하는 기준으로 데이터를 탐색하는 것이
+	가능하다
+	*/
+	auto oIteratorB = std::find_if(oValList.begin(), oValList.end(), [](int a_nVal)->bool {
+		return a_nVal == 15;
+	});
+
+	//삭제할 값이 존재할 경우
+	if (oIteratorB != oValList.end())
+	{
+		oValList.erase(oIteratorB);
+	}
+	printf("\n15제거 후  함수를 통한 vector 요소 출력 \n");
+
+	std::for_each(oValList.begin(), oValList.end(), [](int a_nVal)->void {
+		printf("%d ", a_nVal);
+	});
+
+	/*
+	안정정렬 불안정 정렬
+	*/
+	//불안정 정렬
+	//std::sort
+	//병합 정렬
+	//std::stable_sort
+	/*
+	c++언어는 특정 컬렉션의 요소를 정렬하기 위한 sort 함수와 stable sort 함수를 제공한다
+	sort 함수는 내부적으로 퀵정렬 알고리즘으로 되어있기 때문에 불안정 정렬을 수행하며 stable sort 함수는 
+	내부적으로 병합 정렬 알고리즘으로 되어있기 때문에 안정 정렬을 수행한다
+
+	안정 정렬이란?
+	-특정 데이터를 정렬시키고 나면 이전에 정렬 되어있던 순서를 보장할수있다면 이를 안정정렬이라고 한다
+	*/
+
+	std::sort(oValList.begin(), oValList.end(), [](int a_nLhs, int a_nRhs)->bool{
+		return a_nRhs < a_nLhs;
+	});
+	printf("\n내림차순 정렬후 vector 요소 출력 \n");
+
+	std::for_each(oValList.begin(), oValList.end(), [](int a_nVal)->void {
+		printf("%d ", a_nVal);
+	});
+
+	#elif E09_THREAD
+	/*
+	thread 클래스를 사용하면 메인 쓰레드 이외에 별도의 쓰레드를 생성하는 것이 가능하다
+	
+	thread란?
+	cpu가 프로그램을 실행하기 위한 시간을 할당받는 기본단위 
+	기본적으로 모든 프로그램은 cpu에 의해서 해당 프로그램이 지니고 있는 명령어가 해석되야지만 프로그램이 동작한다
+	이때 cpu는 쓰레드 기반으로 특정 프로그램의 명령어를 해석하기 위한 시간이 주어지며 
+	만약 이 쓰레드를 프로그램이 여러개 가지고 있다면 동시에 여러 명령어 처리하는것이 가능하다 
+	즉 모든 프로그램은 실행과 동시에 쓰레드가 생성되며 해당 쓰레드를 메인 쓰레드라고 한다
+	*/
+		std::thread oThreadA(StartSubThread);
+		std::thread oThreadB([](void)->void 
+		{
+			g_oCounting.StartCounting(1000000); 
+		});
+		std::thread oThreadC([](void)->void 
+		{
+			g_oCounting.StartCounting(1000000); 
+		});
+		for (int i = 0; i < 10000; ++i)
+		{
+			printf("main\n");
+		}
+		oThreadA.join();//스레드 a 가 종료되길 기다린다
+		oThreadB.join();
+		oThreadC.join();
+
+		printf("\n카운팅 완료후\n");
+		printf("%d \n", g_oCounting.GetCount());
+		/*
+		thread 객체에 join함수를 사용하면 해당 thread 종료시 까지 대기
+		c++은 메인쓰레드가 종료되기 전에 반드시 서브 쓰레드의 종료가 완료되어야하고 
+		이 규칙이 지켜지지 않을 경우 프로그램이 오작동 하거나 크래시가 발생한다
+		
+		따라서 메인 쓰레드에서는 별도의 서브 쓰레드를 생성했을경우
+		메인 쓰레드의 구문을 모두 실행하고 난후 반드시 서브 쓰레드의 종료를 대기해야한다
+		*/
 	#endif//E09_COLLECTION
 	}
 }

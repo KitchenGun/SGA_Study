@@ -336,7 +336,11 @@ namespace E08Space
 		가능하면 만약 삭제자가 지정되었을 경우 해당 포인터가 가리키는 대상을 정리해야될 시점에 다른 컴퓨터 자원 또한 스마트 포인터를 통해서
 		관리하는 것이 가능ㅎㅏ다
 		*/
-		std::shared_ptr<FILE> oWStreamPtr(fopen("Example_08.txt", "wt"), CloseFStream);//람다를 사용해도됨
+		//std::shared_ptr<FILE> oWStreamPtr(fopen("Example_08.txt", "wt"), CloseFStream);//람다를 사용해도됨
+		
+		std::shared_ptr<FILE> oWStreamPtr(fopen("Example_08.txt", "wt"), [](FILE *a_pstStream) -> void {
+			fclose(a_pstStream);
+		});
 
 		if (oWStreamPtr != nullptr)
 		{
