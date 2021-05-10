@@ -10,7 +10,8 @@
 #include <string>
 #include <stdlib.h>
 #include <conio.h>
-
+#include <vector>
+#include <map>
 
 #define SAFE_DELETE(TARGET)			if((TARGET)!=nullptr){delete(TARGET); (TARGET =nullptr);}
 #define SAFE_DELETE_ARRAY(TARGET)	if((TARGET)!=nullptr){delete[](TARGET); (TARGET =nullptr);}

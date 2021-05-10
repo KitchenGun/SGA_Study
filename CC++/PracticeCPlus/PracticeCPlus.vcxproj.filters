@@ -32,6 +32,18 @@
     <Filter Include="Classes\P03\Player">
       <UniqueIdentifier>{b940ff75-bfc2-490a-82de-7d563961fa32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P04">
+      <UniqueIdentifier>{debe1651-0651-4a79-a33e-22115c4140a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P04\Vector">
+      <UniqueIdentifier>{76b0bbbf-a890-4cb0-a1db-135254ba96c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P04\Map">
+      <UniqueIdentifier>{881e5133-4981-44c8-be2d-159a7e5e94f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\P04\Member">
+      <UniqueIdentifier>{bc715a94-1e6b-4c13-8598-035de7188552}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PracticeCPlus\Classes\Global\Define\KGDefine.h">
@@ -55,6 +67,18 @@
     <ClInclude Include="PracticeCPlus\Classes\P03\PlayerCtrl.h">
       <Filter>Classes\P03\Player</Filter>
     </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P04\P04.h">
+      <Filter>Classes\P04</Filter>
+    </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P04\VectorMemberManager.h">
+      <Filter>Classes\P04\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P04\Member.h">
+      <Filter>Classes\P04\Member</Filter>
+    </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P04\MapMemberManager.h">
+      <Filter>Classes\P04\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp">
@@ -77,6 +101,18 @@
     </ClCompile>
     <ClCompile Include="PracticeCPlus\Classes\P03\PlayerCtrl.cpp">
       <Filter>Classes\P03\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P04\P04.cpp">
+      <Filter>Classes\P04</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P04\VectorMemberManager.cpp">
+      <Filter>Classes\P04\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P04\Member.cpp">
+      <Filter>Classes\P04\Member</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P04\MapMemberManager.cpp">
+      <Filter>Classes\P04\Map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

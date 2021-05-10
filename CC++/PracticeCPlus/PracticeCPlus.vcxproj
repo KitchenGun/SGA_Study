@@ -146,6 +146,10 @@
     <ClInclude Include="PracticeCPlus\Classes\P03\Map.h" />
     <ClInclude Include="PracticeCPlus\Classes\P03\P03.h" />
     <ClInclude Include="PracticeCPlus\Classes\P03\PlayerCtrl.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P04\MapMemberManager.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P04\Member.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P04\P04.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P04\VectorMemberManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\P01\P01.cpp" />
@@ -154,6 +158,10 @@
     <ClCompile Include="PracticeCPlus\Classes\P03\Map.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\P03\P03.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\P03\PlayerCtrl.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P04\MapMemberManager.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P04\Member.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P04\P04.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P04\VectorMemberManager.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
