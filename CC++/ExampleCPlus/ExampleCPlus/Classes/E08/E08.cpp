@@ -8,7 +8,7 @@
 
 #if E08_SMART_POINTER
 //#define AUTO_PTR	1
-#define UNIQUE_PTR	2
+//#define UNIQUE_PTR	2
 #define SHARED_PTR	3
 #define WEAK_PTR	4
 #endif
@@ -31,6 +31,7 @@ namespace E08Space
 			printf("CWidget.~CWidget(void)소멸자 호출\n");
 		}
 	};
+
 
 
 	//파일 스트림을 닫는다

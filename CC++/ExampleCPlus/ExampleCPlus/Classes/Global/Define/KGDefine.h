@@ -10,6 +10,8 @@
 #include <string>
 #include <memory>
 #include <thread>
+#include <future>
+#include <chrono>
 #include <mutex>
 #include <array>
 #include <vector>

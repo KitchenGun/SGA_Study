@@ -3,9 +3,10 @@
 namespace  E09Space
 {
 //#define E09_COLLECTION		1
-//#define E09_ITERATOR		2
-//#define E09_UTILITY_FUNC	3
-#define E09_THREAD			4
+//#define E09_ITERATOR			2
+//#define E09_UTILITY_FUNC		3
+//#define E09_THREAD			4
+#define E09_MOVE_CONSTRUCTOR	5
 
 
 #if E09_COLLECTION
@@ -108,11 +109,65 @@ namespace  E09Space
 	//서브 쓰레드를 시작한다
 	void StartSubThread(void)
 	{
-		for (int i = 0; i < 10000; ++i)
-		{
-			printf("subthread\n");
-		}
+		//for (int i = 0; i < 10000; ++i)
+		//{
+		//	printf("subthread\n");
+		//}
+		printf("Sub ThreadID: %d\n", std::this_thread::get_id());
 	}
+#elif E09_MOVE_CONSTRUCTOR
+//widget
+	class CWidget
+	{
+	public:
+		/*
+		이동 생성자와 이동 대입 연산자는 복사 생성자 메커니즘을 구현하는 것과 달리 컴파일러가 자동으로 해당 함수를 생성해주지 않기 때문에
+		이동 시멘틱을 구현하기 위해서는 반드시 별도로 해당 함수를 구현해야한다
+		
+		이동생성자와 이동 대입 연산자는 move 함수를 사용함으로써 호출하는 것이가능하다
+		즉 단순히 객체를 대입했을 경우 복사 매커니즘이 수행된다는 것을 알수있다.
+		*/
+		void operator=(CWidget &&a_rOther)
+		{
+			SAFE_DELETE(m_pnVals);
+			m_nSize = a_rOther.m_nSize;
+			m_pnVals = a_rOther.m_pnVals;
+
+			a_rOther.m_nSize = 0;
+			a_rOther.m_pnVals = nullptr;
+		}
+	public:
+		//생성자
+		CWidget(void)
+		{
+			m_nSize = 1000000;
+			m_pnVals = new int[m_nSize];
+		}
+		//복사 생성자
+		CWidget(const CWidget &a_rOther)
+		{
+			m_pnVals = new int[a_rOther.m_nSize];
+			memcpy(m_pnVals, a_rOther.m_pnVals, sizeof(int)*a_rOther.m_nSize);
+		}
+		//이동 생성자
+		CWidget(CWidget &&a_rOther)
+		{
+			m_nSize = a_rOther.m_nSize;
+			m_pnVals = a_rOther.m_pnVals;
+
+			a_rOther.m_nSize = 0;
+			a_rOther.m_pnVals = nullptr;
+		}
+		//소멸자
+		virtual ~CWidget(void)
+		{
+			SAFE_DELETE(m_pnVals);
+		}
+	private:
+		int *m_pnVals = nullptr;
+		int m_nSize = 0;
+	};
+
 #endif//E09_COLLECTION
 
 
@@ -475,8 +530,12 @@ namespace  E09Space
 	이때 cpu는 쓰레드 기반으로 특정 프로그램의 명령어를 해석하기 위한 시간이 주어지며 
 	만약 이 쓰레드를 프로그램이 여러개 가지고 있다면 동시에 여러 명령어 처리하는것이 가능하다 
 	즉 모든 프로그램은 실행과 동시에 쓰레드가 생성되며 해당 쓰레드를 메인 쓰레드라고 한다
+
+	thread가 각각에 연관성있는 데이터 처리를 병렬 처리 라고한다.
+	c++에서 future라는 기능을 사용하여서 병렬처리를 진행할수있다
 	*/
 		std::thread oThreadA(StartSubThread);
+
 		std::thread oThreadB([](void)->void 
 		{
 			g_oCounting.StartCounting(1000000); 
@@ -485,10 +544,17 @@ namespace  E09Space
 		{
 			g_oCounting.StartCounting(1000000); 
 		});
-		for (int i = 0; i < 10000; ++i)
-		{
-			printf("main\n");
-		}
+		/*
+		this_thread 이름 공간에 존재하는 getid를 호출하면 쓰레드의 식별자를 가져올수있다
+		즉 thread 또는 async 함수를 통해서 비동기 처리를 했을 경우 서로 다른 쓰레드 식별자를 가져오는 것을 알수있다.
+		*/
+		printf("Main ThreadID: %d\n", std::this_thread::get_id());
+
+		//for (int i = 0; i < 10000; ++i)
+		//{
+		//	printf("main\n");
+		//}
+
 		oThreadA.join();//스레드 a 가 종료되길 기다린다
 		oThreadB.join();
 		oThreadC.join();
@@ -503,6 +569,72 @@ namespace  E09Space
 		따라서 메인 쓰레드에서는 별도의 서브 쓰레드를 생성했을경우
 		메인 쓰레드의 구문을 모두 실행하고 난후 반드시 서브 쓰레드의 종료를 대기해야한다
 		*/
+		//future
+		printf("\ncpu코어 정보 출력 \n");
+		printf("core %d\n", std::thread::hardware_concurrency());
+		/*
+		hardware_concurrency를 사용하면 현재 프로그램이 구동중인 하드웨어의 cpu 개수를 가져오는것이 가능하다
+		따라서 비동기 처리 작업을 수행할때 적절한 쓰레드 개수를 계산하는 것이 가능하다
+		*/
+		/*
+		ex 필드의 몬스터를 세는 쓰레드의 경우 숫자가 너무많을 경우 async를 사용한다 연관성 있는 데이터 처리용으로 사용함
+		
+		c++언어는 async 함수를 통해서 병렬 처리를 수행하는 것이 가능하다 즉 해당 함수를 사용하면 내부적으로 별도의 쓰레드가 생성이되며
+		해당 함수에 주어진 구문을 실행한다
+
+		또한 async 함수는 future 객체를 반환값으로 돌려주며 해당 객체를 사용하면 비동기 처리 결과를 가져오는 것이 가능하다
+		즉 쓰레드를 사용해서 이와같은 처리를 하기 위해서는 별도의 공간을 생성할 필요가 있지만 async함수를 사용하면 
+		좀더 쉽게 비동기 처리 결과를 가져오는 것이 가능하다
+		비동기 처리 결과를 가져오기 위해서는 future 객체의 get 함수를 호출하면된다 만약 해당 함수가 호출된 시점에
+		아직 처리 작업이 종료되지 않았을 경우 해당 함수 내부에서 비동기 처리 완료까지 대기후 해당 결과를 가져오는 것이 가능하다
+
+		즉 비동기 처리 작업 요청후 별도의 작업을 수행하는 것이 가능하며 해당 작업을 다 완료하였을 경우
+		비동기 처리 결과를 대기 함으로써 병렬 처리를 수행하는 것이 가능하다 
+		*/
+		std::future<int> oFutureA = std::async([](int a_nVal)->int {
+			int nSumVal = 0;
+			for (int i = 0; i < a_nVal; ++i)
+			{
+				nSumVal += i + 1;
+			}
+			printf("AsyncA ThreadID: %d\n", std::this_thread::get_id());
+			return nSumVal;
+		},10000);
+
+		std::future<int> oFutureB = std::async([](int a_nVal)->int {
+			int nSumVal = 0;
+			for (int i = 0; i < a_nVal; ++i)
+			{
+				nSumVal += i + 1;
+			}
+			printf("AsyncB ThreadID: %d\n", std::this_thread::get_id());
+			return nSumVal;
+		}, 10000);
+
+		int nResultA = oFutureA.get();
+		int nResultB = oFutureB.get();
+
+		printf("\n비동기 처리 결과 \n");
+		printf("비동기 결과A : %d \n", nResultA);
+		printf("비동기 결과B : %d \n", nResultB);
+
+	#elif E09_MOVE_CONSTRUCTOR
+	int nSize = 1000;
+	std::vector<CWidget> oWidgetListA;
+	for (int i = 0; i < nSize; ++i)
+	{
+		CWidget oWidget;
+		oWidgetListA.push_back(std::move(oWidget));
+	}
+	std::chrono::system_clock::time_point oPrevTime = std::chrono::system_clock::now();
+	std::vector<CWidget> oWidgetListB(oWidgetListA);
+	std::chrono::duration<float> oDeltaTime(std::chrono::system_clock::now() - oPrevTime);
+
+	printf("Vector 복사 수행 시간 %f \n", oDeltaTime.count());
+	oPrevTime = std::chrono::system_clock::now();
+	std::vector<CWidget> oWidgetListC(std::move(oWidgetListA));
+	oDeltaTime = std::chrono::system_clock::now() - oPrevTime;
+	printf("Vector 복사 이동 수행 시간 %f \n", oDeltaTime.count());
 	#endif//E09_COLLECTION
 	}
 }

@@ -342,31 +342,31 @@ public:
 class CCanvas
 {
 public://함수
-	void AddShape(CShape *a_pShape)
+	void AddShape(std::shared_ptr<CShape> a_oShapePtr)
 	{
-		m_apShapes[m_nNumShapes++] = a_pShape;
+		m_oShapeList.push_back(a_oShapePtr);
 	}
 	//도형 그린다
 	void DrawShapes(void)
 	{
-		printf("\n");
-		for (int i = 0; i < m_nNumShapes; ++i)
+		for (int i = 0; i < m_oShapeList.size(); ++i)
 		{
-			m_apShapes[i]->DrawShape();
+			m_oShapeList[i]->DrawShape();
 		}
 	}
 public://소멸자
 	virtual ~CCanvas(void)
 	{
-		for (int i = 0; i < m_nNumShapes; ++i)
-		{
-			SAFE_DELETE(m_apShapes[i]);
-		}
+		//for (int i = 0; i < m_nNumShapes; ++i)
+		//{
+		//	SAFE_DELETE(m_apShapes[i]);
+		//}
 	}
 private:
 	//변수
 	int m_nNumShapes = 0;
-	CShape *m_apShapes[100];
+	std::vector<std::shared_ptr<CShape>> m_oShapeList;
+	//CShape *m_apShapes[100];
 };
 
 CShape *CreateShape(EMenu a_eMenu)
@@ -566,7 +566,7 @@ CShape *CreateShape(EMenu a_eMenu)
 			case EMenu::ADD_LINE:
 			{
 				CShape *pShape = CreateShape(eMenu);
-				oCanvas.AddShape(pShape);
+				oCanvas.AddShape(std::shared_ptr<CShape>(pShape));
 				break;
 			}
 			case EMenu::DRAW_SHAPES:
