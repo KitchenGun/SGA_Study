@@ -143,10 +143,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\Example01\Example01.h" />
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
+    <ClInclude Include="Classes\Global\Utility\Base\CWndApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp" />
+    <ClCompile Include="Classes\Example01\Example01.cpp" />
+    <ClCompile Include="Classes\Global\Utility\Base\CWndApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
