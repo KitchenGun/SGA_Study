@@ -1,4 +1,5 @@
 #include "Example01/Example01.h"
+#include "Example02/Example02.h"
 
 
 /*
@@ -19,6 +20,8 @@ int WINAPI _tWinMain(//유니코드와 멀티바이트를 바꿔도 문제없도록 _t를 붙임
 		480,320
 	};
 
-	Example01 oApp(a_hInst, a_nShowOpts, stWndSize);
+	//Example01 oApp(a_hInst, a_nShowOpts, stWndSize);
+	Example02 oApp(a_hInst, a_nShowOpts, stWndSize);
+
 	return oApp.Run();
 }

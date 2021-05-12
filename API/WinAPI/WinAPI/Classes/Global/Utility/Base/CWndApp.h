@@ -22,6 +22,12 @@ protected:
 	virtual void Init(void);
 	//메세지 루프를 구동시킨다
 	int RunMsgLoop(void);
+	//크기 메세지를 처리한다
+	virtual LRESULT HandleSizeMsg(WPARAM a_wParams, LPARAM a_lParams);
+	//그리기 메세지를 처리한다
+	virtual LRESULT HandlePaintMsg(WPARAM a_wParams, LPARAM a_lParams);
+	//제거 메세지를 처리한다
+	virtual LRESULT HandleDestroyMsg(WPARAM a_wParams, LPARAM a_lParams);
 	//윈도우 생성
 	virtual HWND CreateWnd(WNDCLASS *a_pstOutWndClass);
 
@@ -38,6 +44,9 @@ private:
 	int m_nShowOpts = 0;
 	SIZE m_stWndSize;
 	WNDCLASS m_stWndCls;
+
+	FILE *m_pstRStream = nullptr;
+	FILE *m_pstWStream = nullptr;
 
 	HWND m_hWnd = nullptr;
 	HINSTANCE m_hInst = nullptr;

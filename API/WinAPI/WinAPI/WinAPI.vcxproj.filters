@@ -29,6 +29,9 @@
     <Filter Include="Classes\Example01 WinAPI기초">
       <UniqueIdentifier>{2ee6db8f-1869-448d-bf46-402194a99814}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Example02 디바이스 컨텍스트">
+      <UniqueIdentifier>{58e4d778-1148-4fbd-b2c4-ebf5397a1fcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Global\Define\KGDefine.h">
@@ -40,6 +43,9 @@
     <ClInclude Include="Classes\Example01\Example01.h">
       <Filter>Classes\Example01 WinAPI기초</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Example02\Example02.h">
+      <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="Classes\Example01\Example01.cpp">
       <Filter>Classes\Example01 WinAPI기초</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Example02\Example02.cpp">
+      <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

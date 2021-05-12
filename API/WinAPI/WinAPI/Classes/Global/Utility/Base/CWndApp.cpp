@@ -10,6 +10,27 @@
 //윈도우 프로시져//callback == 함수 호출 규약
 static LRESULT CALLBACK WndProc(HWND a_hWnd, UINT a_nMsg, WPARAM a_wParams, LPARAM a_lParams)
 {
+	static CWndApp *pWndApp = nullptr;
+
+	switch (a_nMsg)
+	{
+	case WM_CREATE:
+	{
+		auto pstCreateStruct = (CREATESTRUCT*)a_lParams;//long 형을 주소값으로 변환
+		pWndApp = static_cast<CWndApp*>(pstCreateStruct->lpCreateParams);//받은 값을 주소에서 사용할수있도록 변환
+	}break;
+	}
+
+	//윈도우 어플리케이션이 존재할경우
+	if (pWndApp != nullptr)
+	{
+		return pWndApp->HandleWndMsg(a_hWnd, a_nMsg, a_wParams, a_lParams);
+	}
+	/*
+	DefWindowProc 함수는 윈도우 메세지를 처리하는 역할을 수행한다
+	즉 윈도우 어플리케이션을 제작할때 해당 프로그램의 목적에 맞는 메세지만 처리하고 나머지 메세지는 해당 함수에 전달함으로써 
+	불필요한 메세지는 처리하지 않아도 된다
+	*/
 	return DefWindowProc(a_hWnd, a_nMsg, a_wParams, a_lParams);
 }
 
@@ -21,10 +42,26 @@ m_nShowOpts(a_nShowOpts),
 m_stWndSize(a_rstWndSize)
 {
 	ZeroMemory(&m_stWndCls, sizeof(m_stWndCls));
+	/*
+	AllocConsole 함수는 콘솔창을 생성하는 역할을 수행한다 단 해당함수로 
+	생성된 콘솔창은 아직 데이터를 입출력 하기 위한 스트림이 연결되지 않는 상태이기
+	때문에 해당 콘솔창에 데이터를 입 출력 하기 위해서는 
+	반드시 freopen함수를 사용해서 스트림을 연결 시켜줘야한다
+	*/
+	//콘솔창이 생성되었을 경우
+	if (AllocConsole())
+	{
+		m_pstRStream = freopen("CONIN$", "rb", stdin);//파일 재 오픈    //윈도우 내부적으로 콘솔 연결에 사용하는 파일 이름 CONIN$
+		m_pstWStream = freopen("CONOUT$", "wb", stdout);
+	}
 }
 
 CWndApp::~CWndApp(void)
 {
+	SAFE_FCLOSE(m_pstRStream);
+	SAFE_FCLOSE(m_pstWStream);
+
+	FreeConsole();
 	UnregisterClass(m_stWndCls.lpszClassName, m_stWndCls.hInstance);
 }
 
@@ -52,6 +89,13 @@ int CWndApp::Run(void)
 
 LRESULT CWndApp::HandleWndMsg(HWND a_hWnd, UINT a_nMsg, WPARAM a_wParams, LPARAM a_lParams)
 {
+	switch (a_nMsg)
+	{
+	case WM_SIZE: return this->HandleSizeMsg(a_wParams, a_lParams);
+	case WM_PAINT: return this->HandlePaintMsg(a_wParams, a_lParams);
+	case WM_DESTROY:return this->HandleDestroyMsg(a_wParams, a_lParams);
+	}
+
 	return DefWindowProc(a_hWnd, a_nMsg, a_wParams, a_lParams);
 }
 
@@ -82,6 +126,31 @@ int CWndApp::RunMsgLoop(void)
 	}
 
 	return stMsg.wParam;
+}
+
+LRESULT CWndApp::HandleSizeMsg(WPARAM a_wParams, LPARAM a_lParams)
+{
+	m_stWndSize.cx = LOWORD(a_lParams);//메크로함수 LOWORD하위 2바이트,  HIWORD상위 2바이트 데이터를 가져오는 것이 가능하다 
+	m_stWndSize.cy = HIWORD(a_lParams);
+
+
+	return 0;
+}
+
+LRESULT CWndApp::HandlePaintMsg(WPARAM a_wParams, LPARAM a_lParams)
+{
+	return 0;
+}
+
+LRESULT CWndApp::HandleDestroyMsg(WPARAM a_wParams, LPARAM a_lParams)
+{	/*
+	WINAPI메세지 전달 방식
+	PostMessage//지정된 메세지를 메세지 큐에 넣는거임
+	SendMessage//지정된 메세지를 바로 윈도우 프로시저를 호출하여 전달
+	*/
+	PostQuitMessage(0);//윈도우와 프로그램은 별개이다 //윈도우가 닫히면 프로그램이 닫히도록 제작//자원을 정리하기 위해서 메세지 큐에 넣는 방식을 선호함
+	//wm_quit 메세지를 메세지큐에 전달하는 역할 수행한다
+	return 0;
 }
 
 HWND CWndApp::CreateWnd(WNDCLASS * a_pstOutWndClass)
@@ -119,14 +188,28 @@ HWND CWndApp::CreateWnd(WNDCLASS * a_pstOutWndClass)
 	RegisterClass(&stWndCls);
 	CopyMemory(a_pstOutWndClass, &stWndCls, sizeof(stWndCls));
 
+	RECT stWndRect = { 0,0,m_stWndSize.cx,m_stWndSize.cy };
+	/*
+	AdjustWindowRect함수는 주어진 클라이언트 영역을 기반으로 윈도우 스타일에 대응되는 
+	윈도우 전체 크기로 해당 영역을 보정해주는 역할을 수행한다
+	즉 CreateWindow함수에서 주어지는 윈도우의 너비 높이는 클라이언트영역과 윈도우 영역을 합친 윈도우 전체 크기이기
+	때문에 특정 클라이언트 영역을 지니는 윈도우를 생성하기 위해서는 반드시 해당 함수를 사용해서 윈도우 크기를 계산해야한다
+
+	기본적으로 윈도우의 좌표계는 화면의 좌상단을 기준으로 하는 화면 좌표계를 사용한다
+	이때 윈도우의 특정 영역을 표현하는 방식은 LT/RB, XY/WH방식으로 구별되며
+	LT/RB방식은 윈도우 좌상단을 기준으로 0,0 절대좌표값을 지니며 
+	XY/WH방식은 xy위치 부터 너비 높이 값을 계산하는 상대 좌표를 가지고 있다.
+	*/
+	AdjustWindowRect(&stWndRect, WS_OVERLAPPEDWINDOW, FALSE);
+
 	return CreateWindow(
 		stWndCls.lpszClassName,  //윈도우 클래스 이름(식별자)
 		stWndCls.lpszClassName,  //윈도우 이름					//윈도우창을 여러개 쓸때 사용함
 		WS_OVERLAPPEDWINDOW,	 //윈도우 스타일					//WS_OVERLAPPEDWINDOW에 지정된 여러 속성을 합친 매크로 변수
 		CW_USEDEFAULT,			 //윈도우 X위치					//기본으로 설정
 		CW_USEDEFAULT,			 //윈도우 Y위치					//기본으로 설정	
-		CW_USEDEFAULT,			 //윈도우 너비					//기본으로 설정
-		CW_USEDEFAULT,			 //윈도우 높이					//기본으로 설정
+		stWndRect.right-stWndRect.left,			 //윈도우 너비					//기본으로 설정
+		stWndRect.bottom - stWndRect.top,		 //윈도우 높이					//기본으로 설정
 		GetDesktopWindow(),		 //부모윈도우 핸들				//내 부모의 윈도우는 바탕화면 즉 이게 종료되면 바탕화면나옴 
 		NULL,					 //메뉴 핸들
 		stWndCls.hInstance,	     //인스턴스 핸들
