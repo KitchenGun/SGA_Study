@@ -8,6 +8,14 @@ class CWndApp
 {
 
 public:
+	//원도우 크기를 반환한다
+	SIZE GetWndSize(void) const;
+	//윈도우 핸들을 반환한다
+	HWND GetWndHandle(void) const;
+	//인스턴스 핸들을 반환한다
+	HINSTANCE GetInstHandle(void) const;
+	//어플리케이션을 구동시킨다
+	static CWndApp *GetInst(void);
 	//윈도우 메세지를 처리한다
 	virtual LRESULT HandleWndMsg(
 		HWND a_hWnd, 

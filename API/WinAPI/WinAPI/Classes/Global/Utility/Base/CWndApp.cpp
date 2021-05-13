@@ -1,5 +1,8 @@
 #include "CWndApp.h"
 
+//전역 변수
+static CWndApp *g_pInst = nullptr;
+
 //stdcall -> 함수를 호출하면 호출된 곳으로 돌아가 정리함 
 //cdecl -> 함수를 호출한 곳으로 결과가 들어가 정리함
 /*
@@ -41,6 +44,7 @@ m_hInst(a_hInst),
 m_nShowOpts(a_nShowOpts),
 m_stWndSize(a_rstWndSize)
 {
+	g_pInst = this;
 	ZeroMemory(&m_stWndCls, sizeof(m_stWndCls));
 	/*
 	AllocConsole 함수는 콘솔창을 생성하는 역할을 수행한다 단 해당함수로 
@@ -87,6 +91,26 @@ int CWndApp::Run(void)
 	return this->RunMsgLoop();
 }
 
+SIZE CWndApp::GetWndSize(void) const
+{
+	return m_stWndSize;
+}
+
+HWND CWndApp::GetWndHandle(void) const
+{
+	return m_hWnd;
+}
+
+HINSTANCE CWndApp::GetInstHandle(void) const
+{
+	return m_hInst;
+}
+
+CWndApp * CWndApp::GetInst(void)
+{
+	return g_pInst;
+}
+
 LRESULT CWndApp::HandleWndMsg(HWND a_hWnd, UINT a_nMsg, WPARAM a_wParams, LPARAM a_lParams)
 {
 	switch (a_nMsg)
@@ -130,7 +154,7 @@ int CWndApp::RunMsgLoop(void)
 
 LRESULT CWndApp::HandleSizeMsg(WPARAM a_wParams, LPARAM a_lParams)
 {
-	m_stWndSize.cx = LOWORD(a_lParams);//메크로함수 LOWORD하위 2바이트,  HIWORD상위 2바이트 데이터를 가져오는 것이 가능하다 
+	m_stWndSize.cx = LOWORD(a_lParams);//메크로함수 LOWORD하위 2바이트,  HIWORD상위 2바이트 데이터를 가져오는 것이 가능하다     
 	m_stWndSize.cy = HIWORD(a_lParams);
 
 

@@ -18,3 +18,13 @@ if((TARGET)!=nullptr){fclose((TARGET));(TARGET)=nullptr;}
 if((TARGET)!=nullptr){delete(TARGET);(TARGET)=nullptr;}
 #define SAFE_DEL_ARR(TARGET) \
 if((TARGET)!=nullptr){delete[](TARGET);(TARGET)=nullptr;}
+#define SAFE_RELEASE_DC(WND_HANDLE,TARGET)\
+if((TARGET)!=nullptr){ReleaseDC((WND_HANDLE),(TARGET));(TARGET)=nullptr;}
+//윈도우 어플리케이션
+#define GET_WND_APP()		(CWndApp::GetInst())
+
+#define GET_WND_SIZE()		(GET_WND_APP()->GetWndSize())
+
+#define GET_WND_HANDLE()	(GET_WND_APP()->GetWndHandle())
+
+#define GET_INST_HANDLE()	(GET_WND_APP()->GetInstHandler())
