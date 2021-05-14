@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{baa8a9d7-f92c-4b81-9e21-3c04e07e29ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global">
+      <UniqueIdentifier>{d2b9ec47-88a5-42a5-860a-1f455f1d9341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global\Define">
+      <UniqueIdentifier>{0f5dea2a-6bff-409d-b423-d8392b2fff2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global\Utility">
+      <UniqueIdentifier>{3c1fc561-2a85-4596-9482-38c847681f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global\Utility\Base">
+      <UniqueIdentifier>{6c3cc9e8-7bd9-441e-93f8-a0e7535ae8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global\Utility\Interface">
+      <UniqueIdentifier>{08fb97b4-0ff7-4698-b2e0-3a8c009ff466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Global\Utility\Manager">
+      <UniqueIdentifier>{096467bb-a656-4ed6-92b1-af0622ac2609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Example01 WinAPI기초">
+      <UniqueIdentifier>{2ee6db8f-1869-448d-bf46-402194a99814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Example02 디바이스 컨텍스트">
+      <UniqueIdentifier>{58e4d778-1148-4fbd-b2c4-ebf5397a1fcf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Classes\Global\Define\KGDefine.h">
+      <Filter>Classes\Global\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Global\Utility\Base\CWndApp.h">
+      <Filter>Classes\Global\Utility\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Example01\Example01.h">
+      <Filter>Classes\Example01 WinAPI기초</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Example02\Example02.h">
+      <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Example.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Global\Utility\Base\CWndApp.cpp">
+      <Filter>Classes\Global\Utility\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Example01\Example01.cpp">
+      <Filter>Classes\Example01 WinAPI기초</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Example02\Example02.cpp">
+      <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
