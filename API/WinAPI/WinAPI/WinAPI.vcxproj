@@ -147,6 +147,7 @@
     <ClInclude Include="Classes\Example02\Example02.h" />
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="Classes\Global\Utility\Base\CWndApp.h" />
+    <ClInclude Include="Classes\Global\Utility\Interface\IRenderable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp" />

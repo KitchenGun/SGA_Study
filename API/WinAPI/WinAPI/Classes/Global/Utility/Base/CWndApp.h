@@ -1,11 +1,15 @@
 #pragma once
 
 #include "../../Define/KGDefine.h"
+#include "../Interface/IRenderable.h"
 
 //윈도우 어플리케이션
 
-class CWndApp
+class CWndApp :public IRenderable
 {
+public://IRenderable
+	//물체를 그린다
+	virtual void Render(HDC a_hDC) final override;
 
 public:
 	//원도우 크기를 반환한다
@@ -57,5 +61,6 @@ private:
 	FILE *m_pstWStream = nullptr;
 
 	HWND m_hWnd = nullptr;
+	HBITMAP m_hBitmap = nullptr;
 	HINSTANCE m_hInst = nullptr;
 };

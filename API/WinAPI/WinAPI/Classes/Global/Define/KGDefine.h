@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <vector>
 #include <Windows.h>
 #include <tchar.h>
 
@@ -11,15 +12,25 @@
 
 #define SAFE_FREE(TARGET)\
 if((TARGET)!=nullptr){free((TARGET));(TARGET)=nullptr;}
+
 #define SAFE_FCLOSE(TARGET)\
 if((TARGET)!=nullptr){fclose((TARGET));(TARGET)=nullptr;}
 
 #define SAFE_DEL(TARGET)\
 if((TARGET)!=nullptr){delete(TARGET);(TARGET)=nullptr;}
-#define SAFE_DEL_ARR(TARGET) \
+
+#define SAFE_DEL_ARR(TARGET)\
 if((TARGET)!=nullptr){delete[](TARGET);(TARGET)=nullptr;}
+
+#define SAFE_DEL_DC(TARGET)\
+if((TARGET)!=nullptr){DeleteDC((TARGET));(TARGET)=nullptr;}
+
+#define SAFE_DEL_GDI_OBJ(TARGET)\
+if((TARGET)!=nullptr){DeleteObject((TARGET));(TARGET)=nullptr;}
+
 #define SAFE_RELEASE_DC(WND_HANDLE,TARGET)\
 if((TARGET)!=nullptr){ReleaseDC((WND_HANDLE),(TARGET));(TARGET)=nullptr;}
+
 //윈도우 어플리케이션
 #define GET_WND_APP()		(CWndApp::GetInst())
 

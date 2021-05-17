@@ -13,6 +13,13 @@
 class Example02 :public CWndApp
 {
 public:
+	struct STLineInfo
+	{
+		POINT m_stStartPos;
+		POINT m_stEndPos;
+	};
+
+public:
 	//윈도우 메세지 처리
 	virtual LRESULT HandleWndMsg(
 		HWND a_hWnd,
@@ -23,6 +30,10 @@ public:
 	Example02(HINSTANCE a_hInst,
 		int a_nShowOpts,
 		const SIZE &a_rstWndSize);
+
+protected:
+	//물체를 그린다
+	virtual void DoRender(HDC a_hDC) override;
 private:
 	//마우스 이동 메세지를 처리한다
 	LRESULT HandleMouseMoveMsg(WPARAM a_wParams, LPARAM a_lParams);
@@ -30,6 +41,7 @@ private:
 	LRESULT HandleMouseBtnMsg(WPARAM a_wParams, LPARAM a_lParams,bool a_bIsBtnDown);
 	virtual LRESULT HandlePaintMsg(WPARAM a_wParams, LPARAM a_lParams)override;
 private:
-	POINT m_stPrevPos;
-	POINT m_stCurPos;
+	
+	//배열 추가
+	std::vector<STLineInfo> m_oLineInfoList;
 };

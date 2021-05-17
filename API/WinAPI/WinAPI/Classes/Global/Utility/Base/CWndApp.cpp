@@ -1,5 +1,8 @@
 #include "CWndApp.h"
 
+//#define GET_MSG_ENABLE	
+#define PEEK_MSG_ENABLE	
+
 //전역 변수
 static CWndApp *g_pInst = nullptr;
 
@@ -91,6 +94,13 @@ int CWndApp::Run(void)
 	return this->RunMsgLoop();
 }
 
+void CWndApp::Render(HDC a_hDC)
+{
+	this->PreRender(a_hDC);
+	this->DoRender(a_hDC);
+	this->PostRender(a_hDC);
+}
+
 SIZE CWndApp::GetWndSize(void) const
 {
 	return m_stWndSize;
@@ -128,36 +138,111 @@ int CWndApp::RunMsgLoop(void)
 	MSG stMsg;
 	ZeroMemory(&stMsg, sizeof(stMsg));
 
+#if defined GET_MSG_ENABLE
 	/*
-	윈도우 상에 발생한 메세지는 메세지 큐에 보관되기 때문에 어플리케이션은
-	메세지를 처리할수있는 상황이 발생했을 경우 메세지 큐로부터 발생된 메세지를 가져와 해당 메세지에 맞는 처리를 할 필요가 있다.
-	이때 메세지 큐로부터 발생된 메세지를 가져오는 역할을 수행하는 함수가 GetMessage함수이다
+	일반적으로 윈도우 상에 발생한 메세지는 메세지 큐에 보관되기 때문에 어플리케이션은
+	메세지를 처리 할 수 있는 상황이 발생했을 경우 메세지 큐로부터 발생 된 메세지를
+	가져와 해당 메세지에 맞는 처리를 할 필요가 있다. 이때, 메세지 큐로부터 발생 된
+	메세지를 가져오는 역할을 수행하는 함수가 GetMessage 함수이다.
 
-	또한 GetMessage함수는 블럭킹 함수이기 때문에 해당 함수 호출 시점에서 메세지가 없으면 대기한다 호출이 완료되지 않고 대기한다
-	즉 실시간으로 동작이 필요한 어플리케이션 제작 할때는 해당 함수를 사용하지 않는 것이 좋다
+	또한, GetMessage 함수는 블럭킹 함수이기 때문에 만약 해당 함수를 호출 한 시점에
+	메세지 큐에 아무런 메세지가 존재하지 않을 경우 새로운 메세지가 발생 할 때 까지
+	호출이 완료되지 않고 대기하는 특징이 있다. (즉, 실시간으로 동작이 필요한 어플리케이션을
+	제작 할 때는 해당 함수를 사용하지 않는 것이 좋다.)
 
-	TranslateMessage함수는 내부적으로 WM_CHAR메세지를 발생시키는 역할을 수행한다
-	WM_CHAR 메세지 처리가 필요없을 경우 해당 함수는 호출하지 않아도 무방하다
+	TranslateMessage 함수는 내부적으로 WM_CHAR 메세지를 발생시키는 역할을 수행한다.
+	(즉, WM_CHAR 메세지 처리가 필요 없을 경우 해당 함수는 호출하지 않아도 무방하다.)
 
-	DispatchMessage함수는 내부적으로 메세지를 전달하는 역할을 수행하며 그 결과
-	해당 메세지를 처리하기 위한 윈도우 프로시저 함수가 호출 된다 즉 윈도우 프로시져 함수는
-	명시적으로 호출하는 것이 아니라 DispatchMessage함수에 의해서 호출되는 구조를 지니는 것이 바람직한 메세지 루프 구조이다.
+	DispatchMessage 함수는 내부적으로 메세지를 전달하는 역할을 수행하며, 그 결과
+	해당 메세지를 처리하기 위한 윈도우 프로시저 함수가 호출된다. (즉, 윈도우 프로시저
+	함수는 명시적으로 호출하는 것이 아니라 DispatchMessage 함수에 의해서 호출되는
+	구조를 지니는 것이 바람직한 메세지 루프 구조이다.)
 	*/
-	while (GetMessage(&stMsg, NULL, 0, 0))//메세지 큐로 부터 메세지를 가져옴 / 메세지가 없으면 대기한다 / 종료 메세지말고는 false를 전달하지 않는다
-	{
-		TranslateMessage(&stMsg);//써도 되고 안써도 됨 WM_CHAR(키보드가 눌렸다)로 변환
-		DispatchMessage(&stMsg);//이벤트를 처리하는 윈도우proc 의 호출을 유발 시킨다
+	while (GetMessage(&stMsg, NULL, 0, 0)) {
+		TranslateMessage(&stMsg);
+		DispatchMessage(&stMsg);
+}
+#elif defined PEEK_MSG_ENABLE
+	/*
+	PeekMessage 함수는 GetMessage 함수와 마찬가지로 메세지 큐로부터 발생한 메세지를
+	가져오는 역할을 수행한다. 단, 해당 함수는 GetMessage 함수와 달리 메세지 큐가
+	비었을 경우 새로운 메세지를 대기하는 것이 아니라 바로 함수 호출이 종료되는 특징이
+	있다. (즉, 해당 함수를 사용하면 실시간 처리를 할 수 있는 프로그램을 제작하는 것이
+	가능하다.)
+	*/
+	while (stMsg.message != WM_QUIT) {
+		// 윈도우 메세지가 존재 할 경우 
+		if (PeekMessage(&stMsg, NULL, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&stMsg);
+			DispatchMessage(&stMsg);
+		}
+
+		/*
+		CreateCompatibleDC함수는 특정 윈도우가 지니고 있는 디바이스 컨텍스트와 호환되는 사본 디바이스 컨텍스트를 생성하는 역할을 수행한다
+		*/
+		HDC hDC = GetDC(m_hWnd);
+		HDC hMemDC = CreateCompatibleDC(hDC);
+
+		_try
+		{
+			RECT stWndRect = {
+				0,0,m_stWndSize.cx,m_stWndSize.cy
+			};
+
+			/*
+			SelectObject는 디바이스 컨텍스트에 GDI객체를 설정하는 역할을 수행한다
+			즉 해당함수를 사용해서 디바이스 컨텍스트에 여러 GDI객체를 설정함으로써 
+			다양한 효과를 지닌 이미지등을 그리는 것이 가능하다
+			*/
+			HBITMAP hPrevBitmap = (HBITMAP)SelectObject(hMemDC,m_hBitmap);
+			FillRect(hMemDC, &stWndRect, m_stWndCls.hbrBackground);
+			this->Render(hMemDC);
+
+			//BitBlt원본 그대로 비트맵 복사
+			/*
+			StretchBlt은 특정 디바이스 컨텍스트에 설정되어있는 비트맵을 다른 비트맵으로 복사하는 역할을 수행한다 또한 해당 역할을 하는 함수로는
+			BitBlt가 있으며 차이점은 원본 비트맵의 크기를 변결 할수있는지 유무이다. BitBlt함수는 원본 비트맵의 크기를 변경할수없는 단점이 존재한다
+			
+			*/
+			StretchBlt(hDC, 0, 0, m_stWndSize.cx, m_stWndSize.cy, 
+				hMemDC, 0, 0, m_stWndSize.cx, m_stWndSize.cy, SRCCOPY);
+			//설정 이전으로 돌리는거 필수임
+			SelectObject(hMemDC, hPrevBitmap);
+		}
+		__finally
+		{
+			SAFE_DEL_DC(hMemDC);
+			SAFE_RELEASE_DC(m_hWnd, hDC);
+		}
 	}
+#endif			// #if defined GET_MSG_ENABLE
 
 	return stMsg.wParam;
 }
 
 LRESULT CWndApp::HandleSizeMsg(WPARAM a_wParams, LPARAM a_lParams)
 {
-	m_stWndSize.cx = LOWORD(a_lParams);//메크로함수 LOWORD하위 2바이트,  HIWORD상위 2바이트 데이터를 가져오는 것이 가능하다     
+
+//메크로함수 LOWORD하위 2바이트,  HIWORD상위 2바이트 데이터를 가져오는 것이 가능하다     
+	m_stWndSize.cx = LOWORD(a_lParams);
 	m_stWndSize.cy = HIWORD(a_lParams);
 
-
+	HDC hDC = GetDC(m_hWnd);
+	SAFE_DEL_GDI_OBJ(m_hBitmap);
+	
+	
+	_try
+	{
+		/*
+		CreateCompatibleBitmap 함수는 특정 윈도우의 클라이언트 영역과 호환되는 새로운 영역을 생성하는역할을 수행한다 
+		즉 해당 함수를 사용하면 사용자에게 보여지는 클라이언트 영역이 아닌 오프 스크린 영역을 생성하는 것이 가능하다
+		*/
+		m_hBitmap = CreateCompatibleBitmap(hDC,m_stWndSize.cx,m_stWndSize.cy);
+	}
+	__finally
+	{
+		SAFE_RELEASE_DC(m_hWnd, hDC);
+	}
 	return 0;
 }
 

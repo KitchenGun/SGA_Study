@@ -46,6 +46,9 @@
     <ClInclude Include="Classes\Example02\Example02.h">
       <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Global\Utility\Interface\IRenderable.h">
+      <Filter>Classes\Global\Utility\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp">
