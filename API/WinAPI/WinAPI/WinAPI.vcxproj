@@ -72,6 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,12 +150,17 @@
     <ClInclude Include="Classes\Global\Define\KGDefine.h" />
     <ClInclude Include="Classes\Global\Utility\Base\CWndApp.h" />
     <ClInclude Include="Classes\Global\Utility\Interface\IRenderable.h" />
+    <ClInclude Include="Classes\Global\Utility\Interface\IUpdatable.h" />
+    <ClInclude Include="Classes\Global\Utility\Manager\CInputManager.h" />
+    <ClInclude Include="Classes\Global\Utility\Manager\CTimeManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp" />
     <ClCompile Include="Classes\Example01\Example01.cpp" />
     <ClCompile Include="Classes\Example02\Example02.cpp" />
     <ClCompile Include="Classes\Global\Utility\Base\CWndApp.cpp" />
+    <ClCompile Include="Classes\Global\Utility\Manager\CInputManager.cpp" />
+    <ClCompile Include="Classes\Global\Utility\Manager\CTimeManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

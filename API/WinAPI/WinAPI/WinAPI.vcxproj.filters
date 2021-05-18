@@ -49,6 +49,15 @@
     <ClInclude Include="Classes\Global\Utility\Interface\IRenderable.h">
       <Filter>Classes\Global\Utility\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Global\Utility\Interface\IUpdatable.h">
+      <Filter>Classes\Global\Utility\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Global\Utility\Manager\CTimeManager.h">
+      <Filter>Classes\Global\Utility\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Global\Utility\Manager\CInputManager.h">
+      <Filter>Classes\Global\Utility\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Example.cpp">
@@ -62,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="Classes\Example02\Example02.cpp">
       <Filter>Classes\Example02 디바이스 컨텍스트</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Global\Utility\Manager\CTimeManager.cpp">
+      <Filter>Classes\Global\Utility\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Global\Utility\Manager\CInputManager.cpp">
+      <Filter>Classes\Global\Utility\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

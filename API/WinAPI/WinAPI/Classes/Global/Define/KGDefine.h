@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <chrono>
+#include <dinput.h>
 #include <Windows.h>
 #include <tchar.h>
 
@@ -31,6 +33,17 @@ if((TARGET)!=nullptr){DeleteObject((TARGET));(TARGET)=nullptr;}
 #define SAFE_RELEASE_DC(WND_HANDLE,TARGET)\
 if((TARGET)!=nullptr){ReleaseDC((WND_HANDLE),(TARGET));(TARGET)=nullptr;}
 
+#define SAFE_RELEASE(TARGET)\
+if((TARGET)!=nullptr){(TARGET)->Release();(TARGET)=nullptr;}
+
+#define SAFE_UNACQUIRE(TARGET)\
+if((TARGET)!=nullptr){(TARGET)->Unacquire();SAFE_RELEASE((TARGET));}
+//시간 관리자
+#define GET_TIME_MANAGER()	(CTimeManager::GetInst())
+
+#define GET_DELTA_TIME()	(GET_TIME_MANAGER()->GetDeltaTime())
+
+#define	GET_RUNNING_TIME()	(GET_TIME_MANAGER()->GetRunningTime())
 //윈도우 어플리케이션
 #define GET_WND_APP()		(CWndApp::GetInst())
 
@@ -38,4 +51,26 @@ if((TARGET)!=nullptr){ReleaseDC((WND_HANDLE),(TARGET));(TARGET)=nullptr;}
 
 #define GET_WND_HANDLE()	(GET_WND_APP()->GetWndHandle())
 
-#define GET_INST_HANDLE()	(GET_WND_APP()->GetInstHandler())
+#define GET_INST_HANDLE()	(GET_WND_APP()->GetInstHandle())
+
+//싱글톤
+#define DECLARE_SINGLETON(CLS_NAME)	\
+private:							\
+CLS_NAME(void);						\
+~CLS_NAME(void);					\
+public:								\
+static CLS_NAME* GetInst(void)		\
+{									\
+	static CLS_NAME oInst;			\
+	return &oInst;				\
+}
+
+//마우스 버튼
+enum class EMouseBtn
+{
+	NONE=-1,
+	LEFT,
+	RIGHT,
+	MIDDLE,
+	MAX_VAL
+};

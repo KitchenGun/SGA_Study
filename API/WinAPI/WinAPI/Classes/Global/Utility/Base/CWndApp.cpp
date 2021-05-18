@@ -1,4 +1,5 @@
 #include "CWndApp.h"
+#include "../Manager/CTimeManager.h"
 
 //#define GET_MSG_ENABLE	
 #define PEEK_MSG_ENABLE	
@@ -76,6 +77,7 @@ void CWndApp::Init(void)
 {
 	m_hWnd = this->CreateWnd(&m_stWndCls);
 	
+	GET_TIME_MANAGER()->Init();
 }
 
 int CWndApp::Run(void)
@@ -92,6 +94,11 @@ int CWndApp::Run(void)
 	ShowWindow(m_hWnd, m_nShowOpts);//눈에 보이도록 만드는 함수
 
 	return this->RunMsgLoop();
+}
+
+void CWndApp::Update(float a_fDeltaTime)
+{
+	GET_TIME_MANAGER()->Update(a_fDeltaTime);
 }
 
 void CWndApp::Render(HDC a_hDC)
@@ -196,13 +203,18 @@ int CWndApp::RunMsgLoop(void)
 			*/
 			HBITMAP hPrevBitmap = (HBITMAP)SelectObject(hMemDC,m_hBitmap);
 			FillRect(hMemDC, &stWndRect, m_stWndCls.hbrBackground);
+
+			
+
+			this->Update(GET_DELTA_TIME());
+			this->LateUpdate(GET_DELTA_TIME());
+
 			this->Render(hMemDC);
 
 			//BitBlt원본 그대로 비트맵 복사
 			/*
 			StretchBlt은 특정 디바이스 컨텍스트에 설정되어있는 비트맵을 다른 비트맵으로 복사하는 역할을 수행한다 또한 해당 역할을 하는 함수로는
 			BitBlt가 있으며 차이점은 원본 비트맵의 크기를 변결 할수있는지 유무이다. BitBlt함수는 원본 비트맵의 크기를 변경할수없는 단점이 존재한다
-			
 			*/
 			StretchBlt(hDC, 0, 0, m_stWndSize.cx, m_stWndSize.cy, 
 				hMemDC, 0, 0, m_stWndSize.cx, m_stWndSize.cy, SRCCOPY);

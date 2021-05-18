@@ -1,3 +1,9 @@
+/*
+pragma comment 명령어는 외부에 존재하는 라이브러리 파일을 가져오는 역할을 수행한다
+*/
+#pragma comment(lib,"dinput8.lib")
+#pragma comment(lib,"dxguid.lib")
+
 #include "Example01/Example01.h"
 #include "Example02/Example02.h"
 

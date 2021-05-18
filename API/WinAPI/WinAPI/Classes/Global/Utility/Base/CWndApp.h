@@ -1,12 +1,16 @@
 #pragma once
 
 #include "../../Define/KGDefine.h"
+#include "../Interface/IUpdatable.h"
 #include "../Interface/IRenderable.h"
 
 //윈도우 어플리케이션
 
-class CWndApp :public IRenderable
+class CWndApp :public IUpdatable,public IRenderable
 {
+public://IUpdatable
+	//상태를 갱신한다
+	virtual void Update(float a_fDeltaTime) override;
 public://IRenderable
 	//물체를 그린다
 	virtual void Render(HDC a_hDC) final override;

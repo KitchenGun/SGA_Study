@@ -1,2 +1,3 @@
-﻿  CWndApp.cpp
+﻿  CInputManager.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   WinAPI.vcxproj -> D:\SGA_Study\API\WinAPI\Debug\WinAPI.exe
