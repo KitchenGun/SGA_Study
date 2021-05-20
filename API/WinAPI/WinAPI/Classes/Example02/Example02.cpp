@@ -1,9 +1,19 @@
 #include "Example02.h"
+#include "../Global/Utility/Manager/CInputManager.h"
 
 Example02::Example02(HINSTANCE a_hInst, int a_nShowOpts, const SIZE & a_rstWndSize)
 	: CWndApp(a_hInst, a_nShowOpts, a_rstWndSize)
 {
 	// Do Nothing
+}
+
+Example02::~Example02(void)
+{
+	for (auto &rstKeyVal : m_oPenList)
+	{
+		SAFE_DEL_GDI_OBJ(rstKeyVal.second);
+	}
+
 }
 
 LRESULT Example02::HandleWndMsg(HWND a_hWnd, UINT a_nMsg, WPARAM a_wParams, LPARAM a_lParams)
@@ -22,11 +32,67 @@ LRESULT Example02::HandleWndMsg(HWND a_hWnd, UINT a_nMsg, WPARAM a_wParams, LPAR
 	return CWndApp::HandleWndMsg(a_hWnd, a_nMsg, a_wParams, a_lParams);
 }
 
+void Example02::Init(void)
+{
+	CWndApp::Init();
+
+	m_hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_hGreenPen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_hBluePen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+
+	m_oPenList.insert(decltype(m_oPenList)::value_type(EColor::RED, m_hRedPen));
+	m_oPenList.insert(decltype(m_oPenList)::value_type(EColor::GREEN, m_hGreenPen));
+	m_oPenList.insert(decltype(m_oPenList)::value_type(EColor::BLUE, m_hBluePen));
+
+}
+
+void Example02::Update(float a_fDeltaTime)
+{
+	CWndApp::Update(a_fDeltaTime);
+	//빨간팬 키를 눌렀을 경우
+	if (IS_KEY_PRESS(DIK_R))
+	{
+		m_eColor = EColor::RED;
+	}
+	//초록팬 키를 눌렀을 경우
+	if (IS_KEY_PRESS(DIK_G))
+	{
+		m_eColor = EColor::GREEN;
+	}
+	//파랑팬 키를 눌렀을 경우
+	if (IS_KEY_PRESS(DIK_B))
+	{
+		m_eColor = EColor::BLUE;
+	}
+
+	//마우스 버튼을 눌렀을 경우
+	if (IS_MOUSE_BTN_DOWN(EMouseBtn::LEFT))
+	{
+		//마우스 버튼누름을 시작했을 경우
+		if (IS_MOUSE_BTN_PRESS(EMouseBtn::LEFT))
+		{
+			// 마우스 버튼 눌렀을 경우
+			STLineInfo stLineInfo = {
+				m_eColor,GET_MOUSE_POS(),GET_MOUSE_POS()
+			};
+
+			m_oLineInfoList.push_back(stLineInfo);
+
+		}
+		m_oLineInfoList.back().m_eColor = m_eColor;
+		m_oLineInfoList.back().m_stEndPos = GET_MOUSE_POS();
+	}
+
+
+}
+
 void Example02::DoRender(HDC a_hDC)
 {
 	CWndApp::DoRender(a_hDC);
 
 	for (auto &rstLineInfo : m_oLineInfoList) {
+		HPEN hPen = m_oPenList[rstLineInfo.m_eColor];
+		HPEN hPrevPen = (HPEN)SelectObject(a_hDC, hPen);
 		MoveToEx(a_hDC,
 			rstLineInfo.m_stStartPos.x, rstLineInfo.m_stStartPos.y, NULL);
 
@@ -38,35 +104,35 @@ void Example02::DoRender(HDC a_hDC)
 LRESULT Example02::HandleMouseMoveMsg(WPARAM a_wParams, LPARAM a_lParams)
 {
 	// 버튼이 눌렸을 경우
-	if (a_wParams != 0) {
-		m_oLineInfoList.back().m_stEndPos.x = LOWORD(a_lParams);
-		m_oLineInfoList.back().m_stEndPos.y = HIWORD(a_lParams);
-
-		/*
-		InvalidateRect 함수를 사용하면 윈도우의 특정 영역을 무효화 시키는 것이
-		가능하다. (즉, 윈도우가 지니고 있는 특정 영역을 무효화 시킬 경우 해당
-		윈도우 무효화 된 영역을 다시 그리기 위해서 WM_PAINT 메세지를 발생시킨다.)
-
-		따라서, 해당 함수를 사용하면 이전에 그려진 이미지 등을 깔끔하게 지우는
-		것이 가능하다.
-		*/
-		//InvalidateRect(GET_WND_HANDLE(), NULL, TRUE);
-	}
+	//if (a_wParams != 0) {
+	//	m_oLineInfoList.back().m_stEndPos.x = LOWORD(a_lParams);
+	//	m_oLineInfoList.back().m_stEndPos.y = HIWORD(a_lParams);
+	//
+	//	/*
+	//	InvalidateRect 함수를 사용하면 윈도우의 특정 영역을 무효화 시키는 것이
+	//	가능하다. (즉, 윈도우가 지니고 있는 특정 영역을 무효화 시킬 경우 해당
+	//	윈도우 무효화 된 영역을 다시 그리기 위해서 WM_PAINT 메세지를 발생시킨다.)
+	//
+	//	따라서, 해당 함수를 사용하면 이전에 그려진 이미지 등을 깔끔하게 지우는
+	//	것이 가능하다.
+	//	*/
+	//	//InvalidateRect(GET_WND_HANDLE(), NULL, TRUE);
+	//}
 
 	return 0;
 }
 
 LRESULT Example02::HandleMouseBtnMsg(WPARAM a_wParams, LPARAM a_lParams, bool a_bIsBtnDown)
 {
-	// 마우스 버튼 눌렀을 경우
-	if (a_bIsBtnDown) {
-		STLineInfo stLineInfo = {
-			{ LOWORD(a_lParams), HIWORD(a_lParams) },
-			{ LOWORD(a_lParams), HIWORD(a_lParams) }
-		};
-
-		m_oLineInfoList.push_back(stLineInfo);
-	}
+	//// 마우스 버튼 눌렀을 경우
+	//if (a_bIsBtnDown) {
+	//	STLineInfo stLineInfo = {
+	//		{ LOWORD(a_lParams), HIWORD(a_lParams) },
+	//		{ LOWORD(a_lParams), HIWORD(a_lParams) }
+	//	};
+	//
+	//	m_oLineInfoList.push_back(stLineInfo);
+	//}
 
 	return 0;
 }

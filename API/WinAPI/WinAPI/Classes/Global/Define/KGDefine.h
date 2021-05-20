@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <unordered_map>
 #include <chrono>
 #include <dinput.h>
 #include <Windows.h>
@@ -44,6 +45,18 @@ if((TARGET)!=nullptr){(TARGET)->Unacquire();SAFE_RELEASE((TARGET));}
 #define GET_DELTA_TIME()	(GET_TIME_MANAGER()->GetDeltaTime())
 
 #define	GET_RUNNING_TIME()	(GET_TIME_MANAGER()->GetRunningTime())
+//입력 관리자
+#define GET_INPUT_MANAGER()	(CInputManager::GetInst())
+#define GET_MOUSE_POS()		(GET_INPUT_MANAGER()->GetMousePos())
+
+#define IS_KEY_DOWN(KEY_CODE)		(GET_INPUT_MANAGER()->IsKeyDown((KEY_CODE)))
+#define IS_KEY_PRESS(KEY_CODE)		(GET_INPUT_MANAGER()->IsKeyPress((KEY_CODE)))
+#define IS_KEY_RELEASE(KEY_CODE)	(GET_INPUT_MANAGER()->IsKeyRelease((KEY_CODE)))
+
+#define IS_MOUSE_BTN_DOWN(MOUSE_BTN)	(GET_INPUT_MANAGER()->IsMouseBtnDown((MOUSE_BTN)))
+#define IS_MOUSE_BTN_PRESS(MOUSE_BTN)	(GET_INPUT_MANAGER()->IsMouseBtnPress((MOUSE_BTN)))
+#define IS_MOUSE_BTN_RELEASE(MOUSE_BTN)	(GET_INPUT_MANAGER()->IsMouseBtnRelease((MOUSE_BTN)))
+
 //윈도우 어플리케이션
 #define GET_WND_APP()		(CWndApp::GetInst())
 
@@ -62,7 +75,7 @@ public:								\
 static CLS_NAME* GetInst(void)		\
 {									\
 	static CLS_NAME oInst;			\
-	return &oInst;				\
+	return &oInst;					\
 }
 
 //마우스 버튼

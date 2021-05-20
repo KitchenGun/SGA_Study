@@ -39,7 +39,7 @@ private:
 	BYTE m_anKeyStates[UCHAR_MAX + 1];
 	BYTE m_anPrevKeyStates[UCHAR_MAX + 1];
 	
-	DIMOUSESTATE m_stMouseState;
+	DIMOUSESTATE m_stMouseState;//마우스 state2를 사용하면 마우스 추가 버튼이 사용가능하다
 	DIMOUSESTATE m_stPrevMouseState;
 
 	IDirectInput8 *m_pDInput = nullptr;

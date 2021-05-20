@@ -13,8 +13,19 @@
 class Example02 :public CWndApp
 {
 public:
+	//색상
+	enum class EColor
+	{
+		NONE=-1,
+		RED,
+		GREEN,
+		BLUE,
+		MAX_VAL
+	};
+
 	struct STLineInfo
 	{
+		EColor m_eColor;
 		POINT m_stStartPos;
 		POINT m_stEndPos;
 	};
@@ -30,8 +41,13 @@ public:
 	Example02(HINSTANCE a_hInst,
 		int a_nShowOpts,
 		const SIZE &a_rstWndSize);
+	virtual ~Example02(void);
 
 protected:
+	//초기화한다
+	virtual void Init(void) override;
+	//상태를 갱신하다
+	virtual void Update(float a_fDeltaTime) override;
 	//물체를 그린다
 	virtual void DoRender(HDC a_hDC) override;
 private:
@@ -41,7 +57,12 @@ private:
 	LRESULT HandleMouseBtnMsg(WPARAM a_wParams, LPARAM a_lParams,bool a_bIsBtnDown);
 	virtual LRESULT HandlePaintMsg(WPARAM a_wParams, LPARAM a_lParams)override;
 private:
-	
+	EColor m_eColor = EColor::RED;
+
+	HPEN m_hRedPen = nullptr;
+	HPEN m_hGreenPen = nullptr;
+	HPEN m_hBluePen = nullptr;
 	//배열 추가
 	std::vector<STLineInfo> m_oLineInfoList;
+	std::unordered_map<EColor, HPEN> m_oPenList;
 };

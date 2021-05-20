@@ -1,3 +1,6 @@
-﻿  CInputManager.cpp
+﻿  Example.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Example02.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  코드를 생성하고 있습니다...
   WinAPI.vcxproj -> D:\SGA_Study\API\WinAPI\Debug\WinAPI.exe

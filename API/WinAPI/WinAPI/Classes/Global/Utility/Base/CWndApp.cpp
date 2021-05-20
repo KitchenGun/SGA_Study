@@ -1,5 +1,6 @@
 #include "CWndApp.h"
 #include "../Manager/CTimeManager.h"
+#include "../Manager/CInputManager.h"
 
 //#define GET_MSG_ENABLE	
 #define PEEK_MSG_ENABLE	
@@ -78,6 +79,7 @@ void CWndApp::Init(void)
 	m_hWnd = this->CreateWnd(&m_stWndCls);
 	
 	GET_TIME_MANAGER()->Init();
+	GET_INPUT_MANAGER()->Init();
 }
 
 int CWndApp::Run(void)
@@ -99,6 +101,7 @@ int CWndApp::Run(void)
 void CWndApp::Update(float a_fDeltaTime)
 {
 	GET_TIME_MANAGER()->Update(a_fDeltaTime);
+	GET_INPUT_MANAGER()->Update(a_fDeltaTime);
 }
 
 void CWndApp::Render(HDC a_hDC)
