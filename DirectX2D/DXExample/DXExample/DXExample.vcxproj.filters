@@ -10,10 +10,17 @@
     <ClInclude Include="Systems\Window.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Systems\Graphics.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Systems\Window.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Graphics.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\main.cpp" />
   </ItemGroup>
 </Project>

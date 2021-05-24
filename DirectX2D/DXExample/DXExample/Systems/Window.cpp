@@ -17,19 +17,91 @@ Window::Window(WinDesc desc)
 	wndClass.lpszMenuName = NULL;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	wndClass.cbSize = sizeof(WNDCLASSEX);
+
+	WORD wHr = RegisterClassEx(&wndClass);
+	assert(wHr != 0);
+	desc.handle = CreateWindowEx
+	(
+		WS_EX_APPWINDOW,
+		desc.AppName.c_str(),
+		desc.AppName.c_str(),
+		WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		NULL,
+		(HMENU)NULL,
+		desc.instance,
+		NULL
+	);
+
+	RECT rect = { 0,0,(LONG)desc.width,(LONG)desc.height };
+	UINT centerX = (GetSystemMetrics(SM_CXSCREEN) - (UINT)desc.width) / 2;
+	UINT centerY = (GetSystemMetrics(SM_CYSCREEN) - (UINT)desc.height) / 2;
+
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+	MoveWindow
+	(
+		desc.handle,
+		centerX,
+		centerY,
+		rect.right - rect.left, 
+		rect.bottom - rect.top,
+		TRUE
+	);
+
+	ShowWindow(desc.handle, SW_SHOWNORMAL);
+	SetForegroundWindow(desc.handle);
+	SetFocus(desc.handle);
+	ShowCursor(true);
+
+	Window::desc = desc;
+	instance = desc.instance;
 }
 
 Window::~Window()
 {
-
+	DestroyWindow(desc.handle);
+	UnregisterClass(desc.AppName.c_str(), desc.instance);
 }
 
 WPARAM Window::Run()
 {
-	return WPARAM();
+	MSG msg = { 0 };
+	
+	while (true)
+	{
+		if (PeekMessage(&msg,handle, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				break;
+			}
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
+
+		}
+	}
+	return msg.wParam;
 }
+
+HWND handle;
 
 LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	if (message == WM_CREATE)
+		::handle = handle;
+	//자기 자신의 handle를 참조하는 것 
+
+	if (message == WM_CLOSE || message == WM_DESTROY)
+	{
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	return DefWindowProc(handle, message, wParam, lParam);
 }
