@@ -6,12 +6,14 @@ HINSTANCE instance;
 
 Window::Window(WinDesc desc)
 {
-	WNDCLASSEX wndClass;
+	WNDCLASSEX wndClass; //WNDCLASS 구조체와 거의 동일하되 cbSize와 hIconSm 멤버가 추가된 점만 다르다.
+
 	wndClass.cbClsExtra = 0;
 	wndClass.cbWndExtra = 0;
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndClass.hCursor = LoadCursor(NULL,IDC_ARROW);
-	wndClass.hIcon = LoadCursor(NULL, IDI_WINLOGO);
+	wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+	wndClass.hIconSm = wndClass.hIcon;
 	wndClass.hInstance = desc.instance;
 	wndClass.lpfnWndProc = (WNDPROC)WndProc;
 	wndClass.lpszMenuName = NULL;

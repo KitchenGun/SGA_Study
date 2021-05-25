@@ -43,7 +43,7 @@ void Graphics::Init()
 	ZeroMemory(&desc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	desc.BufferDesc.Width = 0;
 	desc.BufferDesc.Height = 0;
-	desc.BufferDesc.RefreshRate.Numerator = 60.0f;
+	desc.BufferDesc.RefreshRate.Numerator = 60;
 	desc.BufferDesc.RefreshRate.Denominator = 1;
 	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 

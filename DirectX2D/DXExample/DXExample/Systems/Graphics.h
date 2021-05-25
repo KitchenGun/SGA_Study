@@ -9,12 +9,14 @@ public:
 	static void Create();
 	static void Delete();
 	static Graphics* Get();
+
 public:
 	void Init();
 	void CreateBackBuffer();
 
 	void Begin();
 	void End();
+
 private:
 	Graphics();
 	~Graphics();

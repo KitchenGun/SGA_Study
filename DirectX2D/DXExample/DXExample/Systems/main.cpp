@@ -4,6 +4,7 @@
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR param,int command)
 {
 	srand((unsigned int)time(NULL));
+
 	WinDesc desc;
 	desc.AppName = L"D2DGame";
 	desc.instance = instance;
