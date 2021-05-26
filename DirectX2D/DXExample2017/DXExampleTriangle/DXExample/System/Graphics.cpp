@@ -107,11 +107,19 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 
 	ID3D11Texture2D* backBuffer = nullptr;
 	
-	/*//Resource View 자원의 종류 4가지
-	/ID3D11RenderTargetView
-	/ID3D11ShaderResourceView
-	/ID3D11DepthStencilView
-	/ID3D11UnorderedAccessView
+	/*
+	자원은 자료형에 따라 달라진다
+	buffer 데이터를 임시로 담는 것  // 랜더링파이프 라인에 직접꽂을수있다
+	buffer -> 정점 버퍼, 인덱스 버퍼,상수 버퍼
+	texture //랜더링 파이프 라인에 직접 꽂을수 없기 때문에 리소스뷰를 사용한다 
+	1d,2d,3d
+	*/
+
+	/*//Resource View의 종류 4가지 - 렌더링 파이프 라인에 꽂아주는 역할 
+	/ID3D11RenderTargetView			//다음 프레임에 그려질 화면 저장하는 역할 
+	/ID3D11ShaderResourceView		//쉐이더 형으로 꽂아주기 위함
+	/ID3D11DepthStencilView			//깊이 정보를 랜더링 파이프 라인에 넣기 위함
+	/ID3D11UnorderedAccessView		//
 	*/
 
 	hr = swapChain->GetBuffer  //만든걸 실제로 꽂아주는 과정 그림 용도로 사용중 
@@ -145,7 +153,8 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 void Graphics::Begin()
 {
 	//dc는 그리는 도구집합
-	deviceContext->OMSetRenderTargets(1, &rtv, nullptr);	//최종 병합 단계 view 1개 효과 정보 넘기고 depth안씀
+	deviceContext->OMSetRenderTargets(1, &rtv, nullptr);	//최종 병합 단계 view 1개 효과 정보 넘기고 depth안씀    
+															//om 단계 프로그래밍 불가능 그래서 rtv를 꽂아줌 다음 프레임에 그려질 화면을 넘겨줌
 	deviceContext->RSSetViewports(1, &viewport);			//viewport 세팅 rs 단계에서 수행
 	deviceContext->ClearRenderTargetView(rtv, clearColor);	//rtv를 미리 세팅한 클리어 칼라로 지움
 }

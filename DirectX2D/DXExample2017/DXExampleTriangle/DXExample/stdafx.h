@@ -27,7 +27,9 @@ using namespace std;
 #pragma comment (lib,"d3dx11.lib")
 #pragma comment (lib,"d3dx10.lib")
 #pragma comment (lib,"d3dcompiler.lib")
-//
+//½Ì±ÛÅæ ÇØ´õ Ãß°¡
+#include "System/Graphics.h"
+
 #define SAFE_DELETE(p){if(p){delete (p);p=nullptr;}}
 #define SAFE_DELETE_ARRAY(p){if(p){delete[](p);p=nullptr;}}
 #define SAFE_RELEASE(p){if(p){p->Release(); p=nullptr;}}

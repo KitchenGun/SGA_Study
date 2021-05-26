@@ -2,6 +2,7 @@
 #include "Window.h"
 
 WinDesc Window::desc;
+Graphics* Window::graphics = nullptr;
 HINSTANCE instance;
 
 Window::Window(WinDesc desc)
@@ -16,6 +17,7 @@ Window::Window(WinDesc desc)
 	wndClass.hIconSm = wndClass.hIcon;
 	wndClass.hInstance = desc.instance;
 	wndClass.lpfnWndProc = (WNDPROC)WndProc;
+	wndClass.lpszClassName = desc.AppName.c_str();
 	wndClass.lpszMenuName = NULL;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	wndClass.cbSize = sizeof(WNDCLASSEX);
@@ -72,6 +74,9 @@ WPARAM Window::Run()
 {
 	MSG msg = { 0 };
 	
+	Graphics::Create();
+	Graphics::Get()->Init();
+
 	while (true)
 	{
 		if (PeekMessage(&msg,NULL, 0, 0, PM_REMOVE))
@@ -85,9 +90,16 @@ WPARAM Window::Run()
 		}
 		else
 		{
+			//랜더링 부분
+			Graphics::Get()->Begin();
+			{
 
+			}
+			Graphics::Get()->End();
 		}
 	}
+	//싱글톤 객체 제거
+	Graphics::Delete();//무한이 삭제하는 코드는 작성하지 말자 
 	return msg.wParam;
 }
 
