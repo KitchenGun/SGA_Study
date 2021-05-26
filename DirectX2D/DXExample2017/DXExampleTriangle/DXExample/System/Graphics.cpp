@@ -69,6 +69,7 @@ void Graphics::Init()
 
 	HRESULT hr = D3D11CreateDeviceAndSwapChain					//HRESULT 객체가 제대로 생성이 되었는지 확인용  함수가 호출시 HRESULT값이 반환이 되어서 객체 생성여부 확인가능
 	(
+		//HRESULT는 BOOL과 다르게 RETURN값이 필수가 아니다 하지만 (true= 0/false=1)로 반대로 된다
 		nullptr,												//화면이랑 연동되는것 지금당장 필요없음
 		D3D_DRIVER_TYPE_HARDWARE,								//하드웨어 가속을 사용한다 만약에 지원하지 않을 경우 소프트웨어 드라이버로 대체한다 
 																//reference 3d를 지원하는 소프트웨어 타입 정확도에 초점을 맞춤(버그 찾을때)
@@ -106,7 +107,7 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 
 	ID3D11Texture2D* backBuffer = nullptr;
 	
-	/*//자원의 종류 4가지
+	/*//Resource View 자원의 종류 4가지
 	/ID3D11RenderTargetView
 	/ID3D11ShaderResourceView
 	/ID3D11DepthStencilView
