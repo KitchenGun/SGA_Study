@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Duck">
+      <UniqueIdentifier>{439388e7-15c1-4c47-9148-625cfef21a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function">
+      <UniqueIdentifier>{3f10936f-e1b0-4b01-a693-bbf7de730abc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Duck\Duck.h">
+      <Filter>Duck</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\FlyBehavior.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Duck\RealDuck.h">
+      <Filter>Duck</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Duck\Duck.cpp">
+      <Filter>Duck</Filter>
+    </ClCompile>
+    <ClCompile Include="Duck\RealDuck.cpp">
+      <Filter>Duck</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
