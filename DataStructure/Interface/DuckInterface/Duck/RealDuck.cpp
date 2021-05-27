@@ -3,3 +3,7 @@
 REALDuck::REALDuck()
 {
 }
+
+REALDuck::~REALDuck()
+{
+}

@@ -17,6 +17,10 @@ public:
 	void Begin();
 	void End();
 
+	ID3D11Device*GetDevice() { return device; }
+	ID3D11DeviceContext* GetDC() { return deviceContext; }
+
+
 private:
 	Graphics();
 	~Graphics();
