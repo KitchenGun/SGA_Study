@@ -2,7 +2,9 @@
 
 
 Duck::Duck()
-	:m_strDuckType("오리")
+	:
+	m_strDuckType("오리"),
+	m_oflyBehavior(nullptr)
 {
 
 }

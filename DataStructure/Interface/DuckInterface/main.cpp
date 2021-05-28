@@ -7,4 +7,5 @@ int main()
 	Duck *RealDuck =new REALDuck();
 
 	RealDuck->Display();
+	RealDuck->Fly();
 }

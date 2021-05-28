@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../stdafx.h"
 
 
@@ -8,10 +7,13 @@ class Duck :public IFlyable
 public:
 	Duck();
 public:
-	void Fly();
+	virtual void Fly();
 	void Display();
+public:
+	
+
 protected:
-	IFlyable* flyBehavior;
+	IFlyable* m_oflyBehavior;
 	std::string m_strDuckType;
 };
 
