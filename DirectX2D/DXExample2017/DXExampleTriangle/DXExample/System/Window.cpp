@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "Window.h"
+#include "Program.h"
 
 WinDesc Window::desc;
+Program* Window::program=nullptr;
 Graphics* Window::graphics = nullptr;
 HINSTANCE instance;
+
 
 Window::Window(WinDesc desc)
 {
@@ -77,6 +80,8 @@ WPARAM Window::Run()
 	Graphics::Create();
 	Graphics::Get()->Init();
 
+	program = new Program();
+
 	while (true)
 	{
 		if (PeekMessage(&msg,NULL, 0, 0, PM_REMOVE))
@@ -90,14 +95,16 @@ WPARAM Window::Run()
 		}
 		else
 		{
+			program->Update();
 			//랜더링 부분
 			Graphics::Get()->Begin();
 			{
-
+				program->Render();
 			}
 			Graphics::Get()->End();
 		}
 	}
+	SAFE_DELETE(program);
 	//싱글톤 객체 제거
 	Graphics::Delete();//무한이 삭제하는 코드는 작성하지 말자 
 	return msg.wParam;

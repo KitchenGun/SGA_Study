@@ -48,7 +48,7 @@ Program::Program()
 			0,								//쉐이더 컴파일 플래그 //특정 동작 수행 여부를 결정하는 것이다(현재 필요없음 0)
 			0,								//효과 컴파일 플래그	//특정 동작 수행 여부를 결정하는 것이다(현재 필요없음 0)
 			nullptr,						//별도의 쓰레드에서 비동기적으로 실행하고 싶을때 
-			&vsBlob,						//이진 데이터의 집합  -> 컴퓨터가 읽을 수 있는 기계어로 만드는 과정
+			&vsBlob,						//이진 데이터의 집합  -> 컴퓨터가 읽을 수 있는 기계어로 만드는 과정 바이너리라지오브젝트ㅠ
 			nullptr,						//error msg
 			nullptr							//만듬과 동시에 hr만들었기때문에 따로 반환 필요없음
 		);
@@ -85,14 +85,59 @@ Program::Program()
 				sizeof(D3DXVECTOR3),
 				D3D11_INPUT_PER_VERTEX_DATA,
 				0
-			}
+			},
+			
 		};
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateInputLayout
+		(
+			LayoutDesc,
+			2,
+			vsBlob->GetBufferPointer(),
+			vsBlob->GetBufferSize(),
+			&inputLayout
+		);
+		assert(SUCCEEDED(hr));
+	}
+
+	//pixel shader
+	{
+		HRESULT hr = D3DCompileFromFile
+		(
+			L"./Color.hlsl",
+			nullptr,
+			nullptr,
+			"PS",			//function 네임과 동일
+			"ps_5_0",
+			0,
+			0,
+			&psBlob,
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+		
+		hr = Graphics::Get()->GetDevice()->CreatePixelShader
+		(
+			psBlob->GetBufferPointer(),
+			psBlob->GetBufferSize(),
+			nullptr,
+			&pixelShader
+		);
+		assert(SUCCEEDED(hr));
+
 	}
 
 }
 
 Program::~Program()
 {
+
+	SAFE_RELEASE(pixelShader);
+	SAFE_RELEASE(psBlob);
+	SAFE_RELEASE(inputLayout);
+	SAFE_RELEASE(vertexShader);
+	SAFE_RELEASE(vsBlob);
+	SAFE_RELEASE(vertexBuffer);
+	SAFE_DELETE_ARRAY(vertices);
 
 }
 
@@ -103,5 +148,40 @@ void Program::Update()
 
 void Program::Render()
 {
+	UINT stride = sizeof(VertexColor);
+	UINT offset = 0;
 
+	Graphics::Get()->GetDC()->IASetVertexBuffers
+	(
+		0,
+		1,
+		&vertexBuffer,
+		&stride,
+		&offset
+	);
+	Graphics::Get()->GetDC()->IASetInputLayout
+	(
+		inputLayout
+	);
+	Graphics::Get()->GetDC()->IASetPrimitiveTopology
+	(
+		D3D11_PRIMITIVE_TOPOLOGY_LINELIST
+	);
+	Graphics::Get()->GetDC()->VSSetShader
+	(
+		vertexShader,
+		nullptr,
+		0
+	);
+	Graphics::Get()->GetDC()->PSSetShader
+	(
+		pixelShader,
+		nullptr,
+		0
+	);
+	Graphics::Get()->GetDC()->Draw
+	(
+		2,
+		0
+	);
 }

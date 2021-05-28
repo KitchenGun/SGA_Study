@@ -20,5 +20,6 @@ public:
 private:
 	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 	static WinDesc desc;
+	static class Program* program;
 	static class Graphics* graphics;
 };
