@@ -1,0 +1,15 @@
+﻿  main.cpp
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7): error C2259: 'REALDuck': 추상 클래스를 인스턴스화할 수 없습니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Duck\RealDuck.h(4): message : 'REALDuck' 선언을 참조하십시오.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7): message : 다음 멤버가 원인입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7): message : 'void IFlyable::FlyWithWing(void)': abstract입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Function\FlyBehavior.h(8): message : 'IFlyable::FlyWithWing' 선언을 참조하십시오.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7): message : 'void IFlyable::FlyNoWay(void)': abstract입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Function\FlyBehavior.h(9): message : 'IFlyable::FlyNoWay' 선언을 참조하십시오.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7,30): error C2259: 'REALDuck': 추상 클래스를 인스턴스화할 수 없습니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Duck\RealDuck.h(4): message : 'REALDuck' 선언을 참조하십시오.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7,30): message : 다음 멤버가 원인입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7,30): message : 'void IFlyable::FlyWithWing(void)': abstract입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Function\FlyBehavior.h(8): message : 'IFlyable::FlyWithWing' 선언을 참조하십시오.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\main.cpp(7,30): message : 'void IFlyable::FlyNoWay(void)': abstract입니다.
+D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\Function\FlyBehavior.h(9): message : 'IFlyable::FlyNoWay' 선언을 참조하십시오.

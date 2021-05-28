@@ -6,4 +6,6 @@ class REALDuck:public Duck
 public:
 	REALDuck();
 	virtual ~REALDuck();
+public:
+	void flyBehavior
 };

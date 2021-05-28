@@ -28,9 +28,9 @@ Program::Program()
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
 		desc.ByteWidth = sizeof(VertexColor) * 2;
 		
-		D3D11_SUBRESOURCE_DATA subData;//보조 자원데이터 
+		D3D11_SUBRESOURCE_DATA subData;//보조 자원데이터  ->사실상 리소스내에 있는 실제 데이터
 		ZeroMemory(&subData, sizeof(D3D11_SUBRESOURCE_DATA));
-		subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 
+		subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 선언후 초기화 해주는 과정
 
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &vertexBuffer);
 		assert(SUCCEEDED(hr));
@@ -69,13 +69,13 @@ Program::Program()
 		D3D11_INPUT_ELEMENT_DESC LayoutDesc[]
 		{
 			{
-				"POSITION",
-				0,
-				DXGI_FORMAT_R32G32B32_FLOAT,//한채널당 몇 비트인지 알려주는용이다. 현재 32비트 는 4바이트  vector3 = 4*8비트(1바이트) 
-				0,
-				0,
-				D3D11_INPUT_PER_VERTEX_DATA,
-				0
+				"POSITION",					//시멘틱 이름
+				0,							//시멘틱 인덱스 
+				DXGI_FORMAT_R32G32B32_FLOAT,//포멧						//한채널당 몇 비트인지 알려주는용이다. 현재 32비트 는 4바이트  vector3 = 4*8비트(1바이트) 
+				0,							//인풋 슬롯					//gpu로 넘기는 16개의 vertex buffer를 찾기 위한 값이다 
+				0,							//AlignedByteOffset			//시작점에서 얼마나 덜어져있는가 이전 입력한 메모리의 크기를 말하는 것이다.
+				D3D11_INPUT_PER_VERTEX_DATA,//InputSlotClass			//어플리케이션 인스턴싱에 사용한다 (복사 용도로 쓰임 3d에서 많이 씀)
+				0							//인스턴스 데이터 스텝레이트 //역시 인스턴스에 활용됨
 			},
 			{
 				"COLOR",
