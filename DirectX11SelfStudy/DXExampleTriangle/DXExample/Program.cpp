@@ -5,35 +5,38 @@ Program::Program()
 {
 	//vertexdata
 	{
-		vertices = new VertexColor[2];
-		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
+		vertices = new VertexColor[9];
+		vertices[0].position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);
+		vertices[1].position = D3DXVECTOR3(0.5, 0.0f, 0.0f);
 		vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		
+		vertices[2].position = D3DXVECTOR3(0.65f, -0.45f, 0.0f);
+		vertices[2].color = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);
+
+		vertices[3].position = D3DXVECTOR3(0.3f, 0.0f, 0.0f);
+		vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[4].position = D3DXVECTOR3(0.8f, 0.0f, 0.0f);
+		vertices[4].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[5].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
+		vertices[5].color = D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f);
+
+		vertices[6].position = D3DXVECTOR3(0.4f, 0.35f, 0.0f);
+		vertices[6].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[7].position = D3DXVECTOR3(0.55f, -0.2f, 0.0f);
+		vertices[7].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[8].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
+		vertices[8].color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	//vertex buffer
 	{
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-
-		desc.Usage = D3D11_USAGE_IMMUTABLE;//설명서에 적힌 용도 
-		/*
-		접근 방식에 대한 지정법   (자원 접근이 가능하면 데이터를 변경할수있다)
-		D3D11_USAGE_DEFAULT	= gpu만 데이터 읽고 쓸수있다
-		D3D11_USAGE_IMMUTABLE = gpu가 데이터를 읽기만 한다/cpu접근 마찬가지로 불가능/생성과 동시에 초기화를 해야한다/제일 빠르다
-		D3D11_USAGE_DYNAMIC	= gpu 읽기 허용	/cpu 쓰기 허용  /맵 언맵을 사용해서 cpu에서 접근해서 수정이 가능함/cpu에서 한프레임당 한번씩 업데이트 필요한 자원에 사용
-		D3D11_USAGE_STAGING	= gpu 메모리에서 cpu 메모리로 복사 허용 (읽기 쓰기 전부 다됨)  /속도가 제일 느림
-		*/
-		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
-		desc.ByteWidth = sizeof(VertexColor) * 2;
-		
 		D3D11_SUBRESOURCE_DATA subData;//보조 자원데이터  ->사실상 리소스내에 있는 실제 데이터
 		ZeroMemory(&subData, sizeof(D3D11_SUBRESOURCE_DATA));
-		subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 선언후 초기화 해주는 과정
-
+		CreateVertexBuffer(desc, subData, *vertexBuffer,vertices);
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &vertexBuffer);
 		assert(SUCCEEDED(hr));
+
 	}
 
 	//vertex shader
@@ -86,7 +89,6 @@ Program::Program()
 				D3D11_INPUT_PER_VERTEX_DATA,
 				0
 			},
-			
 		};
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateInputLayout
 		(
@@ -136,7 +138,9 @@ Program::~Program()
 	SAFE_RELEASE(inputLayout);
 	SAFE_RELEASE(vertexShader);
 	SAFE_RELEASE(vsBlob);
+
 	SAFE_RELEASE(vertexBuffer);
+
 	SAFE_DELETE_ARRAY(vertices);
 
 }
@@ -165,7 +169,7 @@ void Program::Render()
 	);
 	Graphics::Get()->GetDC()->IASetPrimitiveTopology
 	(
-		D3D11_PRIMITIVE_TOPOLOGY_LINELIST
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 	);
 	Graphics::Get()->GetDC()->VSSetShader
 	(
@@ -181,7 +185,16 @@ void Program::Render()
 	);
 	Graphics::Get()->GetDC()->Draw
 	(
-		2,
+		9,
 		0
 	);
+}
+
+void Program::CreateVertexBuffer(D3D11_BUFFER_DESC &desc, D3D11_SUBRESOURCE_DATA &subData, ID3D11Buffer &buffer, VertexColor* vertices)
+{
+	desc.Usage = D3D11_USAGE_IMMUTABLE;//설명서에 적힌 용도 
+	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
+	desc.ByteWidth = sizeof(VertexColor) * 9;
+
+	subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 선언후 초기화 해주는 과정
 }
