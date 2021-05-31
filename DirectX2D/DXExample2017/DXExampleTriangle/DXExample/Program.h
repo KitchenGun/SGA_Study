@@ -21,6 +21,9 @@ private:
 	ID3D11Buffer* vertexBuffer = nullptr;
 	ID3D11InputLayout* inputLayout = nullptr;
 
+	UINT *indices = nullptr;
+	ID3D11Buffer* indexBuffer = nullptr;
+
 	ID3D11VertexShader* vertexShader;
 	ID3DBlob* vsBlob;
 	ID3D11PixelShader* pixelShader;

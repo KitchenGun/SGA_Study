@@ -5,12 +5,15 @@ Program::Program()
 {
 	//vertexdata
 	{
-		vertices = new VertexColor[2];
+		vertices = new VertexColor[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
 		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 		vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);
 		vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		
+		vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);
+		vertices[2].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);
+		vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 	//vertex buffer
 	{
@@ -26,7 +29,7 @@ Program::Program()
 		D3D11_USAGE_STAGING	= gpu 메모리에서 cpu 메모리로 복사 허용 (읽기 쓰기 전부 다됨)  /속도가 제일 느림
 		*/
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
-		desc.ByteWidth = sizeof(VertexColor) * 2;
+		desc.ByteWidth = sizeof(VertexColor) * 4;
 		
 		D3D11_SUBRESOURCE_DATA subData;//보조 자원데이터  ->사실상 리소스내에 있는 실제 데이터
 		ZeroMemory(&subData, sizeof(D3D11_SUBRESOURCE_DATA));
@@ -35,6 +38,30 @@ Program::Program()
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &vertexBuffer);
 		assert(SUCCEEDED(hr));
 	}
+	
+	//indexData  겹치는 정점을 줄이기 위해서 사용됨 
+	{
+		//012 213 구도로 만들거임
+		indices = new UINT[6]{0,1,2,2,1,3};
+	}
+
+	//indexBuffer
+	{
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
+
+		desc.Usage = D3D11_USAGE_IMMUTABLE;
+		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+		desc.ByteWidth = sizeof(UINT) * 6;
+		D3D11_SUBRESOURCE_DATA subData;
+		subData.pSysMem = indices;
+
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &indexBuffer);
+		assert(SUCCEEDED(hr));
+	}
+
+
+
 
 	//vertex shader
 	{
@@ -130,15 +157,20 @@ Program::Program()
 
 Program::~Program()
 {
-
 	SAFE_RELEASE(pixelShader);
 	SAFE_RELEASE(psBlob);
+
 	SAFE_RELEASE(inputLayout);
+
+
 	SAFE_RELEASE(vertexShader);
 	SAFE_RELEASE(vsBlob);
+	
+	SAFE_RELEASE(indexBuffer);
+	SAFE_DELETE_ARRAY(indices);
+
 	SAFE_RELEASE(vertexBuffer);
 	SAFE_DELETE_ARRAY(vertices);
-
 }
 
 void Program::Update()
@@ -150,7 +182,7 @@ void Program::Render()
 {
 	UINT stride = sizeof(VertexColor);
 	UINT offset = 0;
-
+	
 	Graphics::Get()->GetDC()->IASetVertexBuffers
 	(
 		0,						//시작 버퍼 슬롯
@@ -158,6 +190,12 @@ void Program::Render()
 		&vertexBuffer,			//버퍼
 		&stride,				//버퍼 크기
 		&offset					//버퍼 간의 크기
+	);
+	Graphics::Get()->GetDC()->IASetIndexBuffer
+	(
+		indexBuffer,
+		DXGI_FORMAT_R32_UINT,
+		0
 	);
 	Graphics::Get()->GetDC()->IASetInputLayout
 	(
@@ -167,9 +205,9 @@ void Program::Render()
 	(
 		//D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED		// 기본 토폴로지가 정의 되지 않으면 작동안됨  걍 임의로 최적을 선택해서 출력하는 듯 함
 		//D3D11_PRIMITIVE_TOPOLOGY_POINTLIST		//꼭지점 데이터를 점 으로 그린다
-		D3D11_PRIMITIVE_TOPOLOGY_LINELIST			//선 목록을 적용해서 물체들을 그린다
+		//D3D11_PRIMITIVE_TOPOLOGY_LINELIST			//선 목록을 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_LINELIST_ADJ		//인접 정보를 가진 삼각형
-		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST		//삼각형 목록을 적용해서 물체들을 그린다
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST		//삼각형 목록을 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP	//삼각형 띠를 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST //정점자료 n개의 제어점들을 사용한다
 	);
@@ -185,9 +223,17 @@ void Program::Render()
 		nullptr,
 		0
 	);
-	Graphics::Get()->GetDC()->Draw
+
+	Graphics::Get()->GetDC()->DrawIndexed
 	(
-		2, //그릴 폴리곤 수
-		0  //시작 폴리곤
+		6,
+		0,
+		0
 	);
+
+	//Graphics::Get()->GetDC()->Draw
+	//(
+	//	4, //그릴 폴리곤 수
+	//	0  //시작 폴리곤
+	//);
 }
