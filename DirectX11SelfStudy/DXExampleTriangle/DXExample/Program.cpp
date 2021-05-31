@@ -5,27 +5,39 @@ Program::Program()
 {
 	//vertexdata
 	{
-		vertices = new VertexColor[9];
+		vertices = new VertexColor[10];
+
 		vertices[0].position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[1].position = D3DXVECTOR3(0.5, 0.0f, 0.0f);
+		vertices[1].position = D3DXVECTOR3(0.8f, 0.0f, 0.0f);
 		vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[2].position = D3DXVECTOR3(0.65f, -0.45f, 0.0f);
+		vertices[2].position = D3DXVECTOR3(0.8f, 0.0f, 0.0f);
 		vertices[2].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-
-		vertices[3].position = D3DXVECTOR3(0.3f, 0.0f, 0.0f);
+		vertices[3].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
 		vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[4].position = D3DXVECTOR3(0.8f, 0.0f, 0.0f);
+		vertices[4].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
 		vertices[4].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[5].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
+		vertices[5].position = D3DXVECTOR3(0.4f, 0.35f, 0.0f);
 		vertices[5].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-
 		vertices[6].position = D3DXVECTOR3(0.4f, 0.35f, 0.0f);
 		vertices[6].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[7].position = D3DXVECTOR3(0.55f, -0.2f, 0.0f);
+		vertices[7].position = D3DXVECTOR3(0.65f, -0.45f, 0.0f);
 		vertices[7].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		vertices[8].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
+		vertices[8].position = D3DXVECTOR3(0.65f, -0.45f, 0.0f);
 		vertices[8].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[9].position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		vertices[9].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertices[1].position = D3DXVECTOR3(0.5, 0.0f, 0.0f);
+		//vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertices[2].position = D3DXVECTOR3(0.65f, -0.45f, 0.0f);
+		//vertices[2].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		
+		//vertices[3].position = D3DXVECTOR3(0.3f, 0.0f, 0.0f);
+		//vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertices[5].position = D3DXVECTOR3(0.15f, -0.45f, 0.0f);
+		//vertices[5].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		//vertices[7].position = D3DXVECTOR3(0.55f, -0.2f, 0.0f);
+		//vertices[7].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 	//vertex buffer
 	{
@@ -171,9 +183,9 @@ void Program::Render()
 	(
 		//D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED		// 기본 토폴로지가 정의 되지 않으면 작동안됨  걍 임의로 최적을 선택해서 출력하는 듯 함
 		//D3D11_PRIMITIVE_TOPOLOGY_POINTLIST		//꼭지점 데이터를 점 으로 그린다
-		//D3D11_PRIMITIVE_TOPOLOGY_LINELIST			//선 목록을 적용해서 물체들을 그린다
+		D3D11_PRIMITIVE_TOPOLOGY_LINELIST			//선 목록을 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_LINELIST_ADJ		//인접 정보를 가진 삼각형
-		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST		//삼각형 목록을 적용해서 물체들을 그린다
+		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST		//삼각형 목록을 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP	//삼각형 띠를 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST //정점자료 n개의 제어점들을 사용한다
 	);
@@ -191,7 +203,7 @@ void Program::Render()
 	);
 	Graphics::Get()->GetDC()->Draw
 	(
-		9,	//그릴 폴리곤 수
+		10,	//그릴 폴리곤 수
 		0	//시작 폴리곤
 	);
 }
@@ -200,7 +212,7 @@ void Program::CreateVertexBuffer(D3D11_BUFFER_DESC &desc, D3D11_SUBRESOURCE_DATA
 {
 	desc.Usage = D3D11_USAGE_IMMUTABLE;//설명서에 적힌 용도 
 	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
-	desc.ByteWidth = sizeof(VertexColor) * 9;
+	desc.ByteWidth = sizeof(VertexColor) * 10;
 
 	subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 선언후 초기화 해주는 과정
 }
