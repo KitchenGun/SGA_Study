@@ -54,7 +54,7 @@ Program::Program()
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		desc.ByteWidth = sizeof(UINT) * 6;
 		D3D11_SUBRESOURCE_DATA subData;
-		subData.pSysMem = indices;
+		subData.pSysMem = indices;//정점 제작 순서에 대한 정보를 초기화 해주는 과정
 
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &indexBuffer);
 		assert(SUCCEEDED(hr));
@@ -193,9 +193,9 @@ void Program::Render()
 	);
 	Graphics::Get()->GetDC()->IASetIndexBuffer
 	(
-		indexBuffer,
-		DXGI_FORMAT_R32_UINT,
-		0
+		indexBuffer,			//인덱스버퍼
+		DXGI_FORMAT_R32_UINT,	//포맷
+		0						//버퍼간 크기차
 	);
 	Graphics::Get()->GetDC()->IASetInputLayout
 	(
@@ -226,9 +226,9 @@ void Program::Render()
 
 	Graphics::Get()->GetDC()->DrawIndexed
 	(
-		6,
-		0,
-		0
+		6,	//그려야 하는 인덱스 수
+		0,	//그리기 시작할 인덱스 넘버
+		0	//정점 버퍼에서 정점을 읽기 전에 각 인덱스에 추가 된 값입니다.
 	);
 
 	//Graphics::Get()->GetDC()->Draw

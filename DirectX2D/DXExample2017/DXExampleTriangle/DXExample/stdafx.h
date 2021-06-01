@@ -30,9 +30,9 @@ using namespace std;
 //싱글톤 해더 추가
 #include "System/Graphics.h"
 
-#define SAFE_DELETE(p){if(p){delete (p);p=nullptr;}}
-#define SAFE_DELETE_ARRAY(p){if(p){delete[](p);p=nullptr;}}
-#define SAFE_RELEASE(p){if(p){p->Release(); p=nullptr;}}
+#define SAFE_DELETE(p){if(p){delete (p);p=nullptr;}}//동적자원 해제
+#define SAFE_DELETE_ARRAY(p){if(p){delete[](p);p=nullptr;}}//동적자원배열 해제
+#define SAFE_RELEASE(p){if(p){p->Release(); p=nullptr;}}//DX 자원 해제(Com인터페이스의 참조횟수를 1 줄임) 
 //창크기
 #define WinMaxWidth 1280
 #define WinMaxHeight 720
