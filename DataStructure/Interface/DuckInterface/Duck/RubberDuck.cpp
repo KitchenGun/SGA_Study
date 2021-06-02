@@ -11,5 +11,5 @@ RubberDuck::~RubberDuck()
 
 void RubberDuck::Fly()
 {
-	FlyNoWay();
+	FlyBehavior.Fly();
 }

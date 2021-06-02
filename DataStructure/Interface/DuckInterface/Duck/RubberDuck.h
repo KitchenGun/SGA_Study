@@ -9,11 +9,6 @@ public:
 
 public:
 	void Fly() override;
-
-	void FlyNoWay() override
-	{
-		std::cout << "고무오리는 날지 않는다"<<std::endl;
-	}
-
-public:
+private:
+	NoFly FlyBehavior;
 };

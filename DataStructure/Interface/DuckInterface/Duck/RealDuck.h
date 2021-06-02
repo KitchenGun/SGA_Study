@@ -9,9 +9,6 @@ public:
 
 public:
 	void Fly() override;
-	void FlyWithWing() override
-	{
-		std::cout << "ÆÛ´ö ÆÛ´ö" << std::endl;
-	}
-public:
+private:
+	FlyWing FlyBehavior;
 };

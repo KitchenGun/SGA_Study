@@ -11,5 +11,5 @@ REALDuck::~REALDuck()
 
 void REALDuck::Fly()
 {
-	FlyWithWing();
+	FlyBehavior.Fly();
 }

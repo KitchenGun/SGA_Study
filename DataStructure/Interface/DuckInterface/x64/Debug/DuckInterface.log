@@ -1,4 +1,6 @@
-﻿  RubberDuck.cpp
+﻿  Duck.cpp
+  RealDuck.cpp
+  RubberDuck.cpp
   main.cpp
   코드를 생성하고 있습니다...
   DuckInterface.vcxproj -> D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\x64\Debug\DuckInterface.exe
