@@ -13,9 +13,9 @@ ex
 template <typename T>
 void Swap(T &a_rtLhs,T &a_rtRhs)
 {
-T tTemp = a_rtLhs;
-a_rtLhs=a_rtRhs;
-a_rtRhs =tTemp;
+	T tTemp = a_rtLhs;
+	a_rtLhs=a_rtRhs;
+	a_rtRhs =tTemp;
 }
 
 */
