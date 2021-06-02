@@ -10,10 +10,13 @@ public:
 	virtual void Fly();
 	void Display();
 public:
-	
-
+	void FlyNoWay() override
+	{
+	}
+	void FlyWithWing() override
+	{
+	}
 protected:
-	IFlyable* m_oflyBehavior;
 	std::string m_strDuckType;
 };
 

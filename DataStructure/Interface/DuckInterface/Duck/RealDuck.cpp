@@ -2,7 +2,6 @@
 
 REALDuck::REALDuck()
 {
-	FlyWing o_flyable;
 	m_strDuckType="RealDuck";
 }
 

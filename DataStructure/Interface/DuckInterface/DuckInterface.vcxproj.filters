@@ -19,6 +19,9 @@
     <ClInclude Include="Duck\RealDuck.h">
       <Filter>Duck</Filter>
     </ClInclude>
+    <ClInclude Include="Duck\RubberDuck.h">
+      <Filter>Duck</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -26,6 +29,9 @@
       <Filter>Duck</Filter>
     </ClCompile>
     <ClCompile Include="Duck\RealDuck.cpp">
+      <Filter>Duck</Filter>
+    </ClCompile>
+    <ClCompile Include="Duck\RubberDuck.cpp">
       <Filter>Duck</Filter>
     </ClCompile>
   </ItemGroup>

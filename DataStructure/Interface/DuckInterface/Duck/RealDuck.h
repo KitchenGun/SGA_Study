@@ -9,14 +9,9 @@ public:
 
 public:
 	void Fly() override;
-
-	virtual void FlyWithWing() override
+	void FlyWithWing() override
 	{
-		std::cout << "ÆÛ´ö ÆÛ´ö";
-	}
-	virtual void FlyNoWay() override
-	{
-		std::cout << "do nothing";
+		std::cout << "ÆÛ´ö ÆÛ´ö" << std::endl;
 	}
 public:
 };

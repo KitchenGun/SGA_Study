@@ -141,12 +141,14 @@
   <ItemGroup>
     <ClInclude Include="Duck\Duck.h" />
     <ClInclude Include="Duck\RealDuck.h" />
+    <ClInclude Include="Duck\RubberDuck.h" />
     <ClInclude Include="Function\FlyBehavior.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Duck\Duck.cpp" />
     <ClCompile Include="Duck\RealDuck.cpp" />
+    <ClCompile Include="Duck\RubberDuck.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

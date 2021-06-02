@@ -5,8 +5,6 @@
 class IFlyable
 {
 public:
-	//virtual void FlyWithWing() {};
-	//virtual void FlyNoWay() {};
 	virtual void FlyWithWing()=0;
 	virtual void FlyNoWay()=0;
 };	
@@ -22,7 +20,7 @@ public:
 	{
 	}
 public:
-	void Fly()
+	void Fly() 
 	{
 		FlyWithWing();
 	}

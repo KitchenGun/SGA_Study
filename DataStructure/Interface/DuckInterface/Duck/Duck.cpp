@@ -3,8 +3,7 @@
 
 Duck::Duck()
 	:
-	m_strDuckType("오리"),
-	m_oflyBehavior(nullptr)
+	m_strDuckType("오리")
 {
 
 }
