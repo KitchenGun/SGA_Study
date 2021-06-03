@@ -37,7 +37,7 @@ private:
 	ID3DBlob* psBlob;
 
 	//dx 왼손 좌표계 
-	//D3DXMATRIX 4*4 행렬의 연산 기능을 포함한 클래스  행렬 이동을 위한 변수들
+	//D3DXMATRIX 4*4 행렬의 연산 기능을 포함한 클래스  행렬 이동을 위한 연산자들을 가지고 있음
 	D3DXMATRIX world;			//월드 좌표
 	D3DXMATRIX view;			//카메라 변환 카메라를 원점해서 만든 공간
 	D3DXMATRIX projection;		//투영 변환 원근투영과 직교투영
