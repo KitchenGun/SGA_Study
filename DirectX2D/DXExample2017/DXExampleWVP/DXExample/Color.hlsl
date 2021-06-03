@@ -12,11 +12,20 @@ struct PixelInput
 	float4 color : COLOR0;
 };
 
+cbuffer TransformBuffer : register(b0)  //상수 버퍼를 보낸다
+{
+    matrix _world;
+    matrix _view;
+    matrix _proj;
+}
+
 PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형태로 반환
 {
     PixelInput output;
-    
-    output.position = input.position;
+    //백터와 행렬의 곱을 수행할것
+    output.position = mul(input.position, _world);//world 공간으로 변환
+    output.position = mul(output.position, _view);//view 공간에서 변화
+    output.position = mul(output.position, _proj); //projection 공간을 변환
     output.color = input.color;
     
     return output;

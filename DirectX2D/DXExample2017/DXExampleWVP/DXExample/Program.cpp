@@ -152,11 +152,60 @@ Program::Program()
 		assert(SUCCEEDED(hr));
 
 	}
+	//CreateWorldViewProjection
+	{	
+		//단위 행렬로 초기화 
+		D3DXMatrixIdentity(&world);
+		D3DXMatrixIdentity(&view);
+		D3DXMatrixIdentity(&projection);
+		//view//카메라 행렬 
+		D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
+		//projection //2d라서 직교 투영
+		D3DXMatrixOrthoLH
+		(
+			&projection,
+			WinMaxWidth,
+			WinMaxHeight,
+			0,//가까운곳	3D
+			1//먼곳		3D
+		);//왼손 좌표계
+		cout << "View Matrix" << endl;
+		cout << view._11 << " " << view._12 << " " << view._13 << " " << view._14 << endl;
+		cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << endl;
+		cout << view._31 << " " << view._32 << " " << view._33 << " " << view._34 << endl;
+		cout << view._41 << " " << view._42 << " " << view._43 << " " << view._44 << endl;
+		
+		cout << endl;
+
+		cout << "Projection Matrix" << endl;
+		cout << projection._11 << " " << projection._12 << " " << projection._13 << " " << projection._14 << endl;
+		cout << projection._21 << " " << projection._22 << " " << projection._23 << " " << projection._24 << endl;
+		cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << endl;
+		cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << endl;
+
+		cout << endl;
+	}
+	//CreateConstantBuffere
+	{//상수 버퍼 desc
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(desc));
+		
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		desc.ByteWidth = sizeof(TransformData);
+		//데이터 패딩  데이터를 16바이트 단위에 맞게 보내주는것  지금은 필요없음 안썼음
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, nullptr, &gpuBuffer);
+		assert(SUCCEEDED(hr));
+	}
 
 }
 
+
 Program::~Program()
 {
+	SAFE_RELEASE(gpuBuffer);
 	SAFE_RELEASE(pixelShader);
 	SAFE_RELEASE(psBlob);
 
@@ -175,7 +224,33 @@ Program::~Program()
 
 void Program::Update()
 {
-	
+	//크기
+	world._11 = 50;
+	world._22 = 50;
+	//이동
+	world._41 = 100;
+	world._42 = 100;
+	//dx 행우선 gpu 열우선 행렬
+	D3DXMatrixTranspose(&cpuBuffer.world, &world);
+	D3DXMatrixTranspose(&cpuBuffer.view, &view);
+	D3DXMatrixTranspose(&cpuBuffer.projection, &projection);
+
+	//11부터 lock 거는 것이 map unmap 으로 바뀜
+	D3D11_MAPPED_SUBRESOURCE mappedSubResource;
+	Graphics::Get()->GetDC()->Map
+	(
+		gpuBuffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,//맵해서 쓰고 버린다
+		0,
+		&mappedSubResource
+	);
+	memcpy(mappedSubResource.pData, &cpuBuffer, sizeof(TransformData));
+	Graphics::Get()->GetDC()->Unmap
+	(
+		gpuBuffer,
+		0
+	);
 }
 
 void Program::Render()
@@ -210,6 +285,12 @@ void Program::Render()
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST		//삼각형 목록을 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP	//삼각형 띠를 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST //정점자료 n개의 제어점들을 사용한다
+	);
+	Graphics::Get()->GetDC()->VSSetConstantBuffers//ndc 좌표계로 보다가 공간변환을 해줌으로써 스케일 변환 필요함 
+	(
+		0,
+		1,
+		&gpuBuffer
 	);
 	Graphics::Get()->GetDC()->VSSetShader
 	(

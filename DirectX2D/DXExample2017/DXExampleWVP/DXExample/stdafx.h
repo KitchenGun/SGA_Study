@@ -2,6 +2,10 @@
 
 #define no_init_all//2017만 존재하는 버그 2019에서 수정됨
 
+#ifdef _DEBUG
+#pragma comment (linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+
 #include <Windows.h>
 #include <assert.h>
 #include <string>

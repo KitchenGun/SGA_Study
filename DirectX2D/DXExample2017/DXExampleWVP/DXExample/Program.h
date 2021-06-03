@@ -43,5 +43,5 @@ private:
 	D3DXMATRIX projection;		//투영 변환 원근투영과 직교투영
 
 	TransformData cpuBuffer;
-	ID3D11Buffer *gpuBuffer;
+	ID3D11Buffer *gpuBuffer=nullptr;
 };
