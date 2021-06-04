@@ -42,6 +42,11 @@ private:
 	D3DXMATRIX view;			//카메라 변환 카메라를 원점해서 만든 공간
 	D3DXMATRIX projection;		//투영 변환 원근투영과 직교투영
 
+	int nTurnCount = 500;
+	float fRotangle = 5.0f;
+	float fSpeed = 0.0f;
+	D3DXMATRIX S, R, T;
+
 	TransformData cpuBuffer;
 	ID3D11Buffer *gpuBuffer=nullptr;
 };

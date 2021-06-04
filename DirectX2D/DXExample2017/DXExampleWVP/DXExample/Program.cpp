@@ -184,6 +184,36 @@ Program::Program()
 		cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << endl;
 
 		cout << endl;
+		//world
+		D3DXMatrixIdentity(&S);
+		D3DXMatrixIdentity(&R);
+		D3DXMatrixIdentity(&T);
+		//크기
+		D3DXMatrixScaling(&S, 100, 100, 1);
+		cout << "S Matrix" << endl;
+		cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << endl;
+		cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << endl;
+		cout << S._31 << " " << S._32 << " " << S._33 << " " << S._34 << endl;
+		cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << endl;
+		cout << endl;
+		//로컬의 z축을 돌린다
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
+		cout << "R Matrix" << endl;
+		cout << R._11 << " " << R._12 << " " << R._13 << " " << R._14 << endl;
+		cout << R._21 << " " << R._22 << " " << R._23 << " " << R._24 << endl;
+		cout << R._31 << " " << R._32 << " " << R._33 << " " << R._34 << endl;
+		cout << R._41 << " " << R._42 << " " << R._43 << " " << R._44 << endl;
+		cout << endl;
+		//이동
+		//D3DXMatrixTranslation(&T, 100, 100, 0);
+		cout << "T Matrix" << endl;
+		cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << endl;
+		cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << endl;
+		cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << endl;
+		cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << endl;
+		cout << endl;
+
+		world = S * R * T;
 	}
 	//CreateConstantBuffere
 	{//상수 버퍼 desc
@@ -224,14 +254,34 @@ Program::~Program()
 
 void Program::Update()
 {
+	/* 
+	행렬에 직접 접근
 	//크기
 	world._11 = 50;
 	world._22 = 50;
+	
 	//회전
-	D3DXMatrixRotationZ(&view, D3DXToRadian(45));
+	//D3DXMatrixRotationZ(&view, D3DXToRadian(45));
+	
 	//이동
 	world._41 = 100;
 	world._42 = 100;
+	*/
+
+	if (nTurnCount != 0)
+	{
+		printf("남은 도는 횟수%d\n", nTurnCount);
+		nTurnCount--;
+		fRotangle = nTurnCount;
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(fRotangle)));
+	
+		if (nTurnCount > 0)
+		{
+			D3DXMatrixTranslation(&T, fSpeed, fSpeed, 0);
+		}
+		world = S*R * T;
+	}
+	
 	//dx 행우선 gpu 열우선 행렬
 	D3DXMatrixTranspose(&cpuBuffer.world, &world);
 	D3DXMatrixTranspose(&cpuBuffer.view, &view);
