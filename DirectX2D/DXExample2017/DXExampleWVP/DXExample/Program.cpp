@@ -227,6 +227,8 @@ void Program::Update()
 	//크기
 	world._11 = 50;
 	world._22 = 50;
+	//회전
+	D3DXMatrixRotationZ(&view, D3DXToRadian(45));
 	//이동
 	world._41 = 100;
 	world._42 = 100;
