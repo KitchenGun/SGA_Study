@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 struct VertexColor
 {
 	D3DXVECTOR3 position;
@@ -22,6 +23,7 @@ public:
 
 	void Update();
 	void Render();
+	void Action();
 
 private:
 	VertexColor* vertices = nullptr;
@@ -44,8 +46,10 @@ private:
 
 	int nTurnCount = 500;
 	float fRotangle = 5.0f;
-	float fSpeed = 0.0f;
+	float fSpeed = 250.0f;
 	D3DXMATRIX S, R, T;
+	POINT pos;
+	float angle = 0;
 
 	TransformData cpuBuffer;
 	ID3D11Buffer *gpuBuffer=nullptr;

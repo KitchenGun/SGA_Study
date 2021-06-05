@@ -197,7 +197,7 @@ Program::Program()
 		cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << endl;
 		cout << endl;
 		//로컬의 z축을 돌린다
-		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
+		//D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
 		cout << "R Matrix" << endl;
 		cout << R._11 << " " << R._12 << " " << R._13 << " " << R._14 << endl;
 		cout << R._21 << " " << R._22 << " " << R._23 << " " << R._24 << endl;
@@ -205,14 +205,15 @@ Program::Program()
 		cout << R._41 << " " << R._42 << " " << R._43 << " " << R._44 << endl;
 		cout << endl;
 		//이동
-		//D3DXMatrixTranslation(&T, 100, 100, 0);
+		D3DXMatrixTranslation(&T, 150, 0, 0);
 		cout << "T Matrix" << endl;
 		cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << endl;
 		cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << endl;
 		cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << endl;
 		cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << endl;
 		cout << endl;
-
+		pos.x = 150;
+		pos.y = 0;
 		world = S * R * T;
 	}
 	//CreateConstantBuffere
@@ -267,20 +268,8 @@ void Program::Update()
 	world._41 = 100;
 	world._42 = 100;
 	*/
-
-	if (nTurnCount != 0)
-	{
-		printf("남은 도는 횟수%d\n", nTurnCount);
-		nTurnCount--;
-		fRotangle = nTurnCount;
-		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(fRotangle)));
-	
-		if (nTurnCount > 0)
-		{
-			D3DXMatrixTranslation(&T, fSpeed, fSpeed, 0);
-		}
-		world = S*R * T;
-	}
+	//함수로 표현
+	Action();
 	
 	//dx 행우선 gpu 열우선 행렬
 	D3DXMatrixTranspose(&cpuBuffer.world, &world);
@@ -369,4 +358,84 @@ void Program::Render()
 	//	4, //그릴 폴리곤 수
 	//	0  //시작 폴리곤
 	//);
+}
+
+void Program::Action()
+{
+	if (nTurnCount >= 0)
+	{
+		if (nTurnCount >= 0)
+		{
+			nTurnCount--;
+		}
+		if (nTurnCount >= 450)
+		{
+			fRotangle = nTurnCount * 30;
+			pos.x -= 5;
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, 0, 0);
+		}
+		else if (nTurnCount >= 300)
+		{
+			fRotangle = nTurnCount * 20;
+			angle += 3.6f;
+			//원둘레 좌표 방정식 사용
+			pos.x = -100 * cos(D3DXToRadian(angle));
+			pos.y = -100 * sin(D3DXToRadian(angle));
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		else if (nTurnCount >= 200)
+		{
+			fRotangle = nTurnCount * 15;
+			angle += 3.6f;
+			//원둘레 좌표 방정식 사용
+			pos.x = -75 * cos(D3DXToRadian(angle));
+			pos.y = -75 * sin(D3DXToRadian(angle));
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		else if (nTurnCount >= 100)
+		{
+			fRotangle = nTurnCount * 10;
+			angle += 3.6f;
+			//원둘레 좌표 방정식 사용
+			pos.x = -50 * cos(D3DXToRadian(angle));
+			pos.y = -50 * sin(D3DXToRadian(angle));
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		else if (nTurnCount >= 50)
+		{
+			fRotangle = nTurnCount * 5;
+			angle += 3.6f;
+			//원둘레 좌표 방정식 사용
+			pos.x = -25 * cos(D3DXToRadian(angle));
+			pos.y = -25 * sin(D3DXToRadian(angle));
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		else if (nTurnCount >= 25)
+		{
+			fRotangle = nTurnCount * 3;
+			angle += 3.6f;
+			//원둘레 좌표 방정식 사용
+			pos.x = -10 * cos(D3DXToRadian(angle));
+			pos.y = -10 * sin(D3DXToRadian(angle));
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		else
+		{
+			fRotangle = nTurnCount;
+			fRotangle = 0;
+			angle += 3.6f;
+			printf("%d %d", pos.x, pos.y);
+			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
+		}
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(fRotangle)));
+		printf("남은 도는 횟수%d		%f\n", nTurnCount, fRotangle);
+
+		world = S * R*T;
+	}
 }
