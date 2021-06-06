@@ -60,9 +60,6 @@ Program::Program()
 		assert(SUCCEEDED(hr));
 	}
 
-
-
-
 	//vertex shader
 	{
 		HRESULT hr = D3DX11CompileFromFileA//어떤 파일로 부터 기계어로 번역하는 과정
@@ -371,6 +368,7 @@ void Program::Action()
 		if (nTurnCount >= 450)
 		{
 			fRotangle = nTurnCount * 30;
+			
 			pos.x -= 5;
 			printf("%d %d", pos.x, pos.y);
 			D3DXMatrixTranslation(&T, pos.x, 0, 0);
@@ -414,7 +412,7 @@ void Program::Action()
 			pos.y = -25 * sin(D3DXToRadian(angle));
 			printf("%d %d", pos.x, pos.y);
 			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
+		}	
 		else if (nTurnCount >= 25)
 		{
 			fRotangle = nTurnCount * 3;
@@ -436,6 +434,6 @@ void Program::Action()
 		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(fRotangle)));
 		printf("남은 도는 횟수%d		%f\n", nTurnCount, fRotangle);
 
-		world = S * R*T;
+		world = S * R * T;
 	}
 }

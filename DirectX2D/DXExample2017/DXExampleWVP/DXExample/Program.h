@@ -46,7 +46,6 @@ private:
 
 	int nTurnCount = 500;
 	float fRotangle = 5.0f;
-	float fSpeed = 250.0f;
 	D3DXMATRIX S, R, T;
 	POINT pos;
 	float angle = 0;
