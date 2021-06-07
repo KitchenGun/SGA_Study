@@ -3,7 +3,7 @@
 
 Program::Program()
 {
-	//vertexdata  //local 좌표계 
+	//vertexdata  //local 좌표계
 	{
 		vertices = new VertexColor[4];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
@@ -20,7 +20,7 @@ Program::Program()
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 
-		desc.Usage = D3D11_USAGE_IMMUTABLE;//설명서에 적힌 용도 
+		desc.Usage = D3D11_USAGE_IMMUTABLE;//설명서에 적힌 용도
 		/*
 		접근 방식에 대한 지정법   (자원 접근이 가능하면 데이터를 변경할수있다)
 		D3D11_USAGE_DEFAULT	= gpu만 데이터 읽고 쓸수있다
@@ -30,7 +30,7 @@ Program::Program()
 		*/
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//vertex 버퍼 라는것 알려주는용도
 		desc.ByteWidth = sizeof(VertexColor) * 4;
-		
+
 		D3D11_SUBRESOURCE_DATA subData;//보조 자원데이터  ->사실상 리소스내에 있는 실제 데이터
 		ZeroMemory(&subData, sizeof(D3D11_SUBRESOURCE_DATA));
 		subData.pSysMem = vertices;  //<-정점 정보를 넣어줘야함 선언후 초기화 해주는 과정
@@ -38,11 +38,11 @@ Program::Program()
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &vertexBuffer);
 		assert(SUCCEEDED(hr));
 	}
-	
-	//indexData  겹치는 정점을 줄이기 위해서 사용됨 
+
+	//indexData  겹치는 정점을 줄이기 위해서 사용됨
 	{
 		//012 213 구도로 만들거임
-		indices = new UINT[6]{0,1,2,2,1,3};
+		indices = new UINT[6]{ 0,1,2,2,1,3 };
 	}
 
 	//indexBuffer
@@ -71,7 +71,7 @@ Program::Program()
 			"vs_5_0",						//쉐이더 모델 5.0을 사용한다  버전 기입
 			0,								//쉐이더 컴파일 플래그 //특정 동작 수행 여부를 결정하는 것이다(현재 필요없음 0)
 			0,								//효과 컴파일 플래그	//특정 동작 수행 여부를 결정하는 것이다(현재 필요없음 0)
-			nullptr,						//별도의 쓰레드에서 비동기적으로 실행하고 싶을때 
+			nullptr,						//별도의 쓰레드에서 비동기적으로 실행하고 싶을때
 			&vsBlob,						//이진 데이터의 집합  -> 컴퓨터가 읽을 수 있는 기계어로 만드는 과정 바이너리라지오브젝트ㅠ
 			nullptr,						//error msg
 			nullptr							//만듬과 동시에 hr만들었기때문에 따로 반환 필요없음
@@ -94,9 +94,9 @@ Program::Program()
 		{
 			{
 				"POSITION",					//시멘틱 이름
-				0,							//시멘틱 인덱스 
-				DXGI_FORMAT_R32G32B32_FLOAT,//포멧						//한채널당 몇 비트인지 알려주는용이다. 현재 32비트 는 4바이트  vector3 = 4*8비트(1바이트) 
-				0,							//인풋 슬롯					//gpu로 넘기는 16개의 vertex buffer를 찾기 위한 값이다 
+				0,							//시멘틱 인덱스
+				DXGI_FORMAT_R32G32B32_FLOAT,//포멧						//한채널당 몇 비트인지 알려주는용이다. 현재 32비트 는 4바이트  vector3 = 4*8비트(1바이트)
+				0,							//인풋 슬롯					//gpu로 넘기는 16개의 vertex buffer를 찾기 위한 값이다
 				0,							//AlignedByteOffset			//시작점에서 얼마나 덜어져있는가 이전 입력한 메모리의 크기를 말하는 것이다.
 				D3D11_INPUT_PER_VERTEX_DATA,//InputSlotClass			//어플리케이션 인스턴싱에 사용한다 (복사 용도로 쓰임 3d에서 많이 씀)
 				0							//인스턴스 데이터 스텝레이트 //역시 인스턴스에 활용됨
@@ -110,13 +110,12 @@ Program::Program()
 				D3D11_INPUT_PER_VERTEX_DATA,
 				0
 			},
-			
 		};
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateInputLayout
 		(
 			LayoutDesc,						//인풋 레이아웃 desc
 			2,								//입력 데이터 항목 수
-			vsBlob->GetBufferPointer(),		//이진데이터 
+			vsBlob->GetBufferPointer(),		//이진데이터
 			vsBlob->GetBufferSize(),		//이진데이터 크기
 			&inputLayout					//결과물 넣을 포인터 객체
 		);
@@ -138,7 +137,7 @@ Program::Program()
 			nullptr
 		);
 		assert(SUCCEEDED(hr));
-		
+
 		hr = Graphics::Get()->GetDevice()->CreatePixelShader
 		(
 			psBlob->GetBufferPointer(),
@@ -147,15 +146,14 @@ Program::Program()
 			&pixelShader
 		);
 		assert(SUCCEEDED(hr));
-
 	}
 	//CreateWorldViewProjection
-	{	
-		//단위 행렬로 초기화 
+	{
+		//단위 행렬로 초기화
 		D3DXMatrixIdentity(&world);
 		D3DXMatrixIdentity(&view);
 		D3DXMatrixIdentity(&projection);
-		//view//카메라 행렬 
+		//view//카메라 행렬
 		D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
 		//projection //2d라서 직교 투영
 		D3DXMatrixOrthoLH
@@ -171,7 +169,7 @@ Program::Program()
 		cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << endl;
 		cout << view._31 << " " << view._32 << " " << view._33 << " " << view._34 << endl;
 		cout << view._41 << " " << view._42 << " " << view._43 << " " << view._44 << endl;
-		
+
 		cout << endl;
 
 		cout << "Projection Matrix" << endl;
@@ -194,7 +192,7 @@ Program::Program()
 		cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << endl;
 		cout << endl;
 		//로컬의 z축을 돌린다
-		//D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
 		cout << "R Matrix" << endl;
 		cout << R._11 << " " << R._12 << " " << R._13 << " " << R._14 << endl;
 		cout << R._21 << " " << R._22 << " " << R._23 << " " << R._24 << endl;
@@ -217,32 +215,45 @@ Program::Program()
 	{//상수 버퍼 desc
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(desc));
-		
+
 		desc.Usage = D3D11_USAGE_DYNAMIC;
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 		desc.ByteWidth = sizeof(TransformData);
 		//데이터 패딩  데이터를 16바이트 단위에 맞게 보내주는것  지금은 필요없음 안썼음
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		
+
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, nullptr, &gpuBuffer);
+		assert(SUCCEEDED(hr));
+	}
+	//CreateRasterizerState  // 코드 수정이 아닌 옵션
+	{
+		D3D11_RASTERIZER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
+
+		desc.FillMode = D3D11_FILL_SOLID;//가득 채워준다
+		//D3D11_FILL_WIREFRAME  선으로 그려준다 나중에 정점 체크용으로 쓸수있다
+		desc.CullMode = D3D11_CULL_BACK;//back face culling 중 frontcull은 앞면을 자른다
+		//culling 이란 처음부터 그리지 않는다  cliping 그린다음 잘라낸다
+		desc.FrontCounterClockwise = false;  //반시계방향이 앞면이다.
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateRasterizerState(&desc, &rsState);
 		assert(SUCCEEDED(hr));
 	}
 
 }
 
-
 Program::~Program()
 {
+	SAFE_RELEASE(rsState);
+
 	SAFE_RELEASE(gpuBuffer);
 	SAFE_RELEASE(pixelShader);
 	SAFE_RELEASE(psBlob);
 
 	SAFE_RELEASE(inputLayout);
 
-
 	SAFE_RELEASE(vertexShader);
 	SAFE_RELEASE(vsBlob);
-	
+
 	SAFE_RELEASE(indexBuffer);
 	SAFE_DELETE_ARRAY(indices);
 
@@ -252,22 +263,22 @@ Program::~Program()
 
 void Program::Update()
 {
-	/* 
+	/*
 	행렬에 직접 접근
 	//크기
 	world._11 = 50;
 	world._22 = 50;
-	
+
 	//회전
 	//D3DXMatrixRotationZ(&view, D3DXToRadian(45));
-	
+
 	//이동
 	world._41 = 100;
 	world._42 = 100;
 	*/
 	//함수로 표현
-	Action();
-	
+	//Action();
+
 	//dx 행우선 gpu 열우선 행렬
 	D3DXMatrixTranspose(&cpuBuffer.world, &world);
 	D3DXMatrixTranspose(&cpuBuffer.view, &view);
@@ -295,7 +306,7 @@ void Program::Render()
 {
 	UINT stride = sizeof(VertexColor);
 	UINT offset = 0;
-	
+	//IA
 	Graphics::Get()->GetDC()->IASetVertexBuffers
 	(
 		0,						//시작 버퍼 슬롯
@@ -314,7 +325,7 @@ void Program::Render()
 	(
 		inputLayout
 	);
-	Graphics::Get()->GetDC()->IASetPrimitiveTopology//그리는 방법 
+	Graphics::Get()->GetDC()->IASetPrimitiveTopology//그리는 방법
 	(
 		//D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED		// 기본 토폴로지가 정의 되지 않으면 작동안됨  걍 임의로 최적을 선택해서 출력하는 듯 함
 		//D3D11_PRIMITIVE_TOPOLOGY_POINTLIST		//꼭지점 데이터를 점 으로 그린다
@@ -324,18 +335,25 @@ void Program::Render()
 		//D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP	//삼각형 띠를 적용해서 물체들을 그린다
 		//D3D11_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST //정점자료 n개의 제어점들을 사용한다
 	);
-	Graphics::Get()->GetDC()->VSSetConstantBuffers//ndc 좌표계로 보다가 공간변환을 해줌으로써 스케일 변환 필요함 
+	//cbuffer
+	Graphics::Get()->GetDC()->VSSetConstantBuffers//ndc 좌표계로 보다가 공간변환을 해줌으로써 스케일 변환 필요함
 	(
 		0,
 		1,
 		&gpuBuffer
 	);
+	//VS
 	Graphics::Get()->GetDC()->VSSetShader
 	(
 		vertexShader,//쉐이더
 		nullptr,	 //인스턴스 3d에서 공부
 		0
 	);
+	
+	//RS
+	Graphics::Get()->GetDC()->RSSetState(rsState);
+
+	//PS
 	Graphics::Get()->GetDC()->PSSetShader
 	(
 		pixelShader,
@@ -368,7 +386,7 @@ void Program::Action()
 		if (nTurnCount >= 450)
 		{
 			fRotangle = nTurnCount * 30;
-			
+
 			pos.x -= 5;
 			printf("%d %d", pos.x, pos.y);
 			D3DXMatrixTranslation(&T, pos.x, 0, 0);
@@ -412,7 +430,7 @@ void Program::Action()
 			pos.y = -25 * sin(D3DXToRadian(angle));
 			printf("%d %d", pos.x, pos.y);
 			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}	
+		}
 		else if (nTurnCount >= 25)
 		{
 			fRotangle = nTurnCount * 3;

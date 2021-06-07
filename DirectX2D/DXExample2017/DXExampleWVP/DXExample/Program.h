@@ -52,4 +52,6 @@ private:
 
 	TransformData cpuBuffer;
 	ID3D11Buffer *gpuBuffer=nullptr;
+
+	ID3D11RasterizerState* rsState = nullptr;
 };
