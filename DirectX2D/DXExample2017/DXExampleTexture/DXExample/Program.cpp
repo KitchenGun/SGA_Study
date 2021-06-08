@@ -271,7 +271,7 @@ Program::Program()
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateRasterizerState(&desc, &rsState);
 		assert(SUCCEEDED(hr));
 	}
-	//CreateSRV//shaderresourceview 
+	//CreateSRV//shaderresourceview  //텍스쳐를 우회적으로 생성한다 12에서는 안씀
 	{
 		HRESULT hr = D3DX11CreateShaderResourceViewFromFileA
 		(
