@@ -288,7 +288,19 @@ Program::Program()
 	{
 		D3D11_SAMPLER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_SAMPLER_DESC));
-
+		/*D3D11_TEXTURE_ADDRESS_WRAP
+		모든(u, v) 정수 접합에서 텍스처를 타일링합니다.예를 들어, 0에서 3 사이의 u 값에 대해 텍스처가 세 번 반복됩니다.
+		D3D11_TEXTURE_ADDRESS_MIRROR
+			모든(u, v) 정수 접합에서 텍스처를 뒤집습니다.예를 들어, 0과 1 사이의 u 값의 경우 텍스처는 정상적으로 처리됩니다. 
+			1과 2 사이에서 텍스처가 대칭 이동됩니다. 2와 3 사이에서 텍스처는 다시 정상입니다.
+		D3D11_TEXTURE_ADDRESS_CLAMP
+			[0.0, 1.0] 범위를 벗어난 텍스처 좌표는 각각 0.0 또는 1.0의 텍스처 색상으로 설정됩니다.
+		D3D11_TEXTURE_ADDRESS_BORDER
+			[0.0, 1.0] 범위를 벗어나는 텍스처 좌표는 D3D11_SAMPLER_DESC 또는 HLSL 코드에 지정된 테두리 색상으로 설정됩니다 .
+		D3D11_TEXTURE_ADDRESS_MIRROR_ONCE
+			D3D11_TEXTURE_ADDRESS_MIRROR 및 D3D11_TEXTURE_ADDRESS_CLAMP와 유사합니다.
+			텍스처 좌표의 절대 값(따라서 0을 중심으로 미러링)을 취한 다음 최대 값으로 고정합니다.
+		*/
 		desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
