@@ -37,6 +37,6 @@ SamplerState samp : register(s0); // samp방식에 맞춰진 세팅
 
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
-    float4 color = sourceTex.Sample(samp, input.uv);//파일로 부터 데이터 추출
+    float4 color = sourceTex.Sample(samp, input.uv);//소스파일로 부터 샘플링 설정에 맞게 uv의 값에 맞춰서 추출한다 
     return color;
 }

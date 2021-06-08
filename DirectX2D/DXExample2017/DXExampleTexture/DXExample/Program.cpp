@@ -75,7 +75,7 @@ Program::Program()
 	{
 		HRESULT hr = D3DX11CompileFromFileA//어떤 파일로 부터 기계어로 번역하는 과정
 		(
-			"./Color.hlsl",					//파일이름
+			"./Texture.hlsl",					//파일이름
 			nullptr,						//hlsl define 쓰는 부분
 			nullptr,						//hlsl include 쓰는 부분
 			"VS",							//랜더링 파이프 라인 진입점에 사용하는 함수 쓰는 부분(진입점 함수 이름)
@@ -138,7 +138,7 @@ Program::Program()
 				0,
 				DXGI_FORMAT_R32G32_FLOAT,
 				0,
-				sizeof(D3DXVECTOR2),  //이전 항목크기
+				sizeof(D3DXVECTOR3),  //이전 항목크기
 				D3D11_INPUT_PER_VERTEX_DATA,
 				0
 			},
@@ -197,6 +197,16 @@ Program::Program()
 			0,//가까운곳	3D
 			1//먼곳		3D
 		);//왼손 좌표계
+		D3DXMatrixOrthoOffCenterLH//원점이 좌하단
+		(
+			&projection,
+			0,
+			WinMaxWidth,
+			0,
+			WinMaxHeight,
+			0,//near
+			1//far
+		);
 		cout << "View Matrix" << endl;
 		cout << view._11 << " " << view._12 << " " << view._13 << " " << view._14 << endl;
 		cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << endl;
@@ -217,7 +227,7 @@ Program::Program()
 		D3DXMatrixIdentity(&R);
 		D3DXMatrixIdentity(&T);
 		//크기
-		D3DXMatrixScaling(&S, 100, 100, 1);
+		D3DXMatrixScaling(&S, 400, 400, 1);
 		cout << "S Matrix" << endl;
 		cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << endl;
 		cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << endl;
@@ -225,7 +235,7 @@ Program::Program()
 		cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << endl;
 		cout << endl;
 		//로컬의 z축을 돌린다
-		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));//명시적으로 float
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(0)));//명시적으로 float
 		cout << "R Matrix" << endl;
 		cout << R._11 << " " << R._12 << " " << R._13 << " " << R._14 << endl;
 		cout << R._21 << " " << R._22 << " " << R._23 << " " << R._24 << endl;
@@ -233,15 +243,14 @@ Program::Program()
 		cout << R._41 << " " << R._42 << " " << R._43 << " " << R._44 << endl;
 		cout << endl;
 		//이동
-		D3DXMatrixTranslation(&T, 150, 0, 0);
+		D3DXMatrixTranslation(&T, 400, 400, 0);
 		cout << "T Matrix" << endl;
 		cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << endl;
 		cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << endl;
 		cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << endl;
 		cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << endl;
 		cout << endl;
-		pos.x = 150;
-		pos.y = 0;
+
 		world = S * R * T;
 	}
 	//CreateConstantBuffere
@@ -273,7 +282,7 @@ Program::Program()
 	}
 	//CreateSRV//shaderresourceview  //텍스쳐를 우회적으로 생성한다 12에서는 안씀
 	{
-		HRESULT hr = D3DX11CreateShaderResourceViewFromFileA
+		HRESULT hr = D3DX11CreateShaderResourceViewFromFileA//색값을 추출하여 불러온다
 		(
 			Graphics::Get()->GetDevice(),
 			"./Image2.png",
@@ -304,11 +313,54 @@ Program::Program()
 		desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+		//넘어가는 영역의 rgba
+		desc.BorderColor[0] = 1;
+		desc.BorderColor[1] = 0;
+		desc.BorderColor[2] = 0;
+		desc.BorderColor[3] = 1;
+													   //D3D11_COMPARISON_NEVER 항상 비교한다   원본데이터와 뎁스 데이터(?) 
+		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS; //D3D11_COMPARISON_ALWAYS  pass가 생략됨 = 비교를 패스 한다 = 비교안한다  
+		//항상 새로운 샘플링 데이터가 들어오면 통과를 시킨다.
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;	//min=축소,mag=확대, 
+		//mip=민맵 (이미지를 1/4씩 줄여서 집합으로 준비해놓는것)ex 256*256 128*128 메모리를 많이 먹지만 랜더링 속도를 위해 사용함
+		//linear 선형 보간 하겠다는 이야기임 평균값을 섞는다 
+		//POINT 겹치는 픽셀이 있으면 하나를 폐기한다는 이야기다
+		desc.MaxAnisotropy = 16; //비등방성 필터링 기울어진것 선명도 높여줌 2D에서 의미없음
+		desc.MinLOD = numeric_limits<float>::min(); //level of detail  TS에서 사용됨  
+		desc.MaxLOD = numeric_limits<float>::max();
+		desc.MipLODBias = 0.0f;						//카메라에서 멀어질수록 흐리멍텅하게 보이도록 렌더링하는것 
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateSamplerState(&desc,&samplerState);
+		assert(SUCCEEDED(hr));
+	}
+	//CreateBlendState
+	{
+		D3D11_BLEND_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
+		desc.AlphaToCoverageEnable = false;
+		//알파테스트에 안티에이싱을 가능하게 함 3d에서 사용할것
+		desc.IndependentBlendEnable = false;
+		//독립적으로 블랜드 가능 지금 당장은 false로 설정하면 RenderTarget 0번의 설정값을 모든 타겟에 적용한다 라는 뜻이다
+		//RenderTarget8개가 max로 되어있다 render target view 역시 마찬가지다
+		desc.RenderTarget[0].BlendEnable = true;
+		//블랜딩을 하겠다.			RenderTarget = rtv란 소리 == 백버퍼의 색 ==배경색을 의미한다
+		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;//소스는 우리가 넣어줄 텍스쳐 원본의 rgba값을 의미함				//기본값이 0
+		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//DestBlend 배경의 rgba = 1 - 소스의 알파를 쓰겠다 = 배경색을 쓰겠다.
+		//투명은 0,0,0,0이다	//기본값이 0,0,0,1
+		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 	}
 }
 
 Program::~Program()
 {
+	SAFE_RELEASE(samplerState);
+
+	SAFE_RELEASE(SRV);
+
 	SAFE_RELEASE(rsState);
 
 	SAFE_RELEASE(gpuBuffer);
@@ -342,8 +394,7 @@ void Program::Update()
 	world._41 = 100;
 	world._42 = 100;
 	*/
-	//함수로 표현
-	//Action();
+
 
 	//dx 행우선 gpu 열우선 행렬
 	D3DXMatrixTranspose(&cpuBuffer.world, &world);
@@ -370,7 +421,8 @@ void Program::Update()
 
 void Program::Render()
 {
-	UINT stride = sizeof(VertexColor);
+	//UINT stride = sizeof(VertexColor);
+	UINT stride = sizeof(VertexTexture);
 	UINT offset = 0;
 	//IA
 	Graphics::Get()->GetDC()->IASetVertexBuffers
@@ -426,6 +478,18 @@ void Program::Render()
 		nullptr,
 		0
 	);
+	Graphics::Get()->GetDC()->PSSetShaderResources
+	(
+		0,
+		1,
+		&SRV
+	);
+	Graphics::Get()->GetDC()->PSSetSamplers
+	(
+		0,
+		1,
+		&samplerState
+	);
 	//drawcall
 	Graphics::Get()->GetDC()->DrawIndexed
 	(
@@ -439,85 +503,4 @@ void Program::Render()
 	//	4, //그릴 폴리곤 수
 	//	0  //시작 폴리곤
 	//);
-}
-
-void Program::Action()
-{
-	if (nTurnCount >= 0)
-	{
-		if (nTurnCount >= 0)
-		{
-			nTurnCount--;
-		}
-		if (nTurnCount >= 450)
-		{
-			fRotangle = nTurnCount * 30;
-
-			pos.x -= 5;
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, 0, 0);
-		}
-		else if (nTurnCount >= 300)
-		{
-			fRotangle = nTurnCount * 20;
-			angle += 3.6f;
-			//원둘레 좌표 방정식 사용
-			pos.x = -100 * cos(D3DXToRadian(angle));
-			pos.y = -100 * sin(D3DXToRadian(angle));
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		else if (nTurnCount >= 200)
-		{
-			fRotangle = nTurnCount * 15;
-			angle += 3.6f;
-			//원둘레 좌표 방정식 사용
-			pos.x = -75 * cos(D3DXToRadian(angle));
-			pos.y = -75 * sin(D3DXToRadian(angle));
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		else if (nTurnCount >= 100)
-		{
-			fRotangle = nTurnCount * 10;
-			angle += 3.6f;
-			//원둘레 좌표 방정식 사용
-			pos.x = -50 * cos(D3DXToRadian(angle));
-			pos.y = -50 * sin(D3DXToRadian(angle));
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		else if (nTurnCount >= 50)
-		{
-			fRotangle = nTurnCount * 5;
-			angle += 3.6f;
-			//원둘레 좌표 방정식 사용
-			pos.x = -25 * cos(D3DXToRadian(angle));
-			pos.y = -25 * sin(D3DXToRadian(angle));
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		else if (nTurnCount >= 25)
-		{
-			fRotangle = nTurnCount * 3;
-			angle += 3.6f;
-			//원둘레 좌표 방정식 사용
-			pos.x = -10 * cos(D3DXToRadian(angle));
-			pos.y = -10 * sin(D3DXToRadian(angle));
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		else
-		{
-			fRotangle = nTurnCount;
-			fRotangle = 0;
-			angle += 3.6f;
-			printf("%d %d", pos.x, pos.y);
-			D3DXMatrixTranslation(&T, pos.x, pos.y, 0);
-		}
-		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(fRotangle)));
-		printf("남은 도는 횟수%d		%f\n", nTurnCount, fRotangle);
-
-		world = S * R * T;
-	}
 }

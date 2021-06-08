@@ -52,12 +52,8 @@ private:
 	D3DXMATRIX view;			//카메라 변환 카메라를 원점해서 만든 공간
 	D3DXMATRIX projection;		//투영 변환 원근투영과 직교투영
 	//팽이 관련변수
-	int nTurnCount = 500;
-	float fRotangle = 5.0f;
 	D3DXMATRIX S, R, T;
-	POINT pos;
-	float angle = 0;
-	//
+
 	TransformData cpuBuffer;
 	ID3D11Buffer *gpuBuffer=nullptr;
 
@@ -66,5 +62,7 @@ private:
 	//쉐이더에서 쓸 랜더타겟뷰
 	ID3D11ShaderResourceView* SRV;
 	ID3D11SamplerState* samplerState;
+	//블랜드 state
+	ID3D11BlendState* blendState;
 
 };

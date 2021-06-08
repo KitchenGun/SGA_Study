@@ -1,5 +1,6 @@
 #pragma once
 
+#define NOMINMAX  //DX의 기본 최소 최대 정의 쓰지 않겠다
 #define no_init_all//2017만 존재하는 버그 2019에서 수정됨
 
 #ifdef _DEBUG
