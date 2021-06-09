@@ -301,7 +301,7 @@ Program::Program()
 		//mip=민맵 (이미지를 1/4씩 줄여서 집합으로 준비해놓는것)ex 256*256 128*128 메모리를 많이 먹지만 랜더링 속도를 위해 사용함
 		//linear 선형 보간 하겠다는 이야기임 평균값을 섞는다		비용이 비싸고 질이 좋다
 		//POINT 겹치는 픽셀이 있으면 하나를 폐기한다는 이야기다		비용이 싸지만 질이 안좋다
-		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;	
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;	
 
 		/*D3D11_TEXTURE_ADDRESS_WRAP
 		모든(u, v) 정수 접합에서 텍스처를 타일링합니다.예를 들어, 0에서 3 사이의 u 값에 대해 텍스처가 세 번 반복됩니다.
@@ -347,18 +347,25 @@ Program::Program()
 		//독립적으로 블랜드 가능 지금 당장은 false로 설정하면 RenderTarget 0번의 설정값을 모든 타겟에 적용한다 라는 뜻이다
 		//RenderTarget8개가 max로 되어있다 render target view 역시 마찬가지다
 		desc.RenderTarget[0].BlendEnable = true;
-		//블랜딩을 하겠다.			RenderTarget = rtv란 소리 == 백버퍼의 색 ==배경색을 의미한다
-		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;//소스는 우리가 넣어줄 텍스쳐 원본의 rgba값을 의미함				//기본값이 0
-		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//DestBlend 배경의 rgba = 1 - 소스의 알파를 쓰겠다 = 배경색을 쓰겠다.
-		//투명은 0,0,0,0이다	//기본값이 0,0,0,1
-		//blend와 blend op 차이
-		//blend픽셀 셰이더 및 렌더 대상의 값을 바꾸는 방법
-		//blend op 블랜딩 작업 방식을 선택
+		//블랜딩을 하겠다.			RenderTarget = rtv란 소리 == 백버퍼의 색 ==배경색을 의미한다   
+		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;//소스는 우리가 넣어줄 텍스쳐 원본의 rgba값을 의미함	 
+		//blend 1은 소스의 전체 알파값 1로 만들어서 가져온다	그래서 검은색이 출력		
+		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//DestBlend 배경의 rgba = 1 - 소스의 알파를 쓰겠다  인버스 함 
+		//여기서 배경색이 출력이 되도록 변경
+		//blend와 blend operator 차이
+		//blend 픽셀 셰이더 및 렌더 대상의 값을 바꾸는 방법
+		//blend 연산자 설정해준 값에 대한 블랜딩 작업 방식을 선택
+		//float4 color =(src*srcblend) Blend op (des*destblend)
+		//위에 식을 계산 현재는 더하기를 하여서 계산을 함
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		//알파값만 따로 연산으로 뺌 //default
 		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		//특정채널만 출력하겠다. 색상필터를 씌운다고 생각하면 된다
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		HRESULT hr = Graphics::Get()->GetDevice()->CreateBlendState(&desc, &blendState);
+		assert(SUCCEEDED(hr));
 	}
 }
 
@@ -496,6 +503,13 @@ void Program::Render()
 		0,
 		1,
 		&samplerState
+	);
+	//OM
+	Graphics::Get()->GetDC()->OMSetBlendState
+	(
+		blendState,
+		nullptr,			//기본값이라고 생각하자
+		0xFFFFFFF
 	);
 	//drawcall
 	Graphics::Get()->GetDC()->DrawIndexed
