@@ -15,6 +15,7 @@ Program::Program()
 	//	vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);
 	//	vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 	//}
+
 	//vertex Texture  //local 좌표계
 	{
 		vertices = new VertexTexture[4];
@@ -27,6 +28,7 @@ Program::Program()
 		vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);
 		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
 	}
+	//vertex buffer
 	{
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
@@ -49,13 +51,11 @@ Program::Program()
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateBuffer(&desc, &subData, &vertexBuffer);
 		assert(SUCCEEDED(hr));
 	}
-
 	//indexData  겹치는 정점을 줄이기 위해서 사용됨
 	{
 		//012 213 구도로 만들거임
 		indices = new UINT[6]{ 0,1,2,2,1,3 };
 	}
-
 	//indexBuffer
 	{
 		D3D11_BUFFER_DESC desc;
@@ -189,21 +189,21 @@ Program::Program()
 		//view//카메라 행렬
 		D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
 		//projection //2d라서 직교 투영
-		D3DXMatrixOrthoLH
-		(
-			&projection,
-			WinMaxWidth,
-			WinMaxHeight,
-			0,//가까운곳	3D
-			1//먼곳		3D
-		);//왼손 좌표계
+		//D3DXMatrixOrthoLH
+		//(
+		//	&projection,
+		//	WinMaxWidth,
+		//	WinMaxHeight,
+		//	0,//가까운곳	3D
+		//	1//먼곳		3D
+		//);//왼손 좌표계
 		D3DXMatrixOrthoOffCenterLH//원점이 좌하단
 		(
 			&projection,
 			0,
 			WinMaxWidth,
 			0,
-			WinMaxHeight,
+			WinMaxHeight,//바꾸면 컬모드와 투영되는 방향을 바꿔줘야한다
 			0,//near
 			1//far
 		);
@@ -297,6 +297,12 @@ Program::Program()
 	{
 		D3D11_SAMPLER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_SAMPLER_DESC));
+		//min=축소,mag=확대, 
+		//mip=민맵 (이미지를 1/4씩 줄여서 집합으로 준비해놓는것)ex 256*256 128*128 메모리를 많이 먹지만 랜더링 속도를 위해 사용함
+		//linear 선형 보간 하겠다는 이야기임 평균값을 섞는다		비용이 비싸고 질이 좋다
+		//POINT 겹치는 픽셀이 있으면 하나를 폐기한다는 이야기다		비용이 싸지만 질이 안좋다
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;	
+
 		/*D3D11_TEXTURE_ADDRESS_WRAP
 		모든(u, v) 정수 접합에서 텍스처를 타일링합니다.예를 들어, 0에서 3 사이의 u 값에 대해 텍스처가 세 번 반복됩니다.
 		D3D11_TEXTURE_ADDRESS_MIRROR
@@ -309,6 +315,7 @@ Program::Program()
 		D3D11_TEXTURE_ADDRESS_MIRROR_ONCE
 			D3D11_TEXTURE_ADDRESS_MIRROR 및 D3D11_TEXTURE_ADDRESS_CLAMP와 유사합니다.
 			텍스처 좌표의 절대 값(따라서 0을 중심으로 미러링)을 취한 다음 최대 값으로 고정합니다.
+		좌표별 넘어간 부분을 처리하는 방법이다
 		*/
 		desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 		desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -321,12 +328,10 @@ Program::Program()
 													   //D3D11_COMPARISON_NEVER 항상 비교한다   원본데이터와 뎁스 데이터(?) 
 		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS; //D3D11_COMPARISON_ALWAYS  pass가 생략됨 = 비교를 패스 한다 = 비교안한다  
 		//항상 새로운 샘플링 데이터가 들어오면 통과를 시킨다.
-		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;	//min=축소,mag=확대, 
-		//mip=민맵 (이미지를 1/4씩 줄여서 집합으로 준비해놓는것)ex 256*256 128*128 메모리를 많이 먹지만 랜더링 속도를 위해 사용함
-		//linear 선형 보간 하겠다는 이야기임 평균값을 섞는다 
-		//POINT 겹치는 픽셀이 있으면 하나를 폐기한다는 이야기다
 		desc.MaxAnisotropy = 16; //비등방성 필터링 기울어진것 선명도 높여줌 2D에서 의미없음
 		desc.MinLOD = numeric_limits<float>::min(); //level of detail  TS에서 사용됨  
+		//테셀레이션 단계
+		//한메시의 삼각형들을 더 잘게 쪼개서 새로운 삼각형을 만드는 과정을 말한다
 		desc.MaxLOD = numeric_limits<float>::max();
 		desc.MipLODBias = 0.0f;						//카메라에서 멀어질수록 흐리멍텅하게 보이도록 렌더링하는것 
 		HRESULT hr = Graphics::Get()->GetDevice()->CreateSamplerState(&desc,&samplerState);
@@ -337,7 +342,7 @@ Program::Program()
 		D3D11_BLEND_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
 		desc.AlphaToCoverageEnable = false;
-		//알파테스트에 안티에이싱을 가능하게 함 3d에서 사용할것
+		//알파테스트에 안티에이싱을 가능하게 함 3d에서 사용할것 조밀한 잎과 같은 상황에서 유용함 멀티샘플링을 통해서 계단현상을 줄임
 		desc.IndependentBlendEnable = false;
 		//독립적으로 블랜드 가능 지금 당장은 false로 설정하면 RenderTarget 0번의 설정값을 모든 타겟에 적용한다 라는 뜻이다
 		//RenderTarget8개가 max로 되어있다 render target view 역시 마찬가지다
@@ -346,8 +351,10 @@ Program::Program()
 		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;//소스는 우리가 넣어줄 텍스쳐 원본의 rgba값을 의미함				//기본값이 0
 		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//DestBlend 배경의 rgba = 1 - 소스의 알파를 쓰겠다 = 배경색을 쓰겠다.
 		//투명은 0,0,0,0이다	//기본값이 0,0,0,1
+		//blend와 blend op 차이
+		//blend픽셀 셰이더 및 렌더 대상의 값을 바꾸는 방법
+		//blend op 블랜딩 작업 방식을 선택
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-
 		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;

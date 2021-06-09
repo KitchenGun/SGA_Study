@@ -30,7 +30,6 @@ public:
 
 	void Update();
 	void Render();
-	void Action();
 
 private:
 	//VertexColor* vertices = nullptr;
