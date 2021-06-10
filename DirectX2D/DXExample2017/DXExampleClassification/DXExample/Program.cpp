@@ -508,7 +508,7 @@ void Program::Render()
 	Graphics::Get()->GetDC()->OMSetBlendState
 	(
 		blendState,
-		nullptr,			//기본값이라고 생각하자
+		nullptr,			//블랜드 객체를 사용하는 경우 사용함//기본값이라고 생각하자
 		0xFFFFFFF
 	);
 	//drawcall
