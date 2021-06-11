@@ -18,6 +18,9 @@
     <ClCompile Include="Renders\Resources\VertexType.cpp" />
     <ClCompile Include="Renders\RS\RasterizerState.cpp" />
     <ClCompile Include="System\Time.cpp" />
+    <ClCompile Include="System\Mouse.cpp" />
+    <ClCompile Include="System\Keyboard.cpp" />
+    <ClCompile Include="Geometry\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,6 +42,9 @@
     <ClInclude Include="Renders\Resources\GlobalBuffer.h" />
     <ClInclude Include="Renders\RS\RasterizerState.h" />
     <ClInclude Include="System\Time.h" />
+    <ClInclude Include="System\Mouse.h" />
+    <ClInclude Include="System\Keyboard.h" />
+    <ClInclude Include="Geometry\Square.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

@@ -2,6 +2,7 @@
 
 class VertexBuffer
 {
+public:
 	VertexBuffer();
 	~VertexBuffer();
 

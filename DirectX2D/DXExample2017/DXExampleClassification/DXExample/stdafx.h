@@ -58,3 +58,8 @@ extern HWND handle;
 #include "Renders/Resources/VertexType.h"
 #include "Renders/Resources/ShaderBuffer.h"
 #include "Renders/Resources/GlobalBuffer.h"
+
+#include "System/Time.h"
+#include "System/Mouse.h"
+#include "System/Keyboard.h"
+

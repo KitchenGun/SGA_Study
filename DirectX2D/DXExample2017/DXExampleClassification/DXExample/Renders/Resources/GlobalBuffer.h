@@ -57,3 +57,25 @@ public:
 private :
 	ViewProjStruct data;
 };
+
+class ColorBuffer : ShaderBuffer
+{
+public:
+	ColorBuffer() : ShaderBuffer(&data, sizeof(Struct))
+	{
+		data.color = D3DXCOLOR(0, 0, 0, 1);
+	}
+
+	void SetColor(D3DXCOLOR color)
+	{
+		data.color = color;
+	}
+
+	struct Struct
+	{
+		D3DXCOLOR color;
+	};
+
+private:
+	Struct data;
+};
