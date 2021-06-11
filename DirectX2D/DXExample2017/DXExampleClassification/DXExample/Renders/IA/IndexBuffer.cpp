@@ -10,6 +10,7 @@ IndexBuffer::~IndexBuffer()
 	SAFE_RELEASE(buffer);
 }
 
+//인덱스 버퍼 생성 
 void IndexBuffer::Create(const vector<UINT>& indices, const D3D11_USAGE & usage)
 {
 	stride = sizeof(UINT);
@@ -19,7 +20,7 @@ void IndexBuffer::Create(const vector<UINT>& indices, const D3D11_USAGE & usage)
 	desc.Usage = usage;
 	desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	desc.ByteWidth = stride * count;
-
+	//접근 방식에 대한 지정법 분리
 	switch (usage)
 	{
 	case D3D11_USAGE_DEFAULT:

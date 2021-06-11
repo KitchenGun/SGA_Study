@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Time.h"
-
+//싱글톤패턴
 Time* Time::instance = NULL;
 
 bool Time::isTimerStopped = true;
@@ -8,8 +8,11 @@ float Time::timeElapsed = 0.0f;
 
 Time::Time(void)
 {
+	//QueryPerformanceCounter : 일정지점안에서 몇번 진동 하였는가를 나타내는 함수
+	//QueryPerformanceFrequency  : 1초당 틱(진동)수를 반환한다 매개변수(lpFrequency)에는 해당 타이머의 주기가 설정됨
+	//즉 매개변수에게 현재 시간값을 전달함
 	QueryPerformanceFrequency((LARGE_INTEGER*)&ticksPerSecond);
-	fpsUpdateInterval = ticksPerSecond >> 1;
+	fpsUpdateInterval = ticksPerSecond >> 1;//?
 }
 
 Time::~Time(void)
@@ -41,7 +44,7 @@ void Time::Update()
 	runningTime += timeElapsed;
 	//fps 업데이트 프레임 수 증가
 	frameCount++;
-	if (currentTime - lastFPSUpdate >= fpsUpdateInterval)
+	if (currentTime - lastFPSUpdate >= fpsUpdateInterval)//??
 	{
 		float tempCurrentTime = (float)currentTime / (float)ticksPerSecond;
 		float tempLastTime = (float)lastFPSUpdate / (float)ticksPerSecond;
