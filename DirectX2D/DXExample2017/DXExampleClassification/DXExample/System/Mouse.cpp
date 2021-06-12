@@ -5,7 +5,6 @@ Mouse* Mouse::instance = nullptr;
 
 Mouse * Mouse::Get()
 {
-
 	return instance; 
 }
 
@@ -50,7 +49,7 @@ Mouse::Mouse()
 
 Mouse::~Mouse()
 {
-	Delete();
+
 }
 
 void Mouse::Update()
@@ -97,15 +96,18 @@ void Mouse::Update()
 	DWORD tButtonStatus = GetTickCount();
 	for (DWORD i = 0; i < MAX_INPUT_MOUSE; i++)
 	{
-		if (buttonCount[i] == 1)
+		if (buttonMap[i] == BUTTON_INPUT_STATUS_DOWN)
 		{
-			if ((tButtonStatus - startDblClk[i]) >= timeDblClk)
-				buttonCount[i] = 0;
-		}
-		buttonCount[i]++;
+			if (buttonCount[i] == 1)
+			{
+				if ((tButtonStatus - startDblClk[i]) >= timeDblClk)
+					buttonCount[i] = 0;
+			}
+			buttonCount[i]++;
 
-		if (buttonCount[i] == 1)
-			startDblClk[i] = tButtonStatus;
+			if (buttonCount[i] == 1)
+				startDblClk[i] = tButtonStatus;
+		}
 
 		if (buttonMap[i] == BUTTON_INPUT_STATUS_UP)
 		{
@@ -121,10 +123,8 @@ void Mouse::Update()
 
 				buttonCount[i] = 0;
 			}
-		}
-	}
-
-
+		}//if
+	}//for(i)
 }
 
 LRESULT Mouse::InputProc(UINT message, WPARAM wParam, LPARAM lParam)

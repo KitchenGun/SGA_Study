@@ -26,7 +26,7 @@ template<typename T>
 inline void VertexBuffer::Create(const vector<T>& vertices, const D3D11_USAGE & usage)
 {
 	stride = sizeof(T);
-	count(UINT)(vertices.size());
+	count=(UINT)(vertices.size());
 	//버퍼 만들기 위한 desc 제작
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));

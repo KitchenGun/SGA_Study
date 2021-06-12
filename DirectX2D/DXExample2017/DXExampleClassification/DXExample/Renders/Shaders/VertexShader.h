@@ -11,7 +11,7 @@ public:
 	ID3D11VertexShader* GetResource() { return shader; }
 	ID3DBlob* GetBlob() { return blob; }
 
-	void Create(const wstring path, const string entryName) override;
+	void Create(wstring path, string entryName) override;
 	void Clear()override; 
 	void SetShader() override;
 private:

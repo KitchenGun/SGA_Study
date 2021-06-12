@@ -7,7 +7,7 @@ public:
 	static void Delete();
 
 	static bool Stopped() { return isTimerStopped; }
-	static bool Delta() { return isTimerStopped ? 0.0f : timeElapsed; }
+	static float Delta() { return isTimerStopped ? 0.0f : timeElapsed; }
 
 	void Update();
 

@@ -11,6 +11,13 @@ public:
 		MapData(data, dataSize);
 		DC->VSSetConstantBuffers(slot, 1, &buffer);
 	}
+
+	void SetPSBuffer(UINT slot)
+	{
+		MapData(data, dataSize);
+
+		DC->PSSetConstantBuffers(slot, 1, &buffer);
+	}
 protected:
 	ShaderBuffer(void* data, UINT dataSize) : data(data), dataSize(dataSize)
 	{
@@ -24,7 +31,7 @@ protected:
 		HRESULT hr = DEVICE->CreateBuffer(&desc, NULL, &buffer);
 		ASSERT(hr);
 	}
-	~ShaderBuffer()
+	virtual ~ShaderBuffer()
 	{
 		SAFE_RELEASE(buffer);
 	}

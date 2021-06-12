@@ -1,0 +1,70 @@
+﻿  Square.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  main.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Program.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\program.h(6): error C2011: 'VertexColor': 'struct' 형식 재정의
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\resources\vertextype.h(3): note: 'VertexColor' 선언을 참조하십시오.
+  IndexBuffer.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  InputLayout.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  VertexBuffer.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  VertexType.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\resources\vertextype.cpp(10): fatal error C1004: 예기치 않은 파일의 끝이 나타났습니다.
+  RasterizerState.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  IShader.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  PixelShader.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  VertexShader.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Graphics.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Keyboard.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Mouse.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Time.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+  Window.cpp
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): error C2275: 'UINT': 이 형식을 식으로 잘못 사용했습니다.
+  c:\program files (x86)\windows kits\10\include\10.0.18362.0\shared\minwindef.h(177): note: 'UINT' 선언을 참조하십시오.
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\ia\vertexbuffer.h(60): note: 이 진단은 컴파일러 생성 함수 'void VertexBuffer::Create(const std::vector<T,std::allocator<_Ty>> &,const D3D11_USAGE &)'에서 수행되었습니다.
+d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\program.h(6): error C2011: 'VertexColor': 'struct' 형식 재정의
+  d:\git\sga_study\directx2d\dxexample2017\dxexampleclassification\dxexample\renders\resources\vertextype.h(3): note: 'VertexColor' 선언을 참조하십시오.
+  코드를 생성하고 있습니다...

@@ -12,8 +12,9 @@ Keyboard::Keyboard()
 
 Keyboard::~Keyboard()
 {
-	Delete();
+
 }
+
 Keyboard * Keyboard::Get()
 {
 	assert(instance != nullptr);

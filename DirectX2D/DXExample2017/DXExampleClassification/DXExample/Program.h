@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 struct VertexColor
 {
 	D3DXVECTOR3 position;

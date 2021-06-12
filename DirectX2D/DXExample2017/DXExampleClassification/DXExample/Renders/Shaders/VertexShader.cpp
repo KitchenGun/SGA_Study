@@ -10,7 +10,7 @@ VertexShader::~VertexShader()
 	Clear();
 }
 
-void VertexShader::Create(const wstring path, const string entryName)
+void VertexShader::Create(wstring path, string entryName)
 {
 	this->path = path;
 	this->entryName = entryName;
