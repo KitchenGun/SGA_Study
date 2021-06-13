@@ -39,17 +39,17 @@ private:
 	HWND handle;
 	D3DXVECTOR3 position;
 
-	byte buttonStatus[MAX_INPUT_MOUSE];
-	byte buttonOldStatus[MAX_INPUT_MOUSE];
-	byte buttonMap[MAX_INPUT_MOUSE];
+	byte buttonStatus[MAX_INPUT_MOUSE];			//현재 버튼 상태
+	byte buttonOldStatus[MAX_INPUT_MOUSE];		//이전 버튼 상태
+	byte buttonMap[MAX_INPUT_MOUSE];			//최종 버튼 상태
 
-	D3DXVECTOR3	wheelStatus;
-	D3DXVECTOR3 wheelOldStatus;
-	D3DXVECTOR3 wheelMoveValue;
+	D3DXVECTOR3	wheelStatus;					//현재 휠 상태
+	D3DXVECTOR3 wheelOldStatus;					//이전 휠 상태
+	D3DXVECTOR3 wheelMoveValue;					//최종 휠 상태
 
-	DWORD timeDblClk;
-	DWORD startDblClk[MAX_INPUT_MOUSE];
-	int buttonCount[MAX_INPUT_MOUSE];
+	DWORD timeDblClk;							//더블 클릭 시간
+	DWORD startDblClk[MAX_INPUT_MOUSE];			//더블 클릭 시작
+	int buttonCount[MAX_INPUT_MOUSE];			//버튼 클릭 횟수
 
 	enum
 	{

@@ -22,6 +22,8 @@ void Mouse::Delete()
 
 Mouse::Mouse()
 {
+	//초기화
+	//위치
 	position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	wheelStatus = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -34,17 +36,19 @@ Mouse::Mouse()
 
 	ZeroMemory(startDblClk, sizeof(DWORD)*MAX_INPUT_MOUSE);
 	ZeroMemory(buttonCount, sizeof(int)*MAX_INPUT_MOUSE);
-
+	//클릭
 	timeDblClk = GetDoubleClickTime();
 	startDblClk[0] = GetTickCount();
-
+	
 	for (int i = 1; i < MAX_INPUT_MOUSE; i++)
 	{
 		startDblClk[i] = startDblClk[0];
 	}
 
-	DWORD tLine = 0;
-	SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, &tLine, 0);
+	//휠
+
+	DWORD tLine = 0; //휠줄 수
+	SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, &tLine, 0);//세로 마우스 휠을 움직일 때 스크롤 할 줄 수를 검색합니다. 
 }
 
 Mouse::~Mouse()
@@ -58,7 +62,7 @@ void Mouse::Update()
 
 	ZeroMemory(buttonStatus, sizeof(buttonStatus));
 	ZeroMemory(buttonMap, sizeof(buttonMap));
-
+	//버튼 클릭 확인
 	for (DWORD i = 0; i < MAX_INPUT_MOUSE; i++)
 	{
 		int tOldStatus = buttonOldStatus[i];
@@ -81,6 +85,7 @@ void Mouse::Update()
 			buttonMap[i] = BUTTON_INPUT_STATUS_NONE;
 		}
 	}
+	//좌표 & 휠 갱신
 	POINT point;
 	GetCursorPos(&point);
 	ScreenToClient(handle, &point);
@@ -93,6 +98,7 @@ void Mouse::Update()
 	wheelMoveValue = wheelStatus - wheelOldStatus;
 	wheelOldStatus.z = wheelStatus.z;
 
+	//버튼 클릭 기록을 모아서 확인
 	DWORD tButtonStatus = GetTickCount();
 	for (DWORD i = 0; i < MAX_INPUT_MOUSE; i++)
 	{
@@ -127,7 +133,7 @@ void Mouse::Update()
 	}//for(i)
 }
 
-LRESULT Mouse::InputProc(UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT Mouse::InputProc(UINT message, WPARAM wParam, LPARAM lParam)//API마우스 메세지 가져와서 값전달
 {
 	if (message == WM_LBUTTONDOWN || message == WM_MOUSEMOVE)
 	{

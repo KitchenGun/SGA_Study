@@ -22,9 +22,9 @@ private:
 
 	static Keyboard* instance;
 
-	byte KeyState[MAX_INPUT_KEY];
-	byte KeyOldState[MAX_INPUT_KEY];
-	byte KeyMap[MAX_INPUT_KEY];
+	byte KeyState[MAX_INPUT_KEY];		//현재 키 상태	
+	byte KeyOldState[MAX_INPUT_KEY];	//이전 키 상태
+	byte KeyMap[MAX_INPUT_KEY];			//최종 키 상태
 
 	enum
 	{

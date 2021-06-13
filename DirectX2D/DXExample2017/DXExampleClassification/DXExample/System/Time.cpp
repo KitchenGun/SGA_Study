@@ -11,8 +11,9 @@ Time::Time(void)
 	//QueryPerformanceCounter : 일정지점안에서 몇번 진동 하였는가를 나타내는 함수
 	//QueryPerformanceFrequency  : 1초당 틱(진동)수를 반환한다 매개변수(lpFrequency)에는 해당 타이머의 주기가 설정됨
 	//즉 매개변수에게 현재 시간값을 전달함							멀티프로레스에서 시간을 일정하게 측정하기 위해 사용
-	QueryPerformanceFrequency((LARGE_INTEGER*)&ticksPerSecond);//실행카운터의 빈도 반환 반환하는 카운터가 시스템 부팅과 동시에 일정하게 반납하는것
-	fpsUpdateInterval = ticksPerSecond >> 1;//?
+	QueryPerformanceFrequency((LARGE_INTEGER*)&ticksPerSecond);//어떤 기기에서나 일정한 실행카운터의 빈도 반환 
+	//반환하는 카운터가 시스템 부팅과 동시에 일정하게 반납하는것
+	fpsUpdateInterval = ticksPerSecond >> 1;
 }
 
 Time::~Time(void)
@@ -44,6 +45,7 @@ void Time::Update()
 	runningTime += timeElapsed;
 	//fps 업데이트 프레임 수 증가
 	frameCount++;
+	
 	if (currentTime - lastFPSUpdate >= fpsUpdateInterval)//??
 	{
 		float tempCurrentTime = (float)currentTime / (float)ticksPerSecond;
@@ -56,7 +58,7 @@ void Time::Update()
 	lastTime = currentTime;
 }
 
-void Time::Start()
+void Time::Start()//시간 흐르게함
 {
 	if (!isTimerStopped)
 		assert(false);
@@ -65,7 +67,7 @@ void Time::Start()
 	isTimerStopped = false;
 }
 
-void Time::Stop()
+void Time::Stop()//시간이 멈출 때 프로그램 정지
 {
 	if (!isTimerStopped)
 		assert(false);
