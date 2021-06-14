@@ -38,3 +38,32 @@ private:
 	D3DXCOLOR clearColor = 0xff555566;				//ÃÊ±â»ö 
 
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////
+class D3DEnumAdapterInfo
+{
+public:
+	D3DEnumAdapterInfo()=default;
+	~D3DEnumAdapterInfo();
+
+	UINT adapterOrdinal = 0;
+	IDXGIAdapter* adapter = nullptr;
+	DXGI_ADAPTER_DESC1 adapterDesc = { 0 };
+
+	D3DEnumOutputInfo* outputInfo = nullptr;
+private:
+	const D3DEnumAdapterInfo& operator = (const D3DEnumAdapterInfo& rhs);
+};
+
+class D3DEnumOutputInfo
+{
+public:
+	D3DEnumOutputInfo() = default;
+	~D3DEnumOutputInfo();
+
+	IDXGIOutput* output = nullptr;
+	DXGI_OUTPUT_DESC outputDesc = { 0 };
+
+private:
+	const D3DEnumOutputInfo &operator = (const D3DEnumOutputInfo& rhs);
+};

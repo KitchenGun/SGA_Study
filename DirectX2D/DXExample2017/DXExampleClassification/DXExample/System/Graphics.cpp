@@ -165,3 +165,20 @@ void Graphics::End()
 	assert(SUCCEEDED(hr));//교체 잘됬는지 확인 
 }
 
+D3DEnumOutputInfo::~D3DEnumOutputInfo()
+{
+}
+
+const D3DEnumOutputInfo & D3DEnumOutputInfo::operator=(const D3DEnumOutputInfo & rhs)
+{
+	// TODO: 여기에 반환 구문을 삽입합니다.
+}
+
+D3DEnumAdapterInfo::~D3DEnumAdapterInfo()
+{
+}
+
+const D3DEnumAdapterInfo & D3DEnumAdapterInfo::operator=(const D3DEnumAdapterInfo & rhs)
+{
+	// TODO: 여기에 반환 구문을 삽입합니다.
+}

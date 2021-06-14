@@ -63,3 +63,5 @@ extern HWND handle;
 #include "System/Mouse.h"
 #include "System/Keyboard.h"
 
+
+#include "Geometry/Square.h"
