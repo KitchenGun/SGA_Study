@@ -2,19 +2,6 @@
 
 Graphics* Graphics::instance = nullptr;
 
-Graphics::Graphics()
-{
-	Init();
-}
-
-Graphics::~Graphics()
-{
-	SAFE_RELEASE(rtv);
-	SAFE_RELEASE(swapChain);
-	SAFE_RELEASE(deviceContext);
-	SAFE_RELEASE(device);
-}
-
 void Graphics::Create()
 {
 	if (instance == nullptr)
@@ -35,6 +22,189 @@ Graphics* Graphics::Get()
 {
 	return instance;
 }
+
+Graphics::Graphics()
+{
+	Init();
+}
+
+Graphics::~Graphics()
+{
+	SAFE_RELEASE(rtv);
+	SAFE_RELEASE(swapChain);
+	SAFE_RELEASE(deviceContext);
+	SAFE_RELEASE(device);
+}
+
+void Graphics::SetGPUInfo()
+{
+}
+void Graphics::CreateSwapChain()
+{
+	SAFE_RELEASE(device);
+	SAFE_RELEASE(deviceContext);
+	SAFE_RELEASE(swapChain);
+
+	DXGI_SWAP_CHAIN_DESC desc;
+
+	ZeroMemory(&desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+	desc.BufferDesc.Width = 0;
+	desc.BufferDesc.Height = 0;
+
+	if (bVsync)//수직동기화 켜져있으면 주사율을 맞춰준다
+	{
+		desc.BufferDesc.RefreshRate.Numerator = adapterInfos[0]->outputInfo->numerator;  //가장 첫번째 그래픽 카드에 접근해서->
+		desc.BufferDesc.RefreshRate.Denominator = adapterInfos[0]->outputInfo->denominator;
+	}
+	else
+	{
+		desc.BufferDesc.RefreshRate.Numerator = 0;
+		desc.BufferDesc.RefreshRate.Denominator =1;
+	}
+	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	desc.BufferDesc.Scaling - DXGI_MODE_SCALING_UNSPECIFIED;
+	desc.BufferCount = 1;
+	desc.SampleDesc.Count = 1;
+	desc.SampleDesc.Quality = 0;
+	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	desc.OutputWindow = handle;
+	desc.Windowed = true;
+	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+
+	desc.Flags = 0;
+
+	//flag 넣어줄 용도로 제작
+	UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;//d2d로 스왑체인을 만들수있음 그렇기 때문에 이 옵션이 존재함 
+														  //bgra rgb거꾸로 한거임 이런 포맷을 지원하게 하는 거임
+#if defined(_DEBUG)//디버그 모드에서 사용할 플래그
+	creationFlags = D3DCOMPILE_PREFER_FLOW_CONTROL | D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+					//흐름제어	//타입 라인 심볼 삽입하게 해주는것 //최적화 단계 스킵
+#endif
+
+	vector<D3D_FEATURE_LEVEL> featureLevel			//기능 수준	무슨 버전을 사용할것인지 
+	{
+		D3D_FEATURE_LEVEL_11_1,						//윈도우에 기본적으로 포함되어있기때문에 기존 경로가 지워져 있어서 사용을 할수없었다.
+		//D3D_FEATURE_LEVEL_11_0,
+		//D3D_FEATURE_LEVEL_10_1,
+		//D3D_FEATURE_LEVEL_10_0
+	};
+
+	UINT maxVideoMemory = 0;//vram 크기 
+	for (UINT i = 0; i < adapterInfos.size(); i++) //가지고있는 그래픽 카드 개수 만큼
+	{
+		//순수 비디오 전용메모리와 maxVideoMemory 비교하여  //DedicatedVideoMemory shared가 있는데 
+		if (adapterInfos[i]->adapterDesc.DedicatedVideoMemory > maxVideoMemory)
+		{
+			selectedAdapterIndex = i;
+			maxVideoMemory = adapterInfos[i]->adapterDesc.DedicatedVideoMemory;
+		}
+	}
+	//0번이 모니터에 관한 정보를 들고있다
+	numerator = adapterInfos[0]->outputInfo->numerator;
+	denominator = adapterInfos[0]->outputInfo->denominator;
+	//가장 큰 메모리를 가진 것을 선택
+	gpuMemorySize = adapterInfos[selectedAdapterIndex]->adapterDesc.DedicatedVideoMemory / 1024 / 1024; //mb단위로보기위해서 나눔//gb로 하지 않은 이유는 정확한 값을 보기위함
+	gpuDescription = adapterInfos[selectedAdapterIndex]->adapterDesc.Description;  //설명 가져와서 넣음
+	//디버그 일때 콘솔창에 출력
+	cout << "DedicatedVideoMemory : " << gpuMemorySize << endl;
+	wcout << "GPU Description : " << gpuDescription << endl;
+
+	cout << "Numerator : " << numerator << endl;
+	cout << "Denominator : " << numerator << endl;
+
+	HRESULT hr = D3D11CreateDeviceAndSwapChain
+	(
+		adapterInfos[selectedAdapterIndex]->adapter,
+		D3D_DRIVER_TYPE_UNKNOWN,
+		nullptr,
+		creationFlags,
+		featureLevel.data(),
+		featureLevel.size(),
+		D3D11_SDK_VERSION,
+		&desc,
+		&swapChain,
+		&device,
+		nullptr,
+		&deviceContext
+	);
+	ASSERT(hr);
+}
+void Graphics::EnumerateAdapters()
+{
+	IDXGIFactory1* factory;
+	if (FAILED(CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)&factory)))
+		return;
+
+	UINT index = 0;
+	while (true)
+	{
+		IDXGIAdapter1* adapter;
+
+		HRESULT hr = factory->EnumAdapters1(index, &adapter);
+		if (hr == DXGI_ERROR_NOT_FOUND)
+		{
+			break;
+		}
+		ASSERT(hr);
+
+		D3DEnumAdapterInfo* adapterInfo = new D3DEnumAdapterInfo();
+		ZeroMemory(&adapterInfo, sizeof(D3DEnumAdapterInfo));
+		adapterInfo->adapterOrdinal = index;
+
+		adapter->GetDesc1(&adapterInfo->adapterDesc);
+		adapterInfo->adapter = adapter;
+
+		EnumerateAdapterOutput(adapterInfo);
+		adapterInfos.push_back(adapterInfo);
+		++index;
+	}
+	SAFE_RELEASE(factory);
+}
+bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
+{
+	//디스플레이 정보
+	IDXGIOutput* output = nullptr;
+	HRESULT hr = adapterInfos->adapter->EnumOutputs(0, &output); //adapter 인포를 받음
+	
+	if (DXGI_ERROR_NOT_FOUND == hr)
+		return false;
+	//객체 만들고 동적할당
+	D3DEnumOutputInfo* outputInfo = new D3DEnumOutputInfo();
+	ZeroMemory(&outputInfo, sizeof(D3DEnumOutputInfo));
+	
+	hr = output->GetDesc(&outputInfo->outputDesc);
+	ASSERT(hr);
+
+	outputInfo->output = output;
+
+	UINT numModes = 0;
+	DXGI_MODE_DESC* displayModes = nullptr;
+	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+	//열거식힐 색상의 포멧을 넣고 플래그 넣어줌 
+	hr = output->GetDisplayModeList(format, DXGI_ENUM_MODES_INTERLACED, &numModes, nullptr);
+	ASSERT(hr);
+
+	for (UINT i = 0; i < numModes; i++)
+	{
+		bool bCheck = true;
+		bCheck &= displayModes[i].Width == WinMaxWidth;
+		bCheck &= displayModes[i].Height == WinMaxHeight;
+		
+		if (bCheck==true)
+		{
+			outputInfo->numerator = displayModes[i].RefreshRate.Numerator;
+			outputInfo->denominator = displayModes[i].RefreshRate.Denominator;
+		}
+	}
+	adapterInfos->outputInfo = outputInfo;
+	SAFE_DELETE_ARRAY(displayModes);
+
+	return true;
+}
+
+
 //생성자에서 호출
 void Graphics::Init()
 {
@@ -149,6 +319,14 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 
 }
 
+void Graphics::Resize(const UINT & width, const UINT & height)
+{
+}
+
+void Graphics::SetViewport(const UINT & width, const UINT & height)
+{
+}
+
 //반복호출
 void Graphics::Begin()
 {
@@ -163,22 +341,22 @@ void Graphics::End()
 	HRESULT hr = swapChain->Present(1, 0); // 백버퍼를 프론트랑 교체해서 보여주다 
 	assert(SUCCEEDED(hr));//교체 잘됬는지 확인 
 }
-//////////////////////////////////////////////////////////////////////////////////////////////
-/*D3DEnumOutputInfo::~D3DEnumOutputInfo()
+
+void Graphics::CreateRenderTargetView()
 {
 }
-
-const D3DEnumOutputInfo & D3DEnumOutputInfo::operator=(const D3DEnumOutputInfo & rhs)
+void Graphics::DeleteSurface()
 {
-	// TODO: 여기에 반환 구문을 삽입합니다.
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+D3DEnumOutputInfo::~D3DEnumOutputInfo()
+{
+
 }
 
 D3DEnumAdapterInfo::~D3DEnumAdapterInfo()
 {
+
 }
 
-const D3DEnumAdapterInfo & D3DEnumAdapterInfo::operator=(const D3DEnumAdapterInfo & rhs)
-{
-	// TODO: 여기에 반환 구문을 삽입합니다.
-}
-*/
