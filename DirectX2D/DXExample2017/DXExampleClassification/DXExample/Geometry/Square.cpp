@@ -87,6 +87,7 @@ void Square::Move(D3DXVECTOR3 position)
 
 void Square::Update()
 {
+	//버텍스 버퍼를 갱신
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	DC->Map
 	(
@@ -96,11 +97,13 @@ void Square::Update()
 		0,
 		&subResource
 	);
-
+	//색상변환
 	for (VertexColor&v : vertices)
 	{
 		v.color = D3DXCOLOR(1, 0, 0, 1);
 	}
+	//버퍼내 정점 저장
+	//객체의 pData 멤버는 버퍼내 데이터의 시작에 대한 포인터입니다.
 	memcpy(subResource.pData, vertices.data(), sizeof(VertexColor)*vertices.size());
 	DC->Unmap(VB->GetResource(), 0);
 }

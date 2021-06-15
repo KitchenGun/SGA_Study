@@ -40,7 +40,7 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
-class D3DEnumAdapterInfo
+/*class D3DEnumAdapterInfo
 {
 public:
 	D3DEnumAdapterInfo()=default;
@@ -66,4 +66,4 @@ public:
 
 private:
 	const D3DEnumOutputInfo &operator = (const D3DEnumOutputInfo& rhs);
-};
+};*/

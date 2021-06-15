@@ -19,7 +19,7 @@ Program::~Program()
 
 void Program::SetGlobalBuffers()
 {	
-	//버퍼 세팅
+	//view projection 세팅
 	//처음 설정하고 바꾸지 않음
 	D3DXMatrixIdentity(&view);
 	D3DXMatrixIdentity(&projection);
@@ -41,5 +41,6 @@ void Program::Render()
 {
 	//world와 분리했기 때문에 1이다
 	VPBuffer->SetVSBuffer(1);
+	//square 안에는 wb 0에 슬롯 0을 넣어놨다
 	square->Render();
 }
