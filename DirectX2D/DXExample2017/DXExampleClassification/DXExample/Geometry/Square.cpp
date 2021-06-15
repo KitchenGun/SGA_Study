@@ -6,6 +6,7 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 	size(size),
 	rotation(rotation)
 {
+	//정점 정보 입력
 	vertices.assign(4, VertexColor());
 	vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
 	vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
@@ -20,6 +21,8 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 	vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 
 	indices = { 0,1,2,2,1,3 };
+	
+	//클래스화 한 객체 생성
 	VB = new VertexBuffer();
 	IB = new IndexBuffer();
 
@@ -28,6 +31,9 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 
 	IL = new InputLayout();
 
+	WB = new WorldBuffer();
+	CB = new ColorBuffer();
+	//객체에서 함수 호출
 	VB->Create(vertices, D3D11_USAGE_DYNAMIC);
 	IB->Create(indices, D3D11_USAGE_IMMUTABLE);
 	
@@ -36,7 +42,6 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 
 	IL->Create(VertexColor::descs, VertexColor::count, VS->GetBlob());
 
-	WB = new WorldBuffer();
 	D3DXMatrixIdentity(&world);
 
 	D3DXMatrixIdentity(&S);
@@ -52,7 +57,6 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 	WB->SetWorld(world);
 	TransformVertices();
 
-	CB = new ColorBuffer();
 
 }
 
@@ -106,20 +110,20 @@ void Square::Render()
 	VB->SetIA();
 	IB->SetIA();
 	IL->SetIA();
+	//기본 도형 형성 방법 지정
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	WB->SetVSBuffer(0);
 	VS->SetShader();
 	PS->SetShader();
-
+	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
 }
 
 void Square::TransformVertices()
 {
-	//D3DXVec3TransformNormal() //벡터 이동
+	//D3DXVec3TransformNormal() //벡터 이동   //지정된 행렬에 의해 3D 벡터 법선을 변환 한다.
 	D3DXVec3TransformCoord//정점 이동   //충돌을 체크하기 위한 좌표저장
-	(
+	(//지정된 행렬에 의해 3D 벡터를 변환 해, 그 결과를 w = 1 에 투영 한다.
 		&r.LT,
 		&vertices[1].position,
 		&world

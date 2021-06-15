@@ -35,7 +35,7 @@ Graphics* Graphics::Get()
 {
 	return instance;
 }
-
+//생성자에서 호출
 void Graphics::Init()
 {
 	DXGI_SWAP_CHAIN_DESC desc;													//swapchain을 구성하기 위한 요청서
@@ -91,7 +91,7 @@ void Graphics::Init()
 	CreateBackBuffer();
 
 }
-
+//생성시 backbuffer생성을 위해서 사용
 void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 {
 	HRESULT hr = swapChain->ResizeBuffers  //우리가 맞춘 화면 크기로 조절  바뀐거 없으면 0
@@ -149,6 +149,7 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 
 }
 
+//반복호출
 void Graphics::Begin()
 {
 	//dc는 그리는 도구집합
@@ -157,14 +158,12 @@ void Graphics::Begin()
 	deviceContext->RSSetViewports(1, &viewport);			//viewport 세팅 rs 단계에서 수행
 	deviceContext->ClearRenderTargetView(rtv, clearColor);	//rtv를 미리 세팅한 클리어 칼라로 지움
 }
-
-
 void Graphics::End()
 {
 	HRESULT hr = swapChain->Present(1, 0); // 백버퍼를 프론트랑 교체해서 보여주다 
 	assert(SUCCEEDED(hr));//교체 잘됬는지 확인 
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 D3DEnumOutputInfo::~D3DEnumOutputInfo()
 {
 }
