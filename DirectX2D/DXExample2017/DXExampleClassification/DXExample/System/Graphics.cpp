@@ -39,14 +39,15 @@ Graphics::~Graphics()
 void Graphics::SetGPUInfo()
 {
 }
+
 void Graphics::CreateSwapChain()
 {
 	SAFE_RELEASE(device);
 	SAFE_RELEASE(deviceContext);
 	SAFE_RELEASE(swapChain);
-
+	//swap chain desc 제작
 	DXGI_SWAP_CHAIN_DESC desc;
-
+	//초기화
 	ZeroMemory(&desc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	desc.BufferDesc.Width = 0;
 	desc.BufferDesc.Height = 0;
@@ -61,16 +62,26 @@ void Graphics::CreateSwapChain()
 		desc.BufferDesc.RefreshRate.Numerator = 0;
 		desc.BufferDesc.RefreshRate.Denominator =1;
 	}
-	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	desc.BufferDesc.Scaling - DXGI_MODE_SCALING_UNSPECIFIED;
-	desc.BufferCount = 1;
-	desc.SampleDesc.Count = 1;
-	desc.SampleDesc.Quality = 0;
-	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	desc.OutputWindow = handle;
-	desc.Windowed = true;
-	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;			//0~255까지 값을 부호가 없이 0~1 비례하게 표현// unsigned nomalrize 란 각 색상에 8비트씩 할당
+	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	//선을 어떤 식으로 그리는가?
+	/*
+	DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED
+	스캔 라인 순서가 지정되지 않았습니다 .
+	DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE
+	이미지는 건너 뛰지 않고 첫 번째 스캔 라인에서 마지막 스캔 라인까지 생성됩니다.
+	DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST
+	상위 필드부터 이미지가 생성됩니다.
+	DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST
+	이미지는 하단 필드부터 생성됩니다.
+	*/
+	desc.BufferDesc.Scaling - DXGI_MODE_SCALING_UNSPECIFIED;					//화면 축소 확대시 어떤 효과 줄것인가
+	desc.BufferCount = 1;														//버퍼 개수
+	desc.SampleDesc.Count = 1;													//픽셀당 멀티 샘플의 수
+	desc.SampleDesc.Quality = 0;												//이미지 품질 수준// 높을수록 성능이 저하됩니다. 유효 범위는 0~1
+	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;							//랜더타겟 뷰란? 백버퍼에 그려지기 전에 임시로 그려지는 공간
+	desc.OutputWindow = handle;													//출력하는 화면	
+	desc.Windowed = true;														//창모드 사용 비사용?
+	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;									//버퍼끼리 바꿀때 주는 효과  현재 사용하지 않음
 
 	desc.Flags = 0;
 
@@ -78,13 +89,16 @@ void Graphics::CreateSwapChain()
 	UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;//d2d로 스왑체인을 만들수있음 그렇기 때문에 이 옵션이 존재함 
 														  //bgra rgb거꾸로 한거임 이런 포맷을 지원하게 하는 거임
 #if defined(_DEBUG)//디버그 모드에서 사용할 플래그
+	//비트 or 연산자
 	creationFlags = D3DCOMPILE_PREFER_FLOW_CONTROL | D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-					//흐름제어	//타입 라인 심볼 삽입하게 해주는것 //최적화 단계 스킵
+					//컴파일러가 가능한 경우 흐름 제어 구문을 사용하도록 지시합니다.	
+					//디버그 파일 / 줄 / 유형 / 기호 정보를 출력 코드에 삽입하도록 컴파일러에 지시합니다.
+					//코드 생성 중에 최적화 단계를 건너 뛰도록 컴파일러에 지시합니다. 디버그 목적으로 만이 상수를 설정하는 것이 좋습니다.
 #endif
 
 	vector<D3D_FEATURE_LEVEL> featureLevel			//기능 수준	무슨 버전을 사용할것인지 
 	{
-		D3D_FEATURE_LEVEL_11_1,						//윈도우에 기본적으로 포함되어있기때문에 기존 경로가 지워져 있어서 사용을 할수없었다.
+		D3D_FEATURE_LEVEL_11_1,						
 		//D3D_FEATURE_LEVEL_11_0,
 		//D3D_FEATURE_LEVEL_10_1,
 		//D3D_FEATURE_LEVEL_10_0
@@ -108,31 +122,38 @@ void Graphics::CreateSwapChain()
 	gpuDescription = adapterInfos[selectedAdapterIndex]->adapterDesc.Description;  //설명 가져와서 넣음
 	//디버그 일때 콘솔창에 출력
 	cout << "DedicatedVideoMemory : " << gpuMemorySize << endl;
-	wcout << "GPU Description : " << gpuDescription << endl;
+	wcout << "GPU Description : " << gpuDescription << endl;//유니코드 출력용
 
 	cout << "Numerator : " << numerator << endl;
 	cout << "Denominator : " << numerator << endl;
 
 	HRESULT hr = D3D11CreateDeviceAndSwapChain
 	(
-		adapterInfos[selectedAdapterIndex]->adapter,
-		D3D_DRIVER_TYPE_UNKNOWN,
+		adapterInfos[selectedAdapterIndex]->adapter, //사용할 그래픽카드에 대한 포인터
+		D3D_DRIVER_TYPE_UNKNOWN,//D3D_DRIVER_TYPE_UNKNOWN 드라이버 유형을 정하지 않음
+		//하드웨어 가속을 사용한다 만약에 지원하지 않을 경우 소프트웨어 드라이버로 대체한다 
+		//reference 3d를 지원하는 소프트웨어 타입 정확도에 초점을 맞춤(버그 찾을때)
+		//null reference와 동일한 기능을 하지만 랜더링이 빠져있음 
+		//software 그래픽카드가 없거나 cpu만 사용해서 구동할 경우 사용
+		//warp 제일 빠름
 		nullptr,
-		creationFlags,
-		featureLevel.data(),
-		featureLevel.size(),
-		D3D11_SDK_VERSION,
-		&desc,
-		&swapChain,
+		creationFlags,					//플래그
+		featureLevel.data(),			//기능 수준의 포인터를 넘겨줌
+		featureLevel.size(),			//기능 수준의 포인터의 사이즈를 넘겨줌
+		D3D11_SDK_VERSION,				//sdk 버전
+		&desc,							//위에서 세팅한 desc 사용
+		&swapChain,						//스왑체인에 사용되는 포인터 객체 주소
 		&device,
 		nullptr,
-		&deviceContext
+		&deviceContext					//deviceContext주소 넘겨줌
 	);
 	ASSERT(hr);
 }
+
 void Graphics::EnumerateAdapters()
 {
 	IDXGIFactory1* factory;
+	//생성 실패하면 반환			//IDXGIFactory1 개체 의 GUID ,IDXGIFactory1 포인터 객체
 	if (FAILED(CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)&factory)))
 		return;
 
@@ -141,8 +162,8 @@ void Graphics::EnumerateAdapters()
 	{
 		IDXGIAdapter1* adapter;
 
-		HRESULT hr = factory->EnumAdapters1(index, &adapter);
-		if (hr == DXGI_ERROR_NOT_FOUND)
+		HRESULT hr = factory->EnumAdapters1(index, &adapter);//인덱스에 맞는 그래픽카드 전부 열거
+		if (hr == DXGI_ERROR_NOT_FOUND)//그래픽카드를 못 찾았을 경우
 		{
 			break;
 		}
@@ -161,11 +182,12 @@ void Graphics::EnumerateAdapters()
 	}
 	SAFE_RELEASE(factory);
 }
+
 bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 {
 	//디스플레이 정보
 	IDXGIOutput* output = nullptr;
-	HRESULT hr = adapterInfos->adapter->EnumOutputs(0, &output); //adapter 인포를 받음
+	HRESULT hr = adapterInfos->adapter->EnumOutputs(0, &output); //adapter output인포를 받음
 	
 	if (DXGI_ERROR_NOT_FOUND == hr)
 		return false;
@@ -182,8 +204,14 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 	DXGI_MODE_DESC* displayModes = nullptr;
 	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
-	//열거식힐 색상의 포멧을 넣고 플래그 넣어줌 
-	hr = output->GetDisplayModeList(format, DXGI_ENUM_MODES_INTERLACED, &numModes, nullptr);
+	//열거식힐 색상의 포멧을 넣고 플래그 넣어줌 //11이상부터는 GetDisplayModeList1을 사용하라고함
+	hr = output->GetDisplayModeList
+	(
+		format,						//색상 형식 값
+		DXGI_ENUM_MODES_INTERLACED, //flag
+		&numModes,					//GetDisplayModeList이 반환 하는 표시 모드 수를받는 변수에 대한 포인터
+		nullptr						//디스플레이 모드 수를 얻으려면 NULL
+	);
 	ASSERT(hr);
 
 	for (UINT i = 0; i < numModes; i++)
@@ -203,7 +231,6 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 
 	return true;
 }
-
 
 //생성자에서 호출
 void Graphics::Init()
