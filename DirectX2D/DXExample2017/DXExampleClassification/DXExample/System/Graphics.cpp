@@ -22,12 +22,14 @@ Graphics* Graphics::Get()
 {
 	return instance;
 }
-
+//생성자
 Graphics::Graphics()
 {
-	Init();
+	SetGPUInfo();
+	CreateSwapChain();
+	//Init();
 }
-
+//소멸자
 Graphics::~Graphics()
 {
 	SAFE_RELEASE(rtv);
@@ -38,6 +40,7 @@ Graphics::~Graphics()
 
 void Graphics::SetGPUInfo()
 {
+	EnumerateAdapters();
 }
 
 void Graphics::CreateSwapChain()
@@ -74,7 +77,7 @@ void Graphics::CreateSwapChain()
 	DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST
 	이미지는 하단 필드부터 생성됩니다.
 	*/
-	desc.BufferDesc.Scaling - DXGI_MODE_SCALING_UNSPECIFIED;					//화면 축소 확대시 어떤 효과 줄것인가
+	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;					//화면 축소 확대시 어떤 효과 줄것인가
 	desc.BufferCount = 1;														//버퍼 개수
 	desc.SampleDesc.Count = 1;													//픽셀당 멀티 샘플의 수
 	desc.SampleDesc.Quality = 0;												//이미지 품질 수준// 높을수록 성능이 저하됩니다. 유효 범위는 0~1
@@ -104,7 +107,7 @@ void Graphics::CreateSwapChain()
 		//D3D_FEATURE_LEVEL_10_0
 	};
 
-	UINT maxVideoMemory = 0;//vram 크기 
+	UINT maxVideoMemory = 0;//vram 크기에서 sharedMemory를 제외한 크기
 	for (UINT i = 0; i < adapterInfos.size(); i++) //가지고있는 그래픽 카드 개수 만큼
 	{
 		//순수 비디오 전용메모리와 maxVideoMemory 비교하여  //DedicatedVideoMemory shared가 있는데 
@@ -148,6 +151,8 @@ void Graphics::CreateSwapChain()
 		&deviceContext					//deviceContext주소 넘겨줌
 	);
 	ASSERT(hr);
+
+	Resize(WinMaxWidth, WinMaxHeight);
 }
 
 void Graphics::EnumerateAdapters()
@@ -170,9 +175,9 @@ void Graphics::EnumerateAdapters()
 		ASSERT(hr);
 
 		D3DEnumAdapterInfo* adapterInfo = new D3DEnumAdapterInfo();
-		ZeroMemory(&adapterInfo, sizeof(D3DEnumAdapterInfo));
+		ZeroMemory(adapterInfo, sizeof(D3DEnumAdapterInfo));
 		adapterInfo->adapterOrdinal = index;
-
+		
 		adapter->GetDesc1(&adapterInfo->adapterDesc);
 		adapterInfo->adapter = adapter;
 
@@ -193,7 +198,7 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 		return false;
 	//객체 만들고 동적할당
 	D3DEnumOutputInfo* outputInfo = new D3DEnumOutputInfo();
-	ZeroMemory(&outputInfo, sizeof(D3DEnumOutputInfo));
+	ZeroMemory(outputInfo, sizeof(D3DEnumOutputInfo));
 	
 	hr = output->GetDesc(&outputInfo->outputDesc);
 	ASSERT(hr);
@@ -203,6 +208,16 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 	UINT numModes = 0;
 	DXGI_MODE_DESC* displayModes = nullptr;
 	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	hr = output->GetDisplayModeList
+	(
+		format,						//색상 형식 값
+		DXGI_ENUM_MODES_INTERLACED, //flag
+		&numModes,					//GetDisplayModeList이 반환 하는 표시 모드 수를받는 변수에 대한 포인터
+		nullptr						//디스플레이 모드 수를 얻으려면 NULL
+	);
+	ASSERT(hr);
+	
+	displayModes = new DXGI_MODE_DESC[numModes];
 
 	//열거식힐 색상의 포멧을 넣고 플래그 넣어줌 //11이상부터는 GetDisplayModeList1을 사용하라고함
 	hr = output->GetDisplayModeList
@@ -210,7 +225,7 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 		format,						//색상 형식 값
 		DXGI_ENUM_MODES_INTERLACED, //flag
 		&numModes,					//GetDisplayModeList이 반환 하는 표시 모드 수를받는 변수에 대한 포인터
-		nullptr						//디스플레이 모드 수를 얻으려면 NULL
+		displayModes				//디스플레이 모드 수를 얻으려면 NULL
 	);
 	ASSERT(hr);
 
@@ -231,7 +246,7 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 
 	return true;
 }
-
+/*
 //생성자에서 호출
 void Graphics::Init()
 {
@@ -309,14 +324,13 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 	buffer -> 정점 버퍼, 인덱스 버퍼,상수 버퍼
 	texture //랜더링 파이프 라인에 직접 꽂을수 없기 때문에 리소스뷰를 사용한다 
 	1d,2d,3d
-	*/
 
-	/*//Resource View의 종류 4가지 - 렌더링 파이프 라인에 꽂아주는 역할 
-	/ID3D11RenderTargetView			//다음 프레임에 그려질 화면 저장하는 역할 
-	/ID3D11ShaderResourceView		//쉐이더 형으로 꽂아주기 위함
-	/ID3D11DepthStencilView			//깊이 정보를 랜더링 파이프 라인에 넣기 위함
-	/ID3D11UnorderedAccessView		//
-	*/
+	//Resource View의 종류 4가지 - 렌더링 파이프 라인에 꽂아주는 역할 
+	//ID3D11RenderTargetView			//다음 프레임에 그려질 화면 저장하는 역할 
+	//ID3D11ShaderResourceView		//쉐이더 형으로 꽂아주기 위함
+	//ID3D11DepthStencilView			//깊이 정보를 랜더링 파이프 라인에 넣기 위함
+	//ID3D11UnorderedAccessView		//
+	
 
 	hr = swapChain->GetBuffer  //만든걸 실제로 꽂아주는 과정 그림 용도로 사용중 
 	(
@@ -345,13 +359,53 @@ void Graphics::CreateBackBuffer()//백버퍼 생성 과정
 	SAFE_RELEASE(backBuffer);//rtv에 들어가면 백버퍼의 역할이 끝나기 때문에 바로 지워주면 됨 
 
 }
-
+*/
 void Graphics::Resize(const UINT & width, const UINT & height)
 {
+	DeleteSurface();
+	{
+		HRESULT hr = swapChain->ResizeBuffers
+		(
+			0,
+			width,
+			height,
+			DXGI_FORMAT_UNKNOWN,
+			0
+		);
+	}
+	CreateRenderTargetView();
+	SetViewport(width, height);
+}
+
+void Graphics::CreateRenderTargetView()
+{
+	ID3D11Texture2D* backBuffer = nullptr;
+	HRESULT hr = swapChain->GetBuffer
+	(
+		0,
+		__uuidof(ID3D11Texture2D),
+		(void**)&backBuffer
+	);
+	ASSERT(hr);
+
+	hr = device->CreateRenderTargetView
+	(
+		backBuffer,
+		nullptr,
+		&rtv
+	);
+	ASSERT(hr);
+	SAFE_RELEASE(backBuffer);
 }
 
 void Graphics::SetViewport(const UINT & width, const UINT & height)
 {
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	viewport.Width = (float)width;
+	viewport.Height = (float)height;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
 }
 
 //반복호출
@@ -369,21 +423,19 @@ void Graphics::End()
 	assert(SUCCEEDED(hr));//교체 잘됬는지 확인 
 }
 
-void Graphics::CreateRenderTargetView()
-{
-}
 void Graphics::DeleteSurface()
 {
+	SAFE_RELEASE(rtv);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-D3DEnumOutputInfo::~D3DEnumOutputInfo()
-{
-
-}
-
 D3DEnumAdapterInfo::~D3DEnumAdapterInfo()
 {
-
+	SAFE_RELEASE(adapter);
+	SAFE_DELETE(outputInfo);
 }
+D3DEnumOutputInfo::~D3DEnumOutputInfo()
+{
+	SAFE_RELEASE(output);
+}
+
 

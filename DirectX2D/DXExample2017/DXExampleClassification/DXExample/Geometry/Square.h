@@ -37,7 +37,7 @@ private:
 	D3DXMATRIX world, S, R, T;
 	D3DXVECTOR3 position, size;
 	float rotation;
-
+	
 	RectEdges r;
 	ColorBuffer* CB = nullptr;
 	bool bIntersect = false;

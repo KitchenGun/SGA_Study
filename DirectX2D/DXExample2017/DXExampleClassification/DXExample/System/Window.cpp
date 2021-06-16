@@ -78,7 +78,10 @@ WPARAM Window::Run()
 	MSG msg = { 0 };
 	
 	Graphics::Create();
-	Graphics::Get()->Init();
+	Keyboard::Create();
+	Mouse::Create();
+	Time::Create();
+	Time::Get()->Start();
 
 	program = new Program();
 
@@ -95,6 +98,10 @@ WPARAM Window::Run()
 		}
 		else
 		{
+			Mouse::Get()->Update();
+			Keyboard::Get()->Update();
+			Time::Get()->Update();
+
 			program->Update();
 			//랜더링 부분
 			Graphics::Get()->Begin();
@@ -106,6 +113,9 @@ WPARAM Window::Run()
 	}
 	SAFE_DELETE(program);
 	//싱글톤 객체 제거
+	Time::Delete();
+	Mouse::Delete();
+	Keyboard::Delete();
 	Graphics::Delete();//무한이 삭제하는 코드는 작성하지 말자 
 	return msg.wParam;
 }
@@ -114,6 +124,9 @@ HWND handle;
 
 LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	//마우스 메세지 전달
+	Mouse::Get()->InputProc(message, wParam, lParam);
+
 	if (message == WM_CREATE)
 		::handle = handle;
 	//자기 자신의 handle를 참조하는 것 
