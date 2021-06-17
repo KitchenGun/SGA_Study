@@ -399,7 +399,7 @@ void Graphics::CreateRenderTargetView()
 	ASSERT(hr);
 	SAFE_RELEASE(backBuffer);
 }
-
+//rtv에서 내보내는 부분이 viewport이다
 void Graphics::SetViewport(const UINT & width, const UINT & height)
 {
 	viewport.TopLeftX = 0.0f;
