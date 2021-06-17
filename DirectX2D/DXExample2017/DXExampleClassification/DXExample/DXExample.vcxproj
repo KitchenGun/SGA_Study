@@ -23,7 +23,7 @@
     <ProjectGuid>{DA33F487-DC78-43D6-BD65-00861B07D924}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DXExample</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -162,6 +162,7 @@
     <ClCompile Include="System\Mouse.cpp" />
     <ClCompile Include="System\Time.cpp" />
     <ClCompile Include="System\Window.cpp" />
+    <ClCompile Include="Utilities\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geometry\Square.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="System\Mouse.h" />
     <ClInclude Include="System\Time.h" />
     <ClInclude Include="System\Window.h" />
+    <ClInclude Include="Utilities\Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

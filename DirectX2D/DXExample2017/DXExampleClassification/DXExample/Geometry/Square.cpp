@@ -100,7 +100,10 @@ void Square::Update()
 	//색상변환
 	for (VertexColor&v : vertices)
 	{
-		v.color = D3DXCOLOR(1, 0, 0, 1);
+		if(bIntersect)
+			v.color = D3DXCOLOR(1, 1, 1, 1);
+		else
+			v.color = D3DXCOLOR(1, 0, 0, 1);
 	}
 	//버퍼내 정점 저장
 	//객체의 pData 멤버는 버퍼내 데이터의 시작에 대한 포인터입니다.

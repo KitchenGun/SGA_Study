@@ -65,3 +65,6 @@ extern HWND handle;
 
 
 #include "Geometry/Square.h"
+
+
+#include "Utilities/Math.h"

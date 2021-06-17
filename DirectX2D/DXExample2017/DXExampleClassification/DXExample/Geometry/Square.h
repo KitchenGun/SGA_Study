@@ -20,6 +20,8 @@ public:
 
 	RectEdges GetTransformedCoord() { return r; }
 
+	void SetIntersect(bool bIntersect) { this->bIntersect = bIntersect; }
+
 private:
 	void TransformVertices();
 	//Á¤º¸

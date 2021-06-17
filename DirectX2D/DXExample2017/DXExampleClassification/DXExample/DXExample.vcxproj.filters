@@ -21,6 +21,7 @@
     <ClCompile Include="System\Mouse.cpp" />
     <ClCompile Include="System\Keyboard.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
+    <ClCompile Include="Utilities\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -45,6 +46,7 @@
     <ClInclude Include="System\Mouse.h" />
     <ClInclude Include="System\Keyboard.h" />
     <ClInclude Include="Geometry\Square.h" />
+    <ClInclude Include="Utilities\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

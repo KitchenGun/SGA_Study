@@ -8,6 +8,7 @@ Program::Program()
 	//버퍼 초기화
 	SetGlobalBuffers();
 	square = new Square({ 200,200,0 }, { 100,100,1 }, 0);
+	square2 = new Square({ 400,400,0 }, { 100,100,1 }, 0);
 }
 
 Program::~Program()
@@ -34,7 +35,31 @@ void Program::SetGlobalBuffers()
 
 void Program::Update()
 {
+	//입력
+	if (Keyboard::Get()->Press('W'))
+		square->Move({ 0,10,0 });
+	else if (Keyboard::Get()->Press('S'))
+		square->Move({ 0,-10,0 });
+	if (Keyboard::Get()->Press('A'))
+		square->Move({ -10,0,0 });
+	else if (Keyboard::Get()->Press('D'))
+		square->Move({ 10,0,0 });
+
 	square->Update();
+	square2->Update();
+
+	if (Math::Intersect(square, square2))
+	{
+		square->SetIntersect(true);
+		square2->SetIntersect(true);
+		cout << "충돌중" << temp++ << endl;
+	}
+	else
+	{
+		square->SetIntersect(false);
+		square2->SetIntersect(false);
+	}
+
 }
 
 void Program::Render()
@@ -43,4 +68,5 @@ void Program::Render()
 	VPBuffer->SetVSBuffer(1);
 	//square 안에는 wb 0에 슬롯 0을 넣어놨다
 	square->Render();
+	square2->Render();
 }
