@@ -25,9 +25,8 @@ Graphics* Graphics::Get()
 //생성자
 Graphics::Graphics()
 {
-	SetGPUInfo();
-	CreateSwapChain();
-	//Init();
+	SetGPUInfo();		//gpu정보 불러오기 모니터정보도 불러옴
+	CreateSwapChain();	//스왑체인 제작
 }
 //소멸자
 Graphics::~Graphics()
@@ -52,6 +51,7 @@ void Graphics::CreateSwapChain()
 	DXGI_SWAP_CHAIN_DESC desc;
 	//초기화
 	ZeroMemory(&desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+	//백버퍼 초기화
 	desc.BufferDesc.Width = 0;
 	desc.BufferDesc.Height = 0;
 
@@ -62,6 +62,7 @@ void Graphics::CreateSwapChain()
 	}
 	else
 	{
+		//1/0 이라는 이야기임  초당 0번 그리지고 지워진다
 		desc.BufferDesc.RefreshRate.Numerator = 0;
 		desc.BufferDesc.RefreshRate.Denominator =1;
 	}
@@ -155,7 +156,7 @@ void Graphics::CreateSwapChain()
 	Resize(WinMaxWidth, WinMaxHeight);
 }
 
-void Graphics::EnumerateAdapters()
+void Graphics::EnumerateAdapters() 
 {
 	IDXGIFactory1* factory;
 	//생성 실패하면 반환			//IDXGIFactory1 개체 의 GUID ,IDXGIFactory1 포인터 객체
@@ -208,6 +209,7 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 	UINT numModes = 0;
 	DXGI_MODE_DESC* displayModes = nullptr;
 	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//???
 	hr = output->GetDisplayModeList
 	(
 		format,						//색상 형식 값
@@ -228,7 +230,7 @@ bool Graphics::EnumerateAdapterOutput(D3DEnumAdapterInfo * adapterInfos)
 		displayModes				//디스플레이 모드 수를 얻으려면 NULL
 	);
 	ASSERT(hr);
-
+	//???
 	for (UINT i = 0; i < numModes; i++)
 	{
 		bool bCheck = true;

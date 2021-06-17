@@ -43,8 +43,8 @@ private:
 
 	static Graphics* instance;
 
-	void EnumerateAdapters();
-	bool EnumerateAdapterOutput(D3DEnumAdapterInfo* adapterInfos);
+	void EnumerateAdapters();										//그래픽 카드 정보
+	bool EnumerateAdapterOutput(D3DEnumAdapterInfo* adapterInfos);	//그래픽 카드의 정보를 토대로 모니터 정보 읽기
 	void SetGPUInfo();
 	
 private:
