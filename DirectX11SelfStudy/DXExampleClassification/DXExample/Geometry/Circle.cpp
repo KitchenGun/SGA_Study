@@ -7,12 +7,13 @@ Circle::Circle(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 	rotation(rotation)
 {
 	//정점 정보 입력
-	vertices.assign(360, VertexColor());
+	vertices.assign(361, VertexColor());
+	indices.assign(361,sizeof(UINT));
 	for (int i = 0; i <= 360; ++i)
 	{
-		vertices[i].position = D3DXVECTOR3((float)cos(D3DXToRadian(i)), (float)sin(D3DXToRadian(i)), 0.0f);
+		vertices[i].position = D3DXVECTOR3(0.5f*(float)cos(D3DXToRadian(i)), 0.5f*(float)sin(D3DXToRadian(i)), 0.0f);
 		vertices[i].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-		indices.push_back(i);
+		indices[i]=i;
 	}
 
 	//클래스화 한 객체 생성
@@ -107,7 +108,7 @@ void Circle::Render()
 	IB->SetIA();
 	IL->SetIA();
 	//기본 도형 형성 방법 지정
-	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	WB->SetVSBuffer(0);
 	VS->SetShader();
 	PS->SetShader();

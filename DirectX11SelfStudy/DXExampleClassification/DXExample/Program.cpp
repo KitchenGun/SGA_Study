@@ -9,7 +9,7 @@ Program::Program()
 	SetGlobalBuffers();
 	square = new Square({ 200,200,0 }, { 100,100,1 }, 0);
 
-	circle = new Circle({ 0,0,0 }, { 100,100,1 }, 0);
+	circle = new Circle({ 500,500,0 }, { 200,100,1 }, 0);
 }
 
 Program::~Program()
