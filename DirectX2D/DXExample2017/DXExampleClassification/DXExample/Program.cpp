@@ -69,4 +69,5 @@ void Program::Render()
 	//square ¾È¿¡´Â wb 0¿¡ ½½·Ô 0À» ³Ö¾î³ù´Ù
 	square->Render();
 	square2->Render();
+
 }

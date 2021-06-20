@@ -100,7 +100,7 @@ void Square::Update()
 	//색상변환
 	for (VertexColor&v : vertices)
 	{
-		if(bIntersect)
+		if(bIntersect)//충돌값이 전달 오면
 			v.color = D3DXCOLOR(1, 1, 1, 1);
 		else
 			v.color = D3DXCOLOR(1, 0, 0, 1);
@@ -130,9 +130,9 @@ void Square::TransformVertices()
 	//D3DXVec3TransformNormal() //벡터 이동   //지정된 행렬에 의해 3D 벡터 법선을 변환 한다.
 	D3DXVec3TransformCoord//정점 이동   //충돌을 체크하기 위한 좌표저장
 	(//지정된 행렬에 의해 3D 벡터를 변환 해, 그 결과를 w = 1 에 투영 한다.
-		&r.LT,
-		&vertices[1].position,
-		&world
+		&r.LT,						//반환할곳
+		&vertices[1].position,		//처리의 기본 정점정보
+		&world						//처리의 기본 매트릭스 정보
 	);
 	D3DXVec3TransformCoord//정점 이동
 	(
