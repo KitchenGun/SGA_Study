@@ -7,8 +7,8 @@ Program::Program()
 	VPBuffer = new ViewProjectionBuffer();
 	//버퍼 초기화
 	SetGlobalBuffers();
-	square = new Square({ 200,200,0 }, { 100,100,1 }, 0);
-	square2 = new Square({ 400,400,0 }, { 100,100,1 }, 0);
+	square = new Square({ 200,200,0 }, { 100,100,1 }, 0, Red);
+	square2 = new Square({ 400,400,0 }, { 100,100,1 }, 0, Red);
 }
 
 Program::~Program()
@@ -25,7 +25,7 @@ void Program::SetGlobalBuffers()
 	D3DXMatrixIdentity(&view);
 	D3DXMatrixIdentity(&projection);
 	//왼손좌표계
-	D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1), &D3DXVECTOR3(0, 1, 0));
+	D3DXMatrixLookAtLH(&view, &Vector3(0, 0, 0), &Vector3(0, 0, 1), &Vector3(0, 1, 0));
 	//좌하단이 원점으로 제작
 	D3DXMatrixOrthoOffCenterLH(&projection, 0, WinMaxWidth, 0, WinMaxHeight, 0, 1);
 	//전치
@@ -50,14 +50,15 @@ void Program::Update()
 
 	if (Math::Intersect(square, square2))
 	{
-		square->SetIntersect(true);
+		//square->SetIntersect(true);
 		square2->SetIntersect(true);
-		cout << "충돌중" << temp++ << endl;
+		square2->SetColor(Cyan);
 	}
 	else
 	{
-		square->SetIntersect(false);
+		//square->SetIntersect(false);
 		square2->SetIntersect(false);
+		square2->SetColor(Red);
 	}
 
 }

@@ -1,24 +1,25 @@
 #include "stdafx.h"
 #include "Square.h"
 
-Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
+Square::Square(Vector3 position, Vector3 size, float rotation,Color color)
 	:position(position),
 	size(size),
-	rotation(rotation)
+	rotation(rotation),
+	color(color)
 {
 	//정점 정보 입력
 	vertices.assign(4, VertexColor());
-	vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
-	vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
+	//vertices[0].color =Red;
 
-	vertices[1].position = D3DXVECTOR3(-0.5f, 0.5f, 0.0f);
-	vertices[1].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[1].position = Vector3(-0.5f, 0.5f, 0.0f);
+	//vertices[1].color =Red;
 	
-	vertices[2].position = D3DXVECTOR3(0.5f, -0.5f, 0.0f);
-	vertices[2].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[2].position = Vector3(0.5f, -0.5f, 0.0f);
+	//vertices[2].color =Red;
 	
-	vertices[3].position = D3DXVECTOR3(0.5f, 0.5f, 0.0f);
-	vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[3].position = Vector3(0.5f, 0.5f, 0.0f);
+	//vertices[3].color =Red;
 
 	indices = { 0,1,2,2,1,3 };
 	
@@ -33,6 +34,7 @@ Square::Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation)
 
 	WB = new WorldBuffer();
 	CB = new ColorBuffer();
+	SetColor(color);
 	//객체에서 함수 호출
 	VB->Create(vertices, D3D11_USAGE_DYNAMIC);
 	IB->Create(indices, D3D11_USAGE_IMMUTABLE);
@@ -75,7 +77,7 @@ Square::~Square()
 	SAFE_DELETE(VB);
 }
 
-void Square::Move(D3DXVECTOR3 position)
+void Square::Move(Vector3 position)
 {
 	this->position += position;
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
@@ -87,7 +89,7 @@ void Square::Move(D3DXVECTOR3 position)
 
 void Square::Update()
 {
-	//버텍스 버퍼를 갱신
+	/*//버텍스 버퍼를 갱신
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	DC->Map
 	(
@@ -97,18 +99,16 @@ void Square::Update()
 		0,
 		&subResource
 	);
-	//색상변환
-	for (VertexColor&v : vertices)
-	{
-		if(bIntersect)//충돌값이 전달 오면
-			v.color = D3DXCOLOR(1, 1, 1, 1);
-		else
-			v.color = D3DXCOLOR(1, 0, 0, 1);
-	}
+	//색상변환  //이제 이렇게 할 필요없음 color 버퍼가 있기 때문에 랜더링 파이프 라인으로 바로 꼽아줄수있다.
+	//for (VertexColor&v : vertices)
+	//{
+	//	v.color = Red;
+	//}
 	//버퍼내 정점 저장
 	//객체의 pData 멤버는 버퍼내 데이터의 시작에 대한 포인터입니다.
 	memcpy(subResource.pData, vertices.data(), sizeof(VertexColor)*vertices.size());
 	DC->Unmap(VB->GetResource(), 0);
+	*/
 }
 
 void Square::Render()
@@ -118,11 +118,22 @@ void Square::Render()
 	IL->SetIA();
 	//기본 도형 형성 방법 지정
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	
 	WB->SetVSBuffer(0);
+	//색상 지정
+	CB->SetVSBuffer(2);
+	
 	VS->SetShader();
 	PS->SetShader();
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
+}
+
+void Square::SetColor(Color color)
+{
+	this->color = color;
+	//버퍼에 넣어줘야함
+	CB->SetColor(color);
 }
 
 void Square::TransformVertices()

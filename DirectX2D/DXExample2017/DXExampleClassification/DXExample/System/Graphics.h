@@ -56,7 +56,7 @@ private:
 	ID3D11RenderTargetView* rtv = nullptr;		//백버퍼에 연결되어있는 화면에 rtv효과를 만들어 저장하여 스왑체인이 동작하면 연결되어 실행됨
 												//비트맵 같은 효과
 	D3D11_VIEWPORT viewport = { 0 };			//보여지는 영역	
-	D3DXCOLOR clearColor = 0xff555566;			//초기색 
+	Color clearColor = 0xff555566;			//초기색 
 	//갱신 주기를 위해 필요한 변수
 	UINT numerator;					//분자
 	UINT denominator;				//분모

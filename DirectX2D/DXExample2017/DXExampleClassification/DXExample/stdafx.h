@@ -32,6 +32,13 @@ using namespace std;
 #pragma comment (lib,"d3dx11.lib")
 #pragma comment (lib,"d3dx10.lib")
 #pragma comment (lib,"d3dcompiler.lib")
+
+typedef D3DXVECTOR2 Vector2;
+typedef D3DXVECTOR3 Vector3;
+typedef D3DXVECTOR4 Vector4;
+typedef D3DXMATRIX Matrix;
+typedef D3DXCOLOR Color;
+
 //싱글톤 해더 추가
 #include "System/Graphics.h"
 
@@ -47,6 +54,16 @@ using namespace std;
 //창크기
 #define WinMaxWidth 1280
 #define WinMaxHeight 720
+
+#define Red		Color(1,0,0,1)
+#define Green	Color(0,1,0,1)
+#define Blue	Color(0,0,1,1)
+#define Black	Color(0,0,0,1)
+#define White	Color(1,1,0,1)
+#define Yellow	Color(1,1,0,1)
+#define Magenta Color(1,0,1,1)//투명 처리를 위해서 마젠타 색
+#define Cyan	Color(0,1,1,1) // 청록색
+
 //핸들러
 extern HWND handle;
 

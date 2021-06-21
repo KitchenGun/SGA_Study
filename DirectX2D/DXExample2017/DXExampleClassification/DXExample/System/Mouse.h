@@ -16,7 +16,7 @@ public:
 
 	LRESULT InputProc(UINT message, WPARAM wParam, LPARAM lParam);
 	
-	D3DXVECTOR3 GetPosition() { return position; }
+	Vector3 GetPosition() { return position; }
 
 	bool Down(DWORD button)
 	{
@@ -30,22 +30,22 @@ public:
 	{
 		return buttonMap[button] == BUTTON_INPUT_STATUS_PRESS;
 	}
-	D3DXVECTOR3 GetMoveValue() { return wheelMoveValue; }
+	Vector3 GetMoveValue() { return wheelMoveValue; }
 private:
 	Mouse();
 	~Mouse();
 
 	static Mouse* instance;
 	HWND handle;
-	D3DXVECTOR3 position;
+	Vector3 position;
 
 	byte buttonStatus[MAX_INPUT_MOUSE];			//현재 버튼 상태
 	byte buttonOldStatus[MAX_INPUT_MOUSE];		//이전 버튼 상태
 	byte buttonMap[MAX_INPUT_MOUSE];			//최종 버튼 상태
 
-	D3DXVECTOR3	wheelStatus;					//현재 휠 상태
-	D3DXVECTOR3 wheelOldStatus;					//이전 휠 상태
-	D3DXVECTOR3 wheelMoveValue;					//최종 휠 상태
+	Vector3	wheelStatus;					//현재 휠 상태
+	Vector3 wheelOldStatus;					//이전 휠 상태
+	Vector3 wheelMoveValue;					//최종 휠 상태
 
 	DWORD timeDblClk;							//더블 클릭 시간
 	DWORD startDblClk[MAX_INPUT_MOUSE];			//더블 클릭 시작

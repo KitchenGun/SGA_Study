@@ -24,11 +24,11 @@ Mouse::Mouse()
 {
 	//초기화
 	//위치
-	position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	position = Vector3(0.0f, 0.0f, 0.0f);
 
-	wheelStatus = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	wheelOldStatus = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	wheelMoveValue = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	wheelStatus = Vector3(0.0f, 0.0f, 0.0f);
+	wheelOldStatus = Vector3(0.0f, 0.0f, 0.0f);
+	wheelMoveValue = Vector3(0.0f, 0.0f, 0.0f);
 
 	ZeroMemory(buttonStatus, sizeof(byte)*MAX_INPUT_MOUSE);
 	ZeroMemory(buttonOldStatus, sizeof(byte)*MAX_INPUT_MOUSE);

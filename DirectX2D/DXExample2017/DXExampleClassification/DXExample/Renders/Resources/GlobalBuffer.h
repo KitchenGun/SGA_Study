@@ -13,7 +13,7 @@ public:
 		D3DXMatrixIdentity(&data.world);
 	}
 
-	void SetWorld(D3DXMATRIX world) 
+	void SetWorld(Matrix world) 
 	{
 		//전치 시킨다
 		D3DXMatrixTranspose(&data.world, &world);
@@ -21,7 +21,7 @@ public:
 
 	struct WorldStruct
 	{
-		D3DXMATRIX world;
+		Matrix world;
 	};
 private:
 	WorldStruct data;
@@ -36,12 +36,12 @@ public:
 		D3DXMatrixIdentity(&data.View);
 		D3DXMatrixIdentity(&data.Projection);
 	}
-	void SetView(D3DXMATRIX view)
+	void SetView(Matrix view)
 	{
 		//전치 시킨다
 		D3DXMatrixTranspose(&data.View, &view);
 	}
-	void SetProjection(D3DXMATRIX projection)
+	void SetProjection(Matrix projection)
 	{
 		//전치 시킨다
 		D3DXMatrixTranspose(&data.Projection, &projection);
@@ -50,30 +50,30 @@ public:
 		
 	struct ViewProjStruct
 	{
-		D3DXMATRIX View;
-		D3DXMATRIX Projection;
+		Matrix View;
+		Matrix Projection;
 	};
 
 private :
 	ViewProjStruct data;
 };
 
-class ColorBuffer : ShaderBuffer
+class ColorBuffer : public ShaderBuffer
 {
 public:
 	ColorBuffer() : ShaderBuffer(&data, sizeof(Struct))
 	{
-		data.color = D3DXCOLOR(0, 0, 0, 1);
+		data.color = Color(0, 0, 0, 1);
 	}
 
-	void SetColor(D3DXCOLOR color)
+	void SetColor(Color color)
 	{
 		data.color = color;
 	}
 
 	struct Struct
 	{
-		D3DXCOLOR color;
+		Color color;
 	};
 
 private:

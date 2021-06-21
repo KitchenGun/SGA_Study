@@ -3,21 +3,22 @@
 
 struct RectEdges //모서리 좌표
 {
-	D3DXVECTOR3 LT;
-	D3DXVECTOR3 RB;
+	Vector3 LT;
+	Vector3 RB;
 };
 
 class Square
 {
 public:
-	Square(D3DXVECTOR3 position, D3DXVECTOR3 size, float rotation);
+	Square(Vector3 position, Vector3 size, float rotation,Color color);
 	~Square();
 
-	void Move(D3DXVECTOR3 position);
+	void Move(Vector3 position);
 
 	void Update();
 	void Render();
 
+	void SetColor(Color color);
 	RectEdges GetTransformedCoord() { return r; }
 
 	void SetIntersect(bool bIntersect) { this->bIntersect = bIntersect; }
@@ -36,9 +37,10 @@ private:
 	PixelShader *PS = nullptr;
 	//상수버퍼 크기 회전 이동 관련 행렬
 	WorldBuffer*WB=nullptr;
-	D3DXMATRIX world, S, R, T;
-	D3DXVECTOR3 position, size;
+	Matrix world, S, R, T;
+	Vector3 position, size;
 	float rotation;
+	Color color;
 	
 	RectEdges r;
 	ColorBuffer* CB = nullptr;

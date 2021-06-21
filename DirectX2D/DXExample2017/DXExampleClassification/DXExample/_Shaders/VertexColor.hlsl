@@ -11,16 +11,24 @@ struct PixelInput
 	float4 position : SV_POSITION0;//sv_ system value의 약자로 특별한 의미를 가진 Semantics name으로 사용됨
 	float4 color : COLOR0;
 };
+
+
 cbuffer World : register(b0)
 {
     matrix _world;
-}
+};
 
-cbuffer ViewProjection : register(b1)  //상수 버퍼를 보낸다
+cbuffer ViewProjection : register(b1) //상수 버퍼를 보낸다
 {
     matrix _view;
     matrix _proj;
+};
+
+cbuffer Color : register(b2)
+{
+    float4 _color;
 }
+
 
 PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형태로 반환
 {
@@ -29,7 +37,9 @@ PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형�
     output.position = mul(input.position, _world);//world 공간으로 변환
     output.position = mul(output.position, _view);//view 공간에서 변화
     output.position = mul(output.position, _proj); //projection 공간을 변환
-    output.color = input.color;
+    
+    //현재방식은 정점별 방식이 아닌 일반적으로 사용하는 방식
+    output.color = _color;
     
     return output;
 }

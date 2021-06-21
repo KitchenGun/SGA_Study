@@ -3,14 +3,14 @@
 struct VertexColor
 {
 	VertexColor() : position(0, 0, 0), color(0, 0, 0, 0) {}
-	VertexColor(const D3DXVECTOR3 position, const D3DXCOLOR &color)
+	VertexColor(const Vector3 position, const Color &color)
 		:
 		position(position),
 		color(color)
 	{}
 	
-	D3DXVECTOR3 position;
-	D3DXCOLOR color;
+	Vector3 position;
+	Color color;
 	static D3D11_INPUT_ELEMENT_DESC descs[];
 	static constexpr UINT count = 2;
 };
