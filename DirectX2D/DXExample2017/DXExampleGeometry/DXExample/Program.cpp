@@ -38,7 +38,7 @@ void Program::SetGlobalBuffers()
 
 void Program::Update()
 {
-	GetLocalTime(&time);
+	GetLocalTime(&time);//시스템 타임 변수에 현재시간을 불러오는 역할
 
 	cout << time.wYear << "년";
 	cout << time.wMonth << "월";

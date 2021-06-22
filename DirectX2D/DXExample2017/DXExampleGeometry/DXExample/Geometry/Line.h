@@ -5,7 +5,7 @@
 class Line
 {
 public:
-	Line(Vector3 position, float length, float rotation,Color color);
+	Line(Vector3 position, float length, float rotation,Color color);//사이즈가 필요없으니 길이로 대체함
 	~Line();
 
 	void Update();
