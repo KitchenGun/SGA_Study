@@ -23,7 +23,7 @@
     <ProjectGuid>{DA33F487-DC78-43D6-BD65-00861B07D924}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DXExample</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
     <ClCompile Include="main.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Utilities\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\Line.h" />
     <ClInclude Include="Geometry\Square.h" />
     <ClInclude Include="Program.h" />

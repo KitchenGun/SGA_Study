@@ -23,6 +23,7 @@
     <ClCompile Include="Geometry\Square.cpp" />
     <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
+    <ClCompile Include="Geometry\Circle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -49,6 +50,7 @@
     <ClInclude Include="Geometry\Square.h" />
     <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Geometry\Line.h" />
+    <ClInclude Include="Geometry\Circle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
