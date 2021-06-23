@@ -38,7 +38,7 @@ void Program::Update()
 	box->Move(Math::Lerp(Vector3(0,0,0),Vector3(WinMaxWidth-100,WinMaxHeight-100,0),tempFrameCount));
 	if (tempFrameCount < 1)
 	{
-		tempFrameCount = tempFrameCount + 0.01f;
+		tempFrameCount = tempFrameCount + 0.001f;
 		cout << "ÀÌµ¿Áß"<< tempFrameCount << endl;
 	}
 	else
