@@ -59,7 +59,7 @@ typedef D3DXCOLOR Color;
 #define Green	Color(0,1,0,1)
 #define Blue	Color(0,0,1,1)
 #define Black	Color(0,0,0,1)
-#define White	Color(1,1,0,1)
+#define White	Color(1,1,1,1)
 #define Yellow	Color(1,1,0,1)
 #define Magenta Color(1,0,1,1)//투명 처리를 위해서 마젠타 색
 #define Cyan	Color(0,1,1,1) // 청록색

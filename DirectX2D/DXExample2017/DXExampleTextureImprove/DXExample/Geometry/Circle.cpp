@@ -11,11 +11,12 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 	//정점 정보 입력
 	vertices.assign(segments + 1, VertexColor());
 	{
-		for (int i = 0; i < segments; ++i)
+		for (int i = 0; i <= segments; ++i)
 		{
-			float t = 2 * (float)D3DX_PI*i/segments;//각도 구하기
-
+			float t = 2 * (float)D3DX_PI*i / segments;//각도 구하기
+			
 			vertices[i].position = Vector3(cosf(t), -sinf(t), 0); //cosf은 반환이 float 값 cos은 double
+
 		}
 	}
 
@@ -29,7 +30,6 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 
 	WB = new WorldBuffer();
 	CB = new ColorBuffer();
-	
 	//객체에서 함수 호출
 	VB->Create(vertices, D3D11_USAGE_IMMUTABLE);
 
@@ -49,7 +49,7 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 	world = S * T;
 
 	WB->SetWorld(world);
-
+	SetColor(color);
 
 }
 
@@ -86,6 +86,7 @@ void Circle::Render()
 	//기본 도형 형성 방법 지정
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	WB->SetVSBuffer(0);
+	CB->SetVSBuffer(2);
 	VS->SetShader();
 	PS->SetShader();
 	//인덱스 버퍼를 이용해서 그리기
