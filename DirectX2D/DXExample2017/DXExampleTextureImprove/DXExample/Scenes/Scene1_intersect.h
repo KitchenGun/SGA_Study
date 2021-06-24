@@ -13,6 +13,4 @@ public:
 private:
 	Square* square;
 	Square* square2;
-
-
 };
