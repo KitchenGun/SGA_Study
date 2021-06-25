@@ -77,6 +77,10 @@ void Scene2::Update()
 	clock->Update();
 }
 
+void Scene2::PreRender()
+{
+}
+
 void Scene2::Render()
 {
 	Sec->Render();

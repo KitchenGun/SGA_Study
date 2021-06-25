@@ -104,6 +104,7 @@ WPARAM Window::Run()
 			Time::Get()->Update();
 
 			program->Update();
+			program->PreRender();
 			//랜더링 부분
 			Graphics::Get()->Begin();
 			{

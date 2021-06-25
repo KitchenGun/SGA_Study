@@ -48,6 +48,10 @@ void Scene1::Update()
 	square2->Update();
 }
 
+void Scene1::PreRender()
+{
+}
+
 void Scene1::Render()
 {
 	//square 안에는 wb 0에 슬롯 0을 넣어놨다

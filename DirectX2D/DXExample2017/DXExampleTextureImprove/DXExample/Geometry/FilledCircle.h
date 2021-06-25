@@ -1,10 +1,10 @@
 #pragma once
 
-class Circle
+class FilledCircle
 {
 public:
-	Circle(Vector3 position, Vector3 size, int segments, Color color);
-	~Circle();
+	FilledCircle(Vector3 position, Vector3 size, int segments, Color color);
+	~FilledCircle();
 
 	void SetColor(Color color);
 
@@ -15,9 +15,11 @@ public:
 private:
 	//¡§∫∏
 	vector<VertexColor> vertices;
+	vector<UINT> indices;
 	InputLayout* IL = nullptr;
 	//buffer
 	VertexBuffer *VB = nullptr;
+	IndexBuffer *IB = nullptr;
 	//Ω¶¿Ã¥ı
 	VertexShader *VS = nullptr;
 	PixelShader *PS = nullptr;

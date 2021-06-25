@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Circle.h"
+#include "FilledCircle.h"
 
-Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
+FilledCircle::FilledCircle(Vector3 position, Vector3 size, int segments, Color color)
 	:position(position),
 	size(size),
 	segments(segments),
@@ -9,20 +9,35 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 
 {
 	//정점 정보 입력
-	vertices.assign(segments + 1, VertexColor());
+	vertices.assign(segments+ 1, VertexColor());
 	{
-		for (int i = 0; i <= segments; ++i)
+		vertices[0].position = Vector3(0, 0, 0);
+		for (int i = 0; i < segments; i++)
 		{
 			float t = 2 * (float)D3DX_PI*i / segments;//각도 구하기
-			
-			vertices[i].position = Vector3(cosf(t), -sinf(t), 0); //cosf은 반환이 float 값 cos은 double
-
+			vertices[i+1].position = Vector3(cosf(t), -sinf(t), 0);
+			//sin값 -붙인 이유는 시계방향으로 그리기 위해서이다.
 		}
 	}
-
+	indices.assign(segments * 3, sizeof(UINT));
+	{//012023034....순서를 위해서 만든 for문
+		for (int i = 0; i < segments; i++)
+		{
+			indices[i * 3] = 0;
+			indices[i * 3 + 1] = i + 1;
+			if (i == segments - 1)//정점 최소화 작업 if문으로 마지막 정점을 기존것을 이용하는 방식
+			{
+				indices[i * 3 + 2] = 1;
+			}
+			else
+			{
+				indices[i * 3 + 2] = i + 2;
+			}
+		}
+	}
 	//클래스화 한 객체 생성
 	VB = new VertexBuffer();
-
+	IB = new IndexBuffer();
 	VS = new VertexShader();
 	PS = new PixelShader();
 
@@ -32,7 +47,7 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 	CB = new ColorBuffer();
 	//객체에서 함수 호출
 	VB->Create(vertices, D3D11_USAGE_IMMUTABLE);
-
+	IB->Create(indices, D3D11_USAGE_IMMUTABLE);
 	VS->Create(L"./_Shaders/VertexColor.hlsl", "VS");
 	PS->Create(L"./_Shaders/VertexColor.hlsl", "PS");
 
@@ -53,7 +68,7 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 
 }
 
-Circle::~Circle()
+FilledCircle::~FilledCircle()
 {
 	SAFE_DELETE(CB);
 
@@ -63,34 +78,35 @@ Circle::~Circle()
 
 	SAFE_DELETE(PS);
 	SAFE_DELETE(VS);
-
+	SAFE_DELETE(IB);
 	SAFE_DELETE(VB);
 }
 
-void Circle::SetColor(Color color)
+void FilledCircle::SetColor(Color color)
 {
 	this->color = color;
 	CB->SetColor(this->color);
 }
 
 
-void Circle::Update()
+void FilledCircle::Update()
 {
 	
 }
 
-void Circle::Render()
+void FilledCircle::Render()
 {
 	VB->SetIA();
+	IB->SetIA();
 	IL->SetIA();
 	//기본 도형 형성 방법 지정
-	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	WB->SetVSBuffer(0);
 	CB->SetVSBuffer(2);
 	VS->SetShader();
 	PS->SetShader();
 	//인덱스 버퍼를 이용해서 그리기
-	DC->Draw(segments+1, 0);
+	DC->DrawIndexed(IB->GetCount(),0, 0);
 }
 
 

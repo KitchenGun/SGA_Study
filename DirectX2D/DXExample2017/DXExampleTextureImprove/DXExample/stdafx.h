@@ -75,6 +75,7 @@ extern HWND handle;
 #include "Renders/Resources/VertexType.h"
 #include "Renders/Resources/ShaderBuffer.h"
 #include "Renders/Resources/GlobalBuffer.h"
+#include "Renders/Resources/ViewFactory.h"
 
 #include "System/Time.h"
 #include "System/Mouse.h"
@@ -84,6 +85,8 @@ extern HWND handle;
 #include "Geometry/Line.h"
 #include "Geometry/Square.h"
 #include "Geometry/Circle.h"
+#include "Geometry/FilledCircle.h"
+
 
 #include "Utilities/Math.h"
 #include "Utilities/RenderTexture.h"

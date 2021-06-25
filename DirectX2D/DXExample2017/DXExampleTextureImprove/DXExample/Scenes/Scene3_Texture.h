@@ -1,10 +1,10 @@
 #pragma once
 
-class Scene2 :public Scene
+class Scene3 :public Scene
 {
 public:
-	Scene2();
-	~Scene2();
+	Scene3();
+	~Scene3();
 
 	void Init() override;
 	void Update() override;
@@ -12,12 +12,6 @@ public:
 	void Render() override;
 
 private:
+	FilledCircle* circle;
 
-	SYSTEMTIME time;
-
-	Line* Hour;
-	Line* Min;
-	Line* Sec;
-
-	Circle* clock;
 };

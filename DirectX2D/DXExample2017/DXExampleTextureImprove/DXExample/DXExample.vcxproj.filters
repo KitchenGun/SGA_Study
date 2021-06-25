@@ -27,6 +27,10 @@
     <ClCompile Include="Scenes\Scene1_intersect.cpp" />
     <ClCompile Include="Scenes\Scene2_Clock.cpp" />
     <ClCompile Include="Utilities\RenderTexture.cpp" />
+    <ClCompile Include="Geometry\FilledCircle.cpp" />
+    <ClCompile Include="Scenes\Scene3_Texture.cpp" />
+    <ClCompile Include="Renders\Resources\ViewFactory.cpp" />
+    <ClCompile Include="Geometry\TextureRect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -59,6 +63,10 @@
     <ClInclude Include="Scenes\SceneList.h" />
     <ClInclude Include="Scenes\Scene2_Clock.h" />
     <ClInclude Include="Utilities\RenderTexture.h" />
+    <ClInclude Include="Geometry\FilledCircle.h" />
+    <ClInclude Include="Scenes\Scene3_Texture.h" />
+    <ClInclude Include="Renders\Resources\ViewFactory.h" />
+    <ClInclude Include="Geometry\TextureRect.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

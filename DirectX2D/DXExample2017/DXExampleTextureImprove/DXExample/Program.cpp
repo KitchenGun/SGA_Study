@@ -20,7 +20,8 @@ void Program::Init()
 {
 	sceneList.push_back(new Scene1());
 	sceneList.push_back(new Scene2());
-	currentScene = sceneList[1];
+	sceneList.push_back(new Scene3());
+	currentScene = sceneList[0];
 	currentScene->Init();
 }
 
@@ -51,7 +52,20 @@ void Program::Update()
 		currentScene = sceneList[1];
 		currentScene->Init();
 	}
+	else if (Keyboard::Get()->Down(VK_F3))
+	{
+		currentScene = sceneList[2];
+		currentScene->Init();
+	}
 	currentScene->Update();
+}
+
+
+
+
+void Program::PreRender()
+{
+	currentScene->PreRender();
 }
 
 void Program::Render()

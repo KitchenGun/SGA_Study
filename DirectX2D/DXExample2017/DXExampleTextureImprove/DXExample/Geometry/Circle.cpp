@@ -16,7 +16,7 @@ Circle::Circle(Vector3 position, Vector3 size, int segments, Color color)
 			float t = 2 * (float)D3DX_PI*i / segments;//각도 구하기
 			
 			vertices[i].position = Vector3(cosf(t), -sinf(t), 0); //cosf은 반환이 float 값 cos은 double
-			//sin값 -붙인 이유는 시계방향으로 그리기 위해서이다.
+
 		}
 	}
 

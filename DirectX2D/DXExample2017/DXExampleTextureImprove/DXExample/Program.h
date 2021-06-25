@@ -11,6 +11,8 @@ public:
 	void SetGlobalBuffers();
 
 	void Update();
+
+	void PreRender();
 	void Render();
 
 private:

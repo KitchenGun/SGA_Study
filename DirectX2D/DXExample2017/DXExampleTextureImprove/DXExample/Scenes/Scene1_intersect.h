@@ -8,6 +8,7 @@ public:
 
 	void Init() override;
 	void Update() override;
+	void PreRender() override;
 	void Render() override;
 
 private:
