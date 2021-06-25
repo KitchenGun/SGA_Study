@@ -20,9 +20,6 @@ public:
 	static Graphics* Get();
 
 public:
-	void Init();
-	void CreateBackBuffer();
-
 	ID3D11Device*GetDevice() { return device; }
 	ID3D11DeviceContext* GetDC() { return deviceContext; }
 
@@ -31,6 +28,10 @@ public:
 
 	void Begin();
 	void End();
+
+	void SetViewport();
+	Color GetClearColor() { return clearColor; }
+	void SetBackBufferToRTV();
 
 private:
 	void CreateSwapChain();

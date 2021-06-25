@@ -86,6 +86,7 @@ extern HWND handle;
 #include "Geometry/Square.h"
 #include "Geometry/Circle.h"
 #include "Geometry/FilledCircle.h"
+#include "Geometry/TextureRect.h"
 
 
 #include "Utilities/Math.h"

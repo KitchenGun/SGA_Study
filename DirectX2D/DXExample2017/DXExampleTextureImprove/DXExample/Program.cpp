@@ -65,6 +65,8 @@ void Program::Update()
 
 void Program::PreRender()
 {
+	//world와 분리했기 때문에 1이다
+	VPBuffer->SetVSBuffer(1);
 	currentScene->PreRender();
 }
 

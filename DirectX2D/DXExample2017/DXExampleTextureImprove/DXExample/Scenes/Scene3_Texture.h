@@ -14,4 +14,6 @@ public:
 private:
 	FilledCircle* circle;
 
+	RenderTexture* RTT;
+	TextureRect* texture;
 };
