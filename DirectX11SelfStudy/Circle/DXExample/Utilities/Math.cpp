@@ -72,14 +72,12 @@ bool Math::CircleIntersect(FilledCircle * c1, Square * r1)
 	//지역에 따른 연산
 	switch (dir)
 	{
-	case Direction::NONE:
+	case Direction::NONE://포함
 	{
-		cout << "속 안에 포함 되어 있음" << endl;
 		return true;
 	}
-	case Direction::TOP:
+	case Direction::TOP://상
 	{
-		cout << CircleEdge.POINT.y - Edge.LT.y << CircleEdge.RADIUS;
 		if (CircleEdge.POINT.y - Edge.LT.y <= CircleEdge.RADIUS)
 		{
 			return true;
@@ -89,7 +87,7 @@ bool Math::CircleIntersect(FilledCircle * c1, Square * r1)
 			return false;
 		}
 	}
-	case Direction::RIGHT:
+	case Direction::RIGHT://우
 	{
 		if (CircleEdge.POINT.x - Edge.RB.x <= CircleEdge.RADIUS)
 		{
@@ -100,7 +98,7 @@ bool Math::CircleIntersect(FilledCircle * c1, Square * r1)
 			return false;
 		}
 	}
-	case Direction::BOTTOM:
+	case Direction::BOTTOM://하
 	{	
 		if (Edge.RB.y - CircleEdge.POINT.y <= CircleEdge.RADIUS)
 		{
@@ -111,7 +109,7 @@ bool Math::CircleIntersect(FilledCircle * c1, Square * r1)
 			return false;
 		}
 	}
-	case Direction::LEFT:
+	case Direction::LEFT://좌
 	{	
 		if (Edge.LT.x - CircleEdge.POINT.x <= CircleEdge.RADIUS)
 		{
@@ -140,6 +138,63 @@ bool Math::CircleIntersect(FilledCircle * c1, Square * r1)
 	}
 	}
 }
+
+bool Math::CircleWallIntersect(Ball * c1)
+{
+	CircleEdges CircleEdge = c1->GetTransformedCoord();
+	float angle = 0;
+	float tempX = 0;
+	float tempY = 0;
+	Vector3 tempVec;
+
+	if (CircleEdge.POINT.y + CircleEdge.RADIUS > WinMaxHeight)//위에 충돌
+	{
+		tempX = CircleEdge.POINT.x - c1->GetVecDir().x;
+		tempY = CircleEdge.POINT.y - c1->GetVecDir().y;
+		tempVec = (tempX * 0 + tempY * 1)*Vector3(0, 1, 0);
+		//r=p+2n(-p.n)
+
+		c1->SetVecDir(tempVec);
+		return true;
+	}
+	else if (CircleEdge.POINT.y - CircleEdge.RADIUS < 0)//아래 충돌
+	{
+		tempX = CircleEdge.POINT.x - c1->GetVecDir().x;
+		tempY = CircleEdge.POINT.y - c1->GetVecDir().y;
+		tempVec = Vector3(tempX, tempY, 0) - 2 * (CircleEdge.POINT.y)*Vector3(tempX, tempY, 0);
+
+		c1->SetVecDir(tempVec);
+		return true;
+		//angle = atan2(CircleEdge.POINT.y - c1->GetVecDir().y, CircleEdge.POINT.x - c1->GetVecDir().x);
+		//angle = D3DXToRadian(90.0f) - angle;
+		//cout << D3DXToDegree(angle) << endl;
+		//normalizeX = sqrtf(pow((float)CircleEdge.RADIUS*cosf((angle)),2));
+		//normalizeY = sqrtf(pow((float)CircleEdge.RADIUS*sinf((angle)), 2));
+		//c1->SetVecDir({ CircleEdge.RADIUS*cosf((angle))/normalizeX, CircleEdge.RADIUS*sinf((angle))/ normalizeX, 0 });
+		//return true;
+	}
+	else if (CircleEdge.POINT.x + CircleEdge.RADIUS > WinMaxWidth)//우측 충돌
+	{
+		//angle = atan2(CircleEdge.POINT.y - c1->GetVecDir().y, CircleEdge.POINT.x - c1->GetVecDir().x);
+		//angle = - angle;
+		//normalizeX = sqrtf(pow((float)CircleEdge.RADIUS*cosf((angle)), 2));
+		//normalizeY = sqrtf(pow((float)CircleEdge.RADIUS*sinf((angle)), 2));
+		//c1->SetVecDir({ CircleEdge.RADIUS*cosf((angle)) / normalizeX, -CircleEdge.RADIUS*sinf((angle)) / normalizeY, 0 });
+		//return true;
+	}
+	else if (CircleEdge.POINT.x - CircleEdge.RADIUS < 0)//좌측 충돌
+	{
+		//angle = atan2(CircleEdge.POINT.y - c1->GetVecDir().y, CircleEdge.POINT.x - c1->GetVecDir().x);
+		//angle = - angle;
+		//normalizeX = sqrtf(pow((float)CircleEdge.RADIUS*cosf((angle)), 2));
+		//normalizeY = sqrtf(pow((float)CircleEdge.RADIUS*sinf((angle)), 2));
+		//c1->SetVecDir({ -CircleEdge.RADIUS*cosf((angle)) / normalizeX, CircleEdge.RADIUS*sinf((angle)) / normalizeY, 0 });
+		////패배 메시지 출력 예정
+		//return true;
+	}
+	return false;
+}
+
 
 Direction Math::TouchEdge(Square * r1)
 {

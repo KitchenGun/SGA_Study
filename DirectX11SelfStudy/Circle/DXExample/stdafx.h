@@ -87,6 +87,9 @@ extern HWND handle;
 #include "Geometry/Circle.h"
 #include "Geometry/FilledCircle.h"
 
+#include "Geometry/BoxDestroy/Player.h"
+#include "Geometry/BoxDestroy/Ball.h"
+
 
 #include "Utilities/Math.h"
 #include "Utilities/RenderTexture.h"

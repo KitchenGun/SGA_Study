@@ -88,7 +88,7 @@ void FilledCircle::SetColor(Color color)
 	CB->SetColor(this->color);
 }
 
-void FilledCircle::Move()
+void FilledCircle::Move(Vector3 position)
 {
 	this->position += position;
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);

@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 class BlockDestroy :public Scene
 {
 public:
@@ -14,6 +12,6 @@ public:
 	void Render() override;
 
 private:
-	Square* player;
-	FilledCircle* ball;
+	Player* player;
+	Ball* ball;
 };

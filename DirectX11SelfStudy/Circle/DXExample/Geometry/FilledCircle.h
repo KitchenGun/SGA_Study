@@ -14,13 +14,13 @@ public:
 
 	void SetColor(Color color);
 
-	void Move();
+	virtual void Move(Vector3 position);
 
-	void Update();
+	virtual void Update();
 	void Render();
 	CircleEdges GetTransformedCoord() { return ce; }
 
-private:
+protected:
 	void TransformVertices();
 	//Á¤º¸
 	vector<VertexColor> vertices;

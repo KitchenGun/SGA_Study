@@ -32,5 +32,6 @@ class Math
 public:
 	static bool Intersect(Square *r1, Square *r2);
 	static bool CircleIntersect(FilledCircle* c1, Square*r1);
+	static bool CircleWallIntersect(Ball* c1);
 	static Direction TouchEdge(Square *r1);
 };

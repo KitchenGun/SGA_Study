@@ -147,7 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.cpp" />
+    <ClCompile Include="Geometry\BoxDestroy\Ball.cpp" />
+    <ClCompile Include="Geometry\BoxDestroy\Player.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
@@ -177,7 +178,8 @@
     <ClCompile Include="Utilities\RenderTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.h" />
+    <ClInclude Include="Geometry\BoxDestroy\Ball.h" />
+    <ClInclude Include="Geometry\BoxDestroy\Player.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\Line.h" />
