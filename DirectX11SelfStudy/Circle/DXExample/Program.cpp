@@ -21,7 +21,8 @@ void Program::Init()
 	sceneList.push_back(new Scene1());
 	sceneList.push_back(new Scene2());
 	sceneList.push_back(new Scene3());
-	currentScene = sceneList[0];
+	sceneList.push_back(new BlockDestroy());
+	currentScene = sceneList[3];
 	currentScene->Init();
 }
 

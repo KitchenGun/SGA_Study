@@ -23,7 +23,7 @@
     <ProjectGuid>{DA33F487-DC78-43D6-BD65-00861B07D924}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DXExample</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Renders\Shaders\IShader.cpp" />
     <ClCompile Include="Renders\Shaders\PixelShader.cpp" />
     <ClCompile Include="Renders\Shaders\VertexShader.cpp" />
+    <ClCompile Include="Scenes\BlockDestroy.cpp" />
     <ClCompile Include="Scenes\Scene1_intersect.cpp" />
     <ClCompile Include="Scenes\Scene2_Clock.cpp" />
     <ClCompile Include="Scenes\Scene3_Texture.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Utilities\RenderTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\Line.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="Renders\Shaders\IShader.h" />
     <ClInclude Include="Renders\Shaders\PixelShader.h" />
     <ClInclude Include="Renders\Shaders\VertexShader.h" />
+    <ClInclude Include="Scenes\BlockDestroy.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Scene1_intersect.h" />
     <ClInclude Include="Scenes\Scene2_Clock.h" />

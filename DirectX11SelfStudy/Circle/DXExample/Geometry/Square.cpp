@@ -151,4 +151,6 @@ void Square::TransformVertices()
 		&vertices[2].position,
 		&world
 	);
+
+	r.POINT = position;
 }

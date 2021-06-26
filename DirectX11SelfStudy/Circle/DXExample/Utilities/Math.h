@@ -12,9 +12,25 @@
 #define VK_09 57
 
 
+enum class Direction
+{
+	NONE = 0,
+	TOP,
+	RIGHT,
+	BOTTOM,
+	LEFT,
+	//동시 입력 상황
+	TL,
+	TR,
+	BL,
+	BR
+};
+
 class Math
 {
 	//static 함수를 사용하여서 객체없이 사용할수있도록 제작
 public:
 	static bool Intersect(Square *r1, Square *r2);
+	static bool CircleIntersect(FilledCircle* c1, Square*r1);
+	static Direction TouchEdge(Square *r1);
 };

@@ -1,5 +1,11 @@
 #pragma once
 
+struct CircleEdges //모서리 좌표
+{
+	Vector3 POINT;
+	float RADIUS;
+};
+
 class FilledCircle
 {
 public:
@@ -8,11 +14,14 @@ public:
 
 	void SetColor(Color color);
 
+	void Move();
+
 	void Update();
 	void Render();
-
+	CircleEdges GetTransformedCoord() { return ce; }
 
 private:
+	void TransformVertices();
 	//정보
 	vector<VertexColor> vertices;
 	vector<UINT> indices;
@@ -30,7 +39,7 @@ private:
 	Vector3 position, size;
 	Color color;
 	int segments;
-
+	CircleEdges ce;
 	bool bIntersect = false;
 
 

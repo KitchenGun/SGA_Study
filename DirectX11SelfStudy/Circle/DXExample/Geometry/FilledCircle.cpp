@@ -65,7 +65,7 @@ FilledCircle::FilledCircle(Vector3 position, Vector3 size, int segments, Color c
 
 	WB->SetWorld(world);
 	SetColor(color);
-
+	TransformVertices();
 }
 
 FilledCircle::~FilledCircle()
@@ -88,6 +88,16 @@ void FilledCircle::SetColor(Color color)
 	CB->SetColor(this->color);
 }
 
+void FilledCircle::Move()
+{
+	this->position += position;
+	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
+
+	world = S * T;
+	WB->SetWorld(world);//내부에서 transpose해줌
+	TransformVertices();
+}
+
 
 void FilledCircle::Update()
 {
@@ -107,6 +117,14 @@ void FilledCircle::Render()
 	PS->SetShader();
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(),0, 0);
+}
+
+void FilledCircle::TransformVertices()
+{
+	ce.POINT=position;
+
+	ce.RADIUS = size.x;
+
 }
 
 

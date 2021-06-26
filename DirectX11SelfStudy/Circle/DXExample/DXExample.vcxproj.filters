@@ -31,6 +31,8 @@
     <ClCompile Include="Scenes\Scene3_Texture.cpp" />
     <ClCompile Include="Renders\Resources\ViewFactory.cpp" />
     <ClCompile Include="Geometry\TextureRect.cpp" />
+    <ClCompile Include="Scenes\BlockDestroy.cpp" />
+    <ClCompile Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -67,6 +69,8 @@
     <ClInclude Include="Scenes\Scene3_Texture.h" />
     <ClInclude Include="Renders\Resources\ViewFactory.h" />
     <ClInclude Include="Geometry\TextureRect.h" />
+    <ClInclude Include="Scenes\BlockDestroy.h" />
+    <ClInclude Include="..\..\CollisionGame\DXExampleClassification\DXExample\Geometry\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

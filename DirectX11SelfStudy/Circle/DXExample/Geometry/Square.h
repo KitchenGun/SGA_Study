@@ -5,6 +5,7 @@ struct RectEdges //모서리 좌표
 {
 	Vector3 LT;
 	Vector3 RB;
+	Vector3 POINT;
 };
 
 class Square
@@ -13,17 +14,17 @@ public:
 	Square(Vector3 position, Vector3 size, float rotation,Color color);
 	~Square();
 
-	void Move(Vector3 position);
+	virtual void Move(Vector3 position);
 
-	void Update();
-	void Render();
+	virtual void Update();
+	virtual void Render();
 
 	void SetColor(Color color);
 	RectEdges GetTransformedCoord() { return r; }
 
 	void SetIntersect(bool bIntersect) { this->bIntersect = bIntersect; }
 
-private:
+protected:
 	void TransformVertices();
 	//정보
 	vector<VertexColor> vertices;
