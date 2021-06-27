@@ -12,6 +12,8 @@ public:
 	void Render() override;
 
 private:
+
+	BoxManager* BoxM;
 	Player* player;
 	Ball* ball;
 };

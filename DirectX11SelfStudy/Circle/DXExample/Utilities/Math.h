@@ -31,7 +31,8 @@ class Math
 	//static 함수를 사용하여서 객체없이 사용할수있도록 제작
 public:
 	static bool Intersect(Square *r1, Square *r2);
-	static bool CircleIntersect(FilledCircle* c1, Square*r1);
-	static bool CircleWallIntersect(Ball* c1);
+	static bool CircleIntersect(Ball* c1, Square*r1);
+	static bool PlayerIntersect(Ball* c1, Square*r1);
+	static void CircleWallIntersect(Ball* c1);
 	static Direction TouchEdge(Square *r1);
 };

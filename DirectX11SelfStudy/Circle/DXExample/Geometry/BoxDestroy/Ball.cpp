@@ -14,7 +14,7 @@ Ball::~Ball()
 
 void Ball::Move(Vector3 position)
 {
-	this->position += position;
+	this->position += 5*position;
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
 
 	world = S * T;
@@ -24,10 +24,6 @@ void Ball::Move(Vector3 position)
 
 void Ball::Update()
 {
-	if (Math::CircleWallIntersect(this))
-	{
-		cout << "Ãæµ¹"<<vecDir.x<<","<<vecDir.y << endl;
-		
-	}
+	Math::CircleWallIntersect(this);
 	Move(vecDir);
 }

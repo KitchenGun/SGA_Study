@@ -89,7 +89,7 @@ extern HWND handle;
 
 #include "Geometry/BoxDestroy/Player.h"
 #include "Geometry/BoxDestroy/Ball.h"
-
+#include "Geometry/BoxDestroy/BoxManager.h"
 
 #include "Utilities/Math.h"
 #include "Utilities/RenderTexture.h"

@@ -11,63 +11,22 @@ Player::~Player()
 
 void Player::PlayerCtrl()
 {
-	//»óÇÏ
-	if (Keyboard::Get()->Press('W'))
+	
+	if (Keyboard::Get()->Press('A'))
 	{
-		if (Math::TouchEdge(this) != Direction::TOP&&Math::TouchEdge(this) != Direction::TL&&Math::TouchEdge(this) != Direction::TR)
+		if (Math::TouchEdge(this) != Direction::LEFT&&Math::TouchEdge(this) != Direction::TL&&Math::TouchEdge(this) != Direction::BL)
 		{
-			this->Move({ 0,10,0 });
-			isMoveVertical = true;
+			this->Move({ -10,0,0 });
 		}
 	}
-	else if (Keyboard::Get()->Press('S'))
+	else if (Keyboard::Get()->Press('D'))
 	{
-		if (Math::TouchEdge(this) != Direction::BOTTOM&&Math::TouchEdge(this) != Direction::BR&&Math::TouchEdge(this) != Direction::BL)
+		if (Math::TouchEdge(this) != Direction::RIGHT&&Math::TouchEdge(this) != Direction::BR&&Math::TouchEdge(this) != Direction::TR)
 		{
-			this->Move({ 0,-10,0 });
-			isMoveVertical = true;
+			this->Move({ 10,0,0 });
 		}
 	}
-	else
-	{
-		isMoveVertical = false;
-	}
-	//ÁÂ¿ì
-	if (isMoveVertical)
-	{
-
-		if (Keyboard::Get()->Press('A'))
-		{
-			if (Math::TouchEdge(this) != Direction::LEFT&&Math::TouchEdge(this) != Direction::TL&&Math::TouchEdge(this) != Direction::BL)
-			{
-				this->Move({ -(10 / (float)sqrt(2)),0,0 });
-			}
-		}
-		else if (Keyboard::Get()->Press('D'))
-		{
-			if (Math::TouchEdge(this) != Direction::RIGHT&&Math::TouchEdge(this) != Direction::BR&&Math::TouchEdge(this) != Direction::TR)
-			{
-				this->Move({ (10 / (float)sqrt(2)),0,0 });
-			}
-		}
-	}
-	else
-	{
-		if (Keyboard::Get()->Press('A'))
-		{
-			if (Math::TouchEdge(this) != Direction::LEFT&&Math::TouchEdge(this) != Direction::TL&&Math::TouchEdge(this) != Direction::BL)
-			{
-				this->Move({ -10,0,0 });
-			}
-		}
-		else if (Keyboard::Get()->Press('D'))
-		{
-			if (Math::TouchEdge(this) != Direction::RIGHT&&Math::TouchEdge(this) != Direction::BR&&Math::TouchEdge(this) != Direction::TR)
-			{
-				this->Move({ 10,0,0 });
-			}
-		}
-	}
+	
 }
 
 void Player::Move(D3DXVECTOR3 position)

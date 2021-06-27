@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Geometry\BoxDestroy\Ball.cpp" />
+    <ClCompile Include="Geometry\BoxDestroy\BoxManager.cpp" />
     <ClCompile Include="Geometry\BoxDestroy\Player.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
@@ -179,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geometry\BoxDestroy\Ball.h" />
+    <ClInclude Include="Geometry\BoxDestroy\BoxManager.h" />
     <ClInclude Include="Geometry\BoxDestroy\Player.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />

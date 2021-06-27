@@ -10,27 +10,39 @@ BlockDestroy::~BlockDestroy()
 {
 	SAFE_DELETE(ball);
 	SAFE_DELETE(player);
+	SAFE_DELETE(BoxM);
 }
 
 void BlockDestroy::Init()
 {
-	player = new Player({ 200,200,0 }, { 100,100,1 }, 0, Red);
-	ball = new Ball({ 400,400,0 }, { 50,50,1 },100, Red);
+
+	player = new Player({ WinMaxWidth / 2,WinMaxHeight / 6,0 }, { 200,10,1 }, 0, Red);
+	ball = new Ball({ WinMaxWidth/2,WinMaxHeight/2,0 }, { 25,25,1 },100, Red);
+	BoxM = new BoxManager();
 }
 
 void BlockDestroy::Update()
 {
-	//if (Math::CircleIntersect(ball,player))
-	//{
-	//	player->SetIntersect(true);
-	//	player->SetColor(Cyan);
-	//	cout << "충돌" << endl;
-	//}
-	//else
-	//{
-	//	player->SetIntersect(false);
-	//	player->SetColor(Red);
-	//}
+	if (Math::PlayerIntersect(ball, player))
+	{
+		player->SetColor(Yellow);
+	}
+	else
+	{
+		player->SetColor(Red);
+	}
+	for (Square* enemy : BoxM->GetEnemyList())
+	{
+		if (enemy != nullptr)
+		{
+			enemy->Update();
+			if (Math::CircleIntersect(ball, enemy))
+			{
+				BoxM->Remove(enemy);
+			}
+		}
+	}
+
 
 	player->Update();
 	ball->Update();
@@ -45,4 +57,12 @@ void BlockDestroy::Render()
 	//player 안에는 wb 0에 슬롯 0을 넣어놨다
 	player->Render();
 	ball->Render();
+
+	for (Square* enemy : BoxM->GetEnemyList())
+	{
+		if (enemy != nullptr)
+		{
+			enemy->Render();
+		}
+	}
 }

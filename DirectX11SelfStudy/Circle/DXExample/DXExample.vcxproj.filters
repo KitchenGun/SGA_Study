@@ -34,6 +34,7 @@
     <ClCompile Include="Scenes\BlockDestroy.cpp" />
     <ClCompile Include="Geometry\BoxDestroy\Player.cpp" />
     <ClCompile Include="Geometry\BoxDestroy\Ball.cpp" />
+    <ClCompile Include="Geometry\BoxDestroy\BoxManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Scenes\BlockDestroy.h" />
     <ClInclude Include="Geometry\BoxDestroy\Player.h" />
     <ClInclude Include="Geometry\BoxDestroy\Ball.h" />
+    <ClInclude Include="Geometry\BoxDestroy\BoxManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
