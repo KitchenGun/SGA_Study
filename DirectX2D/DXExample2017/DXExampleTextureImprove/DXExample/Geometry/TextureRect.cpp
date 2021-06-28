@@ -7,6 +7,7 @@ TextureRect::TextureRect(Vector3 position, Vector3 size, float rotation)
 	size(size),
 	rotation(rotation)
 {
+	//정점 정보 입력
 	vertices.assign(4, VertexTexture());
 	vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
 	vertices[0].uv = Vector2(0.0f, 1.0f);
@@ -55,6 +56,7 @@ TextureRect::TextureRect(Vector3 position, Vector3 size, float rotation)
 	world = S * R * T;
 
 	WB->SetWorld(world);
+	//기존의 colorbuffer대신 사용
 	SB = new SelectBuffer();
 }
 
@@ -75,15 +77,17 @@ TextureRect::~TextureRect()
 
 void TextureRect::SetSRV(wstring path)
 {
+	//텍스쳐 세팅
 	ViewFactory::GenerateSRV(path, &srv);
 }
 
 void TextureRect::SetShader(wstring shaderPath)
 {
+	//vs와ps객체에 함수 호출// 실행중간에 교체할수있도록 함수화 하였음
 	if (VS)
 	{
 		VS->Clear();
-		VS->Create(shaderPath, "VS");
+		VS->Create(shaderPath, "VS");//vs 객체가 없을수있나?
 	}
 
 	if (PS)
@@ -98,7 +102,7 @@ void TextureRect::Move(Vector3 position)
 	this->position += position;
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
 
-	world = S * R*T;
+	world = S * R * T;
 	WB->SetWorld(world);
 }
 

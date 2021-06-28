@@ -41,6 +41,7 @@ void RenderTexture::Initialize()
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
+	//렌더링 파이프라인의 출력을 받을 자원을 연결하는 데 쓰인다. 
 	hr = DEVICE->CreateRenderTargetView(renderTargetTexture, &renderTargetViewDesc,&renderTargetView);
 	ASSERT(hr);
 
@@ -48,7 +49,8 @@ void RenderTexture::Initialize()
 	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
-
+	//파이프라인의 프로그램 가능 셰이더 단계가 자원을 읽을 수 있게 한다. 이 뷰는 예전에 픽셀 셰이더에서 텍스처가 하던 역할, 
+	//즉 셰이더 프로그램 안에서 읽고 사용할 수는 있지만 기록하지는 못하는 자료에 해당하는 것이다. 
 	hr = DEVICE->CreateShaderResourceView(renderTargetTexture, &shaderResourceViewDesc, &shaderResourceView);
 	ASSERT(hr);
 
@@ -58,17 +60,23 @@ void RenderTexture::Initialize()
 void RenderTexture::RenderToTexture()
 {
 	DC->OMSetRenderTargets(1, &renderTargetView, nullptr);
+	//매개변수1.설정하는 렌더타겟의 개수.최대 8개까지 설정가능하다.
+	//매개변수2.렌더링 파이프라인에 설정하는 렌더타겟 뷰의 배열. NULL을 넘기면, 렌더타겟이 설정되지 않게 된다.
+	//매개변수3.렌더링 파이프라인에 넘겨주는 깊이 / 스텐실 뷰의 포인터. NULL을 넘기면, 깊이 / 스텐실 버퍼가 설정되지 않게 된다.
+
 	DC->ClearRenderTargetView(renderTargetView, Graphics::Get()->GetClearColor());
+	//화면을 깨끗히 지우라는 명령하는 함수
+	//매개변수1.렌더링 대상에 대한 포인터입니다.
 }
 
 void RenderTexture::SaveTexture(const wstring & path)
 {
 	HRESULT hr = D3DX11SaveTextureToFile
 	(
-		DC,
-		renderTargetTexture,
-		D3DX11_IFF_PNG,
-		path.c_str()
+		DC,							
+		renderTargetTexture,		//저장 질감의 포인터
+		D3DX11_IFF_PNG,				//저장 형식
+		path.c_str()				//저장 위치
 	);
 	ASSERT(hr);
 }

@@ -1,2 +1,0 @@
-D:\Git\SGA_Study\DataStructure\DoublyLinkedList\Debug\DoublyLinkedList.exe
-D:\Git\SGA_Study\DataStructure\DoublyLinkedList\Debug\DoublyLinkedList.pdb

@@ -1,2 +1,0 @@
-D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\x64\Debug\DuckInterface.exe
-D:\Git\SGA_Study\DataStructure\Interface\DuckInterface\x64\Debug\DuckInterface.pdb
