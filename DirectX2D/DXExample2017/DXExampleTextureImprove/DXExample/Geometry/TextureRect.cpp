@@ -108,6 +108,19 @@ void TextureRect::Move(Vector3 position)
 
 void TextureRect::Update()
 {
+	if (Keyboard::Get()->Down(VK_01))//1번 누르면 selection값이 바뀜
+	{
+		SB->SetSelection(1);
+	}
+	else if(Keyboard::Get()->Down(VK_02))
+	{
+		SB->SetSelection(2);
+	}
+	else if(Keyboard::Get()->Down(VK_03))
+	{
+		SB->SetSelection(3);
+	}
+
 }
 
 void TextureRect::Render()

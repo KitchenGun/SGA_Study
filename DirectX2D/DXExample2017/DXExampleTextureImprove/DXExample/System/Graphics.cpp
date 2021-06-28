@@ -414,10 +414,10 @@ void Graphics::SetViewport(const UINT & width, const UINT & height)
 void Graphics::Begin()
 {
 	//dc는 그리는 도구집합
-	deviceContext->OMSetRenderTargets(1, &rtv, nullptr);	//최종 병합 단계 view 1개 효과 정보 넘기고 depth안씀    
-													//om 단계 프로그래밍 불가능 그래서 rtv를 꽂아줌 다음 프레임에 그려질 화면을 넘겨줌
 	deviceContext->RSSetViewports(1, &viewport);			//viewport 세팅 rs 단계에서 수행
-	deviceContext->ClearRenderTargetView(rtv, clearColor);	//rtv를 미리 세팅한 클리어 칼라로 지움
+	deviceContext->OMSetRenderTargets(1, &rtv, nullptr);	//최종 병합 단계 view 1개 효과 정보 넘기고 depth안씀    
+	//그릴대상 세팅												//om 단계 프로그래밍 불가능 그래서 rtv를 꽂아줌 다음 프레임에 그려질 화면을 넘겨줌
+	deviceContext->ClearRenderTargetView(rtv, clearColor);	//그래픽스 객체가 가지고 있는 rtv를 미리 세팅한 클리어 칼라로 지움
 }
 void Graphics::End()
 {
@@ -427,11 +427,12 @@ void Graphics::End()
 
 void Graphics::SetViewport()
 {
-	deviceContext->RSSetViewports(1, &viewport);
+	deviceContext->RSSetViewports(1, &viewport);       //viewport 세팅 rs 단계에서 수행  //Begin과 동일함
 }
 
 void Graphics::SetBackBufferToRTV()
 {
+	//viewport를 제외하고 Begin과 동일
 	deviceContext->OMSetRenderTargets(1, &rtv, nullptr);
 	deviceContext->ClearRenderTargetView(rtv, clearColor);
 }

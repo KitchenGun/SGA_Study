@@ -24,10 +24,17 @@ cbuffer ViewProjection : register(b1) //상수 버퍼를 보낸다
     matrix _proj;
 };
 
-
-PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형태로 반환
+cbuffer Selection : register(b0)
 {
-    PixelInput output;
+	int _selection;
+};
+
+
+
+	PixelInput VS(
+	VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형태로 반환
+{
+	PixelInput output;
     //백터와 행렬의 곱을 수행할것
     output.position = mul(input.position, _world);//world 공간으로 변환
     output.position = mul(output.position, _view);//view 공간에서 변화
@@ -45,5 +52,17 @@ SamplerState samp : register(s0);
 
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
-    return srcTex0.Sample(samp, input.uv);
-}   
+	float4 color = srcTex0.Sample(samp, input.uv);
+	
+	if (_selection == 1)
+	{
+		
+	}
+	else if (_selection == 2)//액자
+	{
+		if (input.uv.x < 0.01f || input.uv.x > 0.99f || input.uv.y < 0.01f || input.uv.y > 0.99f)
+			color = float4(1, 1, 1, 1);
+	}
+	return color;
+
+}

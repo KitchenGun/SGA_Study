@@ -57,7 +57,7 @@ void RenderTexture::Initialize()
 }
 
 
-void RenderTexture::RenderToTexture()
+void RenderTexture::RenderToTexture()//Begin과 동일한 과정을 밟음
 {
 	DC->OMSetRenderTargets(1, &renderTargetView, nullptr);
 	//매개변수1.설정하는 렌더타겟의 개수.최대 8개까지 설정가능하다.
@@ -74,7 +74,7 @@ void RenderTexture::SaveTexture(const wstring & path)
 	HRESULT hr = D3DX11SaveTextureToFile
 	(
 		DC,							
-		renderTargetTexture,		//저장 질감의 포인터
+		renderTargetTexture,		//저장 질감의 포인터  //현재 그려져있는 rtv
 		D3DX11_IFF_PNG,				//저장 형식
 		path.c_str()				//저장 위치
 	);

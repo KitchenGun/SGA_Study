@@ -16,7 +16,7 @@ public:
 	struct Struct
 	{//데이터 패딩
 		int selection = 1;
-		Vector3 dummy;
+		Vector3 dummy;//쓸모없는값이라 16바이트로 맞춰준거임 받을 필요없음
 	};
 
 private:
