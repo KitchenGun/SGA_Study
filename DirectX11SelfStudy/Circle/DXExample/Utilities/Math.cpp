@@ -305,7 +305,7 @@ void Math::CircleWallIntersect(Ball * c1)
 
 	if (CircleEdge.POINT.y + CircleEdge.RADIUS > WinMaxHeight)//위에 충돌
 	{						
-		c1->SetVecDir({ cosf(-abs(angle)), sinf(-abs(angle)), 0 });
+		c1->SetVecDir({ c1->GetVecDir().x, c1->GetVecDir().y*-1,0 });
 	}
 	else if (CircleEdge.POINT.y - CircleEdge.RADIUS < 0)//아래 충돌
 	{
@@ -314,25 +314,11 @@ void Math::CircleWallIntersect(Ball * c1)
 	}
 	else if (CircleEdge.POINT.x + CircleEdge.RADIUS > WinMaxWidth)//우측 충돌
 	{
-		if (angle < D3DXToRadian(0.0f))//위에서 꽂히는 경우
-		{
-			c1->SetVecDir({ -cosf(abs(D3DXToRadian(90.0f) + angle)), -sinf(abs(D3DXToRadian(90.0f) + angle)), 0 });
-		}
-		else//아래에서 꽂히는 경우
-		{
-			c1->SetVecDir({ -cosf(abs(D3DXToRadian(90.0f) - angle)), sinf(abs(D3DXToRadian(90.0f) - angle)), 0 });
-		}
+		c1->SetVecDir({ c1->GetVecDir().x*-1, c1->GetVecDir().y,0 });
 	}
 	else if (CircleEdge.POINT.x - CircleEdge.RADIUS < 0)//좌측 충돌
 	{
-		if (angle < D3DXToRadian(0.0f))//위에서 꽂히는 경우
-		{
-			c1->SetVecDir({ cosf(D3DXToRadian(180.0f) + angle), -sinf(D3DXToRadian(180.0f) + angle), 0 });
-		}
-		else//아래에서 꽂히는 경우
-		{
-			c1->SetVecDir({ cosf(D3DXToRadian(180.0f) - angle), sinf(abs(D3DXToRadian(180.0f) - angle)), 0 });
-		}
+		c1->SetVecDir({ c1->GetVecDir().x*-1, c1->GetVecDir().y,0 });
 	}
 }
 
