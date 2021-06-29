@@ -34,7 +34,7 @@ void Scene3::Update()
 
 void Scene3::PreRender()
 {
-	Graphics::Get()->SetViewport();//rtv를 활용하는 법을 공부해보자
+	Graphics::Get()->SetViewport();
 	RTT->RenderToTexture();
 	{	//여기서 가지고 있는rtt가 가지고 있는 rtv에 랜더 해준 상황이다.
 		//circle->Render();

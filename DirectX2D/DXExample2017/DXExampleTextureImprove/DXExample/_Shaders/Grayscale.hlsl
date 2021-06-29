@@ -65,7 +65,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	else if (_selection == 3)//정석
 	{
 		grayscale = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
-		color = float4(grayscale.xyz, 1);
+		color = float4(grayscale.xyz, 1);//color값을 수정하여서 전달
 		
 	}
 	return color;

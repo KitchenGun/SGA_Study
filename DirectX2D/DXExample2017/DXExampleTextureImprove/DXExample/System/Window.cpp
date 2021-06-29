@@ -118,7 +118,7 @@ WPARAM Window::Run()
 	Time::Delete();
 	Mouse::Delete();
 	Keyboard::Delete();
-	Graphics::Delete();//무한이 삭제하는 코드는 작성하지 말자 
+	Graphics::Delete(); 
 	return msg.wParam;
 }
 

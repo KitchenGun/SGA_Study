@@ -87,7 +87,7 @@ void TextureRect::SetShader(wstring shaderPath)
 	if (VS)
 	{
 		VS->Clear();
-		VS->Create(shaderPath, "VS");//vs 객체가 없을수있나?
+		VS->Create(shaderPath, "VS");
 	}
 
 	if (PS)
@@ -139,7 +139,7 @@ void TextureRect::Render()
 	{
 		DC->PSSetShaderResources(0, 1, &srv);
 	}
-	SB->SetPSBuffer(0);
+	SB->SetPSBuffer(0);//ps단계에서 사용하는 첫번째 값이여서 0으로 입력해도됨
 
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
