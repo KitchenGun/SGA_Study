@@ -21,7 +21,8 @@ void Program::Init()
 	sceneList.push_back(new Scene1());
 	sceneList.push_back(new Scene2());
 	sceneList.push_back(new Scene3());
-	currentScene = sceneList[2];
+	sceneList.push_back(new Scene4());
+	currentScene = sceneList[3];
 	currentScene->Init();
 }
 
@@ -57,6 +58,11 @@ void Program::Update()
 		currentScene = sceneList[2];
 		currentScene->Init();
 	}
+	else if (Keyboard::Get()->Down(VK_F4))
+	{
+		currentScene = sceneList[3];
+		currentScene->Init();
+	}
 	currentScene->Update();
 }
 
@@ -72,7 +78,5 @@ void Program::PreRender()
 
 void Program::Render()
 {
-	//world와 분리했기 때문에 1이다
-	VPBuffer->SetVSBuffer(1);
 	currentScene->Render();
 }

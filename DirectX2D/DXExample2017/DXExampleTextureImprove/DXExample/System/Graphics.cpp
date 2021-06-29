@@ -166,7 +166,6 @@ void Graphics::CreateSwapChain()
 		&deviceContext					//deviceContext¡÷º“ ≥—∞‹¡‹
 	);
 	ASSERT(hr);
-
 	Resize(WinMaxWidth, WinMaxHeight);
 }
 

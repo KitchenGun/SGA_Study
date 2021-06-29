@@ -42,7 +42,7 @@ void RenderTexture::Initialize()
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 	//렌더링 파이프라인의 출력을 받을 자원을 연결하는 데 쓰인다. 
-	hr = DEVICE->CreateRenderTargetView(renderTargetTexture, &renderTargetViewDesc,&renderTargetView);
+	hr = DEVICE->CreateRenderTargetView(renderTargetTexture, &renderTargetViewDesc,&renderTargetView);//renderTargetTexture가지고 rtv 만드는 중
 	ASSERT(hr);
 
 	shaderResourceViewDesc.Format = textureDesc.Format;
