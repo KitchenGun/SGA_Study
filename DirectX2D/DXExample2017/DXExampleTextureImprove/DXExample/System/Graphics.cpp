@@ -142,7 +142,7 @@ void Graphics::CreateSwapChain()
 	wcout << "GPU Description : " << gpuDescription << endl;//유니코드 출력용
 
 	cout << "Numerator : " << numerator << endl;
-	cout << "Denominator : " << numerator << endl;
+	cout << "Denominator : " << denominator << endl;
 
 	HRESULT hr = D3D11CreateDeviceAndSwapChain
 	(

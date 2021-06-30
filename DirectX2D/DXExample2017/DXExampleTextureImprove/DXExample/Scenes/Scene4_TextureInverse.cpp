@@ -19,6 +19,8 @@ void Scene4::Init()
 	square = new Square({ 200,200,0 }, { 100,100,1 }, 0,Red);
 	square2 = new Square({ 400,400,0 }, { 100,100,1 }, 0, Red);
 	RTT = new RenderTexture();
+	//rtv¿Í srv »ı¼º
+	RTT->Initialize();
 	textureRect = new TextureRect({ WinMaxWidth*0.5f,WinMaxHeight*0.5f,0 }, { WinMaxWidth,WinMaxHeight,1 }, 0);
 	textureRect->SetShader(L"./_Shaders/VertexTexture.hlsl");
 }

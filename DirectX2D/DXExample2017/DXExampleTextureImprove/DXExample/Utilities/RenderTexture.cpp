@@ -35,7 +35,7 @@ void RenderTexture::Initialize()
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
 
-	hr = DEVICE->CreateTexture2D(&textureDesc, nullptr, &renderTargetTexture);
+	hr = DEVICE->CreateTexture2D(&textureDesc, nullptr, &renderTargetTexture);//texture2d ÀÚ¿ø ¸¸µë
 	ASSERT(hr);
 	renderTargetViewDesc.Format = textureDesc.Format;
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;

@@ -77,7 +77,7 @@ TextureRect::~TextureRect()
 
 void TextureRect::SetSRV(wstring path)
 {
-	//텍스쳐 세팅
+	//텍스쳐가 쉐이더에 접근 할 수 있게 함
 	ViewFactory::GenerateSRV(path, &srv);
 }
 
