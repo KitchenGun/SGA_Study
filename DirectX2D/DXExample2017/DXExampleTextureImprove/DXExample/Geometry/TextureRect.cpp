@@ -120,6 +120,10 @@ void TextureRect::Update()
 	{
 		SB->SetSelection(3);
 	}
+	else if (Keyboard::Get()->Down(VK_04))
+	{
+		SB->SetSelection(4);
+	}
 
 }
 

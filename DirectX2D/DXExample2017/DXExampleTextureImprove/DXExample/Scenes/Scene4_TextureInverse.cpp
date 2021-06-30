@@ -22,7 +22,8 @@ void Scene4::Init()
 	//rtv와 srv 생성
 	RTT->Initialize();
 	textureRect = new TextureRect({ WinMaxWidth*0.5f,WinMaxHeight*0.5f,0 }, { WinMaxWidth,WinMaxHeight,1 }, 0);
-	textureRect->SetShader(L"./_Shaders/VertexTexture.hlsl");
+	textureRect->SetShader(L"./_Shaders/VertexTextureInverse.hlsl");
+	textureRect->SetSRV(RTT->GetSRV());
 }
 
 void Scene4::Update()
@@ -64,10 +65,10 @@ void Scene4::PreRender()
 		square2->Render();
 	}
 	Graphics::Get()->SetBackBufferToRTV();
+	textureRect->Update();//update로 올림
 }
 
 void Scene4::Render()
 {
-	textureRect->SetSRV(RTT->GetSRV());
 	textureRect->Render();
 }
