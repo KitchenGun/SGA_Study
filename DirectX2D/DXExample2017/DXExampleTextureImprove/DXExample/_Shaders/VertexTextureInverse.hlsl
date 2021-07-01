@@ -56,7 +56,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	
 	if (_selection == 1)
 	{
-		result = srcTex0.Sample(samp, input.uv);
+		result = srcTex0.Sample(samp, float2(1-input.uv.x,input.uv.y));
 	}
 	else if (_selection == 2)//좌우 거울
 	{
@@ -64,6 +64,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 		float4 r = srcTex0.Sample(samp, float2(input.uv.x - 0.5f, input.uv.y));
 		
 		if (input.uv.x < 0.5f)
+
 			result = l;
 		if (input.uv.x > 0.5f)
 			result = r;
@@ -76,9 +77,9 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	else if (_selection == 3)//4분면 거울
 	{
 		float4 site1 = srcTex0.Sample(samp, 2 * float2(input.uv.x, input.uv.y));
-		float4 site2 = srcTex0.Sample(samp, 2 * float2(input.uv.x - 0.5f, input.uv.y));
-		float4 site3 = srcTex0.Sample(samp, 2 * float2(input.uv.x, input.uv.y - 0.5f));
-		float4 site4 = srcTex0.Sample(samp, 2 * float2(input.uv.x - 0.5f, input.uv.y - 0.5f));
+		float4 site2 = srcTex0.Sample(samp, 2 * float2(1-input.uv.x, input.uv.y));
+		float4 site3 = srcTex0.Sample(samp, 2 * float2(input.uv.x, 1 - input.uv.y));
+		float4 site4 = srcTex0.Sample(samp, 2 * float2(1-input.uv.x, 1-input.uv.y));
 		
 		if (input.uv.x < 0.5f && input.uv.y < 0.5f)
 			result = site1;
@@ -98,27 +99,54 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 			result = float4(1, 1, 1, 1);
 		}
 	}
-	else if (_selection == 4)//4분면 반전 거울
+	else if (_selection == 4)//과제
 	{
 		float4 site1 = srcTex0.Sample(samp, 2 * float2(input.uv.x, input.uv.y));
-		float4 site2 = srcTex0.Sample(samp, 2 * float2(input.uv.x - 0.5f, input.uv.y));
-		float4 site3 = srcTex0.Sample(samp, 2 * float2(input.uv.x, input.uv.y - 0.5f));
-		float4 site4 = srcTex0.Sample(samp, 2 * float2(input.uv.x - 0.5f, input.uv.y - 0.5f));
+		float4 site2 = srcTex0.Sample(samp, 2 * float2(1 - input.uv.x, input.uv.y));
+		float4 site3 = srcTex0.Sample(samp, 2 * float2(input.uv.x, 1 - input.uv.y));
+		float4 site4 = srcTex0.Sample(samp, 4 * float2(input.uv.x-0.5f, input.uv.y - 0.5f));
+		float4 site5 = srcTex0.Sample(samp, 4 * float2(1-input.uv.x, input.uv.y - 0.5f));
+		float4 site6 = srcTex0.Sample(samp, 4 * float2(input.uv.x - 0.5f, 1-input.uv.y));
+		float4 site7 = srcTex0.Sample(samp, 4 * float2(1-input.uv.x, 1-input.uv.y));
 		
 		if (input.uv.x < 0.5f && input.uv.y < 0.5f)
 			result = site1;
 		if (input.uv.x > 0.5f && input.uv.y < 0.5f)
-			result = site2;
+			result = dot(site2,float3(0.299f, 0.587f, 0.114f));
 		if (input.uv.x < 0.5f && input.uv.y > 0.5f)
+		{
+			site3.r = dot(site3.rgb, float3(0.393f, 0.769f, 0.189f));
+			site3.g = dot(site3.rgb, float3(0.349f, 0.686f, 0.168f));
+			site3.b = dot(site3.rgb, float3(0.272f, 0.534f, 0.131f));
 			result = site3;
-		if (input.uv.x > 0.5f && input.uv.y > 0.5f)
+		}
+		if (input.uv.x > 0.5f && input.uv.x < 0.75f && input.uv.y > 0.5f && input.uv.y < 0.75f)
 			result = site4;
-		
+		if (input.uv.x < 1.0f && input.uv.x > 0.751f && input.uv.y > 0.5f && input.uv.y < 0.75f)
+			result = dot(site5, float3(0.299f, 0.587f, 0.114f));
+		if (input.uv.x > 0.5f && input.uv.x < 0.75f && input.uv.y < 1.0f && input.uv.y > 0.751f)
+		{
+			site6.r = dot(site6.rgb, float3(0.393f, 0.769f, 0.189f));
+			site6.g = dot(site6.rgb, float3(0.349f, 0.686f, 0.168f));
+			site6.b = dot(site6.rgb, float3(0.272f, 0.534f, 0.131f));
+			result = site6;
+		}
+		if (input.uv.x < 1.0f && input.uv.x > 0.751f && input.uv.y < 1.0f && input.uv.y > 0.751f)
+			result = site7;
+
 		if (input.uv.x > 0.499f && input.uv.x < 0.501f)
 		{
 			result = float4(1, 1, 1, 1);
 		}
 		if (input.uv.y > 0.499f && input.uv.y < 0.501f)
+		{
+			result = float4(1, 1, 1, 1);
+		}
+		if (input.uv.x > 0.5f && input.uv.x < 1.0f&&input.uv.y > 0.749f && input.uv.y < 0.751f)
+		{
+			result = float4(1, 1, 1, 1);
+		}
+		if (input.uv.x > 0.749f && input.uv.x < 0.751f&&input.uv.y > 0.501f && input.uv.y < 1.0f)
 		{
 			result = float4(1, 1, 1, 1);
 		}
