@@ -16,7 +16,59 @@ public:
 	struct Struct
 	{//데이터 패딩
 		int selection = 1;
-		Vector3 dummy;//쓸모없는값이라 16바이트로 맞춰준거임 받을 필요없음
+		Vector2 texturSize = { WinMaxWidth,WinMaxHeight };//쓸모없는값이라 16바이트로 맞춰준거임 받을 필요없음
+		float dummy;
+	};
+
+private:
+	Struct data;
+};
+
+class BlurBuffer : public ShaderBuffer
+{
+public:
+	BlurBuffer()
+		:ShaderBuffer(&data, sizeof(Struct))
+	{}
+
+	void SetCount(int count)
+	{
+		data.count = count;
+	}
+	struct Struct
+	{
+		UINT count;
+		Vector3 dummy;
+	};
+private:
+	Struct data;
+};
+
+class LocalBuffer : public ShaderBuffer
+{
+public:
+	LocalBuffer()
+		: ShaderBuffer(&data, sizeof(Struct))
+	{}
+
+	void MoveLocalRect(Vector4 moveLocalRect)
+	{
+		data.localRect += moveLocalRect;
+	}
+
+	void SetLocalRect(Vector4 localRect)
+	{
+		data.localRect = localRect;
+	}
+
+	Vector4 GetLocalRect()
+	{
+		return data.localRect;
+	}
+
+	struct Struct
+	{
+		Vector4 localRect;
 	};
 
 private:
@@ -35,7 +87,7 @@ public:
 	void SetShader(wstring shaderPath);
 	
 	void Move(Vector3 position);
-
+	void MoveLocalRect(Vector4 localMove);
 	void Update();
 	void Render();
 	
@@ -58,4 +110,7 @@ private:
 	ID3D11ShaderResourceView* srv = nullptr;
 	SelectBuffer* SB = nullptr;
 
+
+	BlurBuffer* BB = nullptr;
+	LocalBuffer* LB = nullptr;
 };

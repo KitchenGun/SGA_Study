@@ -32,6 +32,7 @@
     <ClCompile Include="Renders\Resources\ViewFactory.cpp" />
     <ClCompile Include="Geometry\TextureRect.cpp" />
     <ClCompile Include="Scenes\Scene4_TextureInverse.cpp" />
+    <ClCompile Include="Scenes\Scene5_Blur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="Renders\Resources\ViewFactory.h" />
     <ClInclude Include="Geometry\TextureRect.h" />
     <ClInclude Include="Scenes\Scene4_TextureInverse.h" />
+    <ClInclude Include="Scenes\Scene5_Blur.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

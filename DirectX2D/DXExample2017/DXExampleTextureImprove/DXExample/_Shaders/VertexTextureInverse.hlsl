@@ -112,7 +112,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 		if (input.uv.x < 0.5f && input.uv.y < 0.5f)
 			result = site1;
 		if (input.uv.x > 0.5f && input.uv.y < 0.5f)
-			result = dot(site2,float3(0.299f, 0.587f, 0.114f));
+			result = dot(site2,float4(0.299f, 0.587f, 0.114f,0));
 		if (input.uv.x < 0.5f && input.uv.y > 0.5f)
 		{
 			site3.r = dot(site3.rgb, float3(0.393f, 0.769f, 0.189f));
@@ -123,7 +123,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 		if (input.uv.x > 0.5f && input.uv.x < 0.75f && input.uv.y > 0.5f && input.uv.y < 0.75f)
 			result = site4;
 		if (input.uv.x < 1.0f && input.uv.x > 0.751f && input.uv.y > 0.5f && input.uv.y < 0.75f)
-			result = dot(site5, float3(0.299f, 0.587f, 0.114f));
+			result = dot(site5, float4(0.299f, 0.587f, 0.114f,0));
 		if (input.uv.x > 0.5f && input.uv.x < 0.75f && input.uv.y < 1.0f && input.uv.y > 0.751f)
 		{
 			site6.r = dot(site6.rgb, float3(0.393f, 0.769f, 0.189f));

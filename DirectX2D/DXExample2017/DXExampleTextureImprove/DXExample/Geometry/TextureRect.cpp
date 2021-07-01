@@ -58,10 +58,17 @@ TextureRect::TextureRect(Vector3 position, Vector3 size, float rotation)
 	WB->SetWorld(world);
 	//기존의 colorbuffer대신 사용
 	SB = new SelectBuffer();
+	//blur 기능 생성자
+	BB = new BlurBuffer();
+	LB = new LocalBuffer();
+	//좌상단 우상단 좌표
+	LB->SetLocalRect({ 100,100,400,400 });
 }
 
 TextureRect::~TextureRect()
 {
+	SAFE_DELETE(LB);
+	SAFE_DELETE(BB);
 	SAFE_DELETE(SB);
 
 	SAFE_DELETE(WB);
@@ -106,23 +113,36 @@ void TextureRect::Move(Vector3 position)
 	WB->SetWorld(world);
 }
 
+void TextureRect::MoveLocalRect(Vector4 localMove)
+{
+	LB->MoveLocalRect(localMove);
+}
+
 void TextureRect::Update()
 {
-	if (Keyboard::Get()->Down(VK_01))//1번 누르면 selection값이 바뀜
+	if (Keyboard::Get()->Down(VK_00))
+	{
+		BB->SetCount(1);
+	}
+	else if (Keyboard::Get()->Down(VK_01))//1번 누르면 selection값이 바뀜
 	{
 		SB->SetSelection(1);
+		BB->SetCount(2);
 	}
 	else if(Keyboard::Get()->Down(VK_02))
 	{
 		SB->SetSelection(2);
+		BB->SetCount(4);
 	}
 	else if(Keyboard::Get()->Down(VK_03))
 	{
 		SB->SetSelection(3);
+		BB->SetCount(8);
 	}
 	else if (Keyboard::Get()->Down(VK_04))
 	{
 		SB->SetSelection(4);
+		BB->SetCount(32);
 	}
 
 }
@@ -144,7 +164,9 @@ void TextureRect::Render()
 		DC->PSSetShaderResources(0, 1, &srv);
 	}
 	SB->SetPSBuffer(0);//ps단계에서 사용하는 첫번째 값이여서 0으로 입력해도됨
-
+	//블러효과위해서 추가함
+	BB->SetPSBuffer(1);
+	LB->SetPSBuffer(2);
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
 }

@@ -69,9 +69,10 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	}
 	else if (_selection == 4)//세피아
 	{
-		color.r = dot(color.rgb, float3(0.393f,0.769f,0.189f));
-		color.g = dot(color.rgb, float3(0.349f, 0.686f, 0.168f));
-		color.b = dot(color.rgb, float3(0.272f, 0.534f, 0.131f));
+		grayscale.r = dot(color.rgb, float3(0.393f,0.769f,0.189f));
+		grayscale.g = dot(color.rgb, float3(0.349f, 0.686f, 0.168f));
+		grayscale.b = dot(color.rgb, float3(0.272f, 0.534f, 0.131f));
+		color = float4(grayscale.rgb, 1);
 		//color값을 수정하여서 전달
 	}
 	return color;

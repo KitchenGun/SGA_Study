@@ -4,3 +4,4 @@
 #include "Scene2_Clock.h"
 #include "Scene3_Texture.h"
 #include "Scene4_TextureInverse.h"
+#include "Scene5_Blur.h"
