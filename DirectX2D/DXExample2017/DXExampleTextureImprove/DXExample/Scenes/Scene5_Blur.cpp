@@ -16,7 +16,7 @@ void Scene5::Init()
 	Vector3 size = Vector3(WinMaxWidth, WinMaxHeight, 0);
 	texture = new TextureRect(size / 2, size, 0);
 	texture->SetSRV(L"./_Textures/Image0.bmp");
-	texture->SetShader(L"./_Shaders/Blur.hlsl");
+	texture->SetShader(L"./_Shaders/Vignette.hlsl");
 
 }
 

@@ -61,7 +61,7 @@ SamplerState samp : register(s0);
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
 	float4 result = 0;
-	float4 color = srcTex0.Sample(samp, input.uv);
+	float4 color = srcTex0.Sample(samp, input.uv);//원본
 	
 	float2 arr[8] =
 	{
@@ -71,31 +71,37 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	};
 	
 	
-	[flatten]//0,1 사이값으로 좌표를 변경 //blur를 적용할 지역
+	[flatten]//0,1 사이값으로 좌표를 변경 //blur를 적용할 지역 //input 사이즈가 변경됨 나머지 사이즈가 변경됨  
 	if (input.uv.x > _localRect.x / _textureSize.x &&
 		input.uv.x < _localRect.z / _textureSize.x &&
 		input.uv.y > _localRect.y / _textureSize.y &&
 		input.uv.y < _localRect.w / _textureSize.y)
 	{
-		for (int blur = 0; blur < _count; blur++)//한번 돌때마다 픽셀을 뿌옇게 처리함
+		//blur변수는 원본 픽셀과의 거리를 의미함
+		/*
+			즉 blur가 8일 경우 8만큼 거리의 값들을 평균을 낸다.
+		*/
+		for (int blur = 0; blur < _count; blur++)//한번 돌때마다 blur 처리함
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				//배열내부의 방향 픽셀을 다운샘플링하는 과정
+				//배열내부의 방향 픽셀의 색상값을 평균을 내는 과정 다운샘플링하는 과정
 				float x = arr[i].x * (float) blur / _textureSize.x;//정규화작업으로 좌표를 정함
 				float y = arr[i].y * (float) blur / _textureSize.y;
 				//가운데 픽셀에서 주변으로 이동
 				float2 uv = input.uv + float2(x, y);
 				//이동부분 픽셀 변환값으로 지정
-				color += srcTex0.Sample(samp, uv);
+				color += srcTex0.Sample(samp, uv);//픽셀만큼 이동한 uv를 원본의 색값에 더해준다
 			}
 		}
-		//저해상도로 블러된 이미지를 키우는 과정인것 같은데 이해가 안됨아니면 다른 부분인듯(?)
+		//자기 자신을 포함한 9개의 구역의 색 평균을 넣는다
 		color /= _count * 8 + 1;
+		result = float4(color.rgb, 1);
+
 	}
 	else
 	{
-		
+		result = color;
 	}
-	return float4(color.rgb,1);
+	return result;
 }
