@@ -24,18 +24,18 @@ cbuffer ViewProjection : register(b1) //상수 버퍼를 보낸다
     matrix _proj;
 };
 
-cbuffer Selection : register(b0)
+cbuffer Selection : register(b0)//효과 선택과 화면 크기(하지만 blur는 hlsl를 호출한 객체만 적용됨)
 {
 	int _selection;
 	float2 _textureSize;
 };
 
-cbuffer BlurBuffer : register(b1)
+cbuffer BlurBuffer : register(b1)//blur 강도 
 {
 	uint _count;
 };
 
-cbuffer BlurBuffer : register(b2)
+cbuffer BlurBuffer : register(b2)//blur 처리할 공간 정보
 {
 	float4 _localRect;
 };
@@ -71,23 +71,26 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	};
 	
 	
-	[flatten]
+	[flatten]//0,1 사이값으로 좌표를 변경 //blur를 적용할 지역
 	if (input.uv.x > _localRect.x / _textureSize.x &&
 		input.uv.x < _localRect.z / _textureSize.x &&
 		input.uv.y > _localRect.y / _textureSize.y &&
 		input.uv.y < _localRect.w / _textureSize.y)
 	{
-		for (int blur = 0; blur < _count; blur++)
+		for (int blur = 0; blur < _count; blur++)//한번 돌때마다 픽셀을 뿌옇게 처리함
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				float x = arr[i].x * (float) blur / _textureSize.x;
+				//배열내부의 방향 픽셀을 다운샘플링하는 과정
+				float x = arr[i].x * (float) blur / _textureSize.x;//정규화작업으로 좌표를 정함
 				float y = arr[i].y * (float) blur / _textureSize.y;
-				
+				//가운데 픽셀에서 주변으로 이동
 				float2 uv = input.uv + float2(x, y);
+				//이동부분 픽셀 변환값으로 지정
 				color += srcTex0.Sample(samp, uv);
 			}
 		}
+		//저해상도로 블러된 이미지를 키우는 과정인것 같은데 이해가 안됨아니면 다른 부분인듯(?)
 		color /= _count * 8 + 1;
 	}
 	else

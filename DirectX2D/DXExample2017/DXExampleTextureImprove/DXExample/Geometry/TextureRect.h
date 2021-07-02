@@ -16,7 +16,7 @@ public:
 	struct Struct
 	{//데이터 패딩
 		int selection = 1;
-		Vector2 texturSize = { WinMaxWidth,WinMaxHeight };//쓸모없는값이라 16바이트로 맞춰준거임 받을 필요없음
+		Vector2 texturSize = { WinMaxWidth,WinMaxHeight };//정의와 동시에 초기화
 		float dummy;
 	};
 
@@ -87,7 +87,9 @@ public:
 	void SetShader(wstring shaderPath);
 	
 	void Move(Vector3 position);
+	//블러효과 이동 함수
 	void MoveLocalRect(Vector4 localMove);
+
 	void Update();
 	void Render();
 	

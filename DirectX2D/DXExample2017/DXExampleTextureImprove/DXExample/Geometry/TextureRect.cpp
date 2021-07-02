@@ -114,7 +114,7 @@ void TextureRect::Move(Vector3 position)
 }
 
 void TextureRect::MoveLocalRect(Vector4 localMove)
-{
+{	//정점정보를 전달하여 이동을 처리함
 	LB->MoveLocalRect(localMove);
 }
 
