@@ -10,6 +10,8 @@ public:
 
 	void Update() override;
 
+	void Reset();
+
 	Vector3 GetVecDir() { return vecDir; }
 	void SetVecDir(Vector3 value) { vecDir = value; }
 private:

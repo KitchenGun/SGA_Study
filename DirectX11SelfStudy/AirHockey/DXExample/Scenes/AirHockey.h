@@ -18,7 +18,13 @@ private:
 	Line* CMidLine;
 	//player
 	Player* CPlayer;
+	Square* CPlayerGoalPost;
 	//ai
+	Player* CEnemy;
+	Square* CEnemyGoalPost;
 	//ball
 	Ball* CBall;
+	//Point
+	int nPlayerPoint = 0;
+	int nEnemyPoint = 0;
 };

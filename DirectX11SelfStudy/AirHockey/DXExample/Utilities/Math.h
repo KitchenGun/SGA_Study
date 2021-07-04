@@ -31,5 +31,6 @@ class Math
 public:
 	static bool Intersect(Square *r1, Square *r2);
 	static void CircleIntersect(Ball* c1, Player* c2);
+	static bool Math::CircleIntersect(Ball * c1, Square * r1);
 	static void CircleWallIntersect(Ball* c1);
 };
