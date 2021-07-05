@@ -44,6 +44,9 @@
     <Filter Include="Classes\P04\Member">
       <UniqueIdentifier>{bc715a94-1e6b-4c13-8598-035de7188552}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\P05">
+      <UniqueIdentifier>{a4cf8882-38fc-4ea8-9154-b3573a2f0053}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PracticeCPlus\Classes\Global\Define\KGDefine.h">
@@ -79,6 +82,9 @@
     <ClInclude Include="PracticeCPlus\Classes\P04\MapMemberManager.h">
       <Filter>Classes\P04\Map</Filter>
     </ClInclude>
+    <ClInclude Include="PracticeCPlus\Classes\P05\P05.h">
+      <Filter>Classes\P05</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp">
@@ -113,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="PracticeCPlus\Classes\P04\MapMemberManager.cpp">
       <Filter>Classes\P04\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PracticeCPlus\Classes\P05\P05.cpp">
+      <Filter>Classes\P05</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

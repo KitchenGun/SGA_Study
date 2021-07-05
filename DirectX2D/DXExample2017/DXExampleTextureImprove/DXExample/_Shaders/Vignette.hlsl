@@ -63,8 +63,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	}
 	else if (_selection == 2)//액자
 	{
-		color.rgb *= 1 - dot(dist, dist) * 6;
-
+		color.rgb *= 1 - dot(dist, dist) * 4;
 	}
 	return color;
 

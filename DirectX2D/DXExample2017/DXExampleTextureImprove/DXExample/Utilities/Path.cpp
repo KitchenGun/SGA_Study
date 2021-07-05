@@ -8,7 +8,7 @@ bool Path::ExistFile(string path)
 
 bool Path::ExistFile(wstring path)
 {
-	DWORD fileValue = GetFileAttributes(path.c_str());
+	DWORD fileValue = GetFileAttributes(path.c_str());//기존 파일 속성 확인
 	return fileValue < 0xFFFFFFFF;
 }
 

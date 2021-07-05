@@ -150,6 +150,7 @@
     <ClInclude Include="PracticeCPlus\Classes\P04\Member.h" />
     <ClInclude Include="PracticeCPlus\Classes\P04\P04.h" />
     <ClInclude Include="PracticeCPlus\Classes\P04\VectorMemberManager.h" />
+    <ClInclude Include="PracticeCPlus\Classes\P05\P05.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PracticeCPlus\Classes\P01\P01.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="PracticeCPlus\Classes\P04\Member.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\P04\P04.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\P04\VectorMemberManager.cpp" />
+    <ClCompile Include="PracticeCPlus\Classes\P05\P05.cpp" />
     <ClCompile Include="PracticeCPlus\Classes\PracticeCPlus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

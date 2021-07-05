@@ -1,20 +1,21 @@
 #include "stdafx.h"
 #include "String.h"
 
-void String::SplitString(vector<string>* result, string origin, string tok)
+void String::SplitString(vector<string>* result, string origin, string tok)//특정 문자를 기준으로 문자열 자르기
 {
 	result->clear();
 
 	int cutAt = 0;//자를 위치 인덱스
 	
-	while ((cutAt = (int)origin.find_first_of(tok) != origin.npos))
+	//문자열 origin에서 tok가 나오는 가장 첫번째 문자의 인덱스를 cutat에 넣고 while문 돌림
+	//찾는 문자열이 있을 경우 돌린다
+	while (cutAt = (int)origin.find_first_of(tok) != origin.npos)
 	{
 		if (cutAt > 0)
 			result->push_back(origin.substr(0, cutAt));
-
+		//오리지날에 자른부분을 제외하고 넣어준다
 		origin = origin.substr(cutAt + 1);
 	}
-
 	if (origin.length() > 0)
 		result->push_back(origin.substr(0, cutAt));
 }
@@ -40,7 +41,7 @@ bool String::StartsWith(string str, string comp)
 {
 	string::size_type index = str.find(comp);
 
-	if (index != string::npos && (int)index == 0)
+	if (index != string::npos && (int)index == 0)//str 첫번째 값을 넣을때만 true가 나온다
 		return true;
 
 	return false;
@@ -72,11 +73,12 @@ bool String::Contain(wstring str, wstring comp)
 
 void String::Replace(string * str, string comp, string rep)
 {
+	//원래 문자열 주소에서 사이즈를 늘리는 방법
 	string temp = *str;
 	size_t start_pos = 0;
 	while ((start_pos = temp.find(comp, start_pos)) != string::npos)
 	{
-		temp.replace(start_pos, comp.length(), rep);
+		temp.replace(start_pos, comp.length(), rep);//선택한 인덱스 범위를 rep로 교체함
 		start_pos += rep.length();
 	}
 	*str = temp;
