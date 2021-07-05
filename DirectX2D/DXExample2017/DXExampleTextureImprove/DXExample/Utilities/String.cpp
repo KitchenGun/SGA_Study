@@ -9,7 +9,9 @@ void String::SplitString(vector<string>* result, string origin, string tok)//특�
 	
 	//문자열 origin에서 tok가 나오는 가장 첫번째 문자의 인덱스를 cutat에 넣고 while문 돌림
 	//찾는 문자열이 있을 경우 돌린다
-	while (cutAt = (int)origin.find_first_of(tok) != origin.npos)
+	//find_first_of(tok)를 긴것을 통째로 넣으면 토큰에 들어가있는 문자열을 구성하는 문자하나라도 발견되면 그위치가 먼저 반환한다
+	//npos == -1로 취급
+	while ((cutAt = (int)origin.find_first_of(tok)) != origin.npos)//연산자 우선순위때문에 이렇게 작성함
 	{
 		if (cutAt > 0)
 			result->push_back(origin.substr(0, cutAt));
@@ -25,7 +27,7 @@ void String::SplitString(vector<wstring>* result, wstring origin, wstring tok)
 	result->clear();
 
 	int cutAt = 0;
-	while ((cutAt = (int)origin.find_first_of(tok) != origin.npos))
+	while ((cutAt = (int)origin.find_first_of(tok)) != origin.npos)
 	{
 		if (cutAt > 0)
 			result->push_back(origin.substr(0, cutAt));
@@ -37,11 +39,11 @@ void String::SplitString(vector<wstring>* result, wstring origin, wstring tok)
 		result->push_back(origin.substr(0, cutAt));
 }
 
-bool String::StartsWith(string str, string comp)
+bool String::StartsWith(string str, string comp)//comp로 시작하는지 안하는지 확인용
 {
 	string::size_type index = str.find(comp);
 
-	if (index != string::npos && (int)index == 0)//str 첫번째 값을 넣을때만 true가 나온다
+	if (index != string::npos && (int)index == 0)//중복 경로를 찾을때 사용할 수 있다.
 		return true;
 
 	return false;
@@ -71,16 +73,17 @@ bool String::Contain(wstring str, wstring comp)
 	return found != wstring::npos;
 }
 
-void String::Replace(string * str, string comp, string rep)
+void String::Replace(string * str, string comp, string rep)//수정위해서 포인터로 받음
 {
-	//원래 문자열 주소에서 사이즈를 늘리는 방법
+	//원래 문자열의 특정부분을 주어진 문자열로 교체
 	string temp = *str;
 	size_t start_pos = 0;
-	while ((start_pos = temp.find(comp, start_pos)) != string::npos)
+	while ((start_pos = temp.find(comp, start_pos)) != string::npos) //반복으로 수행
 	{
 		temp.replace(start_pos, comp.length(), rep);//선택한 인덱스 범위를 rep로 교체함
 		start_pos += rep.length();
 	}
+
 	*str = temp;
 }
 
