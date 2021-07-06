@@ -30,7 +30,7 @@ bool Path::ExistDirectory(wstring path)
 	return temp = TRUE;
 }
 
-string Path::Combine(string path1, string path2)
+string Path::Combine(string path1, string path2)//string문 2개를 합치기
 {
 	return path1+path2;
 }
@@ -41,7 +41,7 @@ wstring Path::Combine(wstring path1, wstring path2)
 }
 
 string Path::Combine(vector<string> paths)
-{
+{//for문을 사용해서 vector안에 분리되어있는 스트링을 합치는 역할 
 	string temp = "";
 	for (string path : paths)
 		temp += path;
@@ -57,7 +57,7 @@ wstring Path::Combine(vector<wstring> paths)
 }
 
 string Path::GetDirectoryName(string path)
-{
+{//주소를 얻는 함수
 	String::Replace(&path, "\\", "/");
 	size_t index = path.find_last_of('/');
 
@@ -74,6 +74,7 @@ wstring Path::GetDirectoryName(wstring path)
 
 string Path::GetExtension(string path)
 {
+	//확장자를 얻음
 	String::Replace(&path, "\\", "/");
 	size_t index = path.find_last_of('.');
 
@@ -106,6 +107,7 @@ string Path::GetFileName(string path)
 
 string Path::GetFileNameWithoutExtension(string path)
 {
+	//확장자를 제외한 파일이름
 	string fileName = GetFileName(path);
 	size_t index = fileName.find_last_of('.');
 
@@ -141,13 +143,13 @@ void Path::OpenFileDialog(wstring file, const WCHAR * filter, wstring folder, fu
 	ofn.lpstrInitialDir = tempFolder.c_str();
 	ofn.Flags = OFN_NOCHANGEDIR;
 
-	if (GetOpenFileName(&ofn) == TRUE)
+	if (GetOpenFileName(&ofn) == TRUE)//파일을 열수있으면
 	{
 		if (func != NULL)
 		{
 			wstring loadName = name;
 			String::Replace(&loadName, L"\\", L"/");
-
+			//변환값을 매개변수의 함수에 전달
 			func(loadName);
 		}
 	}
