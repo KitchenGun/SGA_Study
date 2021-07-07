@@ -82,6 +82,7 @@ WPARAM Window::Run()
 	Mouse::Create();
 	Time::Create();
 	Time::Get()->Start();
+	Gui::Create();
 
 	program = new Program();
 	program->Init();
@@ -99,9 +100,13 @@ WPARAM Window::Run()
 		}
 		else
 		{
-			Mouse::Get()->Update();
-			Keyboard::Get()->Update();
 			Time::Get()->Update();
+			if (ImGui::IsMouseHoveringAnyWindow() == false)
+			{
+				Mouse::Get()->Update();
+				Keyboard::Get()->Update();
+			}
+			Gui::Get()->Update();
 
 			program->Update();
 			program->PreRender();
@@ -109,12 +114,15 @@ WPARAM Window::Run()
 			Graphics::Get()->Begin();
 			{
 				program->Render();
+				program->PostRender();
+				Gui::Get()->Render();
 			}
 			Graphics::Get()->End();
 		}
 	}
 	SAFE_DELETE(program);
 	//½Ì±ÛÅæ °´Ã¼ Á¦°Å
+	Gui::Delete();
 	Time::Delete();
 	Mouse::Delete();
 	Keyboard::Delete();
@@ -128,6 +136,8 @@ LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	//¸¶¿ì½º ¸Þ¼¼Áö Àü´Þ
 	Mouse::Get()->InputProc(message, wParam, lParam);
+	if (Gui::Get()->MSGProc(handle, message, wParam, lParam))
+		return true;
 
 	if (message == WM_CREATE)
 		::handle = handle;

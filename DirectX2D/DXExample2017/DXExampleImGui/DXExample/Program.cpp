@@ -81,3 +81,9 @@ void Program::Render()
 {
 	currentScene->Render();
 }
+
+void Program::PostRender()
+{
+	Gui::Get()->PrintFrame();
+	currentScene->PostRender();
+}

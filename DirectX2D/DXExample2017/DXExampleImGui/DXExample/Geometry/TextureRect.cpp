@@ -70,6 +70,8 @@ TextureRect::TextureRect(Vector3 position, Vector3 size, float rotation)
 
 TextureRect::~TextureRect()
 {
+	SAFE_RELEASE(srv);
+
 	SAFE_DELETE(LB);
 	SAFE_DELETE(BB);
 	SAFE_DELETE(SB);
@@ -87,6 +89,7 @@ TextureRect::~TextureRect()
 
 void TextureRect::SetSRV(wstring path)
 {
+	texturePath = path;
 	//텍스쳐가 쉐이더에 접근 할 수 있게 함
 	ViewFactory::GenerateSRV(path, &srv);
 }
@@ -177,17 +180,75 @@ void TextureRect::Render()
 
 void TextureRect::GUI(int ordinal)
 {
+	string objName = "TextureRect" + to_string(ordinal);
+	if (ImGui::BeginMenu(objName.c_str()))
+	{
+		ImGui::Text(objName.c_str());
+		ImGui::Text(String::ToString(texturePath).c_str());
+		ImGui::Text(String::ToString(shaderPath).c_str());
 
+		if (ImGui::Button("ChangeImage", ImVec2(100, 30)))
+		{
+			ChangeImageFunc();
+		}
+		if (ImGui::Button("ChangeShader", ImVec2(100, 30)))
+		{
+			ChangeShaderFunc();
+		}
+		if (ImGui::InputText("InputText", text, sizeof(text), ImGuiInputTextFlags_EnterReturnsTrue))
+		{
+			SaveTextAsFile(text);
+		}
+
+		ImGui::EndMenu();
+	}
+	else
+	{
+
+	}
 }
 
 void TextureRect::ChangeImageFunc(const wstring & path)
 {
+	if (path.length() < 1)
+	{
+		function<void(wstring)> func = bind(&TextureRect::ChangeImageFunc, this, placeholders::_1);
+		Path::OpenFileDialog(L"", Path::ImageFilter, L"./_Textures/", func, handle);
+	}
+	else
+	{
+		SetSRV(path);
+	}
 }
 
 void TextureRect::ChangeShaderFunc(const wstring & path)
 {
+	if (path.length() < 1)
+	{
+		function<void(wstring)> func = bind(&TextureRect::ChangeShaderFunc, this, placeholders::_1);
+		Path::OpenFileDialog(L"", Path::ShaderFilter, L"./_Shaders/", func, handle);
+	}
+	else
+	{
+		SetShader(path);
+	}
 }
 
 void TextureRect::SaveTextAsFile(const string & text, const wstring & path)
 {
+	if (path.length() < 1)
+	{
+		function<void(wstring)> func = bind(&TextureRect::SaveTextAsFile, this, text, placeholders::_1);
+		Path::SaveFileDialog(L"", Path::TextFilter, L"./", func, handle);
+	}
+	else
+	{
+		ofstream writefile(path.c_str());
+		if (writefile.is_open())
+		{
+			writefile << text << endl;
+			writefile.clear();
+		}
+		writefile.close();
+	}
 }

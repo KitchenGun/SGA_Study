@@ -135,6 +135,8 @@ void Path::OpenFileDialog(wstring file, const WCHAR * filter, wstring folder, fu
 	wcscpy_s(name, file.c_str());
 	//초기경로로 지정할 string변수
 	wstring tempFolder = folder;
+	//윈도우 경로로 변경
+	String::Replace(&tempFolder, L"/", L"\\");
 
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
@@ -164,8 +166,10 @@ void Path::SaveFileDialog(wstring file, const WCHAR * filter, wstring folder, fu
 {
 	WCHAR name[255];
 	wcscpy_s(name, file.c_str());
-	wstring tempFolder = folder;
 
+	wstring tempFolder = folder;
+	
+	String::Replace(&tempFolder, L"/", L"\\");
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 	ofn.lStructSize = sizeof(OPENFILENAME);

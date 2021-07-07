@@ -48,3 +48,7 @@ void Scene3::Render()
 	//circle->Render();
 	texture->Render();
 }
+
+void Scene3::PostRender()
+{
+}

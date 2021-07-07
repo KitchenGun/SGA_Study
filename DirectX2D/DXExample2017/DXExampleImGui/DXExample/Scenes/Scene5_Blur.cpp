@@ -43,3 +43,7 @@ void Scene5::Render()
 {
 	texture->Render();
 }
+
+void Scene5::PostRender()
+{
+}

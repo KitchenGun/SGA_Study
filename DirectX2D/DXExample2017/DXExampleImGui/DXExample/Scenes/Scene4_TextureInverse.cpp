@@ -72,3 +72,7 @@ void Scene4::Render()
 {
 	textureRect->Render();
 }
+
+void Scene4::PostRender()
+{
+}

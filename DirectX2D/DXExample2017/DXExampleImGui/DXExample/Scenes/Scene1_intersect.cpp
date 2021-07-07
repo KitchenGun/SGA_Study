@@ -58,3 +58,7 @@ void Scene1::Render()
 	square->Render();
 	square2->Render();
 }
+
+void Scene1::PostRender()
+{
+}

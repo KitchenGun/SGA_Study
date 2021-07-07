@@ -86,6 +86,7 @@ extern HWND handle;
 #include "System/Time.h"
 #include "System/Mouse.h"
 #include "System/Keyboard.h"
+#include "System/GUI/Gui.h"
 
 
 #include "Geometry/Line.h"

@@ -88,3 +88,7 @@ void Scene2::Render()
 	Hour->Render();
 	clock->Render();
 }
+
+void Scene2::PostRender()
+{
+}
