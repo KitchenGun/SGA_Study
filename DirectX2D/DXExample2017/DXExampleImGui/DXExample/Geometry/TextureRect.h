@@ -15,10 +15,10 @@ public:
 
 	struct Struct
 	{//데이터 패딩
-		int selection = 1;
-		Vector2 texturSize = { WinMaxWidth,WinMaxHeight };//정의와 동시에 초기화
-		bool _bOutline;
-		bool dummy[3];
+		int selection = 1;															//4바이트
+		Vector2 texturSize = { WinMaxWidth,WinMaxHeight };//정의와 동시에 초기화		//8바이트
+		bool _bOutline;																//1바이트
+		bool dummy[3];																//3바이트
 	};
 
 private:
@@ -98,6 +98,7 @@ public:
 	void GUI(int ordinal);
 
 private:
+	//경로 교체 함수
 	void ChangeImageFunc(const wstring& path = L"");
 	void ChangeShaderFunc(const wstring& path = L"");
 	void SaveTextAsFile(const string& text,const wstring& path = L"");
@@ -120,7 +121,7 @@ private:
 	SelectBuffer* SB = nullptr;
 	BlurBuffer* BB = nullptr;
 	LocalBuffer* LB = nullptr;
-
+	//경로
 	wstring texturePath = L"";
 	wstring shaderPath = L"";
 	char text[255] = "";
