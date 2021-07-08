@@ -4,7 +4,8 @@
 //#define SUBSTR	1
 //#define STARTSWITH	2
 //#define CONTAIN		3
-#define REPLACE		4
+//#define REPLACE		4
+#define SWITCHSTRING	5
 namespace P05Space
 {
 	void P05(const int argc, const char** args)
@@ -53,6 +54,16 @@ namespace P05Space
 			start_pos += rep.length();
 		}
 		std::cout<<a;
+
+#elif SWITCHSTRING
+
+		std::string a = "012345";
+
+		switch (a)
+		{
+		default:
+			break;
+		}
 #endif // npos
 
 	}
