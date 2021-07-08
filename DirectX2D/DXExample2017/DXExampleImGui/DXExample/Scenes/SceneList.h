@@ -5,3 +5,4 @@
 #include "Scene3_Texture.h"
 #include "Scene4_TextureInverse.h"
 #include "Scene5_Blur.h"
+#include "Scene6_ImGui.h"

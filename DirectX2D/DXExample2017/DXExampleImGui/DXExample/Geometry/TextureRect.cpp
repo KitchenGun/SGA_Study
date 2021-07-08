@@ -180,9 +180,9 @@ void TextureRect::Render()
 
 void TextureRect::GUI(int ordinal)
 {
-	string objName = "TextureRect" + to_string(ordinal);
+	string objName = "TextureRect" + to_string(ordinal);//ordinal에 따라서 결정이 됨
 	if (ImGui::BeginMenu(objName.c_str()))
-	{
+	{//창안에 메뉴를 띄우겠다
 		ImGui::Text(objName.c_str());
 		ImGui::Text(String::ToString(texturePath).c_str());
 		ImGui::Text(String::ToString(shaderPath).c_str());
@@ -199,7 +199,6 @@ void TextureRect::GUI(int ordinal)
 		{
 			SaveTextAsFile(text);
 		}
-
 		ImGui::EndMenu();
 	}
 	else

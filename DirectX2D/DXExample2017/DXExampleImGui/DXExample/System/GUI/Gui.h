@@ -12,7 +12,7 @@ public :
 	void Resize();
 
 	void PrintFrame();
-	void TextureRectGUIS(vector<class TextureRect*>& rtVec, const char* name);
+	void TextureRectGUIS(vector<class TextureRect*>& trVec, const char* name);
 
 	void Update();
 	void Render();

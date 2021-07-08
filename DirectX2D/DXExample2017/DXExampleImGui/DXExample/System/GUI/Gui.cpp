@@ -36,7 +36,7 @@ void Gui::PrintFrame()//프레임 출력
 {
 	bool temp = true; //기본값을 바꾸기 위해서 bool 변수를 넘겨줘야함 만약 false를 넘기면 안나옴
 	ImGui::SetNextWindowPos({ WinMaxWidth - 150,0 });//다음 윈도우의 포지션 결정//우상단에 띄움
-	if (ImGui::Begin("FrameRate", &temp, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar))//gui창 하나를 띄우겠다
+	if (ImGui::Begin("FrameRate", &temp, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoResize))//gui창 하나를 띄우겠다
 	{//타이틀 바 없고 배경도 없음
 		string frameStr = "Frame Rate : " + to_string((int)ImGui::GetIO().Framerate);//프레임 레이트 받아옴
 		ImGui::TextColored(ImVec4(1, 1, 1, 1), frameStr.c_str());
@@ -44,8 +44,21 @@ void Gui::PrintFrame()//프레임 출력
 	ImGui::End();
 }
 
-void Gui::TextureRectGUIS(vector<class TextureRect*>& rtVec, const char * name)
+void Gui::TextureRectGUIS(vector<class TextureRect*>& trVec, const char * name)
 {
+	if (trVec.size() <= 0)
+	{
+		return;
+	}
+	bool temp = true;
+	if (ImGui::Begin(name), &temp)
+	{
+		for (UINT i = 0; i < trVec.size(); i++)
+		{
+			trVec[i]->GUI(i);
+		}
+	}
+	ImGui::End();
 }
 
 void Gui::Update()

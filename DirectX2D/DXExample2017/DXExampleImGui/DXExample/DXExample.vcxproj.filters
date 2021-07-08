@@ -36,6 +36,7 @@
     <ClCompile Include="Utilities\String.cpp" />
     <ClCompile Include="Utilities\Path.cpp" />
     <ClCompile Include="System\GUI\Gui.cpp" />
+    <ClCompile Include="Scenes\Scene6_ImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Utilities\String.h" />
     <ClInclude Include="Utilities\Path.h" />
     <ClInclude Include="System\GUI\Gui.h" />
+    <ClInclude Include="Scenes\Scene6_ImGui.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
