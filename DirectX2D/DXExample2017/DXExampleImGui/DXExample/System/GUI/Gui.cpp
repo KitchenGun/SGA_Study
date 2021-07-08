@@ -26,7 +26,7 @@ LRESULT Gui::MSGProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 	return ImGui_ImplWin32_Proc(handle, message, wParam, lParam);
 }
 
-void Gui::Resize()
+void Gui::Resize()//해상도 바뀌거나 기기가 바꿨을때 호출
 {
 	ImGui_ImplDX11_InvalidateDeviceObjects();
 	ImGui_ImplDX11_CreateDeviceObjects();
@@ -50,10 +50,10 @@ void Gui::TextureRectGUIS(vector<class TextureRect*>& rtVec, const char * name)
 
 void Gui::Update()
 {
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
+	ImGui_ImplDX11_NewFrame();//마우스 / 키보드 데이터 업데이트
+	ImGui_ImplWin32_NewFrame();//Win32 메시지 처리기 데이터 업데이트
 
-	ImGui::NewFrame();
+	ImGui::NewFrame();//새 ImGui 프레임을 시작합니다.이 시점부터 Render () / EndFrame ()까지 모든 명령을 제출할 수 있습니다.
 
 }
 

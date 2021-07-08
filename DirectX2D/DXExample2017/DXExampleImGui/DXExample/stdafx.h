@@ -58,8 +58,8 @@ typedef D3DXCOLOR Color;
 #define ASSERT(p) assert(SUCCEEDED(p));
 
 //Ã¢Å©±â
-#define WinMaxWidth 1280
-#define WinMaxHeight 720
+#define WinMaxWidth		1280
+#define WinMaxHeight	720
 
 #define Red		Color(1,0,0,1)
 #define Green	Color(0,1,0,1)
