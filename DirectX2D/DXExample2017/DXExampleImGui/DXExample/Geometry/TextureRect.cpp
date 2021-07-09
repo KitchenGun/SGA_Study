@@ -70,6 +70,7 @@ TextureRect::TextureRect(Vector3 position, Vector3 size, float rotation)
 
 TextureRect::~TextureRect()
 {
+	SAFE_RELEASE(nullView);
 	SAFE_RELEASE(srv);
 
 	SAFE_DELETE(LB);
@@ -89,13 +90,15 @@ TextureRect::~TextureRect()
 
 void TextureRect::SetSRV(wstring path)
 {
-	texturePath = path;
+	this->texturePath = path;
 	//텍스쳐가 쉐이더에 접근 할 수 있게 함
 	ViewFactory::GenerateSRV(path, &srv);
 }
 
 void TextureRect::SetShader(wstring shaderPath)
 {
+
+	this->shaderPath = shaderPath;
 	//vs와ps객체에 함수 호출// 실행중간에 교체할수있도록 함수화 하였음
 	if (VS)
 	{
@@ -176,16 +179,25 @@ void TextureRect::Render()
 	LB->SetPSBuffer(2);
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
+	if (srv)
+	{
+		DC->PSSetShaderResources(0, 1, &nullView);//더블 포인터 요청하는데 nullptr넣으면 당연히 안됨 
+												  //nullView는 엄밀히 말하면 nullView != nullptr
+	}
 }
 
 void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 {
 	string objName = "TextureRect" + to_string(ordinal);//ordinal에 따라서 결정이 됨
+	string imgName = "Image : " + String::ToString(Path::GetFileName(texturePath));
+	string shaderName = "Shader : " + String::ToString(Path::GetFileName(shaderPath));
 	if (ImGui::BeginMenu(objName.c_str()))
 	{//GUI창 안에 메뉴를 띄우겠다
+		SB->SetOutline(true);
+
 		ImGui::Text(objName.c_str());
-		ImGui::Text(String::ToString(texturePath).c_str());
-		ImGui::Text(String::ToString(shaderPath).c_str());
+		ImGui::Text(imgName.c_str());
+		ImGui::Text(shaderName.c_str());
 
 		if (ImGui::Button("ChangeImage", ImVec2(100, 30)))
 		{
@@ -199,11 +211,24 @@ void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 		{
 			SaveTextAsFile(text);
 		}
+
+		ImGui::SliderFloat3("Translation", position, 0, WinMaxWidth, "%.2f");
+		ImGui::SliderFloat3("Size", size, 1, WinMaxWidth, "%.2f");
+		ImGui::SliderAngle("Rotation", &rotation);
+
+		D3DXMatrixScaling(&S, size.x, size.y, size.z);
+		D3DXMatrixRotationZ(&R, -rotation);
+		D3DXMatrixTranslation(&T, position.x, position.y, position.z);
+
+		world = S * R * T;
+
+		WB->SetWorld(world);
+
 		ImGui::EndMenu();
 	}
 	else
 	{
-
+		SB->SetOutline(false);
 	}
 }
 

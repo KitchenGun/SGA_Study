@@ -47,5 +47,7 @@ PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형�
 
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
+	
+
     return input.color;
 }

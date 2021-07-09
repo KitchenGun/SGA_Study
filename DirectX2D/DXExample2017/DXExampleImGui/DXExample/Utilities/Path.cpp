@@ -205,7 +205,7 @@ void Path::GetFiles(vector<string>* files, string path, string filter, bool bFin
 		files->push_back(String::ToString(str));
 	}
 }
-
+//										파일들이 있는 경로
 void Path::GetFiles(vector<wstring>* files, wstring path, wstring filter, bool bFindSubFolder)
 {
 	//파일이 여러개 반환 경로에 있으면서 필터에 충족하는 자료들을 불러옴

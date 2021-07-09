@@ -16,6 +16,14 @@ Scene6::~Scene6()
 
 void Scene6::Init()
 {
+	Path::GetFiles(&paths, L"./_Textures/", L"*.*", true);
+	cout << endl;
+
+	for (wstring path : paths)
+	{
+		wstring str = Path::GetFileNameWithoutExtension(path);
+		wcout << str << endl;
+	}
 }
 
 

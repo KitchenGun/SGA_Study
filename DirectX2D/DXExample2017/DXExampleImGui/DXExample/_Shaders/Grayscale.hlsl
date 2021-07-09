@@ -60,5 +60,10 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 		color = float4(grayscale.rgb, 1);
 		//color값을 수정하여서 전달
 	}
+	
+	if (_bOutline && (input.uv.x < 0.01f || input.uv.x > 0.99f || input.uv.y < 0.01f || input.uv.y > 0.99f))//액자
+	{
+		color = float4(1, 1, 1, 1);
+	}
 	return color;
 }   

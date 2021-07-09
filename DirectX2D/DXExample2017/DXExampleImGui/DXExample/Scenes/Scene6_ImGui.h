@@ -12,5 +12,7 @@ public:
 	void Render() override;
 	void PostRender() override;
 private:
+
+	vector<wstring> paths;
 	vector<TextureRect*> trVec;
 };

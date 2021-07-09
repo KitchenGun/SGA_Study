@@ -79,5 +79,10 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	{
 		result = color;
 	}
+	
+	if (_bOutline && (input.uv.x < 0.01f || input.uv.x > 0.99f || input.uv.y < 0.01f || input.uv.y > 0.99f))//액자
+	{
+		result = float4(1, 1, 1, 1);
+	}
 	return result;
 }
