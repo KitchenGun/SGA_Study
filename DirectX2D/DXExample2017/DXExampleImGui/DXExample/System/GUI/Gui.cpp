@@ -44,7 +44,8 @@ void Gui::PrintFrame()//프레임 출력
 	ImGui::End();
 }
 
-void Gui::TextureRectGUIS(vector<class TextureRect*>& trVec, const char * name)
+//trVec texturerect의 집합 name은 창의 이름임
+void Gui::TextureRectGUIS(vector<class TextureRect*>& trVec, const char * name)//TextureRect의 gui 작업을 처리하는 함수
 {
 	if (trVec.size() <= 0)
 	{

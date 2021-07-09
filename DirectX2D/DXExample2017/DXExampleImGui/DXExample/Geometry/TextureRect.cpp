@@ -178,11 +178,11 @@ void TextureRect::Render()
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
 }
 
-void TextureRect::GUI(int ordinal)
+void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 {
 	string objName = "TextureRect" + to_string(ordinal);//ordinal에 따라서 결정이 됨
 	if (ImGui::BeginMenu(objName.c_str()))
-	{//창안에 메뉴를 띄우겠다
+	{//GUI창 안에 메뉴를 띄우겠다
 		ImGui::Text(objName.c_str());
 		ImGui::Text(String::ToString(texturePath).c_str());
 		ImGui::Text(String::ToString(shaderPath).c_str());
@@ -209,8 +209,10 @@ void TextureRect::GUI(int ordinal)
 
 void TextureRect::ChangeImageFunc(const wstring & path)
 {
-	if (path.length() < 1)
+	if (path.length() < 1)//주소가 없으면
 	{
+		//bind = 함수의 일부 매개 변수를 고정 값으로 세팅한 후, 한번 Wrapping 하여 사용할 수 있게 해주는 함수
+		//Wrapping이란 데이터를 객체에 넣기 위해서 제공하는 함수들이라고 생각하면된다
 		function<void(wstring)> func = bind(&TextureRect::ChangeImageFunc, this, placeholders::_1);
 		Path::OpenFileDialog(L"", Path::ImageFilter, L"./_Textures/", func, handle);
 	}
