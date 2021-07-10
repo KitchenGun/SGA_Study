@@ -145,7 +145,7 @@ void TextureRect::Update()
 	}
 	else if(Keyboard::Get()->Down(VK_03))
 	{
-		SB->SetSelection(3);
+		SB->SetSelection(3);  
 		BB->SetCount(8);
 	}
 	else if (Keyboard::Get()->Down(VK_04))
@@ -182,7 +182,7 @@ void TextureRect::Render()
 	if (srv)
 	{
 		DC->PSSetShaderResources(0, 1, &nullView);//더블 포인터 요청하는데 nullptr넣으면 당연히 안됨 
-												  //nullView는 엄밀히 말하면 nullView != nullptr
+		//nullView는 엄밀히 말하면 nullView != nullptr
 	}
 }
 
