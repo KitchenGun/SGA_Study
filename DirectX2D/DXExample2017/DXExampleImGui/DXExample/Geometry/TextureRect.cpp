@@ -179,7 +179,7 @@ void TextureRect::Render()
 	LB->SetPSBuffer(2);
 	//인덱스 버퍼를 이용해서 그리기
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
-	if (srv)
+	if (srv)//텍스쳐를 지정하지 않아도 지정이 되는 문제를 해결하기 위한 예외 처리
 	{
 		DC->PSSetShaderResources(0, 1, &nullView);//더블 포인터 요청하는데 nullptr넣으면 당연히 안됨 
 		//nullView는 엄밀히 말하면 nullView != nullptr
@@ -193,12 +193,14 @@ void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 	string shaderName = "Shader : " + String::ToString(Path::GetFileName(shaderPath));
 	if (ImGui::BeginMenu(objName.c_str()))
 	{//GUI창 안에 메뉴를 띄우겠다
-		SB->SetOutline(true);
 
+		//선택시 외곽선 강조 활성화
+		SB->SetOutline(true);
+		//선택한 파일 이름 텍스트 띄우기
 		ImGui::Text(objName.c_str());
 		ImGui::Text(imgName.c_str());
 		ImGui::Text(shaderName.c_str());
-
+		//버튼 클릭시 해당 함수 실행
 		if (ImGui::Button("ChangeImage", ImVec2(100, 30)))
 		{
 			ChangeImageFunc();
@@ -211,11 +213,11 @@ void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 		{
 			SaveTextAsFile(text);
 		}
-
+		//슬라이더를 사용하여 객체의 상태 변경 슬라이더에는 소수점 2자리까지만 출력함
 		ImGui::SliderFloat3("Translation", position, 0, WinMaxWidth, "%.2f");
 		ImGui::SliderFloat3("Size", size, 1, WinMaxWidth, "%.2f");
 		ImGui::SliderAngle("Rotation", &rotation);
-
+		//gui에서 변경값을 적용
 		D3DXMatrixScaling(&S, size.x, size.y, size.z);
 		D3DXMatrixRotationZ(&R, -rotation);
 		D3DXMatrixTranslation(&T, position.x, position.y, position.z);
@@ -228,6 +230,7 @@ void TextureRect::GUI(int ordinal)//ordinal에 따라서 다르게 함수를 실행함
 	}
 	else
 	{
+		//선택시 외곽선 강조 해제
 		SB->SetOutline(false);
 	}
 }
