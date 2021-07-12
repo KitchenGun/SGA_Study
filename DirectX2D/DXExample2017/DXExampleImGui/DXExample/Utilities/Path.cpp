@@ -28,7 +28,7 @@ bool Path::ExistDirectory(wstring path)//이미 경로가 존재하는지 존재하지 않는지 
 	//INVALID_FILE_ATTRIBUTES는 (DWORD)-1				비트연산자 and를 사용하여 둘다 1일 경우를 찾는거임 
 	BOOL temp = (attribute != INVALID_FILE_ATTRIBUTES && (attribute & FILE_ATTRIBUTE_DIRECTORY));
 	//파일 존재을 확인하면서 attribute가 파일 디렉토리인것을 확인하고 확인값을 반환
-	return temp = TRUE;
+	return temp == TRUE;
 }
 
 string Path::Combine(string path1, string path2)//string문 2개를 합치기
@@ -180,6 +180,12 @@ void Path::SaveFileDialog(wstring file, const WCHAR * filter, wstring folder, fu
 	ofn.nMaxFile = 255;
 	ofn.lpstrInitialDir = tempFolder.c_str();
 	ofn.Flags = OFN_NOCHANGEDIR;
+	//
+	if (filter == TextFilter)
+		ofn.lpstrDefExt = L".txt";
+	else if (filter == ShaderFilter)
+		ofn.lpstrDefExt = L".hlsl";
+
 
 	if (GetOpenFileName(&ofn) == TRUE)
 	{

@@ -3,6 +3,13 @@
 
 Scene6::Scene6()
 {
+	Path::GetFiles(&paths, L"./_Textures/", L"*.*", true);
+
+	Path::CreateFolders(L"./Directory/Sub1/Sub1_1");
+	Path::CreateFolders(L"./Directory/Sub1/Sub1_2");
+	Path::CreateFolders(L"./Directory/Sub2/Sub2_1");
+
+	Path::GetFiles(&paths, L"./Directory/", L"*", true);
 }
 
 Scene6::~Scene6()
@@ -16,7 +23,6 @@ Scene6::~Scene6()
 
 void Scene6::Init()
 {
-	Path::GetFiles(&paths, L"./_Textures/", L"*.*", true);
 	cout << endl;
 
 	for (wstring path : paths)

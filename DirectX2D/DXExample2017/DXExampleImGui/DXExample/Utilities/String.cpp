@@ -77,6 +77,7 @@ void String::Replace(string * str, string comp, string rep)//수정위해서 포인터로
 {
 	//원래 문자열의 특정부분을 주어진 문자열로 교체
 	string temp = *str;
+
 	size_t start_pos = 0;
 	while ((start_pos = temp.find(comp, start_pos)) != string::npos) //반복으로 수행
 	{
