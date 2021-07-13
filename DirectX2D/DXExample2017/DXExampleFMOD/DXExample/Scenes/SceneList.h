@@ -6,3 +6,4 @@
 #include "Scene4_TextureInverse.h"
 #include "Scene5_Blur.h"
 #include "Scene6_ImGui.h"
+#include "Scene7_Sound.h"

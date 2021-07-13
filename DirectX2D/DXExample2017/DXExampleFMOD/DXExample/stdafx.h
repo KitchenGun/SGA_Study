@@ -101,5 +101,6 @@ extern HWND handle;
 #include "Utilities/RenderTexture.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
+#include "Utilities/SoundSystem.h"
 
 #include "Scenes/Scene.h"

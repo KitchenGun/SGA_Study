@@ -38,6 +38,7 @@
     <ClCompile Include="System\GUI\Gui.cpp" />
     <ClCompile Include="Scenes\Scene6_ImGui.cpp" />
     <ClCompile Include="Utilities\SoundSystem.cpp" />
+    <ClCompile Include="Scenes\Scene7_Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="System\GUI\Gui.h" />
     <ClInclude Include="Scenes\Scene6_ImGui.h" />
     <ClInclude Include="Utilities\SoundSystem.h" />
+    <ClInclude Include="Scenes\Scene7_Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
