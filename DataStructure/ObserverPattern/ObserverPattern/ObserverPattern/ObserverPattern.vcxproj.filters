@@ -5,7 +5,6 @@
     <ClInclude Include="Observer\Observer.h">
       <Filter>Observer</Filter>
     </ClInclude>
-    <ClInclude Include="Note.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Observer">
@@ -14,6 +13,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Note.cpp" />
   </ItemGroup>
 </Project>
