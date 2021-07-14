@@ -13,6 +13,7 @@ Scene7::~Scene7()
 
 void Scene7::Init()
 {
+	//사운드 객체 초기화
 	string fileName = "./_Sounds/war.mp3";
 	BGSound = new SoundSystem();
 	BGSound->CreateBGSound(fileName);
@@ -62,6 +63,7 @@ void Scene7::Render()
 
 void Scene7::PostRender()
 {
+	//gui띄우기
 	bool temp = true;
 	if (ImGui::Begin("Sounds"), &temp);
 	{

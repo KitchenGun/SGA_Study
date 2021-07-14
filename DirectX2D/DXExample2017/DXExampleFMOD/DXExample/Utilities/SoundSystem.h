@@ -19,6 +19,7 @@ public:
 	void SetVolume(float val);
 	void SetMute(bool val);
 	void SetLoop(bool val);
+
 	void GUI(int ordinal);
 
 private:
