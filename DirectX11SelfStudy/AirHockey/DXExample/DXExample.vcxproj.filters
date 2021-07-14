@@ -38,6 +38,7 @@
     <ClCompile Include="Scenes\AirHockey.cpp" />
     <ClCompile Include="Geometry\AirHockey\Player.cpp" />
     <ClCompile Include="Geometry\AirHockey\Ball.cpp" />
+    <ClCompile Include="Utilities\SoundSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Scenes\AirHockey.h" />
     <ClInclude Include="Geometry\AirHockey\Player.h" />
     <ClInclude Include="Geometry\AirHockey\Ball.h" />
+    <ClInclude Include="Utilities\SoundSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

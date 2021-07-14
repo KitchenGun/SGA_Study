@@ -28,9 +28,14 @@ void Math::CircleIntersect(Ball * c1, Player * c2)
 		cout << "충돌" << endl;
 		if (!c2->GetIntersect())
 		{
+			c2->SetIntersect(true);
 			float angle = atan2(CircleEdge1.POINT.y - CircleEdge2.POINT.y, CircleEdge1.POINT.x - CircleEdge2.POINT.x);
 			c1->SetVecDir({ cos(angle), sin(angle), 0 });
 		}
+	}
+	else
+	{
+		c2->SetIntersect(false);
 	}
 }
 
@@ -169,19 +174,27 @@ void Math::CircleWallIntersect(Ball * c1)
 
 	if (CircleEdge.POINT.y + CircleEdge.RADIUS > WinMaxHeight)//위에 충돌
 	{
+		c1->SetIntersect(true);
 		c1->SetVecDir({ c1->GetVecDir().x, c1->GetVecDir().y*-1,0 });
 	}
 	else if (CircleEdge.POINT.y - CircleEdge.RADIUS < 0)//아래 충돌
 	{
+		c1->SetIntersect(true);
 		c1->SetVecDir({ c1->GetVecDir().x, c1->GetVecDir().y*-1,0 });
 	}
 	else if (CircleEdge.POINT.x + CircleEdge.RADIUS > WinMaxWidth)//우측 충돌
 	{
+		c1->SetIntersect(true);
 		c1->SetVecDir({ c1->GetVecDir().x*-1, c1->GetVecDir().y,0 });
 	}
 	else if (CircleEdge.POINT.x - CircleEdge.RADIUS < 0)//좌측 충돌
 	{
+		c1->SetIntersect(true);
 		c1->SetVecDir({ c1->GetVecDir().x*-1, c1->GetVecDir().y,0 });
+	}
+	else
+	{
+		c1->SetIntersect(false);
 	}
 }
 

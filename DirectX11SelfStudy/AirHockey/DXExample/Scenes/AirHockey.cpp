@@ -12,6 +12,13 @@ AirHockey::~AirHockey()
 
 void AirHockey::Init()
 {
+
+	bounceSFX = new SoundSystem;
+	bounce2SFX = new SoundSystem;
+	string fileName = "./_Sounds/gen_3A.wav";
+	bounceSFX->CreateEffSound(fileName);
+	fileName = "./_Sounds/gen_2C.wav";
+	bounce2SFX->CreateEffSound(fileName);
 	//ball
 	CBall = new Ball({ WinMaxWidth/2,WinMaxHeight / 2,0 }, {25,25,1}, 100, Red);
 	//player
@@ -31,21 +38,29 @@ void AirHockey::Update()
 {
 	//ball
 	if (CBall != NULL)
+	{
 		CBall->Update();
+		if (CBall->GetIntersect())
+		{
+			bounceSFX->Play();
+		}
+	}
 	//player
 	CPlayer->Update();
+
 	CPlayerGoalPost->Update();
 	//enemy
 	CEnemy->Update();
+
 	if (CBall != NULL)
 	{
 		if (CBall->GetTransformedCoord().POINT.x < WinMaxWidth)
 		{
-			CEnemy->SetVecDir({ CBall->GetVecDir().x*5,CBall->GetVecDir().y*3,0 });
+			CEnemy->SetVecDir({ CBall->GetVecDir().x * 5,CBall->GetVecDir().y * 3,0 });
 		}
 		else
 		{
-			CEnemy->SetVecDir({ CBall->GetVecDir().x*3,CBall->GetVecDir().y,0 });
+			CEnemy->SetVecDir({ CBall->GetVecDir().x * 3,CBall->GetVecDir().y,0 });
 		}
 	}
 	else
@@ -83,7 +98,14 @@ void AirHockey::Update()
 			SAFE_DELETE(CBall)
 		}
 	}
-	
+	if (CPlayer->GetIntersect() || CEnemy->GetIntersect())
+	{
+		bounce2SFX->Play();
+		static int temp=0;
+		temp++;
+		cout << temp << endl;
+		bounce2SFX->Update();
+	}
 }
 
 void AirHockey::PreRender()

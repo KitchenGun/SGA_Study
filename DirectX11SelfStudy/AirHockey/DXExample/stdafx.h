@@ -33,6 +33,9 @@ using namespace std;
 #pragma comment (lib,"d3dx10.lib")
 #pragma comment (lib,"d3dcompiler.lib")
 
+//fmod
+#pragma comment(lib,"FMod/fmodex_vc.lib")
+
 typedef D3DXVECTOR2 Vector2;
 typedef D3DXVECTOR3 Vector3;
 typedef D3DXVECTOR4 Vector4;
@@ -52,8 +55,8 @@ typedef D3DXCOLOR Color;
 #define ASSERT(p) assert(SUCCEEDED(p));
 
 //Ã¢Å©±â
-#define WinMaxWidth 1280
-#define WinMaxHeight 720
+#define WinMaxWidth		1280
+#define WinMaxHeight	720
 
 #define Red		Color(1,0,0,1)
 #define Green	Color(0,1,0,1)
@@ -80,6 +83,7 @@ extern HWND handle;
 #include "System/Time.h"
 #include "System/Mouse.h"
 #include "System/Keyboard.h"
+#include "System/GUI/Gui.h"
 
 
 #include "Geometry/Line.h"
@@ -87,13 +91,14 @@ extern HWND handle;
 #include "Geometry/Circle.h"
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
-#include "Geometry/AirHockey/Player.h"
 #include "Geometry/AirHockey/Ball.h"
+#include "Geometry/AirHockey/Player.h"
 
 
 #include "Utilities/Math.h"
 #include "Utilities/RenderTexture.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
+#include "Utilities/SoundSystem.h"
 
 #include "Scenes/Scene.h"

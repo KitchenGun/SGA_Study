@@ -19,11 +19,8 @@ public:
 	void SetVolume(float val);
 	void SetMute(bool val);
 	void SetLoop(bool val);
-	void GUI(int ordinal);
 
 private:
-	void ChangeSoundFunc(const wstring& path = L"");
-
 	struct FMOD_SYSTEM* system = nullptr;
 	struct FMOD_SOUND*	sound = nullptr;
 	struct FMOD_CHANNEL* channel = nullptr;

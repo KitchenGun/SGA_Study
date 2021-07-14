@@ -27,4 +27,7 @@ private:
 	//Point
 	int nPlayerPoint = 0;
 	int nEnemyPoint = 0;
+	//sound
+	SoundSystem* bounceSFX;
+	SoundSystem* bounce2SFX;
 };
