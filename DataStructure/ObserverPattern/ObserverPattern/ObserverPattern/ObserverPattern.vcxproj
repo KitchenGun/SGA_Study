@@ -139,11 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Customer.h" />
     <ClInclude Include="Observer\Observer.h" />
+    <ClInclude Include="Observer\ObserverManager.h" />
+    <ClInclude Include="Observer\Target.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Observer\Observer.cpp" />
+    <ClCompile Include="Observer\Target.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,16 @@
 #include <iostream>
+#include "Observer/Target.h"
+
 
 int main()
 {
+	Target* a = new Target;
+
+	int temp;
 	while (true)
 	{
-		printf("hi");
+		std::cin >> temp;
+		a->SetInt(temp);
 	}
 }
 
