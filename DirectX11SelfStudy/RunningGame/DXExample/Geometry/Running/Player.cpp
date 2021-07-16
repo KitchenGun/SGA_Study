@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "Player.h"
-
 Player::Player(Vector3 position, Vector3 size, float rotation)
 	:TextureRect(position, size, rotation)
 {
 	SetSRV(L"./_Textures/Player.png");
+	SFX = new SoundSystem();
+	string fileName = "./_Sounds/gen_3A.wav";
+	SFX->CreateEffSound(fileName);
+
+	SFX->SetVolume(20.0f);
 }
 
 Player::~Player()
@@ -53,6 +57,7 @@ void Player::Update()
 	//มกวม
 	if (Keyboard::Get()->Down(VK_SPACE)&&nJumpCount < nMaxJumpCount)
 	{
+		SFX->Play();
 		nJumpCount++;
 		isJump=true;
 		fJumpPower = 0;
@@ -63,6 +68,7 @@ void Player::Update()
 	{
 		Jump();
 	}
+	SFX->Update();
 }
 
 void Player::SetPosition(Vector3 position)

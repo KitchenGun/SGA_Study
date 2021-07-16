@@ -18,6 +18,6 @@ private:
 
 	Player* CPlayer;
 	EnemyManager* CSpawnManager;
+
 	SoundSystem* BGSound;
-	SoundSystem* EffSound;
 };

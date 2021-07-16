@@ -20,4 +20,6 @@ private:
 	//지상 판정
 	float GravatiyPower = -10.0f;
 	bool GroundIntersect = true;
+	//사운드
+	SoundSystem* SFX;
 };

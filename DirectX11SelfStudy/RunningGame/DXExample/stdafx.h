@@ -89,7 +89,8 @@ extern HWND handle;
 #include "System/Mouse.h"
 #include "System/Keyboard.h"
 #include "System/GUI/Gui.h"
-
+//객체 안에 사운드 넣기 위해서 위치를 바꿈
+#include "Utilities/SoundSystem.h"
 
 #include "Geometry/Line.h"
 #include "Geometry/Square.h"
@@ -104,6 +105,5 @@ extern HWND handle;
 #include "Utilities/RenderTexture.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
-#include "Utilities/SoundSystem.h"
 
 #include "Scenes/Scene.h"

@@ -11,13 +11,22 @@ Running::~Running()
 
 void Running::Init()
 {
+	string fileName = "./_Sounds/Stage.mp3";
+	BGSound = new SoundSystem();
+	BGSound->CreateBGSound(fileName);
+
+	//점수용
 	startTime = clock();
+	//객체
 	CPlayer = new Player(Vector3(150, 50, 0), Vector3(100, 100, 1), 0);
 	CSpawnManager = new EnemyManager;
+	BGSound->Play();
+	BGSound->SetLoop(true);
 }
 
 void Running::Update()
 {
+	
 	static float speed = 3;
 	speed += 0.001;
 	for (Enemy* tempEnemy : CSpawnManager->GetEnemyList())
@@ -29,6 +38,12 @@ void Running::Update()
 				wstring title = L"점수 : ";
 				wstring scoreStr = to_wstring(score);
 				title += scoreStr;
+				BGSound->Stop();
+				
+				string fileName = "./_Sounds/Game Over.mp3";
+				BGSound = new SoundSystem();
+				BGSound->CreateBGSound(fileName);
+				BGSound->Play();
 				MessageBox(handle,title.c_str(), L"게임 종료", MB_OK);
 				SendMessage(handle, WM_CLOSE, 0, 0);
 			}
