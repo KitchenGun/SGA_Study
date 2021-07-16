@@ -18,7 +18,8 @@
 #include <functional>
 #include <iostream>
 #include <fstream>
-
+//·£´ýÇÔ¼ö
+#include <random>
 using namespace std;
 
 //DX
@@ -96,6 +97,8 @@ extern HWND handle;
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
 #include "Geometry/Running/Player.h"
+#include "Geometry/Running/Enemy.h"
+#include "Geometry/Running/EnemyManager.h"
 
 #include "Utilities/Math.h"
 #include "Utilities/RenderTexture.h"

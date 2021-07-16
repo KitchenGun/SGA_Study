@@ -4,7 +4,7 @@
 Player::Player(Vector3 position, Vector3 size, float rotation)
 	:TextureRect(position, size, rotation)
 {
-	
+	SetSRV(L"./_Textures/Player.png");
 }
 
 Player::~Player()
@@ -40,6 +40,7 @@ void Player::Jump()
 
 void Player::Update()
 {
+	//지면 충돌
 	if(GroundIntersect)
 	{
 		nJumpCount = 0;
@@ -49,7 +50,7 @@ void Player::Update()
 		Move({ 0,GravatiyPower,0 });
 		MoveLocalRect(Vector4(0, GravatiyPower, 0, GravatiyPower));
 	}
-
+	//점프
 	if (Keyboard::Get()->Down(VK_SPACE)&&nJumpCount < nMaxJumpCount)
 	{
 		nJumpCount++;

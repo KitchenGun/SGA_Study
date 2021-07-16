@@ -12,8 +12,12 @@ public:
 	void Render() override;
 	void PostRender() override;
 private:
-	Player* CPlayer;
+	clock_t startTime;
+	clock_t endTime;
+	int score = 0;
 
+	Player* CPlayer;
+	EnemyManager* CSpawnManager;
 	SoundSystem* BGSound;
 	SoundSystem* EffSound;
 };

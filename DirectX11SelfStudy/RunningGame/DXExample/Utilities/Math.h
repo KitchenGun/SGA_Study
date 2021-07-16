@@ -17,6 +17,7 @@ class Math
 	//static 함수를 사용하여서 객체없이 사용할수있도록 제작
 public:
 	static bool Intersect(Square *r1, Square *r2);
+	static bool Intersect(TextureRect* r1, TextureRect* r2);
 	static bool GroundIntersect(TextureRect* r1);
 	static float Lerpf(float min, float max, float target);
 };

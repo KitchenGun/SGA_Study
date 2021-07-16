@@ -86,7 +86,7 @@ class TextureRect
 {
 public:
 	TextureRect(Vector3 position, Vector3 size, float rotation);
-	~TextureRect();
+	virtual ~TextureRect();
 
 	void SetSRV(ID3D11ShaderResourceView* SRV) { this->srv = SRV; }
 	void SetSRV(wstring path);

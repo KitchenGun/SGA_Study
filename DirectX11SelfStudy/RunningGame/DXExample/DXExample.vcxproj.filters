@@ -41,6 +41,8 @@
     <ClCompile Include="Scenes\Scene7_Sound.cpp" />
     <ClCompile Include="Scenes\Running\Running.cpp" />
     <ClCompile Include="Geometry\Running\Player.cpp" />
+    <ClCompile Include="Geometry\Running\Enemy.cpp" />
+    <ClCompile Include="Geometry\Running\EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -87,6 +89,8 @@
     <ClInclude Include="Scenes\Scene7_Sound.h" />
     <ClInclude Include="Scenes\Running\Running.h" />
     <ClInclude Include="Geometry\Running\Player.h" />
+    <ClInclude Include="Geometry\Running\Enemy.h" />
+    <ClInclude Include="Geometry\Running\EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

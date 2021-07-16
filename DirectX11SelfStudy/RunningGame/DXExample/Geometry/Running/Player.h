@@ -4,7 +4,7 @@ class Player : public TextureRect
 {
 public:
 	Player(Vector3 position, Vector3 size, float rotation);
-	~Player();
+	virtual ~Player();
 public:
 	void Jump();
 	void Update() override;

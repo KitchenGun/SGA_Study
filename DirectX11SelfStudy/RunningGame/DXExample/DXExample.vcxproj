@@ -151,6 +151,8 @@
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
+    <ClCompile Include="Geometry\Running\Enemy.cpp" />
+    <ClCompile Include="Geometry\Running\EnemyManager.cpp" />
     <ClCompile Include="Geometry\Running\Player.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
     <ClCompile Include="Geometry\TextureRect.cpp" />
@@ -189,6 +191,8 @@
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\Line.h" />
+    <ClInclude Include="Geometry\Running\Enemy.h" />
+    <ClInclude Include="Geometry\Running\EnemyManager.h" />
     <ClInclude Include="Geometry\Running\Player.h" />
     <ClInclude Include="Geometry\Square.h" />
     <ClInclude Include="Geometry\TextureRect.h" />
