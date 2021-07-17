@@ -13,8 +13,9 @@ Bomb::~Bomb()
 
 void Bomb::Update()
 {
+	CurrentTime = clock();
 	Move();
-	if (bGroundIntersect)
+	if (!bGroundIntersect)
 	{
 		Move(Vector3(0, fGravityPower, 0));
 	}
@@ -23,12 +24,17 @@ void Bomb::Update()
 void Bomb::Fire(float fPower)
 {   //발사시 힘을 받음
 	this->fPower = fPower;
+	isFire = true;
+	FireStartTime = clock();
 	//dir값도 여기서 받아야함
+
 }
 
 void Bomb::Move()
 {
-	this->position += (vec3MoveDir*fPower);
+	float angle = atan2(vec3MoveDir.y,vec3MoveDir.x);
+	//포물선 공식 넣어서 수정중
+	this->position = position+Vector3(fPower*cosf(angle)*(CurrentTime-FireStartTime/1000), fPower*sinf(angle),0);
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
 
 	world = S * T;

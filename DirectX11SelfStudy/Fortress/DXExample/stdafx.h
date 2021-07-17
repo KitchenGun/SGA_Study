@@ -98,6 +98,8 @@ extern HWND handle;
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
 #include "Geometry/Fortress/GaugeBar.h"
+#include "Geometry/Fortress/Bomb.h"
+#include "Geometry/Fortress/Manager/ProjectileManager.h"
 #include "Geometry/Fortress/Player.h"
 
 #include "Utilities/Math.h"

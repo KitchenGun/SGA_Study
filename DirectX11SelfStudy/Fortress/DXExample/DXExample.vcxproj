@@ -152,6 +152,7 @@
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\Fortress\Bomb.cpp" />
     <ClCompile Include="Geometry\Fortress\GaugeBar.cpp" />
+    <ClCompile Include="Geometry\Fortress\Manager\ProjectileManager.cpp" />
     <ClCompile Include="Geometry\Fortress\Player.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\Fortress\Bomb.h" />
     <ClInclude Include="Geometry\Fortress\GaugeBar.h" />
+    <ClInclude Include="Geometry\Fortress\Manager\ProjectileManager.h" />
     <ClInclude Include="Geometry\Fortress\Player.h" />
     <ClInclude Include="Geometry\Line.h" />
     <ClInclude Include="Geometry\Square.h" />

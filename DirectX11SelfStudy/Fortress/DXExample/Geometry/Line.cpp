@@ -48,7 +48,7 @@ Line::Line(Vector3 position, float length, float rotation,Color color)
 	world = S * R * T;
 
 	WB->SetWorld(world);
-
+	TransPoint();
 
 }
 
@@ -97,6 +97,14 @@ void Line::Rotation(float rotation)
 
 	world = S * R * T;
 	WB->SetWorld(world);//내부에서 transpose해줌
+	TransPoint();
+}
+
+void Line::TransPoint()
+{
+	LP.First = Vector2(position.x, position.y);
+	LP.Second = Vector2(position.x+(length * cosf(D3DXToRadian(rotation))),position.y + (length * sinf(D3DXToRadian(rotation))));
+	cout << LP.Second.x << LP.Second.y << endl;
 }
 
 void Line::SetColor(Color color)

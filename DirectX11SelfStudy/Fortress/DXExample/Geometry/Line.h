@@ -1,6 +1,10 @@
 #pragma once
 
-
+struct LinePoint
+{
+	Vector2 First;
+	Vector2 Second;
+};
 
 class Line
 {
@@ -13,9 +17,9 @@ public:
 
 	void Rotation(float rotation);
 
-
+	void TransPoint();
 	void SetColor(Color color);
-
+	LinePoint GetLP() { return LP; }
 protected:
 	//Á¤º¸
 	vector<VertexColor> vertices;
@@ -32,7 +36,7 @@ protected:
 	float rotation;
 	float length;
 	Color color;
-
+	LinePoint LP;
 	
 	ColorBuffer* CB = nullptr;
 };

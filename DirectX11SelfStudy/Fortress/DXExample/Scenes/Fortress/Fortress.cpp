@@ -11,7 +11,7 @@ Fortress::~Fortress()
 
 void Fortress::Init()
 {
-	CPlayer = new Player(Vector3(100, 100, 0), Vector3(100, 100, 1), 0);
+	CPlayer = new Player(Vector3(50, 50, 0), Vector3(100, 100, 1), 0);
 }
 
 void Fortress::Update()

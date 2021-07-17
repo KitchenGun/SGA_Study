@@ -14,7 +14,7 @@ public:
 private:
 	Line* CBarrel;
 	GaugeBar* CGaugeBar;
-
+	ProjectileManager* CPjManager;
 	//발사 파워
 	float fFirePower=0.0f;
 };
