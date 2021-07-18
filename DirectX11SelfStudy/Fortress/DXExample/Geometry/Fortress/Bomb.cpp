@@ -14,7 +14,6 @@ Bomb::~Bomb()
 void Bomb::Update()
 {
 	CurrentTime = clock();
-	cout << (CurrentTime - FireStartTime) / 1000 << endl;
 	if ((CurrentTime - FireStartTime) / 1000 > 3)
 	{
 		isNeedDestroy = true;
