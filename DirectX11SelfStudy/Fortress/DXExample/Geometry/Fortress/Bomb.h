@@ -8,10 +8,12 @@ public:
 	void Update() override;
 	void Fire(float fPower);
 	void Move();
-	void Move(Vector3 val);
 	void SetFirePower(float val) { fPower = val; }
 	Vector3 GetMoveDir() { return vec3MoveDir; }
 	void SetMoveDir(Vector2 val) { vec3MoveDir.x = val.x; vec3MoveDir.y = val.y; }
+	CircleInfo GetCI() { return CI; }
+	bool GetReadyDestroy() { return isNeedDestroy; }
+	clock_t GetFireTime() { return FireStartTime; }
 private:
 	//방향 벡터
 	Vector3 vec3MoveDir;
@@ -23,4 +25,8 @@ private:
 	float fPower = 0;
 	clock_t FireStartTime;
 	clock_t CurrentTime;
+
+	//삭제
+	bool isNeedDestroy;
+
 };

@@ -19,5 +19,6 @@ public:
 	static bool Intersect(Square *r1, Square *r2);
 	static bool Intersect(TextureRect* r1, TextureRect* r2);
 	static bool GroundIntersect(TextureRect* r1);
+	static bool GroundIntersect(Bomb* c1);
 	static float Lerpf(float min, float max, float target);
 };

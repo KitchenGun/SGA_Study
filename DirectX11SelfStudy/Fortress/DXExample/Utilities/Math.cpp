@@ -43,6 +43,36 @@ bool Math::GroundIntersect(TextureRect* r1)
 	return false;
 }
 
+bool Math::GroundIntersect(Bomb* c1)
+{
+	CircleInfo CI = c1->GetCI();
+	
+	if (CI.POINT.y + CI.R > WinMaxHeight)//위에 충돌
+	{
+		c1->SetMoveDir({ c1->GetMoveDir().x, c1->GetMoveDir().y * -1 });
+		return true;
+	}
+	else if (CI.POINT.y - CI.R < 0)//아래 충돌
+	{
+		c1->SetMoveDir({ c1->GetMoveDir().x, c1->GetMoveDir().y * -1});
+		return true;
+	}
+	else if (CI.POINT.x + CI.R > WinMaxWidth)//우측 충돌
+	{
+		c1->SetMoveDir({ c1->GetMoveDir().x * -1, c1->GetMoveDir().y});
+		return true;
+	}
+	else if (CI.POINT.x - CI.R < 0)//좌측 충돌
+	{
+		c1->SetMoveDir({ c1->GetMoveDir().x * -1, c1->GetMoveDir().y});
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 float Math::Lerpf(float min, float max, float target)
 {
 	return min+target*(max-min);

@@ -73,6 +73,10 @@ void Player::Update()
 		if (Target != nullptr)
 		{
 			Target->Update();
+			if (Target->GetReadyDestroy())
+			{
+				CPjManager->RemoveProjectile(Target);
+			}
 		}
 	}
 }

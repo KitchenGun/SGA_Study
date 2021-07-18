@@ -113,5 +113,5 @@ void FilledCircle::Render()
 void FilledCircle::TransformVertices()
 {
 	CI.POINT = position;
-	CI.R = size.x / 2;
+	CI.R = size.x;
 }
