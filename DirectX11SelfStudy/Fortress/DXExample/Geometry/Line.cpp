@@ -104,7 +104,6 @@ void Line::TransPoint()
 {
 	LP.First = Vector2(position.x, position.y);
 	LP.Second = Vector2(position.x+(length * cosf(D3DXToRadian(rotation))),position.y + (length * sinf(D3DXToRadian(rotation))));
-	cout << LP.Second.x << LP.Second.y << endl;
 }
 
 void Line::SetColor(Color color)
