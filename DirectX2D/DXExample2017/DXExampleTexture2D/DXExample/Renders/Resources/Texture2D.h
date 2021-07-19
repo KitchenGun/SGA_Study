@@ -11,7 +11,7 @@ public:
 
 	D3D11_TEXTURE2D_DESC ReadPixel(DXGI_FORMAT readFormat, vector<D3DXCOLOR>* pixels);
 	static D3D11_TEXTURE2D_DESC ReadPixel(ID3D11Texture2D* src, DXGI_FORMAT readFormat, vector<D3DXCOLOR>* pixels);
-
+	//스크린샷???
 	void SaveFile(wstring filePath);
 	void SaveFile(wstring filePath, ID3D11Texture2D* originalTex, vector<D3DXCOLOR>& pixels, UINT width, UINT height);
 	static void SaveFile(wstring file, ID3D11Texture2D* src);
@@ -44,6 +44,7 @@ struct TextureDesc
 	bool operator==(const TextureDesc& desc)
 	{
 		bool b = true;
+		//And 비트연산자 //입력정보가 desc의 해당 정보인지 확인 하는듯함
 		b &= file == desc.file;
 		b &= width == desc.width;
 		b &= height == desc.height;
