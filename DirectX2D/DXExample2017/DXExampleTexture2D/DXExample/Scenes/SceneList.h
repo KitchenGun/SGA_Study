@@ -7,3 +7,4 @@
 #include "Scene5_Blur.h"
 #include "Scene6_ImGui.h"
 #include "Scene7_Sound.h"
+#include "Scene8_Texture2D.h"

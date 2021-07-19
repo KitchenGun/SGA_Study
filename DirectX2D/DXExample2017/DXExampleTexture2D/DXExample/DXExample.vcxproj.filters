@@ -40,6 +40,7 @@
     <ClCompile Include="Utilities\SoundSystem.cpp" />
     <ClCompile Include="Scenes\Scene7_Sound.cpp" />
     <ClCompile Include="Renders\Resources\Texture2D.cpp" />
+    <ClCompile Include="Scenes\Scene8_Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Utilities\SoundSystem.h" />
     <ClInclude Include="Scenes\Scene7_Sound.h" />
     <ClInclude Include="Renders\Resources\Texture2D.h" />
+    <ClInclude Include="Scenes\Scene8_Texture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

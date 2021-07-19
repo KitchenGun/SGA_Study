@@ -93,17 +93,9 @@ extern HWND handle;
 #include "System/GUI/Gui.h"
 
 
-#include "Geometry/Line.h"
-#include "Geometry/Square.h"
-#include "Geometry/Circle.h"
-#include "Geometry/FilledCircle.h"
-#include "Geometry/TextureRect.h"
-
 
 #include "Utilities/Math.h"
-#include "Utilities/RenderTexture.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
-#include "Utilities/SoundSystem.h"
 
 #include "Scenes/Scene.h"

@@ -9,6 +9,7 @@ vector<TextureDesc> Textures::descs;
 Texture2D::Texture2D(wstring filePath, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 	: filePath(filePath)
 {
+	//경로만 전달하고 load 함수실행
 	Textures::Load(this, loadInfo);
 }
 
@@ -134,7 +135,7 @@ void Texture2D::SaveFile(wstring file, ID3D11Texture2D * src)
 
 	ID3D11Texture2D* dest;
 	D3D11_TEXTURE2D_DESC destDesc;
-	ZeroMemory(&dest, sizeof(D3D11_TEXTURE2D_DESC));
+	ZeroMemory(&destDesc, sizeof(D3D11_TEXTURE2D_DESC));
 	destDesc.Width = srcDesc.Width;
 	destDesc.Height = srcDesc.Height;
 	destDesc.MipLevels = 1;
@@ -161,11 +162,14 @@ void Texture2D::SaveFile(wstring file, ID3D11Texture2D * src)
 	ASSERT(hr);
 
 	SAFE_RELEASE(dest);
+
 }
 
 ID3D11Texture2D * Texture2D::GetTexture()
 {
-	return nullptr;
+	ID3D11Texture2D* texture;
+	view->GetResource((ID3D11Resource**)&texture);
+	return texture;
 }
 
 void Textures::Create()
@@ -174,8 +178,116 @@ void Textures::Create()
 
 void Textures::Delete()
 {
+	for (TextureDesc desc : descs)
+	{
+		SAFE_RELEASE(desc.view);
+	}
 }
 
 void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 {
+	HRESULT hr;
+
+	TexMetadata metaData;
+	wstring ext = Path::GetExtension(texture->filePath);
+	if (ext == L"tga")//텍스쳐(이미지) 파일 형식 마다 처리방식이 조금씩 다름 메타 데이터에 desc에 사용될 정보를 넣음
+	{
+		hr = GetMetadataFromTGAFile(texture->filePath.c_str(), metaData);
+		ASSERT(hr);
+	}
+	else if (ext == L"dds")
+	{
+		hr = GetMetadataFromDDSFile(texture->filePath.c_str(), DDS_FLAGS_NONE, metaData);
+		ASSERT(hr);
+	}
+	else if (ext == L"hdr")
+	{
+		//assert(SUCCEEDED(false))   assert(SUCCEEDED(true)); 전부 참으로 나옴
+		//assert(true); 참
+		//assert(false); 거짓
+		//항상 에러가 걸리는 것을 만들기 위해서 임
+		//hr = GetMetadataFromHDRFile( 존재함 사용안해서 없는것
+		assert(false);
+	}
+	else
+	{
+		hr = GetMetadataFromWICFile(texture->filePath.c_str(), WIC_FLAGS_NONE, metaData);
+		ASSERT(hr);
+	}
+
+	UINT width = metaData.width;
+	UINT height = metaData.height;
+
+	if (loadInfo != nullptr)
+	{
+		width = loadInfo->Width;
+		height = loadInfo->Height;
+
+		metaData.width = loadInfo->Width;
+		metaData.height = loadInfo->Height;
+	}
+
+	TextureDesc desc;
+	desc.file = texture->filePath;
+	desc.width = width;
+	desc.height = height;
+
+	TextureDesc exist;
+	bool bExist = false;
+	for (TextureDesc temp : descs)
+	{
+		if (desc == temp)
+		{
+			bExist = true;
+			exist = temp;
+
+			break;
+		}
+	}
+
+	if (bExist == true)
+	{
+		texture->metaData = exist.metaData;
+		texture->view = exist.view;
+	}
+	else
+	{
+		ScratchImage image;
+
+		if (ext == L"tga")
+		{
+			hr = LoadFromTGAFile(texture->filePath.c_str(), &metaData, image);
+			ASSERT(hr);
+		}
+		else if (ext == L"dds")
+		{
+			hr = LoadFromDDSFile(texture->filePath.c_str(), DDS_FLAGS_NONE, &metaData, image);
+			ASSERT(hr);
+		}
+		else if (ext == L"hdr")
+		{
+			assert(false);
+		}
+		else
+		{
+			hr = LoadFromWICFile(texture->filePath.c_str(), DDS_FLAGS_NONE, &metaData, image);
+			ASSERT(hr);
+		}
+
+		ID3D11ShaderResourceView* view;
+
+		hr = CreateShaderResourceView(DEVICE, image.GetImages(), image.GetImageCount(), metaData, &view);
+		ASSERT(hr);
+
+		desc.file = texture->filePath;
+		desc.width = metaData.width;
+		desc.height = metaData.height;
+		desc.view = view;
+		desc.metaData = metaData;
+
+		texture->view = view;
+		texture->metaData = metaData;
+
+		descs.push_back(desc);
+	}
 }

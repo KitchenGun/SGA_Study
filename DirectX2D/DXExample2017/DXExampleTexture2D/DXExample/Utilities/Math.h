@@ -1,5 +1,6 @@
 #pragma once
 
+
 #define VK_00 48//정의되지 않은 가상키 정의
 #define VK_01 49
 #define VK_02 50
@@ -11,6 +12,7 @@
 #define VK_08 56
 #define VK_09 57
 
+class Square;
 
 class Math
 {

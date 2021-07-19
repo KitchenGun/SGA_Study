@@ -1,5 +1,15 @@
 #pragma once
 
+#include "Geometry/Line.h"
+#include "Geometry/Square.h"
+#include "Geometry/Circle.h"
+#include "Geometry/FilledCircle.h"
+#include "Geometry/TextureRect.h"
+
+#include "Renders/Resources/Texture2D.h"
+#include "Utilities/RenderTexture.h"
+#include "Utilities/SoundSystem.h"
+
 class Scene
 {//순수 가상함수가 들어간 인터페이스 제작
 public:

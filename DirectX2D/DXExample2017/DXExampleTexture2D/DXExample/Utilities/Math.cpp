@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "Math.h"
 
+#include "Geometry/Line.h"
+#include "Geometry/Square.h"
+#include "Geometry/Circle.h"
+#include "Geometry/FilledCircle.h"
+#include "Geometry/TextureRect.h"
+
 bool Math::Intersect(Square *r1, Square *r2)
 {
 	RectEdges edge1 = r1->GetTransformedCoord();
