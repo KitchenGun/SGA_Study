@@ -21,7 +21,7 @@ D3D11_TEXTURE2D_DESC Texture2D::ReadPixel(DXGI_FORMAT readFormat, vector<D3DXCOL
 {
 	ID3D11Texture2D* srcTexture;
 	view->GetResource((ID3D11Resource**)&srcTexture);
-
+	//src를 만들어서 오버로딩 함수에 넘김
 	return ReadPixel(srcTexture, readFormat, pixels);
 }
 
@@ -29,6 +29,7 @@ D3D11_TEXTURE2D_DESC Texture2D::ReadPixel(ID3D11Texture2D * src, DXGI_FORMAT rea
 {
 	D3D11_TEXTURE2D_DESC srcDesc;
 	src->GetDesc(&srcDesc);
+	//texture2d desc 제작 
 
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -42,9 +43,10 @@ D3D11_TEXTURE2D_DESC Texture2D::ReadPixel(ID3D11Texture2D * src, DXGI_FORMAT rea
 	desc.Usage = D3D11_USAGE_STAGING;
 
 	ID3D11Texture2D* texture;
-	ASSERT(DEVICE->CreateTexture2D(&desc, nullptr, &texture));
-	ASSERT(D3DX11LoadTextureFromTexture(DC, src, nullptr, texture));
+	ASSERT(DEVICE->CreateTexture2D(&desc, nullptr, &texture));//2d 텍스쳐 자원 만들고
+	ASSERT(D3DX11LoadTextureFromTexture(DC, src, nullptr, texture));//텍스쳐를 전달하는 것 같음
 
+	//뭐하는 건지 모르겠음
 	UINT* colors = new UINT[desc.Width * desc.Height];
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	DC->Map(texture, 0, D3D11_MAP_READ, NULL, &subResource);
@@ -89,7 +91,7 @@ void Texture2D::SaveFile(wstring filePath, ID3D11Texture2D * originalTex, vector
 	view->GetResource((ID3D11Resource**)&originalTex);
 	D3D11_TEXTURE2D_DESC originalDesc;
 	originalTex->GetDesc(&originalDesc);
-
+	//srv의 저장된 정보를 포인터를 사용해서 바꾸는것? 
 	ID3D11Texture2D* srcTexture;
 	D3D11_TEXTURE2D_DESC destDesc;
 	ZeroMemory(&destDesc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -147,7 +149,7 @@ void Texture2D::SaveFile(wstring file, ID3D11Texture2D * src)
 
 	HRESULT hr = DEVICE->CreateTexture2D(&destDesc, nullptr, &dest);
 	ASSERT(hr);
-
+	//dest 텍스쳐를 만들고 src로 복사?
 	hr = D3DX11LoadTextureFromTexture(DC, src, nullptr, dest);
 	ASSERT(hr);
 
@@ -179,7 +181,7 @@ void Textures::Create()
 void Textures::Delete()
 {
 	for (TextureDesc desc : descs)
-	{
+	{//안에 들어있는 텍스쳐 삭제
 		SAFE_RELEASE(desc.view);
 	}
 }
@@ -211,15 +213,19 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 	}
 	else
 	{
+		//WIC(Windows Imaging Component)
+		//이미지 메타데이터는 이미지를 캡처하는 데 사용되는 장치 또는 이미지의 크기와 같은 
+		//이미지에 대한 추가 정보를 제공하는 이미지 파일 내부에 포함된 데이터입니다. 
+		//추출하는 과정
 		hr = GetMetadataFromWICFile(texture->filePath.c_str(), WIC_FLAGS_NONE, metaData);
 		ASSERT(hr);
 	}
-
+	//분석내용을 가지고 desc만듬
 	UINT width = metaData.width;
 	UINT height = metaData.height;
 
 	if (loadInfo != nullptr)
-	{
+	{//만약에 사용자가 사이즈 정보를 주면 준 사이즈 정보로 제작
 		width = loadInfo->Width;
 		height = loadInfo->Height;
 
@@ -236,6 +242,7 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 	bool bExist = false;
 	for (TextureDesc temp : descs)
 	{
+		//저장된 것과 동일한것이 있는지 확인
 		if (desc == temp)
 		{
 			bExist = true;
@@ -246,14 +253,14 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 	}
 
 	if (bExist == true)
-	{
+	{//저장된것과 동일한 것이 있으면
 		texture->metaData = exist.metaData;
 		texture->view = exist.view;
 	}
 	else
-	{
+	{//동일한 것이 없었을 경우
 		ScratchImage image;
-
+		//dx의 텍스쳐 읽어오는 방법임 즉 DirectxTex라이브러리는  
 		if (ext == L"tga")
 		{
 			hr = LoadFromTGAFile(texture->filePath.c_str(), &metaData, image);
@@ -266,16 +273,18 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 		}
 		else if (ext == L"hdr")
 		{
+			//hdr은 역시 받지 않음
 			assert(false);
 		}
 		else
 		{
+			//wic는 기본적인 이미지 포멧을 받는 듯함(jpg png)
 			hr = LoadFromWICFile(texture->filePath.c_str(), DDS_FLAGS_NONE, &metaData, image);
 			ASSERT(hr);
 		}
 
 		ID3D11ShaderResourceView* view;
-
+		//srv를 만들기 위해서 directTex라이브러리 함수를 사용
 		hr = CreateShaderResourceView(DEVICE, image.GetImages(), image.GetImageCount(), metaData, &view);
 		ASSERT(hr);
 
@@ -287,7 +296,7 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 
 		texture->view = view;
 		texture->metaData = metaData;
-
+		//사용한 desc를 저장
 		descs.push_back(desc);
 	}
 }

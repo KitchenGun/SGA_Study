@@ -8,10 +8,10 @@ public:
 public:
 	Texture2D(wstring filePath, D3DX11_IMAGE_LOAD_INFO* loadInfo = nullptr);
 	~Texture2D();
-
+	//오버로딩 readpixel
 	D3D11_TEXTURE2D_DESC ReadPixel(DXGI_FORMAT readFormat, vector<D3DXCOLOR>* pixels);
 	static D3D11_TEXTURE2D_DESC ReadPixel(ID3D11Texture2D* src, DXGI_FORMAT readFormat, vector<D3DXCOLOR>* pixels);
-	//스크린샷???
+	
 	void SaveFile(wstring filePath);
 	void SaveFile(wstring filePath, ID3D11Texture2D* originalTex, vector<D3DXCOLOR>& pixels, UINT width, UINT height);
 	static void SaveFile(wstring file, ID3D11Texture2D* src);
@@ -40,7 +40,7 @@ struct TextureDesc
 	UINT width, height;
 	DirectX::TexMetadata metaData;
 	ID3D11ShaderResourceView* view;
-
+	//desc 구조체 비교를 위한 연산자
 	bool operator==(const TextureDesc& desc)
 	{
 		bool b = true;
