@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Texture2D.h"
-
+//해당 클래스 역할(예상?)
+//1.텍스쳐의 생성과정 이미지 파일을 조사한다 
+//2.텍스쳐 리소스를 생성한다
+//3.텍스쳐 이미지 데이터를 쓴다
+//4.텍스쳐에 액세스하는 뷰를 생성한다
 
 using namespace DirectX;
 
@@ -45,15 +49,15 @@ D3D11_TEXTURE2D_DESC Texture2D::ReadPixel(ID3D11Texture2D * src, DXGI_FORMAT rea
 	ID3D11Texture2D* texture;
 	ASSERT(DEVICE->CreateTexture2D(&desc, nullptr, &texture));//2d 텍스쳐 자원 만들고
 	ASSERT(D3DX11LoadTextureFromTexture(DC, src, nullptr, texture));//텍스쳐를 전달하는 것 같음
-
-	//뭐하는 건지 모르겠음
 	UINT* colors = new UINT[desc.Width * desc.Height];
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	DC->Map(texture, 0, D3D11_MAP_READ, NULL, &subResource);
-	{
+	{//gpu메모리 접근
 		memcpy(colors, subResource.pData, sizeof(UINT) * desc.Width * desc.Height);
 	}
 	DC->Unmap(texture, 0);
+
+	//뭐하는 건지 모르겠음
 
 	for (UINT y = 0; y < desc.Height; y++)
 	{
@@ -106,7 +110,7 @@ void Texture2D::SaveFile(wstring filePath, ID3D11Texture2D * originalTex, vector
 
 	HRESULT hr = DEVICE->CreateTexture2D(&destDesc, nullptr, &srcTexture);
 	ASSERT(hr);
-
+	//뭐하는 건지 모르겠음
 	UINT* rawPixels = new UINT[width * height];
 	for (UINT y = 0; y < height; y++)
 	{
@@ -117,7 +121,7 @@ void Texture2D::SaveFile(wstring filePath, ID3D11Texture2D * originalTex, vector
 			rawPixels[index] = pixels[index];
 		}
 	}
-
+	//cpu gpu모두 엑세스 가능이기에 gpu 엑세스
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	DC->Map(srcTexture, 0, D3D11_MAP_WRITE, NULL, &subResource);
 	{
@@ -169,7 +173,9 @@ void Texture2D::SaveFile(wstring file, ID3D11Texture2D * src)
 
 ID3D11Texture2D * Texture2D::GetTexture()
 {
+
 	ID3D11Texture2D* texture;
+	//텍스쳐 리소스를 건내줌
 	view->GetResource((ID3D11Resource**)&texture);
 	return texture;
 }
@@ -282,9 +288,10 @@ void Textures::Load(Texture2D * texture, D3DX11_IMAGE_LOAD_INFO * loadInfo)
 			hr = LoadFromWICFile(texture->filePath.c_str(), DDS_FLAGS_NONE, &metaData, image);
 			ASSERT(hr);
 		}
-
+		//텍스쳐리소스 쉐이더에 접근하기 위해서 쉐이더 리소스 뷰 제작
 		ID3D11ShaderResourceView* view;
 		//srv를 만들기 위해서 directTex라이브러리 함수를 사용
+		//쉐이더 리소스 뷰를 만들기 위한 정보들을 집어넣음
 		hr = CreateShaderResourceView(DEVICE, image.GetImages(), image.GetImageCount(), metaData, &view);
 		ASSERT(hr);
 
