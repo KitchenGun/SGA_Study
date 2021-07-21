@@ -81,23 +81,22 @@ extern HWND handle;
 #include "Renders/IA/IndexBuffer.h"
 #include "Renders/IA/InputLayout.h"
 
-
 #include "Renders/Shaders/VertexShader.h"
 #include "Renders/Shaders/PixelShader.h"
+
 #include "Renders/Resources/VertexType.h"
 #include "Renders/Resources/ShaderBuffer.h"
 #include "Renders/Resources/GlobalBuffer.h"
 #include "Renders/Resources/ViewFactory.h"
+#include "Renders/Resources/Texture2D.h"
 
-#include "System/Time.h"
-#include "System/Mouse.h"
-#include "System/Keyboard.h"
-#include "System/GUI/Gui.h"
-
-
+#include "Systems/Time.h"
+#include "Systems/Mouse.h"
+#include "Systems/Keyboard.h"
+#include "Systems/GUI/Gui.h"
 
 #include "Utilities/Math.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
 
-#include "Scenes/Scene.h"
+#include "Scene/Scene.h"

@@ -14,13 +14,14 @@ public:
 	void Render();
 
 	void Move(Vector3 position);
+
 private:
 	vector<VertexTexture> vertices;
 	vector<UINT> indices;
 	InputLayout* IL = nullptr;
 
-	VertexBuffer*VB = nullptr;
-	IndexBuffer*IB = nullptr;
+	VertexBuffer* VB = nullptr;
+	IndexBuffer* IB = nullptr;
 
 	VertexShader* VS = nullptr;
 	PixelShader* PS = nullptr;
@@ -36,6 +37,5 @@ private:
 	Texture2D* rockman = nullptr;
 
 	ID3D11BlendState* BS;
-	ID3D11SamplerState* SS
-
+	ID3D11SamplerState* SS;
 };

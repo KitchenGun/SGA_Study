@@ -5,14 +5,17 @@ class AnimationClip
 public:
 	AnimationClip(wstring clipName, Texture2D* srcTex, UINT frameCount, Vector2 startPos, Vector2 endPos, bool bReverse = false);
 	~AnimationClip();
+
 	ID3D11ShaderResourceView* GetSRV() { return srv; }
 	Vector2 GetKeyframe(UINT index) { return keyframes[index]; }
 	Vector2 GetTexelFrameSize() { return texelFrameSize; }
+	UINT GetFrameCount() { return frameCount; }
 	UINT GetLastFrameIndex() { return keyframes.size() - 1; }
 	bool GetIsReverse() { return bReverse; }
+
 	wstring GetClipName() { return clipName; }
 
-private :
+private:
 	wstring clipName = L"";
 	vector<Vector2> keyframes;
 	UINT frameCount = 0;
@@ -39,11 +42,15 @@ public:
 	void SetCurrentAnimClip(wstring clipName);
 
 	bool bLoop = true;
-	float playRaye = 1.0f / 15.0f;
+	float playRate = 1.0f / 15.0f;
 	bool bStop = false;
-private :
+
+private:
 	unordered_map<wstring, AnimationClip*> animClips;
 	AnimationClip* currentAnimClip = nullptr;
+
+	float deltaTime = 0.0f;
+	UINT currentFrameIndex = 0;
 	Vector2 currentFrame = Vector2(0, 0);
 	Vector2 TexelFrameSize = Vector2(0, 0);
 };
