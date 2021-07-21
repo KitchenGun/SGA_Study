@@ -46,6 +46,7 @@ public:
 	bool bStop = false;
 
 private:
+	//자료구조 map과 다르게 중복 데이터 허용 안하고 map에 비하여 데이터가 많을때 월등한 탐색능력을 보여줌
 	unordered_map<wstring, AnimationClip*> animClips;
 	AnimationClip* currentAnimClip = nullptr;
 

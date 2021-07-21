@@ -7,6 +7,7 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	size(size),
 	rotation(rotation)
 {
+	//local 좌표 입력
 	vertices.assign(4, VertexTexture());
 	vertices[0].position = Vector3(-0.5f, -0.5f, 0.0f);
 	vertices[0].uv = Vector2(0.0f, 1.0f);
@@ -19,7 +20,7 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 
 	vertices[3].position = Vector3(0.5f, 0.5f, 0.0f);
 	vertices[3].uv = Vector2(1.0f, 0.0f);
-
+	//인덱스 버퍼
 	indices = { 0, 1, 2, 2, 1, 3 };
 
 	VB = new VertexBuffer();
@@ -32,13 +33,13 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 
 	VB->Create(vertices, D3D11_USAGE_DYNAMIC);
 	IB->Create(indices, D3D11_USAGE_IMMUTABLE);
-
+	//hlsl 파일 설정
 	wstring shaderPath = L"./_Shaders/Animation.hlsl";
 	VS->Create(shaderPath, "VS");
 	PS->Create(shaderPath, "PS");
 
 	IL->Create(VertexTexture::descs, VertexTexture::count, VS->GetBlob());
-
+	//공간 변환
 	WB = new WorldBuffer();
 	D3DXMatrixIdentity(&world);
 
@@ -53,14 +54,15 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	world = S * R * T;
 
 	WB->SetWorld(world);
-
+	//텍스쳐 주소 입력하여서 텍스쳐 자원 제작
 	rockman = new Texture2D(L"./_Textures/록맨.bmp");
-
+	//애니메이션 객체를 만드는데 좌우로 나눠서 제작
 	runR = new AnimationClip(L"RunR", rockman, 10, { 0, 0 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() / 2 });
 	runL = new AnimationClip(L"RunL", rockman, 10, { 0, (float)rockman->GetHeight() / 2 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() }, true);
 	animator = new Animator(runR);
 	animator->AddAnimClip(runL);
 
+	//뒤에 배경색 나오게 하기 위해서 추가함
 	//Create BlnedState
 	{
 		D3D11_BLEND_DESC desc;
@@ -132,7 +134,7 @@ void AnimationRect::Update()
 	{
 		D3D11_MAPPED_SUBRESOURCE subResource;
 		DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-
+		//gpu에 접근해서 애니메이션 처리하는 것 같음
 		vertices[0].uv = Vector2(animator->GetCurrentFrame().x, animator->GetCurrentFrame().y + animator->GetTexelFrameSize().y);
 		vertices[1].uv = animator->GetCurrentFrame();
 		vertices[2].uv = animator->GetCurrentFrame() + animator->GetTexelFrameSize();

@@ -14,7 +14,7 @@ AnimationClip::AnimationClip(wstring clipName, Texture2D* srcTex, UINT frameCoun
 	Vector2 frameSize;
 	frameSize.x = clipSize.x / frameCount;
 	frameSize.y = clipSize.y;
-
+	//애니메이션으로 사용할 이미지를 어느정도 크기로 자를것인가?
 	Vector2 texelSize = Vector2(1.0f / imageWidth, 1.0f / imageHeight);
 
 	Vector2 texelStartPos = Vector2(startPos.x * texelSize.x, startPos.y * texelSize.y);
@@ -35,6 +35,7 @@ AnimationClip::~AnimationClip()
 Animator::Animator(AnimationClip* animClip)
 	: currentAnimClip(animClip)
 {
+	//자료구조에 집어넣을때 키와 넣을 데이터 추가함
 	animClips.insert(make_pair(animClip->GetClipName(), animClip));
 }
 
@@ -49,7 +50,7 @@ void Animator::Update()
 
 	if (deltaTime > playRate)
 	{
-		if (currentAnimClip->GetIsReverse() == false)
+		if (currentAnimClip->GetIsReverse() == false)//좌우반전
 		{
 			currentFrameIndex++;
 			if (currentFrameIndex >= currentAnimClip->GetFrameCount() && bLoop)
@@ -75,11 +76,11 @@ void Animator::Render(UINT slotIndex)
 }
 
 void Animator::AddAnimClip(AnimationClip* animClip)
-{
+{//애니메이션 클립추가
 	animClips.insert(make_pair(animClip->GetClipName(), animClip));
 }
 
-void Animator::SetCurrentAnimClip(wstring clipName)
+void Animator::SetCurrentAnimClip(wstring clipName)// 클립 이름에 맞게 세팅
 {
 	if (clipName == currentAnimClip->GetClipName()) return;
 

@@ -17,9 +17,10 @@ class Math
 {
 	//static 함수를 사용하여서 객체없이 사용할수있도록 제작
 public:
+	//충돌
 	static bool Intersect(Square *r1, Square *r2);
 	static bool Intersect(Square *rect, Vector3 position);
-
+	//절댓값 반환
 	static Vector2 absVec2(Vector2 val);
 	static Vector3 absVec2(Vector3 val);
 };
