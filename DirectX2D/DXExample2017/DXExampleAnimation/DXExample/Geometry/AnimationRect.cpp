@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "AnimationRect.h"
+#include "Utilities/Animator.h"
 
 AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	:position(position),

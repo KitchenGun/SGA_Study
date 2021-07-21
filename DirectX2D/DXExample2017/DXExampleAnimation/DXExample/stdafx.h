@@ -90,13 +90,13 @@ extern HWND handle;
 #include "Renders/Resources/ViewFactory.h"
 #include "Renders/Resources/Texture2D.h"
 
-#include "Systems/Time.h"
-#include "Systems/Mouse.h"
-#include "Systems/Keyboard.h"
-#include "Systems/GUI/Gui.h"
+#include "System/Time.h"
+#include "System/Mouse.h"
+#include "System/Keyboard.h"
+#include "System/GUI/Gui.h"
 
 #include "Utilities/Math.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
 
-#include "Scene/Scene.h"
+#include "Scenes/Scene.h"

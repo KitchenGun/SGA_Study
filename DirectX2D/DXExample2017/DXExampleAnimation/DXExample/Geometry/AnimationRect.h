@@ -3,7 +3,6 @@
 class Animator;
 class AnimationClip;
 
-
 class AnimationRect
 {
 public:
