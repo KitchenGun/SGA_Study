@@ -57,6 +57,7 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	//텍스쳐 주소 입력하여서 텍스쳐 자원 제작
 	rockman = new Texture2D(L"./_Textures/록맨.bmp");
 	//애니메이션 객체를 만드는데 좌우로 나눠서 제작
+											//	이미지 갯수				시작 점						끝점
 	runR = new AnimationClip(L"RunR", rockman, 10, { 0, 0 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() / 2 });
 	runL = new AnimationClip(L"RunL", rockman, 10, { 0, (float)rockman->GetHeight() / 2 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() }, true);
 	animator = new Animator(runR);
@@ -134,7 +135,8 @@ void AnimationRect::Update()
 	{
 		D3D11_MAPPED_SUBRESOURCE subResource;
 		DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-		//gpu에 접근해서 애니메이션 처리하는 것 같음
+		//gpu에 접근해서 애니메이션 처리하는 것 
+		//텍셀에 접근하면 uv 값을 알 수 있음  삼각형 2개로 사각형이 이루어져있음을 기억하자
 		vertices[0].uv = Vector2(animator->GetCurrentFrame().x, animator->GetCurrentFrame().y + animator->GetTexelFrameSize().y);
 		vertices[1].uv = animator->GetCurrentFrame();
 		vertices[2].uv = animator->GetCurrentFrame() + animator->GetTexelFrameSize();
@@ -147,8 +149,34 @@ void AnimationRect::Update()
 
 void AnimationRect::Render()
 {
+	VB->SetIA();
+	IB->SetIA();
+	IL->SetIA();
+	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	
+	VS->SetShader();
+	WB->SetVSBuffer(0);
+
+	{
+		ID3D11ShaderResourceView* srv = rockman->GetSRV();
+		DC->PSSetShaderResources(0, 1, &srv);
+		animator->Render(3);//차후에 구조 변경
+	}
+	PS->SetShader();
+	DC->PSSetSamplers(0, 1, &SS);
+	
+	DC->DrawIndexed(IB->GetCount(), 0, 0);
 }
 
 void AnimationRect::Move(Vector3 position)
 {
+	this->position += position;
+	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
+	world = S * R * T;
+	WB->SetWorld(world);
+
+	if (position.x > 0)//오른쪽으로 이동하는 경우
+		animator->SetCurrentAnimClip(L"RunR");
+	else if (position.x < 0)//왼쪽으로 이동하는 경우
+		animator->SetCurrentAnimClip(L"RunL");
 }

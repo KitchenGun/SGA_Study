@@ -43,6 +43,7 @@
     <ClCompile Include="Scenes\Scene8_Texture2D.cpp" />
     <ClCompile Include="Utilities\Animator.cpp" />
     <ClCompile Include="Geometry\AnimationRect.cpp" />
+    <ClCompile Include="Scenes\Scene9_Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -91,6 +92,7 @@
     <ClInclude Include="Scenes\Scene8_Texture2D.h" />
     <ClInclude Include="Utilities\Animator.h" />
     <ClInclude Include="Geometry\AnimationRect.h" />
+    <ClInclude Include="Scenes\Scene9_Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

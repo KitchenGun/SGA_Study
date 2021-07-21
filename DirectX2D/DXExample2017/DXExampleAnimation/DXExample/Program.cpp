@@ -18,7 +18,7 @@ Program::~Program()
 
 void Program::Init()
 {
-	sceneList.push_back(new Scene1());
+	/*sceneList.push_back(new Scene1());
 	sceneList.push_back(new Scene2());
 	sceneList.push_back(new Scene3());
 	sceneList.push_back(new Scene4());
@@ -26,7 +26,9 @@ void Program::Init()
 	sceneList.push_back(new Scene6());
 	sceneList.push_back(new Scene7());
 	sceneList.push_back(new Scene8());
-	currentScene = sceneList[7];
+	*/ 
+	sceneList.push_back(new Scene9());
+	currentScene = sceneList[0];
 	currentScene->Init();
 }
 
@@ -52,7 +54,7 @@ void Program::Update()
 		currentScene = sceneList[0];
 		currentScene->Init();
 	}
-	else if (Keyboard::Get()->Down(VK_F2))
+	/*else if (Keyboard::Get()->Down(VK_F2))
 	{
 		currentScene = sceneList[1];
 		currentScene->Init();
@@ -86,7 +88,7 @@ void Program::Update()
 	{
 		currentScene = sceneList[6];
 		currentScene->Init();
-	}
+	}*/
 	currentScene->Update();
 }
 

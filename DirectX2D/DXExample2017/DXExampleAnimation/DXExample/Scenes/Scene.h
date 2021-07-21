@@ -5,6 +5,7 @@
 #include "Geometry/Circle.h"
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
+#include "Geometry/AnimationRect.h"
 
 #include "Utilities/RenderTexture.h"
 #include "Utilities/SoundSystem.h"

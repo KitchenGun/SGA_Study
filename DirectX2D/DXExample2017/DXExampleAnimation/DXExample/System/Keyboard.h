@@ -3,15 +3,15 @@
 #define MAX_INPUT_KEY 255
 #define MAX_INPUT_MOUSE 8
 
-#define KeyDown_Up Keyboard::Get()->Down('W');
-#define KeyDown_Down Keyboard::Get()->Down('S');
-#define KeyDown_Left Keyboard::Get()->Down('A');
-#define KeyDown_Right Keyboard::Get()->Down('D');
+#define KeyDown_Up Keyboard::Get()->Down('W')
+#define KeyDown_Down Keyboard::Get()->Down('S')
+#define KeyDown_Left Keyboard::Get()->Down('A')
+#define KeyDown_Right Keyboard::Get()->Down('D')
 
-#define KeyPress_Up Keyboard::Get()->Press('W');
-#define KeyPress_Down Keyboard::Get()->Press('S');
-#define KeyPress_Left Keyboard::Get()->Press('A');
-#define KeyPress_Right Keyboard::Get()->Press('D');
+#define KeyPress_Up Keyboard::Get()->Press('W')
+#define KeyPress_Down Keyboard::Get()->Press('S')
+#define KeyPress_Left Keyboard::Get()->Press('A')
+#define KeyPress_Right Keyboard::Get()->Press('D')
 
 class Keyboard
 {

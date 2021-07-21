@@ -36,7 +36,9 @@ SamplerState samp : register(s0);
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
 	float4 color = srcTex0.Sample(samp, input.uv);
-	
+	//마젠타 색 버리는것
+	if (color.r > 0.99f && color.b > 0.99f)
+		discard;
 	
 	return color;
 

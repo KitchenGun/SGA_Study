@@ -7,10 +7,10 @@ public:
 	~AnimationClip();
 
 	ID3D11ShaderResourceView* GetSRV() { return srv; }
-	Vector2 GetKeyframe(UINT index) { return keyframes[index]; }
+	Vector2 GetKeyframe(UINT index) { return keyframes[index]; }//쌓아둔 키 프레임의 인덱스를 통해서 포지션 정보를 획득
 	Vector2 GetTexelFrameSize() { return texelFrameSize; }
 	UINT GetFrameCount() { return frameCount; }
-	UINT GetLastFrameIndex() { return keyframes.size() - 1; }
+	UINT GetLastFrameIndex() { return keyframes.size() - 1; } //마지막 값을 받는 것이다 그렇기 때문에 -1하는 것이다.
 	bool GetIsReverse() { return bReverse; }
 
 	wstring GetClipName() { return clipName; }
@@ -42,7 +42,7 @@ public:
 	void SetCurrentAnimClip(wstring clipName);
 
 	bool bLoop = true;
-	float playRate = 1.0f / 15.0f;
+	float playRate = 1.0f / 30.0f;//파일들에 맞춰서 조절해야함 분모가 커지면 더 빠르게 재생이 된다
 	bool bStop = false;
 
 private:
