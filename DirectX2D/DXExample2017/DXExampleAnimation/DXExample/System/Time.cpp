@@ -49,7 +49,7 @@ void Time::Update()
 	//fps 업데이트 프레임 수 증가
 	frameCount++;
 	
-	if (currentTime - lastFPSUpdate >= fpsUpdateInterval)//??
+	if (currentTime - lastFPSUpdate >= fpsUpdateInterval)
 	{
 		float tempCurrentTime = (float)currentTime / (float)ticksPerSecond;
 		float tempLastTime = (float)lastFPSUpdate / (float)ticksPerSecond;

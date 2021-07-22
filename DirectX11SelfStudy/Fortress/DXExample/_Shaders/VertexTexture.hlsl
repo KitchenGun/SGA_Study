@@ -46,6 +46,7 @@ float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 	{
 		if (input.uv.x > _val)
 		{
+			//discard;
 			color = float4(0, 0, 0, 1);
 		}
 	}
