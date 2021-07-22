@@ -53,8 +53,10 @@ Animator::~Animator()
 void Animator::Update()
 {
 	if (bStop) return;
+	
+	//cout << deltaTime << " " << playRate << endl;
 	//프레임에서 프레임으로 넘어가는 시간
-	if (deltaTime > playRate)
+	if (deltaTime > playRate)//일정 시간 마다 실행하여 그림 변경 함 
 	{
 		if (currentAnimClip->GetIsReverse() == false)//반전 여부 
 		{

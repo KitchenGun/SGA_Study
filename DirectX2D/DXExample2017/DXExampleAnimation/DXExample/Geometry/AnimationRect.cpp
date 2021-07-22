@@ -62,7 +62,7 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	//텍스쳐 주소 입력하여서 텍스쳐 자원 제작
 	rockman = new Texture2D(L"./_Textures/록맨.bmp");
 	//애니메이션 객체를 만드는데 좌우로 나눠서 제작
-											//	이미지 갯수				시작 점						끝점
+										//이미지 갯수,시작 점	,끝점
 	runR = new AnimationClip(L"RunR", rockman, 10, { 0, 0 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() / 2 });
 	runL = new AnimationClip(L"RunL", rockman, 10, { 0, (float)rockman->GetHeight() / 2 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() }, true);
 	animator = new Animator(runR);
@@ -159,7 +159,13 @@ void AnimationRect::Update()
 
 		memcpy(subResource.pData, vertices.data(), sizeof(VertexTexture) * vertices.size());
 		DC->Unmap(VB->GetResource(), 0);
-		cout << String::ToString(animator->GetCurrentFrame()) << endl;
+		/*
+			cout <<" X:" << animator->GetCurrentFrame().x<<" Y:"<< animator->GetCurrentFrame().y << endl;
+			를 통해서 uv 값의 변화 
+			정방향일때 uv = 0 반대 일때 uv = 0.5
+			x값은 0~1사이로 계속 변화함 
+			animator->GetTexelFrameSize() == 출력할 이미지 한장당 클래스의 변화 비율을 가지고 있음 ex)0.1이런식의 값을 가지고 있음
+		*/
 	}
 }
 

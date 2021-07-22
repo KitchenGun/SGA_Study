@@ -43,8 +43,9 @@ void Time::Update()
 	if (isTimerStopped) return;
 	//현재 시간과 간격의 업데이트
 	QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
-	//update한 번 돌때 즉 한 프레임 주기의 싸인 틱수 (컴퓨터 마다 사양이 다름) 결론은 작동환경과 상관없는 일정한 비율이 된다.
+	//update한 번 돌때 즉 한 프레임 주기의 싸인 틱수 (컴퓨터 마다 사양이 다름) 
 	timeElapsed = (float)(currentTime - lastTime) / (float)ticksPerSecond;
+	//결론은 작동환경과 상관없는 일정한 비율이 된다.
 	runningTime += timeElapsed;
 	//fps 업데이트 프레임 수 증가
 	frameCount++;
