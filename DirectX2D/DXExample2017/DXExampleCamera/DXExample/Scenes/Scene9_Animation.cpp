@@ -35,6 +35,7 @@ void Scene9::Update()
 	else if (KeyPress_Down)
 		animRect->Move(Vector3(0, -100 * Time::Delta(), 0));
 	animRect->Update();
+	//카메라 객체에 전달 변화값 전달
 	Camera::Get()->Move(animRect->GetPosition() + Vector3(100, 100, 0));
 }
 

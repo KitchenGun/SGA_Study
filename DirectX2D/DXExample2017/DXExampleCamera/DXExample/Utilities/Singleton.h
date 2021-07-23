@@ -1,5 +1,5 @@
 #pragma once
-
+//ΩÃ±€≈Ê ≈€«√∏¥
 template<typename T>
 class Singleton
 {

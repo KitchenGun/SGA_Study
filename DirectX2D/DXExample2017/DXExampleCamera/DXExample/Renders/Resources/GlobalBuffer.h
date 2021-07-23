@@ -47,7 +47,6 @@ public:
 		D3DXMatrixTranspose(&data.Projection, &projection);
 	}
 		
-		
 	struct ViewProjStruct
 	{
 		Matrix View;
