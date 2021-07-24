@@ -1,10 +1,5 @@
 #include "stdafx.h"
 #include "Texture2D.h"
-//해당 클래스 역할(예상?)
-//1.텍스쳐의 생성과정 이미지 파일을 조사한다 
-//2.텍스쳐 리소스를 생성한다
-//3.텍스쳐 이미지 데이터를 쓴다
-//4.텍스쳐에 액세스하는 뷰를 생성한다
 
 using namespace DirectX;
 
