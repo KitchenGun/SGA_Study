@@ -29,17 +29,16 @@ D3D11_TEXTURE2D_DESC Texture2D::ReadPixel(ID3D11Texture2D * src, DXGI_FORMAT rea
 	D3D11_TEXTURE2D_DESC srcDesc;
 	src->GetDesc(&srcDesc);
 	//texture2d desc 제작 
-
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_TEXTURE2D_DESC));
 	desc.Width = srcDesc.Width;
 	desc.Height = srcDesc.Height;
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
+	desc.MipLevels = 1;									//멑티샘플링된 텍스쳐를 사용하겠다.
+	desc.ArraySize = 1;									//텍스쳐 배열의 텍스처 수
 	desc.Format = readFormat;
 	desc.SampleDesc = srcDesc.SampleDesc;
 	desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-	desc.Usage = D3D11_USAGE_STAGING;
+	desc.Usage = D3D11_USAGE_STAGING;					//cpu읽고 쓰기 gpu읽고 쓰기 허용
 
 	ID3D11Texture2D* texture;
 	ASSERT(DEVICE->CreateTexture2D(&desc, nullptr, &texture));//2d 텍스쳐 자원 만들고
