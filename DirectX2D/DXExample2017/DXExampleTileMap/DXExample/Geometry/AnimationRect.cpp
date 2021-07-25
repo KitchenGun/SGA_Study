@@ -143,9 +143,9 @@ void AnimationRect::Update()
 {
 	animator->Update();
 
+	D3D11_MAPPED_SUBRESOURCE subResource;
+	DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 	{
-		D3D11_MAPPED_SUBRESOURCE subResource;
-		DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		//gpu에 접근해서 uv좌표 변경 
 		//텍셀에 접근하면 uv 값을 알 수 있음  삼각형 2개로 사각형이 이루어져있음을 기억하자
 		//좌하단
@@ -158,7 +158,6 @@ void AnimationRect::Update()
 		vertices[3].uv = Vector2(animator->GetCurrentFrame().x + animator->GetTexelFrameSize().x, animator->GetCurrentFrame().y);
 
 		memcpy(subResource.pData, vertices.data(), sizeof(VertexTexture) * vertices.size());
-		DC->Unmap(VB->GetResource(), 0);
 		/*
 			cout <<" X:" << animator->GetCurrentFrame().x<<" Y:"<< animator->GetCurrentFrame().y << endl;
 			를 통해서 uv 값의 변화 
@@ -167,6 +166,7 @@ void AnimationRect::Update()
 			animator->GetTexelFrameSize() == 출력할 이미지 한장당 클래스의 변화 비율을 가지고 있음 ex)0.1이런식의 값을 가지고 있음
 		*/
 	}
+	DC->Unmap(VB->GetResource(), 0);
 }
 
 void AnimationRect::Render()
