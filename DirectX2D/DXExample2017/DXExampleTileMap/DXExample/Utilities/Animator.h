@@ -30,6 +30,7 @@ class Animator
 {
 public:
 	Animator(AnimationClip* animClip);
+	Animator(vector<AnimationClip*> animClips);
 	~Animator();
 
 	void Update();

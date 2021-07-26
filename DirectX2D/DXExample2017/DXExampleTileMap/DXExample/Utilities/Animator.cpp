@@ -45,6 +45,15 @@ Animator::Animator(AnimationClip* animClip)
 	animClips.insert(make_pair(animClip->GetClipName(), animClip));
 }
 
+Animator::Animator(vector<AnimationClip*> animClips)
+	:currentAnimClip(animClips[0])
+{
+	for (AnimationClip* animClip : animClips)
+	{
+		this->animClips.insert(make_pair(animClip->GetClipName(), animClip));
+	}
+}
+
 Animator::~Animator()
 {
 

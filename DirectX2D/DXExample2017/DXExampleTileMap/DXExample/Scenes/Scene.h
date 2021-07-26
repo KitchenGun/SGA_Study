@@ -6,6 +6,7 @@
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
 #include "Geometry/AnimationRect.h"
+#include "Characters/Rockman.h"
 
 #include "Utilities/RenderTexture.h"
 #include "Utilities/SoundSystem.h"

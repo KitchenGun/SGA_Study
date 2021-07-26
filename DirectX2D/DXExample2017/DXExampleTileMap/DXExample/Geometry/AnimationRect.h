@@ -12,8 +12,13 @@ public:
 	void Update();
 	void Render();
 
-	void Move(Vector3 position);
+	virtual void Move(Vector3 position);
 	Vector3 GetPosition() { return position; }
+protected:
+	Animator* animator = nullptr;
+	vector<AnimationClip*> animClips;
+	Texture2D* texture = nullptr;
+
 private:
 	vector<VertexTexture> vertices;
 	vector<UINT> indices;
@@ -29,11 +34,6 @@ private:
 	Matrix world, S, R, T;
 	Vector3 position, size;
 	float rotation;
-
-	Animator* animator = nullptr;
-	AnimationClip* runR = nullptr;
-	AnimationClip* runL = nullptr;
-	Texture2D* rockman = nullptr;
 
 	ID3D11BlendState* BS;
 	ID3D11SamplerState* SS;

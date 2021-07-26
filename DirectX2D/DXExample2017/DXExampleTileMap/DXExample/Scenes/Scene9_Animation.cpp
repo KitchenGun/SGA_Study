@@ -20,7 +20,7 @@ void Scene9::Init()
 	background = new TextureRect(Vector3(0, 0, 0), Vector3(5390, 2022, 1), 0);
 	mapTex = new Texture2D(L"./_Textures/Map.png");
 	background->SetSRV(mapTex->GetSRV());
-	animRect = new AnimationRect(Vector3(300, 300, 0), Vector3(100, 100, 1), 0);
+	animRect = new Rockman(Vector3(300, 300, 0), Vector3(100, 100, 1), 0);
 }
 
 void Scene9::Update()

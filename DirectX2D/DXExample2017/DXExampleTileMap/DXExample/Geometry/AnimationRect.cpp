@@ -59,15 +59,6 @@ AnimationRect::AnimationRect(Vector3 position, Vector3 size, float rotation)
 	world = S * R * T;
 
 	WB->SetWorld(world);
-	//텍스쳐 주소 입력하여서 텍스쳐 자원 제작
-	rockman = new Texture2D(L"./_Textures/록맨.bmp");
-	//애니메이션 객체를 만드는데 좌우로 나눠서 제작
-										//이미지 갯수,시작 점	,끝점
-	runR = new AnimationClip(L"RunR", rockman, 10, { 0, 0 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() / 2 });
-	runL = new AnimationClip(L"RunL", rockman, 10, { 0, (float)rockman->GetHeight() / 2 }, { (float)rockman->GetWidth(), (float)rockman->GetHeight() }, true);
-	animator = new Animator(runR);
-	animator->AddAnimClip(runL);
-
 	
 	//Create BlnedState//현재는 기능이 없음
 	{
@@ -123,10 +114,8 @@ AnimationRect::~AnimationRect()
 	SAFE_RELEASE(SS);
 	SAFE_RELEASE(BS);
 
-	SAFE_DELETE(rockman);
+	SAFE_DELETE(texture);
 	SAFE_DELETE(animator);
-	SAFE_DELETE(runR);
-	SAFE_DELETE(runL);
 
 	SAFE_DELETE(WB);
 
@@ -180,7 +169,7 @@ void AnimationRect::Render()
 	WB->SetVSBuffer(0);
 
 	{
-		ID3D11ShaderResourceView* srv = rockman->GetSRV();
+		ID3D11ShaderResourceView* srv = texture->GetSRV();
 		DC->PSSetShaderResources(0, 1, &srv);
 		animator->Render(3);//차후에 구조 변경
 	}
@@ -195,9 +184,4 @@ void AnimationRect::Move(Vector3 position)
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
 	world = S * R * T;
 	WB->SetWorld(world);
-
-	if (position.x > 0)//오른쪽으로 이동하는 경우
-		animator->SetCurrentAnimClip(L"RunR");
-	else if (position.x < 0)//왼쪽으로 이동하는 경우
-		animator->SetCurrentAnimClip(L"RunL");
 }
