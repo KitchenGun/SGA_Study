@@ -49,7 +49,7 @@ struct VertexTextureColor
 	Vector2 uv;
 
 	static D3D11_INPUT_ELEMENT_DESC descs[];
-	static constexpr UINT count = 3;
+	static constexpr UINT count = 3;//전달값 갯수
 };
 
 struct VertexTile
@@ -65,7 +65,7 @@ struct VertexTile
 	Vector3 position;
 	Vector2 uv;
 	Vector2 tileUv;
-	bool isTiled;
+	bool isTiled;								//타일화 여부
 	static D3D11_INPUT_ELEMENT_DESC descs[];
-	static constexpr UINT count = 4;
+	static constexpr UINT count = 4;			//전달값 갯수
 };
