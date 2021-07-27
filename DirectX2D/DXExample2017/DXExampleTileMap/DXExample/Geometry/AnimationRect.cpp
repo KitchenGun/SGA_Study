@@ -175,6 +175,8 @@ void AnimationRect::Render()
 	}
 	PS->SetShader();
 	DC->PSSetSamplers(0, 1, &SS);
+	/////////////수정 부분
+	DC->OMSetBlendState(BS, nullptr, 0xFFFFFFF);
 	DC->DrawIndexed(IB->GetCount(), 0, 0);
 }
 

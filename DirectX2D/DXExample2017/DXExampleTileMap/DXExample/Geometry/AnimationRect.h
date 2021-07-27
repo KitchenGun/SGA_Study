@@ -9,7 +9,7 @@ public:
 	AnimationRect(Vector3 position, Vector3 size, float rotation);
 	~AnimationRect();
 
-	void Update();
+	virtual void Update();
 	void Render();
 
 	virtual void Move(Vector3 position);

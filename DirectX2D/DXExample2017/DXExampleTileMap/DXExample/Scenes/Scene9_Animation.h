@@ -14,5 +14,5 @@ public:
 private:
 	TextureRect* background;
 	Texture2D* mapTex;
-	Rockman* animRect;
+	Ataho* animRect;
 };

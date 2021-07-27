@@ -103,7 +103,7 @@ void String::Replace(wstring * str, wstring comp, wstring rep)
 string String::ToString(Vector3 vec3)
 {
 	wstring temp;
-	temp = to_wstring(vec3.x) + to_wstring(vec3.y) + to_wstring(vec3.z);
+	temp = L" X:" + to_wstring(vec3.x)+L" Y:"+ to_wstring(vec3.y) + L" Z:" + to_wstring(vec3.z);
 	string str = ToString(temp);
 
 	return str;

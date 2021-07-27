@@ -17,23 +17,15 @@ Scene9::~Scene9()
 
 void Scene9::Init()
 {
-	background = new TextureRect(Vector3(0, 0, 0), Vector3(5390, 2022, 1), 0);
-	mapTex = new Texture2D(L"./_Textures/Map.png");
+	background = new TextureRect(Vector3(0, 0, 0), Vector3(800*3, 800*3, 1), 0);
+	mapTex = new Texture2D(L"./_Textures/AtahoMap.png");
 	background->SetSRV(mapTex->GetSRV());
-	animRect = new Rockman(Vector3(300, 300, 0), Vector3(100, 100, 1), 0);
+	animRect = new Ataho(Vector3(300, 300, 0), Vector3(100, 100, 1), 0);
 }
 
 void Scene9::Update()
 {
-	if (KeyPress_Left)
-		animRect->Move(Vector3(-100 * Time::Delta(), 0, 0));
-	else if (KeyPress_Right)
-		animRect->Move(Vector3(100 * Time::Delta(), 0, 0));
-
-	if (KeyPress_Up)
-		animRect->Move(Vector3(0, 100 * Time::Delta(), 0));
-	else if (KeyPress_Down)
-		animRect->Move(Vector3(0, -100 * Time::Delta(), 0));
+	
 	animRect->Update();
 	//카메라 객체에 전달 변화값 전달
 	Camera::Get()->Move(animRect->GetPosition() + Vector3(100, 100, 0));

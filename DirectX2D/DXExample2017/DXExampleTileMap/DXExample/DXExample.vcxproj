@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Characters\Ataho.cpp" />
     <ClCompile Include="Characters\Rockman.cpp" />
     <ClCompile Include="Geometry\AnimationRect.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Characters\Ataho.h" />
     <ClInclude Include="Characters\Rockman.h" />
     <ClInclude Include="Geometry\AnimationRect.h" />
     <ClInclude Include="Geometry\Circle.h" />
