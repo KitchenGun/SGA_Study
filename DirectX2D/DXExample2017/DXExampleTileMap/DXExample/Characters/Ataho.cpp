@@ -37,6 +37,19 @@ void Ataho::Move(Vector3 position)
 
 void Ataho::Input()
 {
+	//sqrt(2)를 하는 이유
+	/*
+	현재 이론상으로
+	w와d를 누른다면
+	이동백터는 x100 y100이다
+	그렇다면 
+	  /|
+	 / |
+	/  |
+	이러한 형태가 된다		빗변제곱 = x제곱 + y제곱
+	여기서 빗변의 길이는  100*sqrt(2) = sqrt2(pow(100,2)+pow(100,2))
+
+	*/
 	if (KeyPress_Left)
 	{
 		if (isAxisDirInput)
