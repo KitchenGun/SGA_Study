@@ -3,6 +3,8 @@
 class TileSet
 {
 public:
+	friend class TileMap;
+
 	TileSet();
 	~TileSet();
 

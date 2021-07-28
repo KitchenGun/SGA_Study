@@ -12,6 +12,9 @@ public:
 	void UpdateView();
 
 	void UnProjection(Vector3* out, Vector3 source, Matrix world);
+
+	Vector3 GetPosition() { return position; }
+
 private:
 	Camera();
 	~Camera();

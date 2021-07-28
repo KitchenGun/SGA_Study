@@ -25,24 +25,18 @@ PixelInput VS(VertexInput input)//입력 pos와 입력 color 를 그대로 PixelInput 형�
     
     //현재방식은 정점별 방식이 아닌 일반적으로 사용하는 방식
     output.uv = input.uv;
-	output.color = input.color;
+    
     return output;
 }
 
-//Texture2D srcTex0 : register(t0);
-
-Texture2D tileTex0 : register(t0);
+Texture2D srcTex0 : register(t0);
 
 SamplerState samp : register(s0);
 
 float4 PS(PixelInput input) : SV_Target //현재 세팅한 타겟에 그려라
 {
-	float4 color = tileTex0.Sample(samp, input.uv);
+	float4 color = srcTex0.Sample(samp, input.uv);
 	
-
-	if (input.uv.x > 0 || input.uv.y > 0)
-		return color;
-	else
-		return input.color;
+	return color;
 
 }
