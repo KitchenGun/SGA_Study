@@ -1,0 +1,40 @@
+#pragma once
+
+class Animator;
+class AnimationClip;
+
+class AnimationRect
+{
+public:
+	AnimationRect(Vector3 position, Vector3 size, float rotation);
+	~AnimationRect();
+
+	virtual void Update();
+	void Render();
+
+	virtual void Move(Vector3 position);
+	Vector3 GetPosition() { return position; }
+protected:
+	Animator* animator = nullptr;
+	vector<AnimationClip*> animClips;
+	Texture2D* texture = nullptr;
+
+private:
+	vector<VertexTexture> vertices;
+	vector<UINT> indices;
+	InputLayout* IL = nullptr;
+
+	VertexBuffer* VB = nullptr;
+	IndexBuffer* IB = nullptr;
+
+	VertexShader* VS = nullptr;
+	PixelShader* PS = nullptr;
+
+	WorldBuffer* WB = nullptr;
+	Matrix world, S, R, T;
+	Vector3 position, size;
+	float rotation;
+
+	ID3D11BlendState* BS;
+	ID3D11SamplerState* SS;
+};
