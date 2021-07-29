@@ -53,7 +53,7 @@ TileMap::TileMap(Vector2 position, Vector3 size, float rotation)
 	WB = new WorldBuffer();
 	D3DXMatrixIsIdentity(&world);
 
-	
+	//rs
 	{
 		D3D11_RASTERIZER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
@@ -64,6 +64,7 @@ TileMap::TileMap(Vector2 position, Vector3 size, float rotation)
 
 		DEVICE->CreateRasterizerState(&desc, &RS);
 	}
+	//wireframe
 	{
 		D3D11_RASTERIZER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
@@ -109,6 +110,7 @@ void TileMap::Update()
 {
 	if (Mouse::Get()->Press(0))
 	{
+		//마우스 클릭 위치를 받아옴
 		Vector3 mPos = Mouse::Get()->GetPosition();
 		Tile* tile = GetTile(mPos);
 		if (tile)
@@ -146,6 +148,7 @@ void TileMap::Render()
 
 			DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 			{
+				//uv값 변경
 				vertices[0].uv = Vector2(tile.uvStart.x, tile.uvEnd.y);
 				vertices[1].uv = tile.uvStart;
 				vertices[2].uv = tile.uvEnd;
@@ -171,11 +174,11 @@ void TileMap::GUI()
 void TileMap::GenerateTileMap(UINT width, UINT height, UINT spacing)
 {
 	if (width == 0 || height == 0 || spacing == 0)
-	{
+	{//값이 제대로 넘어오지 않으면 리턴
 		ASSERT(false);
 		return;
 	}
-
+	//준 공간 만큼 타일의 위치를 저장
 	tiles = new Tile*[height];
 	for (UINT y = 0; y < height ; y++)
 	{
@@ -195,6 +198,7 @@ void TileMap::GenerateTileMap(UINT width, UINT height, UINT spacing)
 
 Tile * TileMap::GetTile(Vector3 worldMousePos)
 {
+	//마우스 위치가지고 타일 위치 받아오기
 	UINT x = ((int)worldMousePos.x + (int)Camera::Get()->GetPosition().x - WinMaxWidth / 2) / spacing;
 	UINT y = ((int)worldMousePos.y + (int)Camera::Get()->GetPosition().y - WinMaxHeight / 2) / spacing;
 

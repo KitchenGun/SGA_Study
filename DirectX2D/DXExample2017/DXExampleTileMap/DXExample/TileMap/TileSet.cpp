@@ -11,7 +11,6 @@ TileSet::TileSet()//애니메이션과 유사한 방식으로 이미지를 자름
 	tileYCount = 18;
 	//uv처럼 정규화 시킴
 	UISize = Vector2(1 / (float)tileXCount, 1 / (float)tileYCount);
-
 	texelTileSize = Vector2(1 / (float)tileXCount, 1 / (float)tileYCount);
 }
 
