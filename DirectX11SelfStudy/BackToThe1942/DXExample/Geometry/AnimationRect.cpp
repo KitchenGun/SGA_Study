@@ -114,7 +114,6 @@ AnimationRect::~AnimationRect()
 	SAFE_RELEASE(SS);
 	SAFE_RELEASE(BS);
 
-	SAFE_DELETE(texture);
 	SAFE_DELETE(animator);
 
 	SAFE_DELETE(WB);
@@ -164,15 +163,15 @@ void AnimationRect::Render()
 	IB->SetIA();
 	IL->SetIA();
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	
+
 	VS->SetShader();
 	WB->SetVSBuffer(0);
-
+	
 	{
 		ID3D11ShaderResourceView* srv = texture->GetSRV();
 		DC->PSSetShaderResources(0, 1, &srv);
-		animator->Render(3);//차후에 구조 변경
 	}
+
 	PS->SetShader();
 	DC->PSSetSamplers(0, 1, &SS);
 	/////////////수정 부분 blendstate를 추가하여 투명 부분을 자연스럽게 변경

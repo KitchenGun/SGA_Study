@@ -6,10 +6,12 @@ public:
 	~Player();
 public:
 	void Update() override;
-	void Move(Vector3 position) override;
+	void Move(Vector3 position) override; 
 	void Input();
 public:
 	void SetAnimation();
 private:
 	bool isAxisDirInput = false;
+	Texture2D* textureX = nullptr;
+	Texture2D* textureY = nullptr;
 };

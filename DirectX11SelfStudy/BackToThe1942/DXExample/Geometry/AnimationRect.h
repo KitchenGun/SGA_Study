@@ -10,7 +10,7 @@ public:
 	~AnimationRect();
 
 	virtual void Update();
-	void Render();
+	virtual void Render();
 
 	virtual void Move(Vector3 position);
 	Vector3 GetPosition() { return position; }
@@ -18,8 +18,7 @@ protected:
 	Animator* animator = nullptr;
 	vector<AnimationClip*> animClips;
 	Texture2D* texture = nullptr;
-
-private:
+protected:
 	vector<VertexTexture> vertices;
 	vector<UINT> indices;
 	InputLayout* IL = nullptr;

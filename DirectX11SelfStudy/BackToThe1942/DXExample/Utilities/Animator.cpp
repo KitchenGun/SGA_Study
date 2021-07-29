@@ -70,16 +70,29 @@ void Animator::Update()
 		if (currentAnimClip->GetIsReverse() == false)//반전 여부 
 		{
 			currentFrameIndex++;
-			if (currentFrameIndex >= currentAnimClip->GetFrameCount() && bLoop)//반복을 시킬 때 이미지를 반복한다
+			if (currentFrameIndex >= currentAnimClip->GetLastFrameIndex() && bLoop)//반복을 시킬 때 이미지를 반복한다
+			{
 				currentFrameIndex = 0;
+			}
+			else if (currentFrameIndex >= currentAnimClip->GetLastFrameIndex() && !bLoop)
+			{
+				currentFrameIndex = currentAnimClip->GetLastFrameIndex();
+			}
+
 			currentFrame = currentAnimClip->GetKeyframe(currentFrameIndex);//가져온 좌표를 현재 프래임으로 만들겠다.
 		}
 		else
 		{
-			//거꾸로 돌리는것
 			currentFrameIndex--;
+			//거꾸로 돌리는것
 			if (currentFrameIndex <= 0 && bLoop)
+			{
 				currentFrameIndex = currentAnimClip->GetLastFrameIndex();
+			}
+			else if (currentFrameIndex <= 0 && !bLoop)
+			{
+				currentFrameIndex = 0;
+			}
 			currentFrame = currentAnimClip->GetKeyframe(currentFrameIndex);
 		}
 		//델타타임을 초기화 update돌때마다 교체 되기 때문에 초기화 해야한다
