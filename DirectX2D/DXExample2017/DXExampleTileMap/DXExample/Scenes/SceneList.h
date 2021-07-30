@@ -9,3 +9,4 @@
 #include "Scene7_Sound.h"
 #include "Scene8_Texture2D.h"
 #include "Scene9_Animation.h"
+#include "Scene10_TileMap.h"

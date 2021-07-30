@@ -44,6 +44,11 @@ void Mouse::Update()
 
 	ZeroMemory(buttonStatus, sizeof(buttonStatus));
 	ZeroMemory(buttonMap, sizeof(buttonMap));
+
+	buttonStatus[0] = GetAsyncKeyState(VK_LBUTTON) & 0x8000 ? 1 : 0;
+	buttonStatus[1] = GetAsyncKeyState(VK_RBUTTON) & 0x8000 ? 1 : 0;
+	buttonStatus[2] = GetAsyncKeyState(VK_MBUTTON) & 0x8000 ? 1 : 0;
+
 	//버튼 클릭 확인
 	for (DWORD i = 0; i < MAX_INPUT_MOUSE; i++)
 	{

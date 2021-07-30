@@ -2,17 +2,18 @@
 #include "TileMap.h"
 #include "TileSet.h"
 
-TileMap::TileMap(Vector2 position, Vector3 size, float rotation)
+TileMap::TileMap(Vector3 position, Vector3 size, float rotation)
 	:position(position),size(size),rotation(rotation)
 {
 	tileSet = new TileSet();
 
 	spacing = 40;
+	//타일 한칸의 가로 세로 크기
 	width = WinMaxWidth/spacing;
 	height = WinMaxHeight/spacing;
 
 	GenerateTileMap(width, height, spacing);
-	
+	//40픽셀씩으로 되어있는거임
 	vertices.assign(4, VertexTextureColor());
 	vertices[0].position = Vector3(0, 0, 0);
 	vertices[0].uv = Vector2(0, 1);
@@ -25,7 +26,7 @@ TileMap::TileMap(Vector2 position, Vector3 size, float rotation)
 	
 	vertices[3].position = Vector3((float)spacing, (float)spacing, 0);
 	vertices[3].uv = Vector2(1, 0);
-
+	//검정색으로 출력됨
 	vertices[0].color = Color(0, 0, 0, 1);
 	vertices[1].color = Color(0, 0, 0, 1);
 	vertices[2].color = Color(0, 0, 0, 1);
@@ -70,11 +71,12 @@ TileMap::TileMap(Vector2 position, Vector3 size, float rotation)
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
 
 		desc.CullMode = D3D11_CULL_BACK;
-		desc.FillMode = D3D11_FILL_SOLID;
+		desc.FillMode = D3D11_FILL_WIREFRAME;
 		desc.FrontCounterClockwise = false;
 
 		DEVICE->CreateRasterizerState(&desc, &wireframeRS);
 	}
+	//원본파일 넣어줌
 	srv = tileSet->tileSprite->GetSRV();
 }
 
@@ -82,12 +84,17 @@ TileMap::~TileMap()
 {
 	SAFE_DELETE_ARRAY(tiles);
 	SAFE_DELETE(tileSet);
+
 	SAFE_RELEASE(wireframeRS);
 	SAFE_RELEASE(RS);
+
 	SAFE_DELETE(WB);
+
 	SAFE_DELETE(IL);
+
 	SAFE_DELETE(PS);
 	SAFE_DELETE(VS);
+
 	SAFE_DELETE(IB);
 	SAFE_DELETE(VB);
 }
@@ -115,6 +122,7 @@ void TileMap::Update()
 		Tile* tile = GetTile(mPos);
 		if (tile)
 		{
+			//tileset에서 선택한 tile을 그려넣겠다.
 			tile->uvStart = tileSet->selectedStartUv;
 			tile->uvEnd = tileSet->selectedStartUv + tileSet->texelTileSize;
 		}
@@ -129,7 +137,7 @@ void TileMap::Render()
 	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	VS->SetShader();
-	
+
 	if (Keyboard::Get()->Down(VK_01))
 		DC->RSSetState(RS);
 	else if (Keyboard::Get()->Down(VK_02))
@@ -139,29 +147,32 @@ void TileMap::Render()
 
 	if (srv)
 		DC->PSSetShaderResources(0, 1, &srv);
+
 	for (UINT y = 0; y < height; y++)
 	{
 		for (UINT x = 0; x < width; x++)
 		{
 			Tile& tile = tiles[y][x];
-			D3D11_MAPPED_SUBRESOURCE subResource;
-
-			DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 			{
-				//uv값 변경
-				vertices[0].uv = Vector2(tile.uvStart.x, tile.uvEnd.y);
-				vertices[1].uv = tile.uvStart;
-				vertices[2].uv = tile.uvEnd;
-				vertices[3].uv = Vector2(tile.uvEnd.x, tile.uvStart.y);
+				D3D11_MAPPED_SUBRESOURCE subResource;
 
-				memcpy(subResource.pData, vertices.data(), sizeof(VertexTextureColor)*vertices.size());
+				DC->Map(VB->GetResource(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+				{
+					vertices[0].uv = Vector2(tile.uvStart.x, tile.uvEnd.y);
+					vertices[1].uv = tile.uvStart;
+					vertices[2].uv = tile.uvEnd;
+					vertices[3].uv = Vector2(tile.uvEnd.x, tile.uvStart.y);
+
+					memcpy(subResource.pData, vertices.data(), sizeof(VertexTextureColor) * vertices.size());
+				}
+				DC->Unmap(VB->GetResource(), 0);
+
+				D3DXMatrixTranslation(&world, tile.pos.x + position.x, tile.pos.y + position.y, 0);
+				WB->SetWorld(world);
+				WB->SetVSBuffer(0);
+
+				DC->DrawIndexed(IB->GetCount(), 0, 0);
 			}
-			DC->Unmap(VB->GetResource(), 0);
-
-			D3DXMatrixTranslation(&world, tile.pos.x + position.x, tile.pos.y + position.y, 0);
-			WB->SetWorld(world);
-			WB->SetVSBuffer(0);
-			DC->DrawIndexed(IB->GetCount(), 0, 0);
 		}
 	}
 }
@@ -179,12 +190,13 @@ void TileMap::GenerateTileMap(UINT width, UINT height, UINT spacing)
 		return;
 	}
 	//준 공간 만큼 타일의 위치를 저장
-	tiles = new Tile*[height];
+	tiles = new Tile*[height];  //각 요소 마다 접근
 	for (UINT y = 0; y < height ; y++)
 	{
 		tiles[y] = new Tile[width];
 		for (UINT x = 0; x < width ; x++)
 		{
+			//position정해주는거임
 			tiles[y][x].pos.x = (float)(x*spacing);
 			tiles[y][x].pos.y = (float)(y*spacing);
 			tiles[y][x].pos.z = 0.0f;

@@ -1,7 +1,7 @@
 #pragma once
 class TileSet;
 
-struct Tile//타일 구조체
+struct Tile//타일 한칸의 정보 구조체
 {
 	Vector3 pos;
 	Vector2 uvStart;
@@ -12,7 +12,7 @@ struct Tile//타일 구조체
 class TileMap
 {
 public:
-	TileMap(Vector2 position, Vector3 size, float rotation);
+	TileMap(Vector3 position, Vector3 size, float rotation);
 	~TileMap();
 
 	void SetSRv(ID3D11ShaderResourceView* SRV) { this->srv = srv; }
@@ -34,7 +34,7 @@ private:
 
 	vector<VertexTextureColor> vertices;
 	vector<UINT> indices;
-	Tile** tiles;						//???왜 더블포인터 인지 아직 모르겠음
+	Tile** tiles;						//2차원 배열이라 더블 포인터
 	UINT spacing;
 	InputLayout* IL = nullptr;
 

@@ -25,7 +25,8 @@ void Program::Init()
 	sceneList.push_back(new Scene8());
 	*/ 
 	sceneList.push_back(new Scene9());
-	currentScene = sceneList[0];
+	sceneList.push_back(new Scene10());
+	currentScene = sceneList[1];
 	currentScene->Init();
 }
 
@@ -38,41 +39,41 @@ void Program::Update()
 		currentScene = sceneList[0];
 		currentScene->Init();
 	}
-	/*else if (Keyboard::Get()->Down(VK_F2))
+	else if (Keyboard::Get()->Down(VK_F2))
 	{
 		currentScene = sceneList[1];
 		currentScene->Init();
 	}
-	else if (Keyboard::Get()->Down(VK_F3))
-	{
-		currentScene = sceneList[2];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F4))
-	{
-		currentScene = sceneList[3];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F5))
-	{
-		currentScene = sceneList[4];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F6))
-	{
-		currentScene = sceneList[5];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F7))
-	{
-		currentScene = sceneList[6];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F8))
-	{
-		currentScene = sceneList[6];
-		currentScene->Init();
-	}*/
+	//else if (Keyboard::Get()->Down(VK_F3))
+	//{
+	//	currentScene = sceneList[2];
+	//	currentScene->Init();
+	//}
+	//else if (Keyboard::Get()->Down(VK_F4))
+	//{
+	//	currentScene = sceneList[3];
+	//	currentScene->Init();
+	//}
+	//else if (Keyboard::Get()->Down(VK_F5))
+	//{
+	//	currentScene = sceneList[4];
+	//	currentScene->Init();
+	//}
+	//else if (Keyboard::Get()->Down(VK_F6))
+	//{
+	//	currentScene = sceneList[5];
+	//	currentScene->Init();
+	//}
+	//else if (Keyboard::Get()->Down(VK_F7))
+	//{
+	//	currentScene = sceneList[6];
+	//	currentScene->Init();
+	//}
+	//else if (Keyboard::Get()->Down(VK_F8))
+	//{
+	//	currentScene = sceneList[6];
+	//	currentScene->Init();
+	//}
 	currentScene->Update();
 }
 

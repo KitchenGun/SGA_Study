@@ -12,7 +12,5 @@ public:
 	void Render() override;
 	void PostRender() override;
 private:
-	TextureRect* background;
-	Texture2D* mapTex;
-	Ataho* animRect;
+	TileMap* tileMap;
 };
