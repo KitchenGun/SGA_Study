@@ -24,7 +24,7 @@ AnimationClip::AnimationClip(wstring clipName, Texture2D* srcTex, UINT frameCoun
 							//화면기준의 포지션을 텍셀기준으로 비율 변경
 	Vector2 texelStartPos = Vector2(startPos.x * texelSize.x, startPos.y * texelSize.y);
 	texelFrameSize = Vector2(frameSize.x * texelSize.x, frameSize.y * texelSize.y);
-	//이미지 갯수만큼 돌림 ex 현재 10번 돌림
+	//이미지 갯수만큼 돌림
 	for (UINT i = 0; i < frameCount; i++)
 	{
 		Vector2 keyframe;
@@ -65,11 +65,13 @@ void Animator::Update()
 	
 	//cout << deltaTime << " " << playRate << endl;
 	//프레임에서 프레임으로 넘어가는 시간
+	//cout << String::ToString(currentAnimClip->GetClipName()) <<" "<<currentFrameIndex << endl;
 	if (deltaTime > playRate)//일정 시간 마다 실행하여 그림 변경 함 
 	{
 		if (currentAnimClip->GetIsReverse() == false)//반전 여부 
 		{
 			currentFrameIndex++;
+			
 			if (currentFrameIndex >= currentAnimClip->GetLastFrameIndex() && bLoop)//반복을 시킬 때 이미지를 반복한다
 			{
 				currentFrameIndex = 0;
@@ -111,7 +113,7 @@ void Animator::AddAnimClip(AnimationClip* animClip)
 	animClips.insert(make_pair(animClip->GetClipName(), animClip));
 }
 
-void Animator::SetCurrentAnimClip(wstring clipName)// 클립 이름에 맞게 세팅
+void Animator::SetCurrentAnimClip(wstring clipName,bool GetCurIndex)// 클립 이름에 맞게 세팅
 {
 	//같은 클립일 경우
 	if (clipName == currentAnimClip->GetClipName()) return;
@@ -123,10 +125,13 @@ void Animator::SetCurrentAnimClip(wstring clipName)// 클립 이름에 맞게 세팅
 		currentAnimClip = animClips.find(clipName)->second;
 		//동작을 처음부터 시작해야하기 때문에
 		deltaTime = 0.0f;
-		if (currentAnimClip->GetIsReverse())
-			currentFrameIndex = currentAnimClip->GetLastFrameIndex();
-		else
-			currentFrameIndex = 0;
+		if (!GetCurIndex)
+		{
+			if (currentAnimClip->GetIsReverse())
+				currentFrameIndex = currentAnimClip->GetLastFrameIndex();
+			else
+				currentFrameIndex = 0;
+		}
 		currentFrame = currentAnimClip->GetKeyframe(currentFrameIndex);
 	}
 }

@@ -15,4 +15,5 @@ private:
 	TextureRect* background;
 	Texture2D* mapTex;
 	Player* animRect;
+	PlayerAfterBurner* subAnimRect;
 };

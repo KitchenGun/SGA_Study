@@ -40,7 +40,7 @@ public:
 	Vector2 GetTexelFrameSize() { return currentAnimClip->GetTexelFrameSize(); }
 
 	void AddAnimClip(AnimationClip* animClip);
-	void SetCurrentAnimClip(wstring clipName);
+	void SetCurrentAnimClip(wstring clipName,bool GetCurIndex = false);
 
 	bool bLoop = true;
 	float playRate = 1.0f / 10.0f;//파일들에 맞춰서 조절해야함 분모가 커지면 더 빠르게 재생이 된다

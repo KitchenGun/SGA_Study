@@ -6,6 +6,7 @@
 #include "Geometry/FilledCircle.h"
 #include "Geometry/TextureRect.h"
 #include "Geometry/AnimationRect.h"
+#include "Characters/PlayerAfterBurner.h"
 #include "Characters/Player.h"
 
 #include "Utilities/RenderTexture.h"

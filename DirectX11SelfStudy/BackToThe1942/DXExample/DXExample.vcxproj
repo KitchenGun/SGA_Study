@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Characters\Player.cpp" />
+    <ClCompile Include="Characters\PlayerAfterBurner.cpp" />
     <ClCompile Include="Geometry\AnimationRect.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Characters\Player.h" />
+    <ClInclude Include="Characters\PlayerAfterBurner.h" />
     <ClInclude Include="Geometry\AnimationRect.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />

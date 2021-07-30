@@ -40,6 +40,7 @@
     <ClCompile Include="TileMap\TileMap.cpp" />
     <ClCompile Include="Scenes\Scene_Stage.cpp" />
     <ClCompile Include="Characters\Player.cpp" />
+    <ClCompile Include="Characters\PlayerAfterBurner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="TileMap\TileMap.h" />
     <ClInclude Include="Scenes\Scene_Stage.h" />
     <ClInclude Include="Characters\Player.h" />
+    <ClInclude Include="Characters\PlayerAfterBurner.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
