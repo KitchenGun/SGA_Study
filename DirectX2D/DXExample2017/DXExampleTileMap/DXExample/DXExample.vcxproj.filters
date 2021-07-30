@@ -50,6 +50,7 @@
     <ClCompile Include="Characters\Rockman.cpp" />
     <ClCompile Include="Characters\Ataho.cpp" />
     <ClCompile Include="Scenes\Scene10_TileMap.cpp" />
+    <ClCompile Include="Utilities\FileStream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Characters\Rockman.h" />
     <ClInclude Include="Characters\Ataho.h" />
     <ClInclude Include="Scenes\Scene10_TileMap.h" />
+    <ClInclude Include="Utilities\FileStream.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

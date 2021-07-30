@@ -27,6 +27,9 @@ public:
 private:
 	void GenerateTileMap(UINT width, UINT height, UINT spacing);
 	Tile* GetTile(Vector3 worldMousePos);
+
+	void SaveTileMap(const wstring& path = L"");
+	void LoadTileMap(const wstring& path = L"");
 private:
 	UINT width, height;
 	UINT vertexCount;

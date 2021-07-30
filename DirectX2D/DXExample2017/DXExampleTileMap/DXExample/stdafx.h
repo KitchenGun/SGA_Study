@@ -101,5 +101,6 @@ extern HWND handle;
 #include "Utilities/Math.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
+#include "Utilities/FileStream.h"
 
 #include "Scenes/Scene.h"

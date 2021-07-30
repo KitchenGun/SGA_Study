@@ -180,6 +180,17 @@ void TileMap::Render()
 void TileMap::GUI()
 {
 	tileSet->GUI();
+
+	static bool bOpen = true;
+	if (ImGui::Begin("TileMap", &bOpen))
+	{
+		if (ImGui::Button("Save", ImVec2(50, 30)))
+			SaveTileMap();
+
+		if (ImGui::Button("Load", ImVec2(50, 30)))
+			LoadTileMap();
+	}
+	ImGui::End();
 }
 
 void TileMap::GenerateTileMap(UINT width, UINT height, UINT spacing)
@@ -217,4 +228,56 @@ Tile * TileMap::GetTile(Vector3 worldMousePos)
 	if (x >= width || y > height || x < 0, y < 0)
 		return nullptr;
 	return &tiles[y][x];
+}
+
+void TileMap::SaveTileMap(const wstring & path)
+{
+	if (path.length() < 1)
+	{
+		function<void(wstring)> func = bind(&TileMap::SaveTileMap, this, placeholders::_1);
+		Path::SaveFileDialog(L"", Path::TileMapFilter, L"./", func, handle);
+	}
+	else
+	{
+		if (!tiles) return;
+		FileStream* out = new FileStream(String::ToString(path), FILE_STREAM_WRITE);
+		out->Write(width);
+		out->Write(height);
+
+		for (UINT y = 0; y < height; y++)
+		{
+			for (UINT x = 0; x < width; x++)
+			{
+				out->Write(tiles[y][x]);
+			}
+		}
+		SAFE_DELETE(out);
+	}
+}
+
+void TileMap::LoadTileMap(const wstring & path)
+{
+	if (path.length() < 1)
+	{
+		function<void(wstring)> func = bind(&TileMap::LoadTileMap, this, placeholders::_1);
+		Path::OpenFileDialog(L"", Path::TileMapFilter, L"./", func, handle);
+	}
+	else
+	{
+		if (!tiles) return;
+
+		FileStream* in = new FileStream(String::ToString(path), FILE_STREAM_READ);
+		width = in->Read<UINT>();
+		height = in->Read<UINT>();
+
+		for (UINT y = 0; y < height; y++)
+		{
+			for (UINT x = 0; x < width; x++)
+			{
+				tiles[y][x] = in->Read<Tile>();
+			}
+		}
+
+		SAFE_DELETE(in);
+	}
 }
