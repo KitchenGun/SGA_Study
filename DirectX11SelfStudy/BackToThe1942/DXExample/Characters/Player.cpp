@@ -135,7 +135,13 @@ void Player::Input()
 
 	if (Keyboard::Get()->Press(VK_SPACE))
 	{
-		playerBM->AddProjectile(position + Vector3(0, 60, 0));
+		if (deltaTime > FireRate)//일정 시간 마다 실행함 
+		{
+			playerBM->AddProjectile(position + Vector3(0, 60, 0),true);
+			deltaTime = 0.0f;
+		}
+		else//작동환경과 상관없이 일정하게 맞춰준다
+			deltaTime += Time::Delta();
 	}
 }
 

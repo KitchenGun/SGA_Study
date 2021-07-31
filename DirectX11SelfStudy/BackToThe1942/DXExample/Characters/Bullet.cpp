@@ -2,9 +2,10 @@
 #include "Bullet.h"
 #include "Utilities/Animator.h"
 
-Bullet::Bullet(Vector3 position, Vector3 size, float rotation)
+Bullet::Bullet(Vector3 position, Vector3 size, float rotation,bool isPlayer)
 	:
-	AnimationRect(position, size, rotation)
+	AnimationRect(position, size, rotation),
+	isPlayer(isPlayer)
 {
 	SetAnimation();
 	animator->SetCurrentAnimClip(L"Idle");
@@ -19,7 +20,14 @@ Bullet::~Bullet()
 void Bullet::Update()
 {
 	AnimationRect::Update();
-	Move(Vector3(0, fSpeed*Time::Delta(), 0));
+	if (isPlayer)
+	{
+		Move(Vector3(0, fSpeed*Time::Delta(), 0));
+	}
+	else
+	{
+		Move(Vector3(0, -(fSpeed*2*Time::Delta()), 0));
+	}
 }
 
 void Bullet::Move(Vector3 position)

@@ -10,6 +10,7 @@
 #include "Characters/Bullet.h"
 #include "Geometry/BulletManager.h"
 #include "Characters/Player.h"
+#include "Characters/Mig25.h"
 
 #include "Utilities/RenderTexture.h"
 #include "Utilities/SoundSystem.h"

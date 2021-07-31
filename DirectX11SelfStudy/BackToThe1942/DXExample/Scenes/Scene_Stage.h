@@ -12,12 +12,15 @@ public:
 	void Render() override;
 	void PostRender() override;
 
-	void BulletUpdate();
-	void BulletRender();
+	void BulletUpdate(BulletManager* BM);
+	void BulletRender(BulletManager* BM);
 private:
 	TextureRect* background;
 	Texture2D* mapTex;
 	Player* animRect;
 	PlayerAfterBurner* subAnimRect;
+	Mig25* test;
+private:
 	BulletManager* PlayerBM;
+	BulletManager* EnemyBM;
 };
