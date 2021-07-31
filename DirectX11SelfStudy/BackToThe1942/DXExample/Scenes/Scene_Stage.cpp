@@ -22,6 +22,7 @@ void Stage::Init()
 	animRect = new Player(Vector3(100, 100, 0), Vector3(100, 100, 1), 0);
 	subAnimRect = new PlayerAfterBurner(Vector3(100, 100, 0), Vector3(100, 300, 1), 0);
 	animRect->SetPlayerAfterBurner(subAnimRect);
+	test = new Bullet(Vector3(100, 100, 0), Vector3(25, 50, 1), 0);
 }
 
 void Stage::Update()
@@ -29,6 +30,7 @@ void Stage::Update()
 	animRect->Update();
 	subAnimRect->Move(animRect->GetPosition()+Vector3(0,-100,0));
 	subAnimRect->Update();
+	test->Update();
 	Camera::Get()->Move(animRect->GetPosition() + Vector3(0, 200, 0));
 }
 
@@ -41,6 +43,7 @@ void Stage::Render()
 	background->Render();
 	animRect->Render();
 	subAnimRect->Render();
+	test->Render();
 }
 
 void Stage::PostRender()

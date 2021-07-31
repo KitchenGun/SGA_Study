@@ -132,6 +132,11 @@ void Player::Input()
 		TempMovePos=TempMovePos/ sqrt(2);
 	}
 	Move(TempMovePos);
+
+	if (Keyboard::Get()->Press(VK_SPACE))
+	{
+		//총알 나갈 타이밍
+	}
 }
 
 void Player::SetAnimation()

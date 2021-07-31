@@ -16,4 +16,5 @@ private:
 	Texture2D* mapTex;
 	Player* animRect;
 	PlayerAfterBurner* subAnimRect;
+	Bullet* test;
 };

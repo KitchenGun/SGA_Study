@@ -7,6 +7,7 @@
 #include "Geometry/TextureRect.h"
 #include "Geometry/AnimationRect.h"
 #include "Characters/PlayerAfterBurner.h"
+#include "Characters/Bullet.h"
 #include "Characters/Player.h"
 
 #include "Utilities/RenderTexture.h"
