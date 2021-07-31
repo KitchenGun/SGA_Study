@@ -15,4 +15,5 @@ public:
 private:
 	Vector3 TempMovePos;
 	bool isActive = true;
+	bool isReset = false;
 };

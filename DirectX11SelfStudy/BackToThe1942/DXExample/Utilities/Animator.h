@@ -39,6 +39,7 @@ public:
 	Vector2 GetCurrentFrame() { return currentFrame; }
 	Vector2 GetTexelFrameSize() { return currentAnimClip->GetTexelFrameSize(); }
 
+	void SetIndex(int val) { currentFrameIndex = val; }
 	void AddAnimClip(AnimationClip* animClip);
 	void SetCurrentAnimClip(wstring clipName,bool GetCurIndex = false);
 

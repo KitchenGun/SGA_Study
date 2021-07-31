@@ -19,6 +19,10 @@ Player::~Player()
 void Player::Update()
 {
 	Input();
+	if (!isVerticalDirInput)
+	{
+		afterBurner->SetIsActive(false);
+	}
 	AnimationRect::Update();
 }
 
@@ -26,7 +30,6 @@ void Player::Move(Vector3 position)
 {
 	AnimationRect::Move(position);
 	
-
 	switch (PlayerState)
 	{
 		case State::Idle:
@@ -36,21 +39,26 @@ void Player::Move(Vector3 position)
 		}
 		case State::Forward:
 		{
+			afterBurner->SetIsActive(true);
 			animator->SetCurrentAnimClip(L"FlyIdle");
-			if (!isVerticalDirInput)
-			{
-				afterBurner->SetIsActive(false);
-			}
-			else
-			{
-				afterBurner->SetIsActive(true);
-			}
 			break;
 		}
 		case State::Backward:
 		{
-			animator->SetCurrentAnimClip(L"FlyIdle");
+			//animator->SetCurrentAnimClip(L"FlyIdle");
 			afterBurner->SetIsActive(false);
+			if (position.x < 0)
+			{
+				animator->SetCurrentAnimClip(L"FlyL");
+			}
+			else if (position.x > 0)
+			{
+				animator->SetCurrentAnimClip(L"FlyR", true);
+			}
+			else
+			{
+				animator->SetCurrentAnimClip(L"FlyIdle");
+			}
 			break;
 		}
 		case State::Left:

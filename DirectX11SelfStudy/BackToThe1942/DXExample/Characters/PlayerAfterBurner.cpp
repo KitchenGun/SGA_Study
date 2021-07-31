@@ -7,7 +7,6 @@ PlayerAfterBurner::PlayerAfterBurner(Vector3 position, Vector3 size, float rotat
 	AnimationRect(position, size, rotation)
 {
 	SetAnimation();
-	animator->SetCurrentAnimClip(L"AfterBurnerOn");
 	animator->bLoop = true;
 }
 
@@ -28,10 +27,7 @@ void PlayerAfterBurner::Move(Vector3 position)
 	world = S * R * T;
 	WB->SetWorld(world);
 
-	if (position.y > 0)//위쪽으로 이동하는 경우
-		animator->SetCurrentAnimClip(L"AfterBurnerOn");
-	else if (position.y == 0)//아래쪽으로 이동하는 경우
-		animator->SetCurrentAnimClip(L"AfterBurnerOff");
+	animator->SetCurrentAnimClip(L"AfterBurnerOn");
 
 	animator->bLoop = false;
 }
@@ -40,7 +36,16 @@ void PlayerAfterBurner::Render()
 {
 	if (isActive)
 	{
+		if (isReset == false)
+		{
+			animator->SetIndex(0);
+			isReset = true;
+		}
 		AnimationRect::Render();
+	}
+	else
+	{
+		isReset = false;
 	}
 }
 
@@ -51,5 +56,6 @@ void PlayerAfterBurner::SetAnimation()
 	//애프터 버너
 	animClips.push_back(new AnimationClip(L"AfterBurnerOn", texture, 6, { 0, 0 }, { (float)texture->GetWidth() / 11 * 6, (float)texture->GetHeight() }));
 	animClips.push_back(new AnimationClip(L"AfterBurnerOff", texture, 6, { (float)texture->GetWidth() / 11 * 5, 0 }, { (float)texture->GetWidth(), (float)texture->GetHeight() }));
+	animClips.push_back(new AnimationClip(L"AfterBurnerFull", texture, 11, { 0, 0 }, { (float)texture->GetWidth(), (float)texture->GetHeight() }));
 	animator = new Animator(animClips);
 }
