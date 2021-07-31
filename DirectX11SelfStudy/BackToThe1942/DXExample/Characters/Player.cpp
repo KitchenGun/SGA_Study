@@ -135,7 +135,7 @@ void Player::Input()
 
 	if (Keyboard::Get()->Press(VK_SPACE))
 	{
-		//총알 나갈 타이밍
+		playerBM->AddProjectile(position + Vector3(0, 60, 0));
 	}
 }
 

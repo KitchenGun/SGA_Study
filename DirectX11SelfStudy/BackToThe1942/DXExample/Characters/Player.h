@@ -23,8 +23,10 @@ public:
 	Vector3 GetPosition() { return position; };
 	State PlayerState;
 	void SetPlayerAfterBurner(PlayerAfterBurner* val) { afterBurner = val; }
+	void SetPlayerBM(BulletManager* val) { playerBM = val; }
 private:
-	PlayerAfterBurner* afterBurner;
+	PlayerAfterBurner* afterBurner = nullptr;
+	BulletManager* playerBM = nullptr;
 	Vector3 TempMovePos;
 	bool isVerticalDirInput = false;
 	bool isHorizontalDirInput = false;

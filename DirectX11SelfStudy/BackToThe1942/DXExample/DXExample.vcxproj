@@ -152,6 +152,7 @@
     <ClCompile Include="Characters\Player.cpp" />
     <ClCompile Include="Characters\PlayerAfterBurner.cpp" />
     <ClCompile Include="Geometry\AnimationRect.cpp" />
+    <ClCompile Include="Geometry\BulletManager.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Characters\Player.h" />
     <ClInclude Include="Characters\PlayerAfterBurner.h" />
     <ClInclude Include="Geometry\AnimationRect.h" />
+    <ClInclude Include="Geometry\BulletManager.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\Line.h" />

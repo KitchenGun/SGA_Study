@@ -11,10 +11,13 @@ public:
 	void PreRender() override;
 	void Render() override;
 	void PostRender() override;
+
+	void BulletUpdate();
+	void BulletRender();
 private:
 	TextureRect* background;
 	Texture2D* mapTex;
 	Player* animRect;
 	PlayerAfterBurner* subAnimRect;
-	Bullet* test;
+	BulletManager* PlayerBM;
 };

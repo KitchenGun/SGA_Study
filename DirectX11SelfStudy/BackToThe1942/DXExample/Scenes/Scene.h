@@ -8,6 +8,7 @@
 #include "Geometry/AnimationRect.h"
 #include "Characters/PlayerAfterBurner.h"
 #include "Characters/Bullet.h"
+#include "Geometry/BulletManager.h"
 #include "Characters/Player.h"
 
 #include "Utilities/RenderTexture.h"
