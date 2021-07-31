@@ -14,9 +14,16 @@ BulletManager::~BulletManager()
 	}
 }
 
-void BulletManager::AddProjectile(Vector3 FirePos)
+void BulletManager::AddProjectile(Vector3 FirePos, bool isPlayer)
 {
-	tempProjectile = new Bullet(FirePos, Vector3(25, 50, 1), 0);
+	if (isPlayer)
+	{
+		tempProjectile = new Bullet(FirePos, Vector3(25, 50, 1), 0,true);
+	}
+	else
+	{
+		tempProjectile = new Bullet(FirePos, Vector3(25, 50, 1), 0);
+	}
 	oProjectileList.push_back(tempProjectile);
 }
 

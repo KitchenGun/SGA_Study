@@ -26,10 +26,13 @@ public:
 	void SetPlayerBM(BulletManager* val) { playerBM = val; }
 private:
 	PlayerAfterBurner* afterBurner = nullptr;
-	BulletManager* playerBM = nullptr;
 	Vector3 TempMovePos;
 	bool isVerticalDirInput = false;
 	bool isHorizontalDirInput = false;
 	bool isForward = false;
 	bool isLeft = false;
+private:
+	BulletManager* playerBM = nullptr;
+	float deltaTime = 0.0f;
+	float FireRate = 1 / 10.0f;
 };

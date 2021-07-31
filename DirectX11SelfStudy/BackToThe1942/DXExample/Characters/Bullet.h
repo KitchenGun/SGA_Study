@@ -3,7 +3,7 @@
 class Bullet : public AnimationRect
 {
 public:
-	Bullet(Vector3 position, Vector3 size, float rotation);
+	Bullet(Vector3 position, Vector3 size, float rotation,bool isPlayer = false);
 	~Bullet();
 public:
 	void Update() override;
@@ -13,4 +13,5 @@ public:
 	Vector3 GetPosition() { return position; };
 private:
 	float fSpeed = 300.0f;
+	bool isPlayer = false;
 };

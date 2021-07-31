@@ -21,9 +21,13 @@ void Stage::Init()
 	background->SetSRV(mapTex->GetSRV());
 	animRect = new Player(Vector3(100, 100, 0), Vector3(100, 100, 1), 0);
 	subAnimRect = new PlayerAfterBurner(Vector3(100, 100, 0), Vector3(100, 300, 1), 0);
+	test = new Mig25(Vector3(50, 400, 0), Vector3(100, 100, 1), 0);
+
+	EnemyBM = new BulletManager();
 	PlayerBM = new BulletManager();
 	animRect->SetPlayerAfterBurner(subAnimRect);
 	animRect->SetPlayerBM(PlayerBM);
+	test->SetEnemyBM(EnemyBM);
 }
 
 void Stage::Update()
@@ -31,7 +35,9 @@ void Stage::Update()
 	animRect->Update();
 	subAnimRect->Move(animRect->GetPosition()+Vector3(0,-100,0));
 	subAnimRect->Update();
-	BulletUpdate();
+	test->Update();
+	BulletUpdate(PlayerBM);
+	BulletUpdate(EnemyBM);
 	//Camera::Get()->Move(animRect->GetPosition() + Vector3(0, 200, 0));
 }
 
@@ -44,31 +50,33 @@ void Stage::Render()
 	background->Render();
 	animRect->Render();
 	subAnimRect->Render();
-	BulletRender();
+	test->Render();
+	BulletRender(PlayerBM);
+	BulletRender(EnemyBM);
 }
 
 void Stage::PostRender()
 {
 }
 
-void Stage::BulletUpdate()
+void Stage::BulletUpdate(BulletManager* BM)
 {
-	for (Bullet* Target : PlayerBM->GetProjectileList())
+	for (Bullet* Target : BM->GetProjectileList())
 	{
 		if (Target != nullptr)
 		{
 			Target->Update();
 			if (300<Target->GetPosition().y-animRect->GetPosition().y)
 			{
-				PlayerBM->RemoveProjectile(Target);
+				BM->RemoveProjectile(Target);
 			}
 		}
 	}
 }
 
-void Stage::BulletRender()
+void Stage::BulletRender(BulletManager* BM)
 {
-	for (Bullet* Target : PlayerBM->GetProjectileList())
+	for (Bullet* Target : BM->GetProjectileList())
 	{
 		if (Target != nullptr)
 		{

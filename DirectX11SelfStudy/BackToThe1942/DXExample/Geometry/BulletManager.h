@@ -5,7 +5,7 @@ public:
 	BulletManager();
 	~BulletManager();
 	//투사체 생성 함수
-	void AddProjectile(Vector3 FirePos);
+	void AddProjectile(Vector3 FirePos, bool isPlayer = false);
 	//투사체 제거 함수
 	void RemoveProjectile(Bullet* Target);
 public:

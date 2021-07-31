@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Characters\Bullet.cpp" />
+    <ClCompile Include="Characters\Mig25.cpp" />
     <ClCompile Include="Characters\Player.cpp" />
     <ClCompile Include="Characters\PlayerAfterBurner.cpp" />
     <ClCompile Include="Geometry\AnimationRect.cpp" />
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Characters\Bullet.h" />
+    <ClInclude Include="Characters\Mig25.h" />
     <ClInclude Include="Characters\Player.h" />
     <ClInclude Include="Characters\PlayerAfterBurner.h" />
     <ClInclude Include="Geometry\AnimationRect.h" />
