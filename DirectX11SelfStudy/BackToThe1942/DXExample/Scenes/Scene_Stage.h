@@ -20,7 +20,8 @@ private:
 	Player* animRect;
 	PlayerAfterBurner* subAnimRect;
 	//Mig25* test;
-	SAM* test1;
+	//SAM* test1;
+	Missile* test1;
 private:
 	BulletManager* PlayerBM;
 	BulletManager* EnemyBM;

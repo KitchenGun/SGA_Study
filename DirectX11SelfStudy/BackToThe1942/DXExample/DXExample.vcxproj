@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Characters\Bullet.cpp" />
     <ClCompile Include="Characters\Mig25.cpp" />
+    <ClCompile Include="Characters\Missile.cpp" />
     <ClCompile Include="Characters\Player.cpp" />
     <ClCompile Include="Characters\PlayerAfterBurner.cpp" />
     <ClCompile Include="Characters\SAM.cpp" />
@@ -192,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="Characters\Bullet.h" />
     <ClInclude Include="Characters\Mig25.h" />
+    <ClInclude Include="Characters\Missile.h" />
     <ClInclude Include="Characters\Player.h" />
     <ClInclude Include="Characters\PlayerAfterBurner.h" />
     <ClInclude Include="Characters\SAM.h" />

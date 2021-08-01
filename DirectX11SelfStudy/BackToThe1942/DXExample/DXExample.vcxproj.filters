@@ -45,6 +45,7 @@
     <ClCompile Include="Geometry\BulletManager.cpp" />
     <ClCompile Include="Characters\Mig25.cpp" />
     <ClCompile Include="Characters\SAM.cpp" />
+    <ClCompile Include="Characters\Missile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="Geometry\BulletManager.h" />
     <ClInclude Include="Characters\Mig25.h" />
     <ClInclude Include="Characters\SAM.h" />
+    <ClInclude Include="Characters\Missile.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

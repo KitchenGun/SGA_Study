@@ -6,12 +6,12 @@ public:
 	Bullet(Vector3 position, Vector3 size, float rotation,bool isPlayer = false);
 	~Bullet();
 public:
-	void Update() override;
-	void Move(Vector3 position) override;
+	virtual void Update() override;
+	virtual void Move(Vector3 position) override;
 public:
-	void SetAnimation();
+	virtual void SetAnimation();
 	Vector3 GetPosition() { return position; };
-private:
+protected:
 	float fSpeed = 300.0f;
 	bool isPlayer = false;
 };
