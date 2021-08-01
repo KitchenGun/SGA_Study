@@ -11,6 +11,7 @@
 #include "Geometry/BulletManager.h"
 #include "Characters/Player.h"
 #include "Characters/Mig25.h"
+#include "Characters/SAM.h"
 
 #include "Utilities/RenderTexture.h"
 #include "Utilities/SoundSystem.h"

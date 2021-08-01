@@ -19,7 +19,8 @@ private:
 	Texture2D* mapTex;
 	Player* animRect;
 	PlayerAfterBurner* subAnimRect;
-	Mig25* test;
+	//Mig25* test;
+	SAM* test1;
 private:
 	BulletManager* PlayerBM;
 	BulletManager* EnemyBM;
