@@ -21,13 +21,14 @@ void Stage::Init()
 	background->SetSRV(mapTex->GetSRV());
 	animRect = new Player(Vector3(100, 100, 0), Vector3(100, 100, 1), 0);
 	subAnimRect = new PlayerAfterBurner(Vector3(100, 100, 0), Vector3(100, 300, 1), 0);
-	test1 = new Missile(Vector3(100, 600, 0), Vector3(50, 50, 1), 0);
+	test1 = new SAM(Vector3(100, 200, 0), Vector3(100, 100, 1), 0);
 
 	EnemyBM = new BulletManager();
 	PlayerBM = new BulletManager();
 	animRect->SetPlayerAfterBurner(subAnimRect);
 	animRect->SetPlayerBM(PlayerBM);
-	//test1->SetTarget(animRect);
+	test1->SetEnemyBM(EnemyBM);
+	test1->SetTarget(animRect);
 }
 
 void Stage::Update()

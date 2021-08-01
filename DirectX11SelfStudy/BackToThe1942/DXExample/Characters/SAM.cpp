@@ -20,6 +20,7 @@ void SAM::Update()
 {
 	Rotation();
 	AnimationRect::Update();
+	Fire();
 }
 
 void SAM::SetAnimation()
@@ -107,4 +108,15 @@ void SAM::Rotation()
 			animator->SetIndex(0);
 		}
 	}
+}
+
+void SAM::Fire()
+{
+	if (deltaTime > FireRate)//일정 시간 마다 실행함 
+	{
+		EnemyBM->AddMissileProjectile(position + Vector3(0, -60, 0),fangle);
+		deltaTime = 0.0f;
+	}
+	else//작동환경과 상관없이 일정하게 맞춰준다
+		deltaTime += Time::Delta();
 }

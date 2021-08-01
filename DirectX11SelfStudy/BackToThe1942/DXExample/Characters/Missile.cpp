@@ -2,14 +2,14 @@
 #include "Missile.h"
 #include "Utilities/Animator.h"
 
-Missile::Missile(Vector3 position, Vector3 size, float rotation)
+Missile::Missile(Vector3 position, Vector3 size, float rotation, bool isPlayer)
 	:
-	Bullet(position, size, rotation)
+	Bullet(position, size, rotation, isPlayer)
 {
 	SetAnimation();
 	animator->SetCurrentAnimClip(L"Idle");
-	fSpeed = -200.0f;
-	MoveDir = Vector3(0, fSpeed, 0);
+	fSpeed = 200.0f;
+	MoveDir = Vector3(0, 0, 0);
 }
 
 Missile::~Missile()
@@ -27,7 +27,7 @@ void Missile::SetAnimation()
 void Missile::Update()
 {
 	//AnimationRect::Update();
-	Move(MoveDir*Time::Delta());
+	Move(MoveDir*fSpeed*Time::Delta());
 }
 
 void Missile::Move(Vector3 position)
