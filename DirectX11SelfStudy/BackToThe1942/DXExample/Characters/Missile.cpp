@@ -10,7 +10,10 @@ Missile::Missile(Vector3 position, Vector3 size, float rotation, bool isPlayer)
 	SetAnimation();
 	animator->SetCurrentAnimClip(L"Idle");
 	fSpeed = 200.0f;
-	MoveDir = Vector3(0, 0, 0);
+	MoveDir = Vector3(0, -1, 0);
+
+	//float angle = atan2(this->position.y - Target->GetPosition().y, this->position.x - Target->GetPosition().x);
+	//MoveDir = Vector3(-cosf(angle), -sinf(angle), 0);
 }
 
 Missile::~Missile()
@@ -27,10 +30,15 @@ void Missile::SetAnimation()
 
 void Missile::Update()
 {
-	//AnimationRect::Update();
-
 	Rotation();
 	Move(MoveDir*fSpeed*Time::Delta());
+	//if (deltaTime > FireRate)//일정 시간 마다 실행함 
+	//{
+	//	Rotation();
+	//	deltaTime = 0.0f;
+	//}
+	//else//작동환경과 상관없이 일정하게 맞춰준다
+	//	deltaTime += Time::Delta();
 }
 
 void Missile::Move(Vector3 position)
@@ -40,21 +48,12 @@ void Missile::Move(Vector3 position)
 
 void Missile::Rotation()
 {
-	float VecLength = this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x;
-	if (this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x > 0)
-	{
-		//앵글값 더하고
-		fangle -= D3DXToRadian(10.0f);
-	}
-	else if (this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x < 0)
-	{
-		//앵글값을 뺀다
-		fangle += D3DXToRadian(10.0f);
-	}
 	float angle = atan2(this->position.y - Target->GetPosition().y, this->position.x - Target->GetPosition().x);
 	MoveDir = Vector3(-cosf(angle), -sinf(angle), 0);
-	this->rotation = fangle;
-	D3DXMatrixRotationZ(&R, (float)D3DXToRadian(this->rotation));
+	angle += D3DXToDegree(90);
+
+	this->rotation = angle;
+	D3DXMatrixRotationZ(&R, angle);//(float)D3DXToRadian(this->rotation));
 
 	world = S * R * T;
 	WB->SetWorld(world);//내부에서 transpose해줌

@@ -19,5 +19,5 @@ private:
 	Player* Target;
 private:
 	float deltaTime = 0.0f;
-	float FireRate = 1 / 1.0f;
+	float FireRate = 1 / 5.0f;
 };
