@@ -27,19 +27,19 @@ void BulletManager::AddProjectile(Vector3 FirePos, bool isPlayer)
 	oProjectileList.push_back(tempProjectile);
 }
 
-void BulletManager::AddMissileProjectile(Vector3 FirePos,float fAngle, bool isPlayer)
+void BulletManager::AddMissileProjectile(Vector3 FirePos,Player* Target, bool isPlayer)
 {
 	if (isPlayer)
 	{
 		tempProjectile = new Missile(FirePos, Vector3(50, 75, 1), 0, true);
 		Missile* tempMissile = static_cast<Missile*>(tempProjectile);
-		tempMissile->SetAngle(fAngle);
+		tempMissile->SetTarget(Target);
 	}
 	else
 	{
 		tempProjectile = new Missile(FirePos, Vector3(50, 75, 1), 0);
 		Missile* tempMissile = static_cast<Missile*>(tempProjectile);
-		tempMissile->SetAngle(fAngle);
+		tempMissile->SetTarget(Target);
 	}
 	oProjectileList.push_back(tempProjectile);
 }

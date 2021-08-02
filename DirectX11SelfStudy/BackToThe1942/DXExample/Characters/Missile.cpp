@@ -2,6 +2,7 @@
 #include "Missile.h"
 #include "Utilities/Animator.h"
 
+
 Missile::Missile(Vector3 position, Vector3 size, float rotation, bool isPlayer)
 	:
 	Bullet(position, size, rotation, isPlayer)
@@ -27,10 +28,34 @@ void Missile::SetAnimation()
 void Missile::Update()
 {
 	//AnimationRect::Update();
+
+	Rotation();
 	Move(MoveDir*fSpeed*Time::Delta());
 }
 
 void Missile::Move(Vector3 position)
 {
 	Bullet::Move(position);
+}
+
+void Missile::Rotation()
+{
+	float VecLength = this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x;
+	if (this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x > 0)
+	{
+		//앵글값 더하고
+		fangle -= D3DXToRadian(10.0f);
+	}
+	else if (this->position.x * Target->GetPosition().y - this->position.y * Target->GetPosition().x < 0)
+	{
+		//앵글값을 뺀다
+		fangle += D3DXToRadian(10.0f);
+	}
+	float angle = atan2(this->position.y - Target->GetPosition().y, this->position.x - Target->GetPosition().x);
+	MoveDir = Vector3(-cosf(angle), -sinf(angle), 0);
+	this->rotation = fangle;
+	D3DXMatrixRotationZ(&R, (float)D3DXToRadian(this->rotation));
+
+	world = S * R * T;
+	WB->SetWorld(world);//내부에서 transpose해줌
 }

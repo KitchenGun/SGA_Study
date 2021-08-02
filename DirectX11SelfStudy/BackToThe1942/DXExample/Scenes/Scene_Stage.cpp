@@ -16,7 +16,7 @@ Stage::~Stage()
 
 void Stage::Init()
 {
-	background = new TextureRect(Vector3(0, 0, 0), Vector3(224*3, 2144, 1), 0);
+	background = new TextureRect(Vector3(0, 0, 0), Vector3(224*3, 2144*3, 1), 0);
 	mapTex = new Texture2D(L"./_Textures/Map.png");
 	background->SetSRV(mapTex->GetSRV());
 	animRect = new Player(Vector3(100, 100, 0), Vector3(100, 100, 1), 0);

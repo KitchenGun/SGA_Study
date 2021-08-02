@@ -8,10 +8,10 @@
 #include "Geometry/AnimationRect.h"
 #include "Characters/PlayerAfterBurner.h"
 #include "Characters/Bullet.h"
+#include "Characters/Missile.h"
 #include "Geometry/BulletManager.h"
 #include "Characters/Player.h"
 #include "Characters/Mig25.h"
-#include "Characters/Missile.h"
 #include "Characters/SAM.h"
 
 #include "Utilities/RenderTexture.h"

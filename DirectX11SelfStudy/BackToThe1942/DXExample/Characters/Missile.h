@@ -1,4 +1,6 @@
 #pragma once
+class Player;
+
 class Missile :public Bullet
 {
 public:
@@ -7,9 +9,15 @@ public:
 public:
 	void Update() override;
 	void Move(Vector3 position) override;
+	void Rotation();
 public:
 	void SetAnimation() override;
-	void SetAngle(float val) { MoveDir.y = sinf(val); MoveDir.x = cosf(val);}
+	void SetTarget(Player* val) { Target = val; }
 private:
 	Vector3 MoveDir;
+	float fangle;
+	Player* Target;
+private:
+	float deltaTime = 0.0f;
+	float FireRate = 1 / 1.0f;
 };

@@ -35,7 +35,6 @@ void SAM::SetAnimation()
 void SAM::Rotation()
 {
 	fangle = atan2(Target->GetPosition().y - position.y, Target->GetPosition().x-position.x);
-	cout << D3DXToDegree(fangle) << endl;
 	//타겟이 위에 있을 경우
 	if (D3DXToDegree(fangle) > 90)
 	{
@@ -114,7 +113,7 @@ void SAM::Fire()
 {
 	if (deltaTime > FireRate)//일정 시간 마다 실행함 
 	{
-		EnemyBM->AddMissileProjectile(position + Vector3(0, -60, 0),fangle);
+		EnemyBM->AddMissileProjectile(position,Target);
 		deltaTime = 0.0f;
 	}
 	else//작동환경과 상관없이 일정하게 맞춰준다
