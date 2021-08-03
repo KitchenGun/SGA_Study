@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Scenes/SceneList.h"
 #include "Program.h"
+#include "Scenes/SceneList.h"
 
 Program::Program()
 {
@@ -15,6 +15,7 @@ Program::~Program()
 
 void Program::Init()
 {
+	sceneList.push_back(new Intro());
 	sceneList.push_back(new Stage());
 	currentScene = sceneList[0];
 	currentScene->Init();
@@ -24,6 +25,15 @@ void Program::Init()
 void Program::Update()
 {
 	Camera::Get()->Update();
+
+	if (currentScene == sceneList[0])
+	{
+		if (dynamic_cast<Intro*>(currentScene)->index >= 7)
+		{
+			currentScene = sceneList[1];
+			currentScene->Init();
+		}
+	}
 	if (Keyboard::Get()->Down(VK_F1))
 	{
 		currentScene = sceneList[0];

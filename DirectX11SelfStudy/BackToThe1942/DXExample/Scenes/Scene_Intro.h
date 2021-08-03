@@ -12,10 +12,10 @@ public:
 	void Render() override;
 	void PostRender() override;
 
+	int index=0;
+
 private:
 	TextureRect* background;
-	Texture2D* mapTex;
-	Player* animRect;
-	PlayerAfterBurner* subAnimRect;
+	Texture2D* mapTex = nullptr;
 private:
 };

@@ -160,6 +160,7 @@
     <ClCompile Include="Geometry\FilledCircle.cpp" />
     <ClCompile Include="Geometry\GameManager.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
+    <ClCompile Include="Geometry\MIGSpawner.cpp" />
     <ClCompile Include="Geometry\SAMSpawner.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
     <ClCompile Include="Geometry\TextureRect.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Geometry\FilledCircle.h" />
     <ClInclude Include="Geometry\GameManager.h" />
     <ClInclude Include="Geometry\Line.h" />
+    <ClInclude Include="Geometry\MIGSpawner.h" />
     <ClInclude Include="Geometry\SAMSpawner.h" />
     <ClInclude Include="Geometry\Square.h" />
     <ClInclude Include="Geometry\TextureRect.h" />

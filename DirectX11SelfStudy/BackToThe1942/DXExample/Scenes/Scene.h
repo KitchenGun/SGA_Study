@@ -12,6 +12,7 @@
 #include "Geometry/BulletManager.h"
 #include "Characters/Player.h"
 #include "Characters/Mig25.h"
+#include "Geometry/MIGSpawner.h"
 #include "Characters/SAM.h"
 #include "Geometry/SAMSpawner.h"
 

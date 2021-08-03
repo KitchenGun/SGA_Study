@@ -21,6 +21,7 @@ private:
 	PlayerAfterBurner* subAnimRect=nullptr;
 private:
 	//관리자 객체
+	MIGSpawner* MIGM = nullptr;
 	SAMSpawner* SAMSites=nullptr;
 	BulletManager* PlayerBM=nullptr;
 	BulletManager* EnemyBM=nullptr;

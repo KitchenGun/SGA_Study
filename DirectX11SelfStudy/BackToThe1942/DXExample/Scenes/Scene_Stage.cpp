@@ -28,8 +28,8 @@ void Stage::Init()
 	animRect->SetPlayerBM(PlayerBM);
 
 	SAMSites = new SAMSpawner(animRect,EnemyBM);
-
-	GM = new GameManager(animRect, PlayerBM, EnemyBM, SAMSites);
+	MIGM = new MIGSpawner(EnemyBM);
+	GM = new GameManager(animRect, PlayerBM, EnemyBM, SAMSites,MIGM);
 }
 
 void Stage::Update()
@@ -37,6 +37,7 @@ void Stage::Update()
 	animRect->Update();
 	subAnimRect->Move(animRect->GetPosition()+Vector3(0,-100,0));
 	subAnimRect->Update();
+	MIGM->Update();
 	SAMSites->Update();
 	BulletUpdate(PlayerBM);
 	BulletUpdate(EnemyBM);
@@ -53,6 +54,7 @@ void Stage::Render()
 	background->Render();
 	animRect->Render();
 	subAnimRect->Render();
+	MIGM->Render();
 	SAMSites->Render();
 	BulletRender(PlayerBM);
 	BulletRender(EnemyBM);

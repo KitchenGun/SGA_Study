@@ -19,7 +19,6 @@ public:
 private:
 	list<SAM*> oSAMList;
 	list<SAM*>::iterator itSAMList;
-	D3DXVECTOR3 vecTempPos, vecTempSize;
 	SAM* temp;
 private:
 	Player* Target = nullptr;
