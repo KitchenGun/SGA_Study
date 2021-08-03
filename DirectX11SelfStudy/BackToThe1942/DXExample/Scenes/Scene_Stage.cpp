@@ -28,6 +28,8 @@ void Stage::Init()
 	animRect->SetPlayerBM(PlayerBM);
 
 	SAMSites = new SAMSpawner(animRect,EnemyBM);
+
+	GM = new GameManager(animRect, PlayerBM, EnemyBM, SAMSites);
 }
 
 void Stage::Update()
@@ -39,6 +41,7 @@ void Stage::Update()
 	BulletUpdate(PlayerBM);
 	BulletUpdate(EnemyBM);
 	Camera::Get()->Move(animRect->GetPosition() + Vector3(0, 200, 0));
+	GM->Update();
 }
 
 void Stage::PreRender()

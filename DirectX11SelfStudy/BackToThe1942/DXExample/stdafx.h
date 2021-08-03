@@ -98,8 +98,9 @@ extern HWND handle;
 #include "System/GUI/Gui.h"
 #include "System/Camera.h"
 
-#include "Utilities/Math.h"
 #include "Utilities/String.h"
 #include "Utilities/Path.h"
 
 #include "Scenes/Scene.h"
+#include "Utilities/Math.h"
+#include "Geometry/GameManager.h"

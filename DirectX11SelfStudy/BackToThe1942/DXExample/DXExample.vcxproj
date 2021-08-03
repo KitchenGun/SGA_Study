@@ -158,6 +158,7 @@
     <ClCompile Include="Geometry\BulletManager.cpp" />
     <ClCompile Include="Geometry\Circle.cpp" />
     <ClCompile Include="Geometry\FilledCircle.cpp" />
+    <ClCompile Include="Geometry\GameManager.cpp" />
     <ClCompile Include="Geometry\Line.cpp" />
     <ClCompile Include="Geometry\SAMSpawner.cpp" />
     <ClCompile Include="Geometry\Square.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Geometry\BulletManager.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\FilledCircle.h" />
+    <ClInclude Include="Geometry\GameManager.h" />
     <ClInclude Include="Geometry\Line.h" />
     <ClInclude Include="Geometry\SAMSpawner.h" />
     <ClInclude Include="Geometry\Square.h" />

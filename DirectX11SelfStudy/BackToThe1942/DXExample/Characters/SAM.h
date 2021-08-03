@@ -19,6 +19,6 @@ private:
 private:
 	BulletManager* EnemyBM = nullptr;
 	float deltaTime = 0.0f;
-	float FireRate = 1 / 1.0f;
-	float fSpeed = -300.0f;
+	float FireRate = 1 / 0.5f;
+	float fSpeed = -400.0f;
 };

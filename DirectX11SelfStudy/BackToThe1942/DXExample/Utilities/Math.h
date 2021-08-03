@@ -19,6 +19,7 @@ class Math
 public:
 	//충돌
 	static bool Intersect(Square *r1, Square *r2);
+	static bool Intersect(AnimationRect* r1, AnimationRect* r2);
 	static bool Intersect(Square *rect, Vector3 position);
 	//절댓값 반환
 	static Vector2 absVec2(Vector2 val);

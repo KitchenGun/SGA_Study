@@ -185,4 +185,22 @@ void AnimationRect::Move(Vector3 position)
 	D3DXMatrixTranslation(&T, this->position.x, this->position.y, this->position.z);
 	world = S * R * T;
 	WB->SetWorld(world);
+	TransformVertices();
+}
+
+void AnimationRect::TransformVertices()
+{
+	//D3DXVec3TransformNormal() //벡터 이동   //지정된 행렬에 의해 3D 벡터 법선을 변환 한다.
+	D3DXVec3TransformCoord//정점 이동   //충돌을 체크하기 위한 좌표저장
+	(//지정된 행렬에 의해 3D 벡터를 변환 해, 그 결과를 w = 1 에 투영 한다.
+		&r.LT,						//반환할곳
+		&vertices[1].position,		//처리의 기본 정점정보
+		&world						//처리의 기본 매트릭스 정보
+	);
+	D3DXVec3TransformCoord//정점 이동
+	(
+		&r.RB,
+		&vertices[2].position,
+		&world
+	);
 }

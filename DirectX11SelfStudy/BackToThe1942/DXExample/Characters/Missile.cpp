@@ -57,4 +57,5 @@ void Missile::Rotation()
 
 	world = S * R * T;
 	WB->SetWorld(world);//내부에서 transpose해줌
+	TransformVertices();
 }

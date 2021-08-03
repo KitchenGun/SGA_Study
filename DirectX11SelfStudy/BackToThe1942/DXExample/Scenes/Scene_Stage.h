@@ -15,13 +15,14 @@ public:
 	void BulletUpdate(BulletManager* BM);
 	void BulletRender(BulletManager* BM);
 private:
-	TextureRect* background;
-	Texture2D* mapTex;
-	Player* animRect;
-	PlayerAfterBurner* subAnimRect;
+	TextureRect* background=nullptr;
+	Texture2D* mapTex=nullptr;
+	Player* animRect=nullptr;
+	PlayerAfterBurner* subAnimRect=nullptr;
 private:
-	SAMSpawner* SAMSites;
-private:
-	BulletManager* PlayerBM;
-	BulletManager* EnemyBM;
+	//°ü¸®ÀÚ °´Ã¼
+	SAMSpawner* SAMSites=nullptr;
+	BulletManager* PlayerBM=nullptr;
+	BulletManager* EnemyBM=nullptr;
+	GameManager* GM=nullptr;
 };

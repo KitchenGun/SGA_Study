@@ -32,28 +32,28 @@ SAMSpawner::SAMSpawner(Player* Target, BulletManager* EnemyBM)
 	EnemyBM(EnemyBM)
 {
 
-	AddProjectile(Vector3(-20 * 5, -406 * 5, 0));
-	AddProjectile(Vector3(5 * 5, -266 * 5, 0));
-	AddProjectile(Vector3(55 * 5, -211 * 5, 0));
-	AddProjectile(Vector3(-20 * 5, -136 * 5, 0));
-	AddProjectile(Vector3(85 * 5, 5 * 5, 0));
+	AddSAM(Vector3(-20 * 5, -406 * 5, 0));
+	AddSAM(Vector3(5 * 5, -266 * 5, 0));
+	AddSAM(Vector3(55 * 5, -211 * 5, 0));
+	AddSAM(Vector3(-20 * 5, -136 * 5, 0));
+	AddSAM(Vector3(85 * 5, 5 * 5, 0));
 	//전투기 출현라인
-	AddProjectile(Vector3(-115 * 5, 130 * 5, 0));
-	AddProjectile(Vector3(-15 * 5, 160 * 5, 0));
-	AddProjectile(Vector3(115 * 5, 220 * 5, 0));
-	AddProjectile(Vector3(30 * 5, 330 * 5, 0));
-	AddProjectile(Vector3(-15 * 5, 330 * 5, 0));
-	AddProjectile(Vector3(55 * 5, 405 * 5, 0));
-	AddProjectile(Vector3(-60 * 5, 485 * 5, 0));
-	AddProjectile(Vector3(-10 * 5, 485 * 5, 0));
-	AddProjectile(Vector3(55 * 5, 705 * 5, 0));
-	AddProjectile(Vector3(0 * 5, 705 * 5, 0));
-	AddProjectile(Vector3(115 * 5, 810 * 5, 0));
-	AddProjectile(Vector3(105 * 5, 975 * 5, 0));
-	AddProjectile(Vector3(35 * 5, 975 * 5, 0));
-	AddProjectile(Vector3(-15 * 5, 975 * 5, 0));
-	AddProjectile(Vector3(-115 * 5, 1005 * 5, 0));
-	AddProjectile(Vector3(-75 * 5, 1005 * 5, 0));
+	AddSAM(Vector3(-115 * 5, 130 * 5, 0));
+	AddSAM(Vector3(-15 * 5, 160 * 5, 0));
+	AddSAM(Vector3(115 * 5, 220 * 5, 0));
+	AddSAM(Vector3(30 * 5, 330 * 5, 0));
+	AddSAM(Vector3(-15 * 5, 330 * 5, 0));
+	AddSAM(Vector3(55 * 5, 405 * 5, 0));
+	AddSAM(Vector3(-60 * 5, 485 * 5, 0));
+	AddSAM(Vector3(-10 * 5, 485 * 5, 0));
+	AddSAM(Vector3(55 * 5, 705 * 5, 0));
+	AddSAM(Vector3(0 * 5, 705 * 5, 0));
+	AddSAM(Vector3(115 * 5, 810 * 5, 0));
+	AddSAM(Vector3(105 * 5, 975 * 5, 0));
+	AddSAM(Vector3(35 * 5, 975 * 5, 0));
+	AddSAM(Vector3(-15 * 5, 975 * 5, 0));
+	AddSAM(Vector3(-115 * 5, 1005 * 5, 0));
+	AddSAM(Vector3(-75 * 5, 1005 * 5, 0));
 }
 
 SAMSpawner::~SAMSpawner()
@@ -88,15 +88,22 @@ void SAMSpawner::Render()
 	}
 }
 
-void SAMSpawner::AddProjectile(Vector3 SpawnPos)
+void SAMSpawner::AddSAM(Vector3 SpawnPos)
 {
 	temp = new SAM(SpawnPos, Vector3(100, 100, 1), 0);
-	cout << String::ToString(SpawnPos) << endl;
 	temp->SetTarget(Target);
 	temp->SetEnemyBM(EnemyBM);
 	oSAMList.push_back(temp);
 }
 
-void SAMSpawner::RemoveProjectile(SAM* Target)
+void SAMSpawner::RemoveSAM(SAM* Target)
 {
+	for (itSAMList = oSAMList.begin(); itSAMList != oSAMList.end(); ++itSAMList)
+	{
+		if (*itSAMList == Target)
+		{
+			itSAMList = oSAMList.erase(itSAMList);
+			break;
+		}
+	}
 }

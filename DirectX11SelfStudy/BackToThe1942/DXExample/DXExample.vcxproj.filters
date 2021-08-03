@@ -48,6 +48,7 @@
     <ClCompile Include="Characters\Missile.cpp" />
     <ClCompile Include="Scenes\Scene_Intro.cpp" />
     <ClCompile Include="Geometry\SAMSpawner.cpp" />
+    <ClCompile Include="Geometry\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -102,6 +103,7 @@
     <ClInclude Include="Characters\Missile.h" />
     <ClInclude Include="Scenes\Scene_Intro.h" />
     <ClInclude Include="Geometry\SAMSpawner.h" />
+    <ClInclude Include="Geometry\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

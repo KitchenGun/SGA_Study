@@ -9,6 +9,7 @@ SAM::SAM(Vector3 position, Vector3 size, float rotation)
 	SetAnimation();
 	animator->SetCurrentAnimClip(L"RotationL");
 	animator->bLoop = false;
+	TransformVertices();
 }
 
 SAM::~SAM()

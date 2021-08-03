@@ -14,6 +14,7 @@ public:
 
 	virtual void Move(Vector3 position);
 	Vector3 GetPosition() { return position; }
+	RectEdges GetTransformedCoord() { return r; }
 protected:
 	Animator* animator = nullptr;
 	vector<AnimationClip*> animClips;
@@ -36,4 +37,7 @@ protected:
 
 	ID3D11BlendState* BS;
 	ID3D11SamplerState* SS;
+	//충돌처리
+	void TransformVertices();
+	RectEdges r;
 };

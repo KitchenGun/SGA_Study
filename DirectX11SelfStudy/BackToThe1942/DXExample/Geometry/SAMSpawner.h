@@ -9,13 +9,13 @@ public:
 	void Render();
 
 	//투사체 생성 함수
-	void AddProjectile(Vector3 SpawnPos);
+	void AddSAM(Vector3 SpawnPos);
 	//투사체 제거 함수
-	void RemoveProjectile(SAM* Target);
+	void RemoveSAM(SAM* Target);
 	void SetEnemyBM(BulletManager* val) { EnemyBM = val; }
 	void SetTarget(Player* val) { Target = val; }
 public:
-	list<SAM*> GetProjectileList() { return oSAMList; }
+	list<SAM*> GetSAMList() { return oSAMList; }
 private:
 	list<SAM*> oSAMList;
 	list<SAM*>::iterator itSAMList;
