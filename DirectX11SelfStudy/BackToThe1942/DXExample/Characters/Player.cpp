@@ -96,13 +96,13 @@ void Player::Input()
 	TempMovePos = Vector3(0, 0, 0);
 	if (KeyPress_Left)
 	{
-		TempMovePos += Vector3(-100 * Time::Delta(), 0, 0);
+		TempMovePos += Vector3(-500 * Time::Delta(), 0, 0);
 		isHorizontalDirInput = true;
 		PlayerState = State::Left;
 	}
 	else if (KeyPress_Right)
 	{
-		TempMovePos += Vector3(100 * Time::Delta(), 0, 0);
+		TempMovePos += Vector3(500 * Time::Delta(), 0, 0);
 		isHorizontalDirInput = true;
 		PlayerState = State::Right;
 	}
@@ -113,13 +113,13 @@ void Player::Input()
 
 	if (KeyPress_Up)
 	{
-		TempMovePos += Vector3(0, 100 * Time::Delta(), 0);
+		TempMovePos += Vector3(0, 500 * Time::Delta(), 0);
 		isVerticalDirInput = true;
 		PlayerState = State::Forward;
 	}
 	else if (KeyPress_Down)
 	{
-		TempMovePos += Vector3(0, -100 * Time::Delta(), 0);
+		TempMovePos += Vector3(0, -500 * Time::Delta(), 0);
 		isVerticalDirInput = true;
 		PlayerState = State::Backward;
 	}

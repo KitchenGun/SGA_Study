@@ -15,16 +15,6 @@ Program::~Program()
 
 void Program::Init()
 {
-	/*sceneList.push_back(new Scene1());
-	sceneList.push_back(new Scene2());
-	sceneList.push_back(new Scene3());
-	sceneList.push_back(new Scene4());
-	sceneList.push_back(new Scene5());
-	sceneList.push_back(new Scene6());
-	sceneList.push_back(new Scene7());
-	sceneList.push_back(new Scene8());
-	*/ 
-	//sceneList.push_back(new Scene9());
 	sceneList.push_back(new Stage());
 	currentScene = sceneList[0];
 	currentScene->Init();

@@ -46,6 +46,8 @@
     <ClCompile Include="Characters\Mig25.cpp" />
     <ClCompile Include="Characters\SAM.cpp" />
     <ClCompile Include="Characters\Missile.cpp" />
+    <ClCompile Include="Scenes\Scene_Intro.cpp" />
+    <ClCompile Include="Geometry\SAMSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -98,6 +100,8 @@
     <ClInclude Include="Characters\Mig25.h" />
     <ClInclude Include="Characters\SAM.h" />
     <ClInclude Include="Characters\Missile.h" />
+    <ClInclude Include="Scenes\Scene_Intro.h" />
+    <ClInclude Include="Geometry\SAMSpawner.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

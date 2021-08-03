@@ -13,6 +13,7 @@
 #include "Characters/Player.h"
 #include "Characters/Mig25.h"
 #include "Characters/SAM.h"
+#include "Geometry/SAMSpawner.h"
 
 #include "Utilities/RenderTexture.h"
 #include "Utilities/SoundSystem.h"
