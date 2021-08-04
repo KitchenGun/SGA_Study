@@ -41,7 +41,7 @@ void Stage::Update()
 	SAMSites->Update();
 	BulletUpdate(PlayerBM);
 	BulletUpdate(EnemyBM);
-	Camera::Get()->Move(animRect->GetPosition() + Vector3(0, 200, 0));
+	Camera::Get()->Move(Vector3(0,animRect->GetPosition().y,0) + Vector3(0, 200, 0));
 	GM->Update();
 }
 
@@ -71,7 +71,7 @@ void Stage::BulletUpdate(BulletManager* BM)
 		if (Target != nullptr)
 		{
 			Target->Update();
-			if (300<Target->GetPosition().y-animRect->GetPosition().y)
+			if (800<Target->GetPosition().y-animRect->GetPosition().y)
 			{
 				BM->RemoveProjectile(Target);
 			}

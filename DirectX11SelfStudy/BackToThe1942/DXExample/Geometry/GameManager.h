@@ -18,4 +18,5 @@ private:
 private:
 	float deltaTime = 0.0f;
 	float SpawnRate = 1 / 0.3f;
+private:
 };

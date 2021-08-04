@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Characters\AWACS.cpp" />
     <ClCompile Include="Characters\Bullet.cpp" />
     <ClCompile Include="Characters\Mig25.cpp" />
     <ClCompile Include="Characters\Missile.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Characters\AWACS.h" />
     <ClInclude Include="Characters\Bullet.h" />
     <ClInclude Include="Characters\Mig25.h" />
     <ClInclude Include="Characters\Missile.h" />

@@ -17,5 +17,6 @@ public:
 private:
 	TextureRect* background;
 	Texture2D* mapTex = nullptr;
+	SoundSystem* inputSFX = nullptr;
 private:
 };

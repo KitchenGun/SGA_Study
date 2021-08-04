@@ -35,4 +35,6 @@ private:
 	BulletManager* playerBM = nullptr;
 	float deltaTime = 0.0f;
 	float FireRate = 1 / 10.0f;
+private:
+	SoundSystem* GunSFX;
 };

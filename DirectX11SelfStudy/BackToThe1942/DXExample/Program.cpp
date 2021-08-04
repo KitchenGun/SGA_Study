@@ -19,19 +19,45 @@ void Program::Init()
 	sceneList.push_back(new Stage());
 	currentScene = sceneList[0];
 	currentScene->Init();
+
+	BGM = new SoundSystem();
+	BGM->CreateBGSound("_Sounds/Scene0/Start.mp3");
+	BGM->Play();
+	BGM->SetLoop(true);
 }
 
 
 void Program::Update()
 {
+	static int beforeIndex;
+	static int SceneIndex;
 	Camera::Get()->Update();
-
+	BGM->Update();
 	if (currentScene == sceneList[0])
 	{
+		if (dynamic_cast<Intro*>(currentScene)->index >= 1)
+		{
+			SceneIndex = 0;
+			if (beforeIndex == 0)
+			{
+				BGM->ChangeSoundFunc(L"_Sounds/Scene0/Briefing.mp3");
+				BGM->Play();
+			}
+		}
 		if (dynamic_cast<Intro*>(currentScene)->index >= 7)
 		{
 			currentScene = sceneList[1];
 			currentScene->Init();
+			if (SceneIndex == 0)
+			{
+				BGM->ChangeSoundFunc(L"_Sounds/Scene1/BGM.mp3");
+				BGM->Play();
+				SceneIndex = 1;
+			}
+		}
+		if (dynamic_cast<Intro*>(currentScene) != nullptr)
+		{
+			beforeIndex = dynamic_cast<Intro*>(currentScene)->index;
 		}
 	}
 	if (Keyboard::Get()->Down(VK_F1))
@@ -39,41 +65,7 @@ void Program::Update()
 		currentScene = sceneList[0];
 		currentScene->Init();
 	}
-	/*else if (Keyboard::Get()->Down(VK_F2))
-	{
-		currentScene = sceneList[1];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F3))
-	{
-		currentScene = sceneList[2];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F4))
-	{
-		currentScene = sceneList[3];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F5))
-	{
-		currentScene = sceneList[4];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F6))
-	{
-		currentScene = sceneList[5];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F7))
-	{
-		currentScene = sceneList[6];
-		currentScene->Init();
-	}
-	else if (Keyboard::Get()->Down(VK_F8))
-	{
-		currentScene = sceneList[6];
-		currentScene->Init();
-	}*/
+	
 	currentScene->Update();
 }
 

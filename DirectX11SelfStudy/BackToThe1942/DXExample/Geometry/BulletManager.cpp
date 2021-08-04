@@ -19,6 +19,7 @@ void BulletManager::AddProjectile(Vector3 FirePos, bool isPlayer)
 	if (isPlayer)
 	{
 		tempProjectile = new Bullet(FirePos, Vector3(25, 50, 1), 0,true);
+		cout << oProjectileList.size() << endl;
 	}
 	else
 	{

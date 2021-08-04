@@ -9,6 +9,9 @@ AnimationRect(position, size, rotation)
 	SetAnimation();
 	animator->SetCurrentAnimClip(L"FlyIdle");
 	animator->bLoop = false;
+
+	GunSFX = new SoundSystem();
+	GunSFX->CreateEffSound("_Sounds/SFX/gun.wav");
 }
 
 Player::~Player()
@@ -137,7 +140,8 @@ void Player::Input()
 	{
 		if (deltaTime > FireRate)//일정 시간 마다 실행함 
 		{
-			playerBM->AddProjectile(position + Vector3(0, 60, 0),true);
+			GunSFX->Play();
+			playerBM->AddProjectile(position + Vector3(0, 60, 0), true);
 			deltaTime = 0.0f;
 		}
 		else//작동환경과 상관없이 일정하게 맞춰준다

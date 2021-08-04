@@ -21,8 +21,10 @@ public:
 	void SetLoop(bool val);
 	void GUI(int ordinal);
 
-private:
+	bool GetbPlaying() { return bPlaying; }
+
 	void ChangeSoundFunc(const wstring& path = L"");
+private:
 
 	struct FMOD_SYSTEM* system = nullptr;
 	struct FMOD_SOUND*	sound = nullptr;

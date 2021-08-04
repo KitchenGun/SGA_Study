@@ -1,4 +1,6 @@
 #pragma once
+#include "Utilities/RenderTexture.h"
+#include "Utilities/SoundSystem.h"
 
 #include "Geometry/Line.h"
 #include "Geometry/Square.h"
@@ -15,9 +17,6 @@
 #include "Geometry/MIGSpawner.h"
 #include "Characters/SAM.h"
 #include "Geometry/SAMSpawner.h"
-
-#include "Utilities/RenderTexture.h"
-#include "Utilities/SoundSystem.h"
 
 class Scene
 {//순수 가상함수가 들어간 인터페이스 제작

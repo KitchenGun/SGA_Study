@@ -15,6 +15,6 @@ public:
 private:
 	Scene* currentScene;
 	vector<Scene*> sceneList;
-
+	SoundSystem* BGM =nullptr;
 
 };

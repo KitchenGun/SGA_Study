@@ -12,6 +12,6 @@ public:
 	virtual void SetAnimation();
 	Vector3 GetPosition() { return position; };
 protected:
-	float fSpeed = 300.0f;
+	float fSpeed = 800.0f;
 	bool isPlayer = false;
 };

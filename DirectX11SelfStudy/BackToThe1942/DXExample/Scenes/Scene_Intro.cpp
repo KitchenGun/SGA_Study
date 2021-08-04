@@ -16,12 +16,22 @@ void Intro::Init()
 	background = new TextureRect(Vector3(0, 0, 0), Vector3(1280, 720, 1), 0);
 	mapTex = new Texture2D(L"./_Textures/IMG0.png");
 	background->SetSRV(mapTex->GetSRV());
+
+	inputSFX = new SoundSystem();
+	
+	inputSFX->CreateEffSound("_Sounds/Scene0/bleep.wav");
+
 }
+
 
 void Intro::Update()
 {
+	inputSFX->Update();
+
 	if (Keyboard::Get()->Down(VK_SPACE))
 	{
+		
+		inputSFX->Play();
 		index++;
 	}
 	switch (index)
