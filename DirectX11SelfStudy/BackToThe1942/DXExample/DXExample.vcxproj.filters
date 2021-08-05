@@ -50,7 +50,6 @@
     <ClCompile Include="Geometry\SAMSpawner.cpp" />
     <ClCompile Include="Geometry\GameManager.cpp" />
     <ClCompile Include="Geometry\MIGSpawner.cpp" />
-    <ClCompile Include="Characters\AWACS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -107,7 +106,6 @@
     <ClInclude Include="Geometry\SAMSpawner.h" />
     <ClInclude Include="Geometry\GameManager.h" />
     <ClInclude Include="Geometry\MIGSpawner.h" />
-    <ClInclude Include="Characters\AWACS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

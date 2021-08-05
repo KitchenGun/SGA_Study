@@ -30,10 +30,16 @@ void Stage::Init()
 	SAMSites = new SAMSpawner(animRect,EnemyBM);
 	MIGM = new MIGSpawner(EnemyBM);
 	GM = new GameManager(animRect, PlayerBM, EnemyBM, SAMSites,MIGM);
+	SAMSites->SetGM(GM);
+	MIGM->SetGM(GM);
 }
 
 void Stage::Update()
 {
+	if (animRect == nullptr)
+	{
+		GM->Lose();
+	}
 	animRect->Update();
 	subAnimRect->Move(animRect->GetPosition()+Vector3(0,-100,0));
 	subAnimRect->Update();
@@ -71,7 +77,7 @@ void Stage::BulletUpdate(BulletManager* BM)
 		if (Target != nullptr)
 		{
 			Target->Update();
-			if (800<Target->GetPosition().y-animRect->GetPosition().y)
+			if (600<Target->GetPosition().y-animRect->GetPosition().y)
 			{
 				BM->RemoveProjectile(Target);
 			}

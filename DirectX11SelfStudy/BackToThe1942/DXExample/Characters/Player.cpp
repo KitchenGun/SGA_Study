@@ -48,7 +48,6 @@ void Player::Move(Vector3 position)
 		}
 		case State::Backward:
 		{
-			//animator->SetCurrentAnimClip(L"FlyIdle");
 			afterBurner->SetIsActive(false);
 			if (position.x < 0)
 			{
@@ -146,6 +145,18 @@ void Player::Input()
 		}
 		else//작동환경과 상관없이 일정하게 맞춰준다
 			deltaTime += Time::Delta();
+	}
+}
+
+void Player::Render()
+{
+	if (isRender)
+	{
+		AnimationRect::Render();
+	}
+	else
+	{
+		afterBurner->SetIsActive(false);
 	}
 }
 

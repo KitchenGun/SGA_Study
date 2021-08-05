@@ -55,7 +55,9 @@ void SoundSystem::Update()
 {
 	if (system)
 		FMOD_System_Update(system);
-
+	static FMOD_BOOL fbTempBool;
+	FMOD_Channel_IsPlaying(channel, &fbTempBool);
+	bPlaying = fbTempBool;
 	FMOD_MODE mode = bLoop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 	FMOD_Channel_SetMode(channel, mode);
 	SetVolume(volume);
@@ -122,7 +124,7 @@ void SoundSystem::ChangeSoundFunc(const wstring & path)
 		if (bPlaying)
 		{
 			Stop();
-			bPlaying = true;
+			bPlaying = false;
 		}
 
 		if (bLoop)

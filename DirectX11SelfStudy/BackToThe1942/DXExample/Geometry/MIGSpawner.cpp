@@ -42,7 +42,7 @@ void MIGSpawner::Render()
 
 void MIGSpawner::AddMIG(Vector3 SpawnPos)
 {
-	temp = new Mig25(SpawnPos+Vector3(0,900.0f,0), Vector3(80, 96, 1), 0);
+	temp = new Mig25(SpawnPos+Vector3(0,700.0f,0), Vector3(80, 96, 1), 0);
 	temp->SetEnemyBM(EnemyBM);
 	oMIGList.push_back(temp);
 }
@@ -54,6 +54,7 @@ void MIGSpawner::RemoveMIG(Mig25* Target)
 		if (*itMIGList == Target)
 		{
 			itMIGList = oMIGList.erase(itMIGList);
+			GM->MIGDestroy();
 			break;
 		}
 	}

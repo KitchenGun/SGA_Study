@@ -103,6 +103,14 @@ void SAMSpawner::RemoveSAM(SAM* Target)
 		if (*itSAMList == Target)
 		{
 			itSAMList = oSAMList.erase(itSAMList);
+			if (oSAMList.size() > 5)
+			{
+				GM->SAMDestroy();
+			}
+			else
+			{
+				GM->SAMDestroy(oSAMList.size());
+			}
 			break;
 		}
 	}

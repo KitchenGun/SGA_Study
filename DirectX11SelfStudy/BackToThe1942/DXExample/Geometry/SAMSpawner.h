@@ -1,4 +1,6 @@
 #pragma once
+class GameManager;
+
 class SAMSpawner
 {
 public:
@@ -14,6 +16,7 @@ public:
 	void RemoveSAM(SAM* Target);
 	void SetEnemyBM(BulletManager* val) { EnemyBM = val; }
 	void SetTarget(Player* val) { Target = val; }
+	void SetGM(GameManager* val) { GM = val; }
 public:
 	list<SAM*> GetSAMList() { return oSAMList; }
 private:
@@ -23,4 +26,6 @@ private:
 private:
 	Player* Target = nullptr;
 	BulletManager* EnemyBM = nullptr;
+
+	GameManager* GM = nullptr;
 };

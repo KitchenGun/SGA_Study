@@ -18,12 +18,15 @@ public:
 	void Update() override;
 	void Move(Vector3 position) override; 
 	void Input();
+	void Render() override;
 public:
 	void SetAnimation();
 	Vector3 GetPosition() { return position; };
 	State PlayerState;
 	void SetPlayerAfterBurner(PlayerAfterBurner* val) { afterBurner = val; }
 	void SetPlayerBM(BulletManager* val) { playerBM = val; }
+
+	void SetisRender(bool val) { isRender = val; }
 private:
 	PlayerAfterBurner* afterBurner = nullptr;
 	Vector3 TempMovePos;
@@ -31,6 +34,8 @@ private:
 	bool isHorizontalDirInput = false;
 	bool isForward = false;
 	bool isLeft = false;
+
+	bool isRender = true;
 private:
 	BulletManager* playerBM = nullptr;
 	float deltaTime = 0.0f;

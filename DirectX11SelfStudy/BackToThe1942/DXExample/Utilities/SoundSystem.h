@@ -33,7 +33,7 @@ private:
 	float volume = 0.2f;
 	bool bMute = false;
 	bool bLoop = false;
-	bool bPlaying = false;
+	bool bPlaying;
 	string fileName = "";
 
 	int result = 0;

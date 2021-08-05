@@ -1,4 +1,6 @@
 #pragma once
+class GameManager;
+
 class MIGSpawner
 {
 public:
@@ -13,6 +15,7 @@ public:
 	//투사체 제거 함수
 	void RemoveMIG(Mig25* Target);
 	void SetEnemyBM(BulletManager* val) { EnemyBM = val; }
+	void SetGM(GameManager* val) { GM = val; }
 public:
 	list<Mig25*> GetMIGList() { return oMIGList; }
 private:
@@ -21,4 +24,5 @@ private:
 	Mig25* temp;
 private:
 	BulletManager* EnemyBM = nullptr;
+	GameManager* GM = nullptr;
 };
