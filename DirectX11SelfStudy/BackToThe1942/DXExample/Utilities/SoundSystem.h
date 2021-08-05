@@ -1,5 +1,5 @@
 #pragma once
-
+#include <FMod/fmod.h>
 
 class SoundSystem
 {

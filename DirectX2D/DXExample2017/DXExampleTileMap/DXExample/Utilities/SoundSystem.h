@@ -1,5 +1,6 @@
 #pragma once
 
+#include <FMod/fmod.h>
 
 class SoundSystem
 {
@@ -31,7 +32,7 @@ private:
 	float volume = 0.2f;
 	bool bMute = false;
 	bool bLoop = false;
-	bool bPlaying = false;
+	FMOD_BOOL bPlaying = 0;
 	string fileName = "";
 
 	int result = 0;

@@ -41,13 +41,11 @@ void SoundSystem::CreateEffSound(const string & fileName)
 
 void SoundSystem::Play()
 {//생성한 사운드 플레이
-	bPlaying = true;
 	FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound, 0, &channel);
 }
 
 void SoundSystem::Stop()
 {//생성한 사운드 멈추기
-	bPlaying = false;
 	FMOD_Channel_Stop(channel);
 }
 
@@ -56,6 +54,7 @@ void SoundSystem::Update()
 	if (system)
 		FMOD_System_Update(system);
 
+	FMOD_Channel_IsPlaying(channel, &bPlaying);
 	FMOD_MODE mode = bLoop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 	FMOD_Channel_SetMode(channel, mode);
 	SetVolume(volume);
@@ -122,13 +121,11 @@ void SoundSystem::ChangeSoundFunc(const wstring & path)
 		if (bPlaying)
 		{
 			Stop();
-			bPlaying = true;
 		}
 
 		if (bLoop)
 		{
 			CreateSound(String::ToString(path));
-			bLoop = true;
 		}
 		else
 		{

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Utilities/RenderTexture.h"
+#include "Utilities/SoundSystem.h"
+
 #include "Geometry/Line.h"
 #include "Geometry/Square.h"
 #include "Geometry/Circle.h"
@@ -8,9 +11,6 @@
 #include "Geometry/AnimationRect.h"
 #include "Characters/Rockman.h"
 #include "Characters/Ataho.h"
-
-#include "Utilities/RenderTexture.h"
-#include "Utilities/SoundSystem.h"
 
 #include "TileMap/TileMap.h"
 
