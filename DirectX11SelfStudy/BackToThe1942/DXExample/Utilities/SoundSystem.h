@@ -1,6 +1,8 @@
 #pragma once
 #include <FMod/fmod.h>
 
+typedef int FMOD_BOOL;
+
 class SoundSystem
 {
 public:

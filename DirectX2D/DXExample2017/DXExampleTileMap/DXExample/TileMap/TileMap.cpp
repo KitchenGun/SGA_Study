@@ -241,8 +241,13 @@ void TileMap::SaveTileMap(const wstring & path)
 	{
 		if (!tiles) return;
 		FileStream* out = new FileStream(String::ToString(path), FILE_STREAM_WRITE);
+		string str = "Hello World!";
+		out->Write(str);
+
+
 		out->Write(width);
 		out->Write(height);
+
 
 		for (UINT y = 0; y < height; y++)
 		{
@@ -267,6 +272,10 @@ void TileMap::LoadTileMap(const wstring & path)
 		if (!tiles) return;
 
 		FileStream* in = new FileStream(String::ToString(path), FILE_STREAM_READ);
+		
+		string str;
+		str = in->Read<string>();
+		
 		width = in->Read<UINT>();
 		height = in->Read<UINT>();
 

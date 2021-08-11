@@ -23,6 +23,25 @@ public:
 		out.write(reinterpret_cast<const char*>(&value), sizeof(T));
 	}
 
+	template<>
+	void Write(string value)
+	{
+		Write(value.size());
+		out.write(value.c_str(), value.size());
+	}
+	template <typename T>
+	void Read(T& value)
+	{
+		in.read(reinterpret_cast<char*>(&value), sizeof(T));
+	}
+
+	template<>
+	void Read(string& value)
+	{
+		UINT temp = Read<UINT>();
+		value.assign(temp, 'a');
+		in.read(const_cast<char*>(value.c_str()), temp);
+	}
 	template<typename T>
 	T Read()
 	{
@@ -31,11 +50,6 @@ public:
 		return value;
 	}
 
-	template <typename T>
-	void Read(T& value)
-	{
-		in.read(reinterpret_cast<char*>(&value), sizeof(T));
-	}
 private:
 	ofstream out;
 	ifstream in;
