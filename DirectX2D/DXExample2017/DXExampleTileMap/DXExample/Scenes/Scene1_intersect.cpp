@@ -22,24 +22,22 @@ void Scene1::Update()
 {
 	//ют╥б
 	if (Keyboard::Get()->Press('W'))
-		square->Move({ 0,10,0 });
+		square->Move({ 0,1,0 });
 	else if (Keyboard::Get()->Press('S'))
-		square->Move({ 0,-10,0 });
+		square->Move({ 0,-1,0 });
 	if (Keyboard::Get()->Press('A'))
-		square->Move({ -10,0,0 });
+		square->Move({ -1,0,0 });
 	else if (Keyboard::Get()->Press('D'))
-		square->Move({ 10,0,0 });
+		square->Move({ 1,0,0 });
+	
 
-
-	if (Math::Intersect(square, square2))
+	if (Math::IntersectOriented(square, square2))
 	{
-		//square->SetIntersect(true);
 		square2->SetIntersect(true);
 		square2->SetColor(Cyan);
 	}
 	else
 	{
-		//square->SetIntersect(false);
 		square2->SetIntersect(false);
 		square2->SetColor(Red);
 	}

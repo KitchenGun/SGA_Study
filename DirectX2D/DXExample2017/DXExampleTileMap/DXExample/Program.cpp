@@ -5,7 +5,7 @@
 Program::Program()
 {
 	Camera::Create();
-	
+	Camera::Get()->Move(Vector3(WinMaxWidth / 2, WinMaxHeight / 2, 0));
 }
 
 Program::~Program()
@@ -24,9 +24,10 @@ void Program::Init()
 	sceneList.push_back(new Scene7());
 	sceneList.push_back(new Scene8());
 	*/ 
-	sceneList.push_back(new Scene9());
-	sceneList.push_back(new Scene10());
-	currentScene = sceneList[1];
+	sceneList.push_back(new Scene1());
+	//sceneList.push_back(new Scene9());
+	//sceneList.push_back(new Scene10());
+	currentScene = sceneList[0];
 	currentScene->Init();
 }
 

@@ -20,7 +20,15 @@ public:
 	//충돌
 	static bool Intersect(Square *r1, Square *r2);
 	static bool Intersect(Square *rect, Vector3 position);
+	
+	//obb
+	static bool IntersectOriented(Square* r1, Square* r2);
+
 	//절댓값 반환
 	static Vector2 absVec2(Vector2 val);
-	static Vector3 absVec2(Vector3 val);
+	static Vector3 absVec3(Vector3 val);
+
+
+	static float GetDistance(Vector3 v1, Vector3 v2);
+	static float Dot(Vector3 v1, Vector3 v2);
 };

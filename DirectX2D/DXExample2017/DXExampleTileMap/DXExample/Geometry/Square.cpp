@@ -87,6 +87,15 @@ void Square::Move(Vector3 position)
 	TransformVertices();
 }
 
+void Square::Rotation(float rotation)
+{
+	this->rotation = rotation;
+	D3DXMatrixRotationZ(&R, (float)D3DXToRadian(this->rotation));
+	
+	world = S * R * T;
+	WB->SetWorld(world);
+}
+
 void Square::Update()
 {
 	/*//버텍스 버퍼를 갱신
@@ -109,6 +118,10 @@ void Square::Update()
 	memcpy(subResource.pData, vertices.data(), sizeof(VertexColor)*vertices.size());
 	DC->Unmap(VB->GetResource(), 0);
 	*/
+	//local의 회전 정보를 담고 있다.
+	right = Vector3(R._11, R._12, R._13);
+	up = Vector3(R._21, R._22, R._23);
+
 }
 
 void Square::Render()
