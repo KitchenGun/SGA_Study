@@ -14,7 +14,7 @@ Scene1::~Scene1()
 
 void Scene1::Init()
 {
-	square = new Square({ 200,200,0 }, { 100,100,1 }, 0,Red);
+	square = new Square({ 200,200,0 }, { 100,100,1 }, 30,Red);
 	square2 = new Square({ 400,400,0 }, { 100,100,1 }, 0, Red);
 }
 

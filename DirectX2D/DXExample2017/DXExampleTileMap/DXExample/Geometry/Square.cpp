@@ -119,6 +119,8 @@ void Square::Update()
 	DC->Unmap(VB->GetResource(), 0);
 	*/
 	//local의 회전 정보를 담고 있다.
+	//cout << R._11 << " "<< R._12<<" "<< R._13 << endl;
+	//cout << R._21 << " " << R._22 << " " << R._23 << endl;
 	right = Vector3(R._11, R._12, R._13);
 	up = Vector3(R._21, R._22, R._23);
 
