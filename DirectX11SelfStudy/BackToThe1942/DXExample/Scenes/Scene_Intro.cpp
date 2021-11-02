@@ -30,7 +30,6 @@ void Intro::Update()
 
 	if (Keyboard::Get()->Down(VK_SPACE))
 	{
-		
 		inputSFX->Play();
 		index++;
 	}

@@ -3,7 +3,7 @@
 struct Node
 {//c 스타일
 	int Data;
-	
+
 	Node* Next;
 };
 
@@ -30,7 +30,7 @@ void Push(Node** head, Node* node)
 	else
 	{
 		Node* tail = (*head);
-		while (tail->Next!=NULL)
+		while (tail->Next != NULL)
 		{
 			tail = tail->Next;
 		}
@@ -74,7 +74,7 @@ void Remove(Node** head, Node* remove)
 Node* GetNode(Node* head, int location)//location 몇번째 데이터 찾아올지
 {
 	Node* current = head;
-	while (current != NULL && --location>=0)
+	while (current != NULL && --location >= 0)
 	{
 		current = current->Next;
 	}
@@ -100,7 +100,6 @@ int main()
 	{
 		Node* node = Create(i);
 		Push(&list, node);
-
 	}
 	int count = GetNodeCount(list);
 	for (int i = 0; i < count; i++)
