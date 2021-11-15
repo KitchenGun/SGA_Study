@@ -1,3 +1,4 @@
+#include <iostream>
 #include "LinkedList.h"
 
 Node* LinkedList::Create(int data)
@@ -13,20 +14,71 @@ void LinkedList::Destroy(Node* Target)
 	Target = nullptr;
 }
 
-void LinkedList::Push(Node** head, Node* node)
+void LinkedList::Push(Node* node)
 {
-	if (*head == nullptr)
+	if (list == nullptr)
 	{
-		*head = node;
+		list = node;
 	}
 	else
 	{
-		Node* tail = *head;
+		Node* tail = list;
 		while (tail->Next!=nullptr)
 		{
 			tail = tail->Next;
 		}
 		tail->Next = node;
+	}
+}
+
+void LinkedList::InsertHead(Node* node)
+{
+
+	if (list == nullptr)
+	{
+		list = node;
+	}
+	else
+	{
+		node->Next = list;
+		list = node;
+	}
+}
+
+void LinkedList::Remove(Node* Target)
+{
+	if (list == Target)
+	{
+		if (list->Next != nullptr)
+		{
+			list = Target->Next; 
+		}
+		else
+			list = nullptr;
+	}
+	else
+	{
+		//while함수를 여러번 반복함 (내가 짜본 코드)
+		//int TargetPrevIndex = GetNodeCount(Target)-1;
+		//GetNode(TargetPrevIndex)->Next=Target->Next;
+
+		//강의보고 수정한 코드
+		Node* Current = list;
+		while (Current!=nullptr&&Current->Next!=Target)
+		{
+			Current = Current->Next;
+		}
+		if (Current != nullptr)
+		{
+			if (Target->Next != nullptr)
+			{
+				Current->Next = Target->Next;
+			}
+			else
+				Current->Next = nullptr;
+		}
+		else
+			printf("\n해당 노드는 존재하지 않음\n");
 	}
 }
 
@@ -42,19 +94,18 @@ Node* LinkedList::GetNode(int count)
 	return head;
 }
 
-int LinkedList::GetNodeCount(Node* Target)
+int LinkedList::GetNodeCount()
 {
 	int count = 0;
-	Node* head = list;
+	Node* current = list;
 
-	while (head != Target)
+	while (current != NULL)
 	{
-		if (head != Target)
-		{
-			head = head->Next;
-			++count;
-		}
+		current = current->Next;
+
+		count++;
 	}
 
 	return count;
 }
+
