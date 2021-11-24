@@ -8,6 +8,50 @@
 #include <queue>
 using namespace std;
 
+bool visited[9];
+vector<int> graph[9];
+
+void dfs(int x)
+{
+	visited[x] = true;
+	cout << x << ' ';
+	// 현재 노드와 연결된 다른 노드를 재귀적으로 방문
+	for (int i = 0; i < graph[x].size(); i++)
+	{
+		int y = graph[x][i];
+		if (!visited[y])
+		{
+			dfs(y);
+		}
+	}
+}
+
+int count = 0;
+
+queue<int> queueGroup[3];
+
+
+void bfs(int start)
+{
+	queue<int> q;
+	q.push(start);
+	visited[start] = true;
+	while (!q.empty()) {
+		// 큐에서 하나의 원소를 뽑아 출력
+		int x = q.front();
+		q.pop();
+		cout << x << ' ';
+		// 해당 원소와 연결된, 아직 방문하지 않은 원소들을 큐에 삽입
+		for (int i = 0; i < graph[x].size(); i++) {
+			int y = graph[x][i];
+			if (!visited[y]) {
+				q.push(y);
+				visited[y] = true;
+			}
+		}
+	}
+}
+
 int main()
 {
 	//그리디 알고리즘
@@ -28,7 +72,6 @@ int main()
 		cout << result << endl;
 	}
 	*/
-
 	/*
 	string str;
 
@@ -49,7 +92,6 @@ int main()
 	}
 	cout << result << endl;
 	*/
-
 	//int n; 
 	//vector<int> arr;
 	//
@@ -127,8 +169,6 @@ arr = [4, 4, 4, 3, 3] 이면 [4, 3] 을 return 합니다.
 
 	cout << s << endl;
 	*/
-
-
 	//정렬
 	//int n = 10;
 	//int target[10] = { 7,5,9,0,3,1,6,2,8,4 };
@@ -145,7 +185,6 @@ arr = [4, 4, 4, 3, 3] 이면 [4, 3] 을 return 합니다.
 //	}
 //	swap(target[i], target[min_index]);
 //}
-
 	/*데이터 교체
 	for (int i = 1; i < 10; ++i)
 	{
@@ -178,12 +217,10 @@ arr = [4, 4, 4, 3, 3] 이면 [4, 3] 을 return 합니다.
 	//		cout << i ;
 	//	}
 	//}
-
 	//for (int temp : target)
 	//{
 	//	cout << temp;
 	//}
-
 	/*
 문자열 s에는 공백으로 구분된 숫자들이 저장되어 있습니다. str에 나타나는 숫자 중 최소값과 최대값을 찾아 이를 "(최소값) (최대값)"형태의 문자열을 반환하는 함수, solution을 완성하세요.
 예를들어 s가 "1 2 3 4"라면 "1 4"를 리턴하고, "-1 -2 -3 -4"라면 "-4 -1"을 리턴하면 됩니다.
@@ -224,29 +261,60 @@ string solution(string s) {
 //answer += to_string(vecInt.back());
 //
 //cout<< answer;
+	/*
+		stack<int> stack1;
 
-	stack<int> stack1;
+		stack1.push(1);
+		stack1.push(2);
+		stack1.push(3);
 
-	stack1.push(1);
-	stack1.push(2);
-	stack1.push(3);
-
-	while (!stack1.empty())
-	{
-		cout << stack1.top() << endl;
-		stack1.pop();
-	}
+		while (!stack1.empty())
+		{
+			cout << stack1.top() << endl;
+			stack1.pop();
+		}
 
 
-	queue<int> queue1;
+		queue<int> queue1;
 
-	queue1.push(1);
-	queue1.push(2);
-	queue1.push(3);
+		queue1.push(1);
+		queue1.push(2);
+		queue1.push(3);
 
-	while (!queue1.empty())
-	{
-		cout << queue1.front() << endl;
-		queue1.pop();
-	}
+		while (!queue1.empty())
+		{
+			cout << queue1.front() << endl;
+			queue1.pop();
+		}
+		*/
+	
+	graph[1].push_back(2);
+	graph[1].push_back(3);
+	graph[1].push_back(8);
+
+	graph[2].push_back(1);
+	graph[2].push_back(7);
+
+	graph[3].push_back(1);
+	graph[3].push_back(4);
+	graph[3].push_back(5);
+
+	graph[4].push_back(3);
+	graph[4].push_back(5);
+	
+	graph[5].push_back(3);
+	graph[5].push_back(4);
+
+	graph[6].push_back(7);
+
+	graph[7].push_back(2);
+	graph[7].push_back(6);
+	graph[7].push_back(8);
+
+	graph[8].push_back(1);
+	graph[8].push_back(7);
+
+	//dfs(1);
+	bfs(1);
+	
 }
