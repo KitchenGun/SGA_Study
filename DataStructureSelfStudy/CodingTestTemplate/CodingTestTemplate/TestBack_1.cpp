@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
 	int CoinCount = 0;
-	int value = 0;
+	int value = 0.0f;
 	int Coin[10] = { 0 };
 	int result = 0;
 	//ют╥б
@@ -20,8 +20,9 @@ int main()
 	{
 		if (value / Coin[i] > 0)
 		{
-			
+			result += value / Coin[i];
+			value=value % Coin[i];
 		}
-
 	}
+	cout << result;
 }
