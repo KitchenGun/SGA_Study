@@ -21,6 +21,7 @@ public:
 		Destroy(root);
 	}
 
+	//전위
 	void PreOrder(Node* node)
 	{
 		if (node == nullptr)
@@ -29,7 +30,7 @@ public:
 		PreOrder(node->Left);
 		PreOrder(node->Right);
 	}
-
+	//중위
 	void InOrder(Node* node)
 	{
 		if (node == nullptr)
@@ -38,7 +39,7 @@ public:
 		std::cout << " " << node->Data;
 		InOrder(node->Right);
 	}
-
+	//후위
 	void PostOrder(Node* node)
 	{
 		if (node == nullptr)
