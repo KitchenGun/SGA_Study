@@ -18,13 +18,13 @@ public:
 
 	~BT()
 	{
-		Destroy(root);
+		Destroy(root);//재귀함수를 통해서 노드들을 전부 초기화
 	}
 
 	//전위
 	void PreOrder(Node* node)
 	{
-		if (node == nullptr)
+		if (node == nullptr)//노드가 비어있지 않을때까지 탐색
 			return;
 		std::cout << " " << node->Data;
 		PreOrder(node->Left);
