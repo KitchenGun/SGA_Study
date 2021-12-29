@@ -7,7 +7,7 @@ void BubbleSort(vector<int> &dataSet, int length)
 {
 	for (int i = 0; i < length; i++)
 	{
-		for (int j = 0; j < length - (i+1); j++)
+		for (int j = 0; j < length - (i + 1); j++)
 		{
 			if (dataSet[j] < dataSet[j + 1])
 			{
@@ -36,7 +36,7 @@ int main()
 	cout << endl;
 	timer.Start();
 	BubbleSort(nlist, 5);
-	cout<<(float)timer.End()<<endl;
+	cout << (float)timer.End() << endl;
 	for (int temp : nlist)
 	{
 		cout << temp;
