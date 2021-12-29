@@ -69,5 +69,11 @@
     <ClCompile Include="TestBack_11.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="TestBack_12.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_13.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
