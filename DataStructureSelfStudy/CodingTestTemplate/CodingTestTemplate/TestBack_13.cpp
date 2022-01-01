@@ -1,21 +1,26 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
 int main()
 {
-	vector<string> Textsamples = { "c=","c-","dz=","d-","lj","nj","s","z" };
+	vector<string> Textsamples = { "c=","c-","dz=","d-","lj","nj","s=","z=" };
 	string s;
-
+	int Result = 0;
 	cin >> s;
 
 
 	for (int i = 0; i < Textsamples.size(); i++)
 	{
-		for (string temps : Textsamples)
+		int idx = s.find(Textsamples[i]);
+		while (idx != -1)
 		{
-			///idx == string::npos 찾아보기 필요
-			// str.replace
+			s.replace(idx,Textsamples[i].length(),".");
+			Result++;
+			idx = s.find(Textsamples[i]);
 		}
+		
 	}
+	cout << Result+(s.length()-Result) << endl;
 }
