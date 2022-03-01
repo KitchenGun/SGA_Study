@@ -120,5 +120,14 @@
     <ClCompile Include="cloudTest1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="cloudTest2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudTest3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudTest4.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
