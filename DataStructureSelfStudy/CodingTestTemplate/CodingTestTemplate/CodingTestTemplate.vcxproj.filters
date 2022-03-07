@@ -13,142 +13,160 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\cloud">
+      <UniqueIdentifier>{6e70c029-11b1-4540-8d31-673f99cc10df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\back">
+      <UniqueIdentifier>{44694469-cd59-4e19-aecc-7959003131d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\leet">
+      <UniqueIdentifier>{3d53d13b-41cc-4392-b01d-683acb330273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\programers">
+      <UniqueIdentifier>{ea6a5088-a574-4ad7-9491-279be75b57a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test3.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test4.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test5.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_3.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_4.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_5.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_6.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_7.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_8.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_9.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_10.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_11.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_12.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_13.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_14.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_15.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_16.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_17.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_18.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_19.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_20.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestBack_21.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="testGreedy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="LeetTest0.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="LeetTest1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="LeetTest2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cloudTest.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest0.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest1.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest2.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest3.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest4.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest5.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest6.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest7.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest8.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest9.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest10.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
     </ClCompile>
     <ClCompile Include="cloudTest11.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_1.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_2.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_3.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_4.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_5.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_6.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_7.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_8.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_9.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_10.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_11.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_12.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_13.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_14.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_15.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_16.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_17.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_18.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_19.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_20.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBack_21.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetTest0.cpp">
+      <Filter>소스 파일\leet</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetTest1.cpp">
+      <Filter>소스 파일\leet</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetTest2.cpp">
+      <Filter>소스 파일\leet</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test1.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test2.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test3.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test4.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="test5.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="testGreedy.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetTest3.cpp">
+      <Filter>소스 파일\leet</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetTest4.cpp">
+      <Filter>소스 파일\leet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
