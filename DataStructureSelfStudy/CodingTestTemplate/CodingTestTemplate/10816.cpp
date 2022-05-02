@@ -3,100 +3,64 @@
 #include <vector>
 using namespace std;
 
-int Func(vector<int> &arr,int n, int key)
+int N, M;
+int cards[500000];
+
+int lowerBound(int n)
 {
-	int start =0;
-	int end = n-1;
-	int target = (start+end)/2;
-	int count= 0;
-
-	bool isend=false;
-	while (end>start)
+	int f = 0, l = N - 1, m;
+	for (;;)
 	{
-		if (arr[target] == key)
-		{
+		m = (f + l) / 2;
 
-			if (target == 0)
-			{
-				isend = true;
-			}
-			else
-			{
-				if (arr[target - 1] == key && !isend)
-				{
-					if (target - 1 >= start)
-						target -= 1;
-				}
-				else
-					isend = true;
-			}
-			
+		if (f > l)
+		{
+			if (cards[f] == n) return f;
+			else return -1;
+		}
 
-			if(isend)
-			{
-				isend = true;
-				count++;
-				if (end > target)
-					if (arr[target + 1] == key)
-						target++;
-					else
-						return count;
-				else
-					return count;
-			}
-		}
-		else if (arr[target] > key)
-		{
-			end = target-1;
-			target = (start + end) / 2;
-		}
-		else
-		{
-			start = target + 1;
-			target = (start + end) / 2;
-		}
+		if (cards[m] >= n) l = m - 1;
+		else f = m + 1;
 	}
-
-	return count;
 }
 
+int upperBound(int n)
+{
+	int f = 0, l = N - 1, m;
+	for (;;)
+	{
+		m = (f + l) / 2;
 
+		if (f > l)
+		{
+			if (cards[l] == n) return l;
+			else return -1;
+		}
+
+		if (cards[m] <= n) f = m + 1;
+		else l = m - 1;
+	}
+}
 
 int main(void)
 {
-	int n;
+	cin.tie(NULL);
+	ios::sync_with_stdio(false);
 
-	cin>>n;
+	cin >> N;
+	for (int i = 0; i < N; i++)
+		cin >> cards[i];
+	sort(cards, cards + N);
 
-	vector<int> CardArr;
-
-	for (int i = 0; i < n; i++)
+	cin >> M;
+	int n, res;
+	for (int i = 0; i < M; i++)
 	{
-		int temp;
-		cin>>temp;
-		CardArr.push_back(temp);
+		cin >> n;
+		res = upperBound(n);
+		if (res == -1) cout << "0 ";
+		else cout << res - lowerBound(n) + 1 << " ";
 	}
 
-	sort(CardArr.begin(),CardArr.end());
-
-	int m;
-	
-	cin>>m;
-
-	vector<int> SearchArr;
-
-	for (int i = 0; i < m; i++)
-	{
-		int temp;
-		cin >> temp;
-
-
-		SearchArr.push_back(Func(CardArr,n,temp));
-	}
-
-	for (int i = 0; i < m; i++)
-	{
-		cout<<SearchArr[i]<<" ";
-	}
-
+	return 0;
 }
