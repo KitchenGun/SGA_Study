@@ -69,7 +69,7 @@ int main(void)
 
 	for (int i = 0; i < m; i++)
 	{
-		cout<<results[i]<<endl;
+		printf("%d\n", results[i]);
 	}
 
 }
