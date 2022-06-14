@@ -44,9 +44,6 @@ int upperBound(int n)
 
 int main(void)
 {
-	cin.tie(NULL);
-	ios::sync_with_stdio(false);
-
 	cin >> N;
 	for (int i = 0; i < N; i++)
 		cin >> cards[i];
