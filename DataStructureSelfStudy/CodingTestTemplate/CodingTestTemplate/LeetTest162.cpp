@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    vector<int>nums = {1,8,2,4,5,7,6};//?
+    vector<int>nums = {1,2,4,5,7,6};//?
 
     int left = 0;
     int right = nums.size() - 1;
@@ -28,5 +28,6 @@ int main()
             right = pivot;
         }
     }
+    cout<<left;
     return left;
 }
