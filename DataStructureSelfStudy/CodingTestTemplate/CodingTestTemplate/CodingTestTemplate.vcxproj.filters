@@ -183,5 +183,8 @@
     <ClCompile Include="LeetTest56.cpp">
       <Filter>소스 파일\leet</Filter>
     </ClCompile>
+    <ClCompile Include="LeetTest74.cpp">
+      <Filter>소스 파일\leet</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
