@@ -47,14 +47,14 @@ using namespace std;
 //}
 
 /*라빈 카프 알고리즘 hash를 사용해서 매우 빠르게 처리함*/
-void findString(string s,string pattern)
+/*void findString(string s, string pattern)
 {
 	int sSize = s.size();
 	int patternSize = pattern.size();
 
 	int sHash = 0, patternHash = 0, power = 1;
 
-	for (int i = 0; i < sSize - patternSize; i++)
+	for (int i = 0; i <= sSize - patternSize; i++)
 	{
 		if (i == 0)
 		{
@@ -91,10 +91,63 @@ void findString(string s,string pattern)
 	}
 	
 }
+*/
+
+//직접만든 알고리즘
+int GetHash(string target, int idx, int length)
+{
+    int result = 0;
+    for (int i = idx; i <= idx + length; i++)
+        result += target[i];
+    return result;
+}
+
+int strStr(string haystack, string needle)
+{
+    int hsSize = haystack.size() - 1;
+    int nSize = needle.size() - 1;
+
+    int hsHash = 0;
+    int nHash = 0;
+
+
+    for (int i = 0; i <= nSize; i++)
+        nHash += needle[i];
+
+    for (int i = 0; i <= hsSize - nSize; i++)
+    {
+        hsHash = GetHash(haystack, i, nSize);
+        if (hsHash == nHash)
+        {
+            bool isSame = false;
+            for (int j = 0; j <= nSize; j++)
+            {
+                if (haystack[i + j] != needle[j])
+                {
+                    isSame = false;
+                    break;
+                }
+                else
+                {
+                    isSame = true;
+                }
+            }
+            if (isSame == true)
+                return i;
+        }
+
+    }
+
+    return -1;
+
+
+
+}
+
 int main()
 {
-	string s = "ababacabacaabacaaba";
+	string s = "a";
 	string p = "a";
-	findString(s, p);
+	cout<<strStr(s, p);
 
 }
