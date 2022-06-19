@@ -25,6 +25,9 @@
     <Filter Include="소스 파일\programers">
       <UniqueIdentifier>{ea6a5088-a574-4ad7-9491-279be75b57a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Npixel">
+      <UniqueIdentifier>{322ea64d-9ebc-4875-b162-c50b43fb0d29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cloudTest.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="12852.cpp">
       <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="1.cpp">
+      <Filter>소스 파일\Npixel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
