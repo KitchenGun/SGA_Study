@@ -207,5 +207,17 @@
     <ClCompile Include="1003.cpp">
       <Filter>소스 파일\back</Filter>
     </ClCompile>
+    <ClCompile Include="11727.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="9184.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="1904.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="9461.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
