@@ -255,5 +255,14 @@
     <ClCompile Include="b1.cpp">
       <Filter>소스 파일\bigfoot</Filter>
     </ClCompile>
+    <ClCompile Include="17413.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="10799.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="17298.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
