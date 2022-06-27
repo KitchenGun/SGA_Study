@@ -1,52 +1,58 @@
 #include <iostream>
-#include <cstring>
+
 #include <vector>
 
 using namespace std;
 
-#define MAX 2000 + 1
+bool ans=false;
 
-int n, m;
-bool visit[MAX], answer = 0;
-vector<int> v[MAX];
-
-void dfs(int idx, int cnt) {
-    if (cnt == 4) {
-        answer = true;
-        return;
-    }
-
-    visit[idx] = true;
-    for (int i = 0; i < v[idx].size(); i++) {
-        int n_idx = v[idx][i];
-        if (visit[n_idx] == false) {
-            dfs(n_idx, cnt + 1);
-        }
-        if (answer == true) return;
-    }
-    visit[idx] = false;
+void dfs(int start,int count,vector<vector<int>>&arr,vector<bool>& visit)
+{
+	if (count == 4)
+	{
+		ans=true;
+		return;
+	}
+	
+	for (int j = 0; j < arr[start].size(); j++) 
+	{
+		int nxt = arr[start][j];
+		if (visit[nxt]) 
+			continue;
+		visit[nxt] = 1;
+		dfs(nxt,count+1, arr, visit);
+		visit[nxt] = 0;
+	}
 }
 
 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+int main()
+{
+	int n,m;
+	vector<vector<int>> arr;
+	vector<bool> visit; 
 
-    cin >> n >> m;
-    for (int i = 0; i < m; i++) {
-        int a, b;
-        cin >> a >> b;
-        v[a].push_back(b);
-        v[b].push_back(a);
-    }
+	cin>>n>>m;
 
-    for (int i = 0; i < n; i++) {
-        memset(visit, false, sizeof(visit));
-        dfs(i, 0);
-        if (answer == true) break;
-    }
-    if (answer == true) cout << 1 << "\n";
-    else cout << 0 << "\n";
+	arr.assign(n,vector<int>(0,0));
+	visit.assign(n,false);
 
-    return 0;
+	for (int i = 0; i < m; i++)
+	{
+		int a,b;
+
+		cin>>a>>b;
+
+		arr[a].push_back(b);
+		arr[b].push_back(a);
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		dfs(i,0,arr,visit);
+		visit.assign(n, false);
+		if(ans)
+			break;
+	}
+	cout<<ans;
 }
