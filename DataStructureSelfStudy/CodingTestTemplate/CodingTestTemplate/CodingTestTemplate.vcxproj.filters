@@ -27,6 +27,9 @@
     <Filter Include="소스 파일\bigfoot">
       <UniqueIdentifier>{a4b1f60a-9e3a-4109-b7ae-d1bdd8222df4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Code">
+      <UniqueIdentifier>{575e3550-2317-43c9-8e69-66e59cd0c175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cloudTest.cpp">
@@ -325,6 +328,12 @@
     </ClCompile>
     <ClCompile Include="2252.cpp">
       <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="1309.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="2001.cpp">
+      <Filter>소스 파일\Code</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
