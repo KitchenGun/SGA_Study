@@ -1,63 +1,74 @@
 #include <iostream>
-#include <algorithm>
 #include <queue>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-void bfs(vector<vector<int>>& graph, vector<bool>visit, int start)
-{
-	queue<int>q;
-	q.push(start);
-	visit[start] = true;
-	while (!q.empty())
-	{
-		int top = q.front();
-		cout << top + 1 << endl;
-		for (int i = 0; i < (int)graph[top].size(); i++)
-		{
-			if (!visit[graph[top][i]])
-			{
-				q.push(graph[top][i]);
-				visit[graph[top][i]] = true;
-			}
-		}
-		q.pop();
-	}
-}
-//https://swblossom.tistory.com/84
+int main() {
+	int v, n;
+	cin>>v>>n;
 
-int main()
-{
-	//input 정점과 간선 개수
-	int n,m;
-	cin>>n>>m;
-	//input 간선 정보
-	vector<vector<int>> graph (n,vector<int>(0));
-	vector<int> priority(n,0);
-	vector<bool> visit (n,false);
-	for (int i = 0; i < m; i++)
-	{
-		int a,b;
+	const int size = v+1;
+
+	vector<vector<int>> graph(size);	//정점과 간선정보를 저장할 벡터
+	vector<int> indegree(size,0);	//정점의 indegree(차수)를 저장할 벡터
+	int a, b;
+	for (int i = 0; i < n; i++) {
 		cin>>a>>b;
-		a--;
-		b--;
-		priority[b]++;
-		graph[a].push_back(b);
+		graph[a].push_back(b);	//연결
+		indegree[b]++;	//차수올림
 	}
-	//가장 먼저 출력해야하는 수 찾기
-	int min = 700;
-	int index = 0;
-	for (int i = 0; i < priority.size(); i++)
+
+	priority_queue <int, vector<int>, greater<int> > q;
+	queue <int> printQ;	//출력용 큐
+	vector<bool> visit(size,false);	//방문체크, 싸이클 존재여부판단
+
+	//처음 차수가 0인정점 찾기
+	for (int i = 1; i <= v; i++) 
 	{
-		if (min > priority[i])
+		if (indegree[i] == 0) 
+		q.push(i);
+	}
+
+	bool isCycle = false;
+	while (!q.empty()) {
+		if (q.top() >= size) break;
+		//큐에서 pop하고 방문처리
+		int now = q.top();
+		visit[now] = true;
+		printQ.push(now);
+		q.pop();
+		//pop한 정점과 연결된 간선제거(차수내림)
+		for (int i = 0; i < (int)graph[now].size(); i++) {
+			if (visit[graph[now][i]] == true) 
+			{ 
+				isCycle = true; 
+				break; 
+			}
+			indegree[graph[now][i]]--;	//차수내림
+			if (indegree[graph[now][i]] == 0) 
+			{ 
+				q.push(graph[now][i]); 
+			}	//차수가 0이면 큐에 넣음
+		}
+		if (isCycle) 
+			break;
+	}
+
+	//싸이클이 존재
+	if (isCycle) 
+		printf("-1");
+	else if (printQ.size() != v) 
+		printf("-1");
+	//싸이클이 존재하지 않음
+	else {
+		for (int i = 0; !printQ.empty(); i++) 
 		{
-			index = i;
-			min = priority[i];
+			printf("%d\n", printQ.front());
+			printQ.pop();
 		}
 	}
 
-	//탐색
-	bfs(graph,visit,index);
+	return 0;
 }
-
