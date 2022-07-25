@@ -20,7 +20,7 @@ int main() {
 		indegree[b]++;	//차수올림
 	}
 
-	priority_queue <int, vector<int>, greater<int> > q;
+	priority_queue <int, vector<int>, greater<int>> q;
 	queue <int> printQ;	//출력용 큐
 	vector<bool> visit(size,false);	//방문체크, 싸이클 존재여부판단
 
