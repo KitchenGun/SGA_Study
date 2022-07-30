@@ -32,7 +32,8 @@ int main() {
 	}
 
 	bool isCycle = false;
-	while (!q.empty()) {
+	while (!q.empty()) 
+	{
 		if (q.top() >= size) break;
 		//큐에서 pop하고 방문처리
 		int now = q.top();
