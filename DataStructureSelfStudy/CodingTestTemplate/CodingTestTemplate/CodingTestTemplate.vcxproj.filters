@@ -374,5 +374,11 @@
     <ClCompile Include="3229.cpp">
       <Filter>소스 파일\Code</Filter>
     </ClCompile>
+    <ClCompile Include="TargetNum.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
