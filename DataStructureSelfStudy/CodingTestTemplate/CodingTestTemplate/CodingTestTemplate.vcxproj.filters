@@ -401,5 +401,8 @@
     <ClCompile Include="SpyCover.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="bestAlbum.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
