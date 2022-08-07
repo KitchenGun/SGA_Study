@@ -404,5 +404,11 @@
     <ClCompile Include="bestAlbum.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="HateSameNum.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="functiondevelop.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
