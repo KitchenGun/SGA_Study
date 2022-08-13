@@ -1,28 +1,51 @@
 #include <iostream>
 #include <vector>
-#include <stack>
+#include <queue>
 
 
 using namespace std;
 
-int dfs(const vector<vector<bool>>adj,vector<bool>&visit,int cur,const int n)
+//int dfs(const vector<vector<bool>>adj,vector<bool>&visit,int cur,const int n)
+//{
+//	if (visit[cur])
+//		return 0;
+//
+//	visit[cur] = true;
+//
+//    int nodeCount = 1;
+//    for (int next = 1; next < n; next++)
+//    {
+//        if(!adj[cur][next])
+//            continue;
+//        nodeCount+=dfs(adj,visit,next,n);
+//    }
+//
+//    return nodeCount;
+//}
+
+int bfs(const vector<vector<bool>>adj, vector<bool>& visit, int cur)
 {
-	if (visit[cur])
-		return 0;
+   queue<int> q;
+   int count = 0;
+   q.push(cur);
+   visit[cur] = true;
 
-	visit[cur] = true;
-
-    int nodeCount = 1;
-    for (int next = 1; next < n; next++)
-    {
-        if(!adj[cur][next])
-            continue;
-        nodeCount+=dfs(adj,visit,next,n);
-    }
-
-    return nodeCount;
+   while (!q.empty())
+   {
+        count++;
+        int top = q.front();
+        q.pop();
+        for (int i=1;i<adj[top].size();i++)
+        {
+            if (!visit[i]&& adj[top][i])
+            {
+                q.push(i);
+                visit[i] = true;
+            }
+        }
+   }
+   return count;
 }
-
 
 int solution(int n, vector<vector<int>> wires) 
 {
@@ -54,10 +77,11 @@ int solution(int n, vector<vector<int>> wires)
 
         for (int j = 1; j <= n; j++)
         {
-            int temp = dfs(adj,visit,j,n+1);
-            if(!temp)
-                continue;
-            count.push_back(temp);
+            if(visit[j] != true)
+            {    
+                int temp = bfs(adj,visit,j);
+                count.push_back(temp);
+            }
         }
 
         answer = min(answer,abs(count[0]-count[1]));
@@ -69,7 +93,5 @@ int solution(int n, vector<vector<int>> wires)
 
 int main()
 {
-
     cout<<solution(9, {{1, 3}, {2, 3}, {3, 4}, {4, 5}, {4, 6}, {4, 7}, {7, 8}, {7, 9}} );
-
 }
