@@ -7,8 +7,8 @@
 //#define E08_MEM_FUNC_PTR    	5
 
 #if E08_SMART_POINTER
-//#define AUTO_PTR	1
-//#define UNIQUE_PTR	2
+#define AUTO_PTR	1
+#define UNIQUE_PTR	2
 #define SHARED_PTR	3
 #define WEAK_PTR	4
 #endif

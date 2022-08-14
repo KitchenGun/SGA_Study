@@ -25,6 +25,12 @@ unique_ptr	권한 위임 방식
 shared_ptr	레퍼런스 카운팅 방식
 weak_ptr	shared_ptr의 순환 참조를 방지하기 위해 사용되는 포인터
 
+언리얼의 스마트 포인터 종류
+TUniquePtr 권한 위임 방식
+TSharedPtr 레퍼런스 카운팅 방식
+TSharedRef -TSharedPtr로 변환이 가능하지만 항상 null이 아닌 오브젝트를 참조해야한다
+TWeakPtr   TSharedPtr의 순환 참조를 방지하기 위해 사용되는 포인터
+
 위의 스마트 포인터중 auto_ptr은 c++11버전 이전부터 존재해온 포인터이며 
 unique_ptr 과 shared_ptr c++11버전 부터 추가된 새로운 스마트 포인터이다.
 weak_ptr은 단독 사용은 불가능하며 shared ptr의 보조하기 위한 역할로 사용된다
