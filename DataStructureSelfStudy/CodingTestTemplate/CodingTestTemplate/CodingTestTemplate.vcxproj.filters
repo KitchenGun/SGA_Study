@@ -425,9 +425,6 @@
     <ClCompile Include="scoville.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
-    <ClCompile Include="kart.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ShortMap.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
