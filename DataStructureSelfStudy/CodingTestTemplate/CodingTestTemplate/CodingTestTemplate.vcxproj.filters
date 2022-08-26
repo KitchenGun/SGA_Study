@@ -434,5 +434,8 @@
     <ClCompile Include="ranking.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="1912.cpp">
+      <Filter>소스 파일\Code</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
