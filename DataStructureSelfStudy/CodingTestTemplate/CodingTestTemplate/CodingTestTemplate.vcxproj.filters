@@ -464,5 +464,11 @@
     <ClCompile Include="IntArrFlip.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="DescendingSort.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="findPY.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
