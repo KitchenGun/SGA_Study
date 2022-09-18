@@ -506,5 +506,17 @@
     <ClCompile Include="MinusPlus+.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="clapclap.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="PickMidWord.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="StrangeWord.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
+    <ClCompile Include="SortString.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
