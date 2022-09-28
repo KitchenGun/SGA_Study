@@ -563,5 +563,8 @@
     <ClCompile Include="2016.cpp">
       <Filter>소스 파일\programers</Filter>
     </ClCompile>
+    <ClCompile Include="failureRate.cpp">
+      <Filter>소스 파일\programers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
