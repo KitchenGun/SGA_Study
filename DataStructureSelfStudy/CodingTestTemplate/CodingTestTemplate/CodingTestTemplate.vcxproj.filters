@@ -30,6 +30,12 @@
     <Filter Include="소스 파일\Code">
       <UniqueIdentifier>{575e3550-2317-43c9-8e69-66e59cd0c175}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\programers\LVL1">
+      <UniqueIdentifier>{cbf764ae-04e7-4130-a882-3c5d4d259b13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\programers\LVL2">
+      <UniqueIdentifier>{f29a0527-b119-437e-967c-95488f80ef7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cloudTest.cpp">
@@ -143,30 +149,6 @@
     <ClCompile Include="LeetTest2.cpp">
       <Filter>소스 파일\leet</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test1.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test2.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test3.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test4.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test5.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="testGreedy.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
     <ClCompile Include="LeetTest3.cpp">
       <Filter>소스 파일\leet</Filter>
     </ClCompile>
@@ -194,12 +176,6 @@
     <ClCompile Include="LeetTest125.cpp">
       <Filter>소스 파일\leet</Filter>
     </ClCompile>
-    <ClCompile Include="testlevel2-1.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="test6.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
     <ClCompile Include="12852.cpp">
       <Filter>소스 파일\back</Filter>
     </ClCompile>
@@ -220,12 +196,6 @@
     </ClCompile>
     <ClCompile Include="9461.cpp">
       <Filter>소스 파일\back</Filter>
-    </ClCompile>
-    <ClCompile Include="testlevel2.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="testlevel2-2.cpp">
-      <Filter>소스 파일\programers</Filter>
     </ClCompile>
     <ClCompile Include="10828.cpp">
       <Filter>소스 파일\back</Filter>
@@ -359,218 +329,257 @@
     <ClCompile Include="3212.cpp">
       <Filter>소스 파일\Code</Filter>
     </ClCompile>
-    <ClCompile Include="test2-3.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="FindPrime.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="Minbox.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="CutWire.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
     <ClCompile Include="3229.cpp">
       <Filter>소스 파일\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="TargetNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="Network.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="KNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="mostbignum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="carpet.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="PhoneketMonster.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="CantcompletePlayer.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="PhoneNumlist.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="SpyCover.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="bestAlbum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="HateSameNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="functiondevelop.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="printer.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="TruckCrossBridge.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="stockprice.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="CorrectBracket.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="scoville.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="ShortMap.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="MostFarNode.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="ranking.cpp">
-      <Filter>소스 파일\programers</Filter>
     </ClCompile>
     <ClCompile Include="1912.cpp">
       <Filter>소스 파일\Code</Filter>
     </ClCompile>
-    <ClCompile Include="gymCloth.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="NExpression.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="EvenOdd.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="Remain1.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="2016.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="AddDigits.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="SumOfFactors.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="AddIntSquart.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="Average.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="IntArrFlip.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="DescendingSort.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="findPY.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="HasshadNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="stringtoint.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="XspaceNnum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="CollatzGuess.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="TwoIntBetween.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="FindKim.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="DeletePhoneNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="StringReverse.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="StringBasic.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="DeleteMinNum.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="DivideNumArray.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="MinusPlus+.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="clapclap.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="PickMidWord.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="StrangeWord.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="SortString.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixAdd.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="NumToEng.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="DotCalculate.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="CommonFactorCount.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="PrimeNumFind.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="MakeSquare.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="TernaryReverse.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="NotEnoughCost.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="LCMGCD.cpp">
-      <Filter>소스 파일\programers</Filter>
-    </ClCompile>
-    <ClCompile Include="GetReport.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="bestAlbum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="Budget.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="RomanPassword.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="CantcompletePlayer.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="SecretMap.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="carpet.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="PickTwoAdd.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="clapclap.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="2016.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="CollatzGuess.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
-    <ClCompile Include="failureRate.cpp">
-      <Filter>소스 파일\programers</Filter>
+    <ClCompile Include="CommonFactorCount.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="CorrectBracket.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="CutWire.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="DartGame.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteMinNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="DeletePhoneNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="DescendingSort.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="DivideNumArray.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="DotCalculate.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="EvenOdd.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="failureRate.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="FindKim.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="FindPrime.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="findPY.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="functiondevelop.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="GetReport.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="gymCloth.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="HasshadNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="HateSameNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="IntArrFlip.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="KNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="LCMGCD.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
     <ClCompile Include="Lottos.cpp">
-      <Filter>소스 파일\programers</Filter>
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="MakeSquare.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixAdd.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="Minbox.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="MinusPlus+.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="mostbignum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="MostFarNode.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="NExpression.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="NotEnoughCost.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="NumToEng.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneketMonster.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneNumlist.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="PickMidWord.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="PickTwoAdd.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimeNumFind.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="printer.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="ranking.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="Remain1.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="RomanPassword.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="scoville.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="SecretMap.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortMap.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="SortString.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="SpyCover.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="stockprice.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="StrangeWord.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="StringBasic.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="StringReverse.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="stringtoint.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="SumOfFactors.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetNum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="TernaryReverse.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test1.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test2.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test2-3.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test3.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test4.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test5.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="test6.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="testGreedy.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="testlevel2.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="testlevel2-1.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="testlevel2-2.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="TruckCrossBridge.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="TwoIntBetween.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="XspaceNnum.cpp">
+      <Filter>소스 파일\programers\LVL1</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxMin.cpp">
+      <Filter>소스 파일\programers\LVL2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
