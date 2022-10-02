@@ -581,5 +581,11 @@
     <ClCompile Include="MaxMin.cpp">
       <Filter>소스 파일\programers\LVL2</Filter>
     </ClCompile>
+    <ClCompile Include="JadenCaseString.cpp">
+      <Filter>소스 파일\programers\LVL2</Filter>
+    </ClCompile>
+    <ClCompile Include="Binary.cpp">
+      <Filter>소스 파일\programers\LVL2</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
