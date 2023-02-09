@@ -587,5 +587,14 @@
     <ClCompile Include="Binary.cpp">
       <Filter>소스 파일\programers\LVL2</Filter>
     </ClCompile>
+    <ClCompile Include="1083.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="1712.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="2292.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
