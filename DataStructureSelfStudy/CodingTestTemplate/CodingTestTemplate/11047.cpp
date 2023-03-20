@@ -1,47 +1,40 @@
 #include <iostream>
-#include <vector>
+#include  <vector>
 
 using namespace std;
 
-vector<int> coin;
+vector<int> coinArr;
 
-int cal(int value, int count , int selectCoinIdx)
+int cal(int money)
 {
-	if (value - coin[selectCoinIdx] == 0)
+	int result=0;
+	for(int i =static_cast<int>(coinArr.size()-1);i>=0;i--)
 	{
-		++count;
-		return count;
-	}
-	else
-	{
-		if (value - coin[selectCoinIdx] > 0)
+		while(money>=coinArr[i])
 		{
-			value-=coin[selectCoinIdx];
-			count++;
+			if(money - coinArr[i]>=0)
+			{
+				money -= coinArr[i];
+				result++;
+			}
 		}
-		else
-		{
-			selectCoinIdx--;
-		}
-		return cal(value,count,selectCoinIdx);
 	}
+	return result;
 }
-
-
 
 int main()
 {
-	int n;
-	int val;
-	//input
-	cin>>n>>val;
-	coin.assign(n,0);
-	for (int i = 0; i < n; i++)
+	int coinCount =0;
+	int money =0;
+
+	cin>>coinCount>>money;
+
+	for(int i=0;i<coinCount;i++)
 	{
 		int temp;
 		cin>>temp;
-		coin[i] = temp;
+		coinArr.push_back(temp);
 	}
-	//cal
-	cout<<cal(val,0,n-1);
+
+	cout<<cal(money);
 }
