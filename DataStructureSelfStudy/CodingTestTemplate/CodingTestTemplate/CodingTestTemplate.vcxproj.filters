@@ -332,9 +332,6 @@
     <ClCompile Include="3229.cpp">
       <Filter>소스 파일\Code</Filter>
     </ClCompile>
-    <ClCompile Include="1912.cpp">
-      <Filter>소스 파일\Code</Filter>
-    </ClCompile>
     <ClCompile Include="2016.cpp">
       <Filter>소스 파일\programers\LVL1</Filter>
     </ClCompile>
@@ -663,6 +660,9 @@
       <Filter>소스 파일\back</Filter>
     </ClCompile>
     <ClCompile Include="24416.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="1912.cpp">
       <Filter>소스 파일\back</Filter>
     </ClCompile>
   </ItemGroup>

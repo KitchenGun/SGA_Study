@@ -1,25 +1,34 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
-
-
-int fac(int n,int val)
-{
-	if(n!=0)
-	{	
-		val *= n;
-		val = fac(n-1,val);
-	}
-	return val;
-}
 
 
 int main()
 {
-	int answer =0;
-	int a;
-	cin>>a;
+	int count;
 
-	answer = fac(a,1);
-	cout<<answer;
+	cin>>count;
+
+	vector<int> dp(count,0);
+
+	int idx=0;
+
+	cin>>dp[0];
+
+	for(int i=1;i<count;i++)
+	{
+		cin>>dp[i];
+
+		if (dp[i] < dp[i] + dp[i - 1])
+		{
+			dp[i] += dp[i - 1];
+		}
+		if(dp[idx]<dp[i])
+		{
+			idx=i;
+		}
+	}
+
+	cout<<dp[idx];
 }
+
