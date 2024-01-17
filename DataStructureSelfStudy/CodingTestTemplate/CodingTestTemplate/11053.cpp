@@ -30,4 +30,5 @@ int main()
     cout << max_val << '\n';
 
     return 0;
+
 }
