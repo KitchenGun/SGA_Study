@@ -36,6 +36,9 @@
     <Filter Include="소스 파일\programers\LVL2">
       <UniqueIdentifier>{f29a0527-b119-437e-967c-95488f80ef7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Krafton">
+      <UniqueIdentifier>{db2f8c6e-24a6-4a20-a8f9-fa88befe69d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cloudTest.cpp">
@@ -718,6 +721,24 @@
     </ClCompile>
     <ClCompile Include="28278.cpp">
       <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="12789.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="1010.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="4779.cpp">
+      <Filter>소스 파일\back</Filter>
+    </ClCompile>
+    <ClCompile Include="Krafton1.cpp">
+      <Filter>소스 파일\Krafton</Filter>
+    </ClCompile>
+    <ClCompile Include="Krafton2.cpp">
+      <Filter>소스 파일\Krafton</Filter>
+    </ClCompile>
+    <ClCompile Include="Krafton3.cpp">
+      <Filter>소스 파일\Krafton</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
